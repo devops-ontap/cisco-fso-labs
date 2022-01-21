@@ -1,0 +1,392 @@
+jobs:
+- name: lab-prep
+  plan:
+  - get: lpass-res
+    trigger: true
+    version: every
+  - config:
+      image_resource:
+        name: ""
+        source:
+          repository: alpine
+        type: docker-image
+      inputs:
+      - name: lpass-res
+      outputs:
+      - name: lpass-out
+      platform: linux
+      run:
+        args:
+        - -cx
+        - |
+          cp "lpass-res/item" "lpass-out/item.json"
+        path: /bin/sh
+    task: print-item
+
+  - get: git-resource
+  - config:
+      image_resource:
+        name: ""
+        source:
+          repository: sconrod/python-aws
+          tag: v2
+        type: docker-image
+      inputs:
+      - name: git-resource
+      - name: lpass-out
+      outputs:
+      - name: gen-aws-cred
+      platform: linux
+      run:
+        path: /bin/sh
+        args:
+        - -cx
+        - |
+          mkdir ~/.aws
+          cp "git-resource/sed.sh" "gen-aws-cred"
+          cp "lpass-out/item.json" "gen-aws-cred/item.json"
+          cp "git-resource/convert.sh" "gen-aws-cred/convert.sh"
+          cp "git-resource/con-cred-json-csv.py" "gen-aws-cred/con-cred-json-csv.py"
+          cd gen-aws-cred
+          sed '2,10d' item.json > cred.json
+          chmod a+x convert.sh
+          python3 con-cred-json-csv.py > item.csv
+          sed -i -e '2s/^/default,/' item.csv
+          sed '/^$/d' item.csv > item.cln.csv
+          export AWS_PAGER=""
+          aws configure import --csv file://item.cln.csv
+          aws configure set default.region us-east-2
+          export AWS_PAGER=""
+          aws ec2 describe-regions
+    task: gen-lastpass-cred
+
+- name: deploy-aws-env
+  plan:
+    - get: lpass-res
+      trigger: true
+      version: every
+    - config:
+        image_resource:
+          name: ""
+          source:
+            repository: alpine
+          type: docker-image
+        inputs:
+          - name: lpass-res
+        outputs:
+          - name: lpass-out
+        platform: linux
+        run:
+          args:
+            - -cx
+            - |
+              cp "lpass-res/item" "lpass-out/item.json"
+          path: /bin/sh
+      task: print-item
+
+    - get: git-resource
+    - config:
+        image_resource:
+          name: ""
+          source:
+            repository: sconrod/python-aws
+            tag: v2
+          type: docker-image
+        inputs:
+          - name: git-resource
+          - name: lpass-out
+        outputs:
+          - name: gen-aws-cred
+        platform: linux
+        run:
+          path: /bin/sh
+          args:
+            - -cx
+            - |
+              mkdir ~/.aws
+              cp "lpass-out/item.json" "git-resource/item.json"
+              cd git-resource
+              sed '2,10d' item.json > cred.json
+              chmod a+x convert.sh
+              python3 con-cred-json-csv.py > item.csv
+              sed -i -e '2s/^/default,/' item.csv
+              sed '/^$/d' item.csv > item.cln.csv
+              export AWS_PAGER=""
+              aws configure import --csv file://item.cln.csv
+              aws configure set default.region us-east-2
+              export AWS_PAGER=""
+              aws ec2 describe-regions
+              chmod a+x aws_key.sh
+              chmod a+x aws_deploy.sh
+              ./aws_key.sh
+              ./aws_deploy.sh
+              cp "~/.aws/*" "gen-aws-cred"
+      task: build-vpc
+
+- name: deploy-csr1000v
+  plan:
+    - get: lpass-res
+      version: every
+    - config:
+        image_resource:
+          name: ""
+          source:
+            repository: alpine
+          type: docker-image
+        inputs:
+          - name: lpass-res
+        outputs:
+          - name: lpass-out
+        platform: linux
+        run:
+          args:
+            - -cx
+            - |
+              cp "lpass-res/item" "lpass-out/item.json"
+          path: /bin/sh
+      task: print-item
+
+    - get: git-resource
+    - config:
+        image_resource:
+          name: ""
+          source:
+            repository: sconrod/python-aws
+            tag: v2
+          type: docker-image
+        inputs:
+          - name: git-resource
+          - name: lpass-out
+        outputs:
+          - name: gen-aws-cred
+        platform: linux
+        run:
+          path: /bin/sh
+          args:
+            - -cx
+            - |
+              mkdir ~/.aws
+              cp "lpass-out/item.json" "git-resource/item.json"
+              cd git-resource
+              sed '2,10d' item.json > cred.json
+              chmod a+x convert.sh
+              python3 con-cred-json-csv.py > item.csv
+              sed -i -e '2s/^/default,/' item.csv
+              sed '/^$/d' item.csv > item.cln.csv
+              export AWS_PAGER=""
+              aws configure import --csv file://item.cln.csv
+              aws configure set default.region us-east-2
+              export AWS_PAGER=""
+              aws ec2 describe-regions
+              cp "~/.aws/*" "gen-aws-cred"
+              chmod a+x csr_deploy.sh
+              ./csr_deploy.sh
+          path: /bin/sh
+      task: build-csr1000v
+
+- name: deploy-ubuntu-lan
+  plan:
+    - get: lpass-res
+      version: every
+    - config:
+        image_resource:
+          name: ""
+          source:
+            repository: alpine
+          type: docker-image
+        inputs:
+          - name: lpass-res
+        outputs:
+          - name: lpass-out
+        platform: linux
+        run:
+          args:
+            - -cx
+            - |
+              cp "lpass-res/item" "lpass-out/item.json"
+          path: /bin/sh
+      task: print-item
+
+    - get: git-resource
+    - config:
+        image_resource:
+          name: ""
+          source:
+            repository: sconrod/python-aws
+            tag: v2
+          type: docker-image
+        inputs:
+          - name: git-resource
+          - name: lpass-out
+        outputs:
+          - name: gen-aws-cred
+        platform: linux
+        run:
+          path: /bin/sh
+          args:
+            - -cx
+            - |
+              mkdir ~/.aws
+              cp "lpass-out/item.json" "git-resource/item.json"
+              cd git-resource
+              sed '2,10d' item.json > cred.json
+              chmod a+x convert.sh
+              python3 con-cred-json-csv.py > item.csv
+              sed -i -e '2s/^/default,/' item.csv
+              sed '/^$/d' item.csv > item.cln.csv
+              export AWS_PAGER=""
+              aws configure import --csv file://item.cln.csv
+              aws configure set default.region us-east-2
+              export AWS_PAGER=""
+              aws ec2 describe-regions
+              cp "~/.aws/*" "gen-aws-cred"
+              chmod a+x aws_ubuntu_lan_deploy.sh
+              ./aws_ubuntu_lan_deploy.sh
+          path: /bin/sh
+      task: build-ubuntu-router
+
+- name: deploy-ubuntu-router
+  plan:
+    - get: lpass-res
+      version: every
+    - config:
+        image_resource:
+          name: ""
+          source:
+            repository: alpine
+          type: docker-image
+        inputs:
+          - name: lpass-res
+        outputs:
+          - name: lpass-out
+        platform: linux
+        run:
+          args:
+            - -cx
+            - |
+              cp "lpass-res/item" "lpass-out/item.json"
+          path: /bin/sh
+      task: print-item
+
+    - get: git-resource
+    - config:
+        image_resource:
+          name: ""
+          source:
+            repository: sconrod/python-aws
+            tag: v2
+          type: docker-image
+        inputs:
+          - name: git-resource
+          - name: lpass-out
+        outputs:
+          - name: gen-aws-cred
+        platform: linux
+        run:
+          path: /bin/sh
+          args:
+            - -cx
+            - |
+              mkdir ~/.aws
+              cp "lpass-out/item.json" "git-resource/item.json"
+              cd git-resource
+              sed '2,10d' item.json > cred.json
+              chmod a+x convert.sh
+              python3 con-cred-json-csv.py > item.csv
+              sed -i -e '2s/^/default,/' item.csv
+              sed '/^$/d' item.csv > item.cln.csv
+              export AWS_PAGER=""
+              aws configure import --csv file://item.cln.csv
+              aws configure set default.region us-east-2
+              export AWS_PAGER=""
+              aws ec2 describe-regions
+              cp "~/.aws/*" "gen-aws-cred"
+              chmod a+x aws_ubuntu_router_deploy.sh
+              ./aws_ubuntu_router_deploy.sh
+          path: /bin/sh
+      task: build-ubuntu-router
+
+- name: configure-cisco-csr1000v
+  plan:
+    - get: lpass-res
+      version: every
+    - config:
+        image_resource:
+          name: ""
+          source:
+            repository: alpine
+          type: docker-image
+        inputs:
+          - name: lpass-res
+        outputs:
+          - name: lpass-out
+        platform: linux
+        run:
+          args:
+            - -cx
+            - |
+              cp "lpass-res/item" "lpass-out/item.json"
+          path: /bin/sh
+      task: print-item
+
+    - get: git-resource
+    - config:
+        image_resource:
+          name: ""
+          source:
+            repository: sconrod/python-aws
+            tag: v2
+          type: docker-image
+        inputs:
+          - name: git-resource
+          - name: lpass-out
+        params:
+          NAME: ((registry-username))
+          PASSWORD: ((registry-password))
+        platform: linux
+        run:
+          args:
+            - -cx
+            - |
+              mkdir ~/.aws
+              cp "lpass-out/item.json" "git-resource/item.json"
+              cd git-resource
+              sed '2,10d' item.json > cred.json
+              chmod a+x convert.sh
+              python3 con-cred-json-csv.py > item.csv
+              sed -i -e '2s/^/default,/' item.csv
+              sed '/^$/d' item.csv > item.cln.csv
+              export AWS_PAGER=""
+              aws configure import --csv file://item.cln.csv
+              aws configure set default.region us-east-2
+              export AWS_PAGER=""
+              rm -rf __pycache__
+              chmod a+x configure_csr.sh
+              ./configure_csr.sh
+          path: /bin/sh
+      task: configure-csr
+  public: true
+
+
+
+
+resource_types:
+  - name: lpass-type
+    source:
+      repository: ansd/lastpass
+      tag: 0.1.1
+    type: docker-image
+resources:
+  - name: git-resource
+    source:
+      Username: ((Username))
+      branch: dev
+      email: ((email))
+      private_key: ((private_key))
+      uri: ((git-uri))
+    type: git
+  - name: lpass-res
+    source:
+      password: ((lpass-password))
+      username: ((lpass-username))
+    type: lpass-type
