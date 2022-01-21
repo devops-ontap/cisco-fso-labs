@@ -1,6 +1,6 @@
 lpass-username:
 lpass-password:
-branch:
+git-branch:
 git-uri: git@github.com:devops-ontap/cisco-fso-labs.git
 Username:
 email:

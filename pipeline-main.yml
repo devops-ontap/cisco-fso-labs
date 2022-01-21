@@ -111,7 +111,6 @@ jobs:
               export AWS_PAGER=""
               aws sts get-caller-identity --query Account --output text
               export AWS_PAGER=""
-              aws ec2 describe-regions
               chmod a+x aws_key.sh
               chmod a+x aws_deploy.sh
               ./aws_key.sh
@@ -171,7 +170,6 @@ jobs:
               export AWS_PAGER=""
               aws sts get-caller-identity --query Account --output text
               export AWS_PAGER=""
-              aws ec2 describe-regions
               chmod a+x csr_deploy.sh
               ./csr_deploy.sh
           path: /bin/sh
@@ -229,7 +227,6 @@ jobs:
               aws configure set default.region us-east-2
               aws sts get-caller-identity --query Account --output text
               export AWS_PAGER=""
-              aws ec2 describe-regions
               chmod a+x aws_ubuntu_lan_deploy.sh
               ./aws_ubuntu_lan_deploy.sh
           path: /bin/sh
@@ -277,15 +274,16 @@ jobs:
           args:
             - -cx
             - |
+              mkdir ~/.aws
               cp "lpass-out/item.json" "git-resource/item.json"
               cd git-resource
               chmod a+x convert.sh
-              ./convert.sh
               export AWS_PAGER=""
+              ./convert.sh
               aws configure import --csv file://item.cln.csv
+              aws configure set default.region us-east-2
               aws sts get-caller-identity --query Account --output text
               export AWS_PAGER=""
-              cp "~/.aws/*" "gen-aws-cred"
               chmod a+x aws_ubuntu_router_deploy.sh
               ./aws_ubuntu_router_deploy.sh
           path: /bin/sh
