@@ -21,7 +21,7 @@ with open (outfile_get_vpcid) as access_json:
     print(vpcid)
 
 
-''''
+
 #Get All Instances in the AZ for the Region and VPC write a for each loop here
 #aws ec2 describe-instances --region us-west-1 --filters Name=availability-zone,Values=us-west-1a --query "Reservations[*].Instances[*].InstanceId" --output text
 outfile_instanceids='inst_ids.json'
@@ -37,7 +37,7 @@ with open(outfile_instanceids) as data_file:
     data = json.load(data_file)
     for instanceid in data:
         print(instanceid[0])
-
+''''
 for instanceid in data:
     output = check_output("{}".format('aws ec2 terminate-instances --instance-id '+(instanceid[0]) + " " + '--region' + " " "{}".format(region)), shell=True).decode().strip()
     print("Output: \n{}\n".format(output))
