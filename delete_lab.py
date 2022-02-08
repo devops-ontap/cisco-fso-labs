@@ -49,6 +49,9 @@ for instanceid in data:
 for instanceid in data:
     output = check_output("{}".format('aws ec2 wait instance-terminated --instance-id '+(instanceid[0]) + " " + '--region' + " " "{}".format(region)), shell=True).decode().strip()
     print("Output: \n{}\n".format(output))
+    
+    
+#Poll to determine when terminated status is set    
 
 #Get the NIC ID
 #aws ec2 describe-network-interfaces --region us-west-1 --filters "Name=description,Values=csr_nic_lan_sub" "Name=tag:Name,Values=us-west-1a" --query "NetworkInterfaces[*].NetworkInterfaceId" --output text
