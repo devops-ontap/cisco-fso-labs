@@ -1,0 +1,2480 @@
+{
+  "name": "Microsoft 365 End User Experience - Lite",
+  "description": "Setup testing of Microsoft 365 Tenant",
+  "logo_url": "assets/img/brand/o365-logo.png",
+  "service": "sharepoint",
+  "formVariables": {
+    "$formMicrosoftTenant": {
+      "name": "Microsoft 365 Tenant Name (e.g. cisco)",
+      "type": "text"
+    },
+    "$formAgents": {
+      "name": "Agents",
+      "type": "agents"
+    },
+    "$formDNSTestInterval": {
+      "name": "DNS Trace Test Interval",
+      "type": "object",
+      "options": {
+        "300": "Critical - 5 min",
+        "600": "  Normal - 10 min",
+        "900": " Relaxed - 15 min"
+      },
+      "selected": 600
+    },
+    "$formTestInterval": {
+      "name": "Microsoft 365 Component Test Interval",
+      "type": "object",
+      "options": {
+        "120": "Critical - 2 min",
+        "300": "  Normal - 5 min",
+        "600": " Relaxed - 10 min"
+      },
+      "selected": 300
+    }
+  },
+  "create": {
+    "alertRules": [
+      {
+        "alertType": "BGP",
+        "default": 0,
+        "expression": "[(locationId !in {\"8673\"}) && (((prefixLengthIPv4 >= 16) && (prefixLengthIPv4 <= 32)) || ((prefixLengthIPv6 >= 32) && (prefixLengthIPv6 <= 128)))]((reachability < 90%) || (changes > 3))",
+        "minimumSources": 2,
+        "notifyOnClear": 0,
+        "roundsViolatingOutOf": 3,
+        "roundsViolatingRequired": 3,
+        "roundsViolatingMode": "EXACT",
+        "ruleName": "MS365 BGP Alert Rule"
+      },
+      {
+        "alertType":"DNS Trace",
+        "default":0,
+        "expression":"((probDetail != \"\"))",
+        "minimumSources":1,
+        "notifyOnClear":1,
+        "roundsViolatingOutOf":3,
+        "roundsViolatingRequired":3,
+        "roundsViolatingMode":"EXACT",
+        "ruleName":"MS365 DNS Server Alert Rule"
+      },
+      {
+        "alertType": "HTTP Server",
+        "default": 0,
+        "expression": "((responseTime >= 2000 ms))",
+        "minimumSources": 1,
+        "notifyOnClear": 0,
+        "roundsViolatingOutOf": 3,
+        "roundsViolatingRequired": 3,
+        "roundsViolatingMode": "EXACT",
+        "ruleName": "MS365 HTTP Server Alert Rule"
+      },
+      {
+        "alertType": "End-to-End (Server)",
+        "default": 0,
+        "expression": "((jitter >= 30 ms))",
+        "minimumSources": 1,
+        "notifyOnClear": 0,
+        "roundsViolatingOutOf": 3,
+        "roundsViolatingRequired": 3,
+        "roundsViolatingMode": "EXACT",
+        "ruleName": "MS365 Jitter"
+      },
+      {
+        "alertType": "End-to-End (Server)",
+        "default": 0,
+        "expression": "((avgLatency >= 200 ms))",
+        "minimumSources": 1,
+        "notifyOnClear": 0,
+        "roundsViolatingOutOf": 3,
+        "roundsViolatingRequired": 3,
+        "roundsViolatingMode": "EXACT",
+        "ruleName": "MS365 Latency"
+      },
+      {
+        "alertType": "End-to-End (Server)",
+        "default": 0,
+        "expression": "((loss >= 10%))",
+        "minimumSources": 1,
+        "notifyOnClear": 0,
+        "roundsViolatingOutOf": 3,
+        "roundsViolatingRequired": 3,
+        "roundsViolatingMode": "EXACT",
+        "ruleName": "MS365 Packet Loss"
+      }
+    ],
+    "labels": [
+      {
+        "name": "OneDrive Online",
+        "type": "tests"
+      },
+      {
+        "name": "DNS Resolution to Microsoft Online",
+        "type": "tests"
+      },
+      {
+        "name": "Microsoft 365 Online",
+        "type": "tests"
+      },
+      {
+        "name": "Office Online",
+        "type": "tests"
+      },
+      {
+        "name": "OneNote Online",
+        "type": "tests"
+      },
+      {
+        "name": "Outlook Online",
+        "type": "tests"
+      },
+      {
+        "name": "Sharepoint Online",
+        "type": "tests"
+      },
+      {
+        "name": "Word Online",
+        "type": "tests"
+      },
+      {
+        "name": "Branch",
+        "type": "agents",
+        "agents": "$formAgents"
+      }
+    ],
+    "tests": [
+      {
+        "agents": "$formAgents",
+        "enabled":1,
+        "testName":"DNS Trace to Microsoft 365",
+        "type":"dns-trace",
+        "interval":"$formDNSTestInterval",
+        "domain":"login.microsoftonline.com A",
+        "dnsQueryClass":"IN",
+        "dnsTransportProtocol":"UDP",
+        "alertsEnabled":1,
+        "liveShare":0,
+        "alertRules": [
+          "MS365 DNS Server Alert Rule"
+          ],
+        "groups":  [
+            "DNS Resolution to Microsoft Online"
+          ]
+      },
+      {
+        "agents": "$formAgents",
+        "enabled": 1,
+        "testName": "Office Online Access",
+        "type": "http-server",
+        "interval": "$formTestInterval",
+        "url": "https://office.com",
+        "protocol": "TCP",
+        "ipv6Policy": "USE_AGENT_POLICY",
+        "networkMeasurements": 1,
+        "mtuMeasurements": 1,
+        "bandwidthMeasurements": 0,
+        "bgpMeasurements": 1,
+        "usePublicBgp": 1,
+        "alertsEnabled": 1,
+        "alertRules": [
+          "MS365 BGP Alert Rule",
+          "MS365 HTTP Server Alert Rule",
+          "MS365 Jitter",
+          "MS365 Latency",
+          "MS365 Packet Loss"
+        ],
+        "httpTimeLimit": 5,
+        "httpTargetTime": 1000,
+        "httpVersion": 2,
+        "followRedirects": 0,
+        "sslVersionId": 0,
+        "verifyCertificate": 1,
+        "useNtlm": 0,
+        "authType": "NONE",
+        "contentRegex": "",
+        "probeMode": "AUTO",
+        "pathTraceMode": "inSession",
+        "numPathTraces": 3,
+        "groups": [
+          "Office Online"
+        ],
+        "sslVersion": "Auto"
+      },
+      {
+        "agents": "$formAgents",
+        "enabled": 1,
+        "testName": "Microsoft Online Access",
+        "type": "http-server",
+        "interval": "$formTestInterval",
+        "url": "https://login.microsoftonline.com",
+        "protocol": "TCP",
+        "ipv6Policy": "USE_AGENT_POLICY",
+        "networkMeasurements": 1,
+        "mtuMeasurements": 1,
+        "bandwidthMeasurements": 0,
+        "bgpMeasurements": 1,
+        "usePublicBgp": 1,
+        "alertsEnabled": 1,
+        "alertRules": [
+          "MS365 BGP Alert Rule",
+          "MS365 HTTP Server Alert Rule",
+          "MS365 Jitter",
+          "MS365 Latency",
+          "MS365 Packet Loss"
+        ],
+        "httpTimeLimit": 5,
+        "httpTargetTime": 1000,
+        "httpVersion": 2,
+        "followRedirects": 0,
+        "sslVersionId": 0,
+        "verifyCertificate": 1,
+        "useNtlm": 0,
+        "authType": "NONE",
+        "contentRegex": "",
+        "probeMode": "AUTO",
+        "pathTraceMode": "inSession",
+        "numPathTraces": 3,
+        "groups": [
+          "Microsoft 365 Online"
+        ],
+        "sslVersion": "Auto"
+      },
+      {
+        "agents": "$formAgents",
+        "enabled": 1,
+        "testName": "OneDrive Online Access",
+        "type": "http-server",
+        "interval": "$formTestInterval",
+        "url": "https://$formMicrosoftTenant-my.sharepoint.com",
+        "protocol": "TCP",
+        "ipv6Policy": "USE_AGENT_POLICY",
+        "networkMeasurements": 1,
+        "mtuMeasurements": 1,
+        "bandwidthMeasurements": 0,
+        "bgpMeasurements": 1,
+        "usePublicBgp": 1,
+        "alertsEnabled": 1,
+        "alertRules": [
+          "MS365 BGP Alert Rule",
+          "MS365 HTTP Server Alert Rule",
+          "MS365 Jitter",
+          "MS365 Latency",
+          "MS365 Packet Loss"
+        ],
+        "httpTimeLimit": 5,
+        "httpTargetTime": 1000,
+        "httpVersion": 2,
+        "followRedirects": 0,
+        "sslVersionId": 0,
+        "verifyCertificate": 1,
+        "useNtlm": 0,
+        "authType": "NONE",
+        "contentRegex": "",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36",
+        "probeMode": "AUTO",
+        "pathTraceMode": "inSession",
+        "numPathTraces": 3,
+        "groups": [
+          "OneDrive Online"
+        ],
+        "sslVersion": "Auto"
+      },
+      {
+        "agents": "$formAgents",
+        "enabled": 1,
+        "testName": "OneNote Online Access",
+        "type": "http-server",
+        "interval": "$formTestInterval",
+        "url": "https://www.onenote.com/hrd",
+        "protocol": "TCP",
+        "ipv6Policy": "USE_AGENT_POLICY",
+        "networkMeasurements": 1,
+        "mtuMeasurements": 1,
+        "bandwidthMeasurements": 0,
+        "bgpMeasurements": 1,
+        "usePublicBgp": 1,
+        "alertsEnabled": 1,
+        "alertRules": [
+          "MS365 BGP Alert Rule",
+          "MS365 HTTP Server Alert Rule",
+          "MS365 Jitter",
+          "MS365 Latency",
+          "MS365 Packet Loss"
+        ],
+        "httpTimeLimit": 5,
+        "httpTargetTime": 1000,
+        "httpVersion": 2,
+        "followRedirects": 1,
+        "sslVersionId": 0,
+        "verifyCertificate": 1,
+        "useNtlm": 0,
+        "authType": "NONE",
+        "contentRegex": "",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36",
+        "probeMode": "AUTO",
+        "pathTraceMode": "inSession",
+        "numPathTraces": 3,
+        "groups": [
+          "OneNote Online"
+        ],
+        "sslVersion": "Auto"
+      },
+      {
+        "agents": "$formAgents",
+        "enabled": 1,
+        "testName": "Outlook Online Access",
+        "type": "http-server",
+        "interval": "$formTestInterval",
+        "url": "https://outlook.office365.com/",
+        "protocol": "TCP",
+        "ipv6Policy": "USE_AGENT_POLICY",
+        "networkMeasurements": 1,
+        "mtuMeasurements": 1,
+        "bandwidthMeasurements": 0,
+        "bgpMeasurements": 1,
+        "usePublicBgp": 1,
+        "alertsEnabled": 1,
+        "alertRules": [
+          "MS365 BGP Alert Rule",
+          "MS365 HTTP Server Alert Rule",
+          "MS365 Jitter",
+          "MS365 Latency",
+          "MS365 Packet Loss"
+        ],
+        "httpTimeLimit": 5,
+        "httpTargetTime": 1000,
+        "httpVersion": 2,
+        "followRedirects": 0,
+        "sslVersionId": 0,
+        "verifyCertificate": 1,
+        "useNtlm": 0,
+        "authType": "NONE",
+        "contentRegex": "",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36",
+        "probeMode": "AUTO",
+        "pathTraceMode": "inSession",
+        "numPathTraces": 3,
+        "groups": [
+          "Outlook Online"
+        ],
+        "sslVersion": "Auto"
+      },
+      {
+        "agents": "$formAgents",
+        "enabled": 1,
+        "testName": "Sharepoint Online Access",
+        "type": "http-server",
+        "interval": "$formTestInterval",
+        "url": "https://$formMicrosoftTenant.sharepoint.com",
+        "protocol": "TCP",
+        "ipv6Policy": "USE_AGENT_POLICY",
+        "networkMeasurements": 1,
+        "mtuMeasurements": 1,
+        "bandwidthMeasurements": 0,
+        "bgpMeasurements": 1,
+        "usePublicBgp": 1,
+        "alertsEnabled": 1,
+        "alertRules": [
+          "MS365 BGP Alert Rule",
+          "MS365 HTTP Server Alert Rule",
+          "MS365 Jitter",
+          "MS365 Latency",
+          "MS365 Packet Loss"
+        ],
+        "httpTimeLimit": 5,
+        "httpTargetTime": 1000,
+        "httpVersion": 2,
+        "followRedirects": 0,
+        "sslVersionId": 0,
+        "verifyCertificate": 1,
+        "useNtlm": 0,
+        "authType": "NONE",
+        "contentRegex": "",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36",
+        "probeMode": "AUTO",
+        "pathTraceMode": "inSession",
+        "numPathTraces": 3,
+        "groups": [
+          "Sharepoint Online"
+        ],
+        "sslVersion": "Auto"
+      }
+    ],
+    "reports": [
+      {
+        "title": "Microsoft 365 Global Status",
+        "isDefaultForAccount": true,
+        "widgets": [
+          {
+            "type": "Number",
+            "title": "Microsoft 365 Global Status - past 24 hours",
+            "visualMode": "Full",
+            "numberCards": [
+              {
+                "description": "Microsoft Online Login",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 100.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Test Labels": [
+                    "Microsoft 365 Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Office 365 Applications",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 100.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Test Labels": [
+                    "Office Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "OneDrive",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 30.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Test Labels": [
+                    "OneDrive Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Sharepoint",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 100.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Test Labels": [
+                    "Sharepoint Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Outlook",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 100.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Test Labels": [
+                    "Outlook Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "OneNote",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 100.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Test Labels": [
+                    "OneNote Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Number",
+            "title": "Baseline of Microsoft 365 Online Access - past 14 days",
+            "visualMode": "Full",
+            "numberCards": [
+              {
+                "description": "Microsoft Online Server Response Time",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": [
+                    "Microsoft 365 Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Sharepoint Response Time",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": [
+                    "Sharepoint Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Outlook Response Time",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": [
+                    "Outlook Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "OneDrive Response Time",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": [
+                    "OneDrive Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Office Apps Response Time",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": [
+                    "Office Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "OneNote Response Time",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": [
+                    "OneNote Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "DNS Resolution to MS",
+                "measure": {
+                  "type": "nth Percentile",
+                  "percentileValue": 98.0
+                },
+                "compareToPreviousValue": false,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+                "metricGroup": "DOMAIN_TRACE",
+                "metric": "DNS_TRACE_QUERY_TIME",
+                "filters": {
+                  "Test Labels": [
+                    "DNS Resolution to Microsoft Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Number",
+            "title": "Microsoft Online Status - past 24 hours",
+            "visualMode": "Half screen",
+            "numberCards": [
+              {
+                "description": "Microsoft Online Latency",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 100.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Test Labels": [
+                    "Microsoft 365 Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Microsoft Online Packet Loss",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 1.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Packet Loss",
+                "filters": {
+                  "Test Labels": [
+                    "Microsoft 365 Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Microsoft Online Jitter",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 30.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Jitter",
+                "filters": {
+                  "Test Labels": [
+                    "Microsoft 365 Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Microsoft Online Server Response Time",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 300.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": [
+                    "Microsoft 365 Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Number",
+            "title": "Sharepoint Status - past 24 hours",
+            "visualMode": "Half screen",
+            "numberCards": [
+              {
+                "description": "Sharepoint Latency",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 100.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Test Labels": [
+                    "Sharepoint Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Sharepoint Packet Loss",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 1.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Packet Loss",
+                "filters": {
+                  "Test Labels": [
+                    "Sharepoint Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Sharepoint Jitter",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 30.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Jitter",
+                "filters": {
+                  "Test Labels": [
+                    "Sharepoint Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Sharepoint Response Time",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 500.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": [
+                    "Sharepoint Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Number",
+            "title": "Outlook Status - past 24 hours",
+            "visualMode": "Half screen",
+            "numberCards": [
+              {
+                "description": "Outlook Latency",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 100.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Test Labels": [
+                    "Outlook Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Outlook Packet Loss",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 1.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Packet Loss",
+                "filters": {
+                  "Test Labels": [
+                    "Outlook Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Outlook Jitter",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 30.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Jitter",
+                "filters": {
+                  "Test Labels": [
+                    "Outlook Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Outlook Response Time",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 500.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": [
+                    "Outlook Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Number",
+            "title": "OneDrive Status - past 24 hours",
+            "visualMode": "Half screen",
+            "numberCards": [
+              {
+                "description": "OneDrive Latency",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 100.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Test Labels": [
+                    "OneDrive Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "OneDrive Packet Loss",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 1.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Packet Loss",
+                "filters": {
+                  "Test Labels": [
+                    "OneDrive Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "OneDrive Jitter",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 30.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Jitter",
+                "filters": {
+                  "Test Labels": [
+                    "OneDrive Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "OneDrive Response Time",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 500.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": [
+                    "OneDrive Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Number",
+            "title": "Office Apps - past 24 hours",
+            "visualMode": "Half screen",
+            "numberCards": [
+              {
+                "description": "Office Apps Latency",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 100.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Test Labels": [
+                    "Office Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Office Apps Packet Loss",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 1.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Packet Loss",
+                "filters": {
+                  "Test Labels": [
+                    "Office Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Office Apps Jitter",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 30.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Jitter",
+                "filters": {
+                  "Test Labels": [
+                    "Office Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "Office Apps Response Time",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 500.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": [
+                    "Office Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Number",
+            "title": "OneNote Status - past 24 hours",
+            "visualMode": "Half screen",
+            "numberCards": [
+              {
+                "description": "OneNote Latency",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 100.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Test Labels": [
+                    "OneNote Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "OneNote Packet Loss",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 1.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Packet Loss",
+                "filters": {
+                  "Test Labels": [
+                    "OneNote Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "OneNote Jitter",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 30.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Jitter",
+                "filters": {
+                  "Test Labels": [
+                    "OneNote Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              },
+              {
+                "description": "OneNote Response Time",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 500.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": [
+                    "OneNote Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Number",
+            "title": "DNS Server Resolution to Microsoft Online - past 24 hours",
+            "visualMode": "Full",
+            "numberCards": [
+              {
+                "description": "DNS Server Resolution Time",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "maxScale": 150.0,
+                "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+                "metricGroup": "DOMAIN_TRACE",
+                "metric": "DNS_TRACE_QUERY_TIME",
+                "filters": {
+                  "Test Labels": [
+                    "DNS Resolution to Microsoft Online"
+                  ],
+                  "Agent Labels": [
+                    "Branch"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Map",
+            "title": "Microsoft Online Login - Mean Response Time per Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Web - HTTP Server",
+            "metric": "Response Time",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "Microsoft 365 Online"
+              ],
+              "Agent Labels": [
+                "Branch"
+              ]
+            },
+            "fixedTimespan": {
+              "value": 1,
+              "unit": "Days"
+            },
+            "groupBy": "Agents",
+            "maxScale": 500.0,
+            "sortBy": "Value",
+            "sortDirection": "Descending"
+          },
+          {
+            "type": "Map",
+            "title": "Outlook - Mean Response Time per Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Web - HTTP Server",
+            "metric": "Response Time",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "Outlook Online"
+              ],
+              "Agent Labels": [
+                "Branch"
+              ]
+            },
+            "fixedTimespan": {
+              "value": 1,
+              "unit": "Days"
+            },
+            "groupBy": "Agents",
+            "maxScale": 500.0,
+            "sortBy": "Value",
+            "sortDirection": "Ascending"
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Microsoft Online - Jitter by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Jitter",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "Microsoft 365 Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 30.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Outlook - Jitter by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Jitter",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "Outlook Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 30.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Microsoft Online - Latency by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Latency",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "Microsoft 365 Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 200.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Outlook - Latency by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Latency",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "Outlook Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 200.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Microsoft Online - Packet Loss by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Packet Loss",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "Microsoft 365 Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 2.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Outlook - Packet Loss by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Packet Loss",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "Outlook Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 2.0
+          },
+          {
+            "type": "Map",
+            "title": "Sharepoint - Response Time by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Web - HTTP Server",
+            "metric": "Response Time",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "Sharepoint Online"
+              ],
+              "Agent Labels": [
+                "Branch"
+              ]
+            },
+            "groupBy": "Agents",
+            "maxScale": 500.0,
+            "sortBy": "Value",
+            "sortDirection": "Ascending"
+          },
+          {
+            "type": "Map",
+            "title": "Office Apps - Response Time by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Web - HTTP Server",
+            "metric": "Response Time",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "Sharepoint Online"
+              ],
+              "Agent Labels": [
+                "Branch"
+              ]
+            },
+            "groupBy": "Agents",
+            "maxScale": 500.0,
+            "sortBy": "Value",
+            "sortDirection": "Ascending"
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Sharepoint - Jitter by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Jitter",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "Sharepoint Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 30.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Office Apps - Jitter by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Jitter",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "Office Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 30.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Sharepoint - Latency by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Latency",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "Sharepoint Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 200.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Office Apps - Latency by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Latency",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "Office Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 200.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Sharepoint - Packet Loss by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Packet Loss",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "Sharepoint Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 2.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Office Apps - Packet Loss by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Packet Loss",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "Office Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 2.0
+          },
+          {
+            "type": "Map",
+            "title": "OneDrive - Response Time by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Web - HTTP Server",
+            "metric": "Response Time",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "OneDrive Online"
+              ],
+              "Agent Labels": [
+                "Branch"
+              ]
+            },
+            "groupBy": "Agents",
+            "maxScale": 500.0,
+            "sortBy": "Value",
+            "sortDirection": "Ascending"
+          },
+          {
+            "type": "Map",
+            "title": "OneNote - Response Time by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Web - HTTP Server",
+            "metric": "Response Time",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "OneNote Online"
+              ],
+              "Agent Labels": [
+                "Branch"
+              ]
+            },
+            "groupBy": "Agents",
+            "maxScale": 500.0,
+            "sortBy": "Value",
+            "sortDirection": "Ascending"
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "OneDrive - Jitter by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Jitter",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "OneDrive Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 30.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "OneNote - Jitter by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Jitter",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "OneNote Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 30.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "OneDrive - Packet Loss by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Packet Loss",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "OneDrive Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 2.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "OneNote - Packet Loss by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Packet Loss",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "OneNote Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 2.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "OneDrive - Latency by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Latency",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "OneDrive Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 100.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "OneNote - Latency by Site",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Latency",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": [
+                "OneNote Online"
+              ]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "Agents",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 100.0
+          }
+        ],
+        "apiLinks": [
+          {
+            "rel": "self",
+            "href": "https://api.thousandeyes.com/v7/reports/5ec694ff90e5e6358d64c807"
+          },
+          {
+            "rel": "snapshots",
+            "href": "https://api.thousandeyes.com/v7/report-snapshots?reportId=5ec694ff90e5e6358d64c807"
+          }
+        ]
+      }
+    ],
+    "dashboards": [
+      {
+        "title": "Microsoft 365 Global Status",
+        "isDefaultForAccount": true,
+        "widgets": [
+          {
+            "type": "Alert List",
+            "title": "Microsoft 365 Global Operation Dashboard",
+            "visualMode": "Full",
+            "alertTypes": [
+              "Voice - SIP Server",
+              "DNS+ Server",
+              "DNS Server",
+              "DNSSEC",
+              "Network - End-to-End (Agent)",
+              "Web - HTTP Server",
+              "DNS+ Domain",
+              "Endpoint - Path Trace",
+              "Voice - RTP Stream",
+              "Web - FTP Server",
+              "Network - End-to-End (Server)",
+              "Device Interface",
+              "DNS Trace",
+              "Network - Path Trace",
+              "Endpoint - End-to-End (Server)",
+              "EndpointWeb - HTTP Server",
+              "Web - Transaction (Classic)",
+              "Web - Page Load",
+              "Device",
+              "Routing - BGP",
+              "Web - Transaction"
+            ],
+            "limitTo": 25,
+            "activeWithin": {
+              "value": 1,
+              "unit": "Hours"
+            }
+          },
+          {
+            "type": "Number",
+            "title": " Microsoft 365 Global Availability - current",
+            "visualMode": "Full",
+            "numberCards": [
+              {
+                "description": "DNS Availability",
+                "measure": {
+                  "type": "% Inactive"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 30,
+                  "unit": "Minutes"
+                },
+                "maxScale": 100.0,
+                "dataSource": "Alerts",
+                "metric": "Agent Alerts",
+                "filters": {
+                  "Test Labels": [
+                    "DNS Resolution to Microsoft Online"
+                  ]
+                }
+              },
+              {
+                "description": "Outlook Web Access",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 30,
+                  "unit": "Minutes"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Test Labels": [
+                    "Outlook Online"
+                  ]
+                }
+              },
+              {
+                "description": "Sharepoint Online Access",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 30,
+                  "unit": "Minutes"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Test Labels": [
+                    "Sharepoint Online"
+                  ]
+                }
+              },
+              {
+                "description": "OneDrive Online Access",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": false,
+                "fixedTimespan": {
+                  "value": 30,
+                  "unit": "Minutes"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Test Labels": [
+                    "OneDrive Online"
+                  ]
+                }
+              },
+              {
+                "description": "Office Applications Access",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 30,
+                  "unit": "Minutes"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Test Labels": [
+                    "Office Online"
+                  ]
+                }
+              },
+              {
+                "description": "OneNote Online Access",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": false,
+                "fixedTimespan": {
+                  "value": 30,
+                  "unit": "Minutes"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Test Labels": [
+                    "OneNote Online"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Number",
+            "title": " Microsoft 365 Global Availability - past 24 hours",
+            "visualMode": "Full",
+            "numberCards": [
+              {
+                "description": "Outlook Online Access",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Test Labels": [
+                    "Outlook Online"
+                  ]
+                }
+              },
+              {
+                "description": "Sharepoint Online Access",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Test Labels": [
+                    "Sharepoint Online"
+                  ]
+                }
+              },
+              {
+                "description": "OneDrive Online Access",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Test Labels": [
+                    "OneDrive Online"
+                  ]
+                }
+              },
+              {
+                "description": "Office Applications Online Access",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Test Labels": [
+                    "Office Online"
+                  ]
+                }
+              },
+              {
+                "description": "DNS Availability",
+                "measure": {
+                  "type": "% Inactive"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 100.0,
+                "dataSource": "Alerts",
+                "metric": "Agent Alerts",
+                "filters": {
+                  "Test Labels": [
+                    "DNS Resolution to Microsoft Online"
+                  ]
+                }
+              },
+              {
+                "description": "OneNote Online Access",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Test Labels": [
+                    "OneNote Online"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Number",
+            "title": "Microsoft 365 Global Response Time - past 24 hours",
+            "visualMode": "Full",
+            "numberCards": [
+              {
+                "description": "Outlook Online Access",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 1000.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": [
+                    "Outlook Online"
+                  ]
+                }
+              },
+              {
+                "description": "Sharepoint Online Access",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 1000.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": [
+                    "Sharepoint Online"
+                  ]
+                }
+              },
+              {
+                "description": "OneDrive Online Access",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 1000.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": [
+                    "OneDrive Online"
+                  ]
+                }
+              },
+              {
+                "description": "Office Applications Online Access",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 1000.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": [
+                    "Office Online"
+                  ]
+                }
+              },
+              {
+                "description": "DNS Response Time to Microsoft Online",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 200.0,
+                "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+                "metricGroup": "DOMAIN_TRACE",
+                "metric": "DNS_TRACE_QUERY_TIME",
+                "filters": {
+                  "Test Labels": [
+                    "DNS Resolution to Microsoft Online"
+                  ]
+                }
+              },
+              {
+                "description": "OneNote Online Access",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 1000.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": [
+                    "OneNote Online"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Color Grid",
+            "title": "Microsoft 365 Overall Status - Availability per Site",
+            "visualMode": "Full",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Web - HTTP Server",
+            "metric": "Availability",
+            "measure": {
+              "type": "nth Percentile",
+              "percentileValue": 98.0
+            },
+            "filters": {
+              "Agent Labels": [
+                "Branch"
+              ]
+            },
+            "fixedTimespan": {
+              "value": 5,
+              "unit": "Minutes"
+            },
+            "cards": "Agents",
+            "groupCardsBy": "Tests",
+            "maxScale": 100.0,
+            "columns": 2,
+            "sortBy": "Alphabetical",
+            "sortDirection": "Ascending"
+          },
+          {
+            "forEach": "$formAgents",
+            "loop": {
+              "type": "Number",
+              "title": "Microsoft 365 Status by Site - $formAgents.name",
+              "visualMode": "Full",
+              "numberCards": [
+                {
+                  "description": "Microsoft Online Server Response Time",
+                  "measure": {
+                    "type": "Mean"
+                  },
+                  "compareToPreviousValue": true,
+                  "fixedTimespan": {
+                    "value": 1,
+                    "unit": "Days"
+                  },
+                  "maxScale": 2000.0,
+                  "dataSource": "Cloud & Enterprise Agents",
+                  "metricGroup": "Web - HTTP Server",
+                  "metric": "Response Time",
+                  "filters": {
+                    "Test Labels": [
+                      "Microsoft 365 Online"
+                    ],
+                    "Sources": [
+                      "$formAgents.id"
+                    ]
+                  }
+                },
+                {
+                  "description": "Sharepoint Response Time",
+                  "measure": {
+                    "type": "Mean"
+                  },
+                  "compareToPreviousValue": true,
+                  "fixedTimespan": {
+                    "value": 1,
+                    "unit": "Days"
+                  },
+                  "maxScale": 2000.0,
+                  "dataSource": "Cloud & Enterprise Agents",
+                  "metricGroup": "Web - HTTP Server",
+                  "metric": "Response Time",
+                  "filters": {
+                    "Test Labels": [
+                      "Sharepoint Online"
+                    ],
+                    "Sources": [
+                      "$formAgents.id"
+                    ]
+                  }
+                },
+                {
+                  "description": "Outlook Response Time",
+                  "measure": {
+                    "type": "Mean"
+                  },
+                  "compareToPreviousValue": true,
+                  "fixedTimespan": {
+                    "value": 1,
+                    "unit": "Days"
+                  },
+                  "maxScale": 2000.0,
+                  "dataSource": "Cloud & Enterprise Agents",
+                  "metricGroup": "Web - HTTP Server",
+                  "metric": "Response Time",
+                  "filters": {
+                    "Test Labels": [
+                      "Outlook Online"
+                    ],
+                    "Sources": [
+                      "$formAgents.id"
+                    ]
+                  }
+                },
+                {
+                  "description": "OneDrive Response Time",
+                  "measure": {
+                    "type": "Mean"
+                  },
+                  "compareToPreviousValue": true,
+                  "fixedTimespan": {
+                    "value": 1,
+                    "unit": "Days"
+                  },
+                  "maxScale": 2000.0,
+                  "dataSource": "Cloud & Enterprise Agents",
+                  "metricGroup": "Web - HTTP Server",
+                  "metric": "Response Time",
+                  "filters": {
+                    "Test Labels": [
+                      "OneDrive Online"
+                    ],
+                    "Sources": [
+                      "$formAgents.id"
+                    ]
+                  }
+                },
+                {
+                  "description": "Office Apps Response Time",
+                  "measure": {
+                    "type": "Mean"
+                  },
+                  "compareToPreviousValue": true,
+                  "fixedTimespan": {
+                    "value": 1,
+                    "unit": "Days"
+                  },
+                  "maxScale": 2000.0,
+                  "dataSource": "Cloud & Enterprise Agents",
+                  "metricGroup": "Web - HTTP Server",
+                  "metric": "Response Time",
+                  "filters": {
+                    "Test Labels": [
+                      "Office Online"
+                    ],
+                    "Sources": [
+                      "$formAgents.id"
+                    ]
+                  }
+                },
+                {
+                  "description": "OneNote Response Time",
+                  "measure": {
+                    "type": "Mean"
+                  },
+                  "compareToPreviousValue": true,
+                  "fixedTimespan": {
+                    "value": 1,
+                    "unit": "Days"
+                  },
+                  "maxScale": 2000.0,
+                  "dataSource": "Cloud & Enterprise Agents",
+                  "metricGroup": "Web - HTTP Server",
+                  "metric": "Response Time",
+                  "filters": {
+                    "Test Labels": [
+                      "OneNote Online"
+                    ],
+                    "Sources": [
+                      "$formAgents.id"
+                    ]
+                  }
+                },
+                {
+                  "description": "DNS Resolution to MS",
+                  "measure": {
+                    "type": "nth Percentile",
+                    "percentileValue": 98.0
+                  },
+                  "compareToPreviousValue": false,
+                  "fixedTimespan": {
+                    "value": 1,
+                    "unit": "Days"
+                  },
+                  "maxScale": 1000.0,
+                  "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+                  "metricGroup": "DOMAIN_TRACE",
+                  "metric": "DNS_TRACE_QUERY_TIME",
+                  "filters": {
+                    "Test Labels": [
+                      "DNS Resolution to Microsoft Online"
+                    ],
+                    "Sources": [
+                      "$formAgents.id"
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "Test Table",
+            "title": "Microsoft 365 Status - past 12 hours",
+            "fixedTimespan": {
+              "value": 12,
+              "unit": "Hours"
+            },
+            "shouldExcludeAlertSuppressionWindows": false,
+            "filter": {
+              "filters": [],
+              "type": "all"
+            },
+            "exclude": {
+              "filters": [],
+              "type": "all"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
