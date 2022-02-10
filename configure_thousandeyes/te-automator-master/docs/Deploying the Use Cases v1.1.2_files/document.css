@@ -1,0 +1,27 @@
+﻿@charset "UTF-8"; * {margin:0; padding:0; text-indent:0; }
+ .s1 { color: #0892A0; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 16pt; }
+ .s2 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 11pt; }
+ .s3 { color: #4F565C; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 13pt; }
+ .s4 { color: black; font-family:"Proxima Nova", serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 16pt; }
+ .s5 { color: black; font-family:"Proxima Nova", serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
+ p { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; margin:0pt; }
+ .s6 { color: black; font-family:"Proxima Nova", serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 12pt; }
+ .s7 { color: black; font-family:"Proxima Nova", serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 11pt; }
+ .s8 { color: black; font-family:"Proxima Nova", serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 11pt; }
+ .s9 { color: black; font-family:"Proxima Nova", serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
+ .s10 { color: #F44040; font-family:ProximaNova-BoldIt, serif; font-style: italic; font-weight: bold; text-decoration: none; font-size: 12pt; }
+ h1 { color: #1E7388; font-family:"Proxima Nova", serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 20pt; }
+ h2 { color: #1E7388; font-family:"Proxima Nova", serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 16pt; }
+ .s11 { color: #00F; font-family:"Proxima Nova", serif; font-style: normal; font-weight: normal; text-decoration: underline; font-size: 12pt; }
+ h3 { color: #1E7388; font-family:"Proxima Nova", serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 14pt; }
+ .s13 { color: #00F; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: underline; font-size: 12pt; }
+ h4 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 13pt; }
+ .a { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
+ .s15 { color: #020101; font-family:"Proxima Nova", serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
+ .s16 { color: #FF0500; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
+ .s19 { color: #FF0600; font-family:"Proxima Nova", serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
+ .s20 { color: #FF0700; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
+ .s21 { color: #FF0600; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
+ .s22 { color: #00F; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: underline; font-size: 12pt; }
+ .s23 { color: #00F; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 12pt; }
+ .s24 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 12pt; }

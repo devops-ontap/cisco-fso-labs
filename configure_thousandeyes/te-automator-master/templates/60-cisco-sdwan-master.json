@@ -1,0 +1,1456 @@
+{
+  "name": "Cisco SD-WAN Network Performance Visibility",
+  "description": "Initial setup of monitoring of a Cisco SD-WAN envrionment",
+  "logo_url": "assets/img/brand/cisco-logo.png",
+  "service": "sdwan",
+  "formVariables": {
+    "$formOnPremAppURL": {
+      "name": "On-Prem Application URL",
+      "type": "url"
+    },
+    "$formDCEnterpriseAgent": {
+      "name": "Data Center Agent",
+      "type": "enterpriseAgent"
+    },
+    "$formBranchEnterpriseAgent": {
+      "name": "Branch Site Agent",
+      "type": "enterpriseAgents"
+    },
+    "$formCircuit1IP": {
+      "name": "Branch Edge Router IP - Circuit #1",
+      "type": "hostnameOrIpAddress"
+    },
+    "$formCircuit2IP": {
+      "name": "Branch Edge Router IP - Circuit #2",
+      "type": "hostnameOrIpAddress"
+    },
+    "$formvSmartIP": {
+      "name": "IP Address of vSmart Controller",
+      "type": "hostnameOrIpAddress"
+    },
+    "$formOnPremAppInterval": {
+      "name": "On-Prem Application Test Interval",
+      "type": "object",
+      "options": {
+        "300": "Critical - 5 min",
+        "600": "  Normal - 10 min",
+        "900": " Relaxed - 15 min"
+      },
+      "selected": 600
+    },
+    "$formSDWANTestInterval": {
+      "name": "Overlay and Underlay Test Interval",
+      "type": "object",
+      "options": {
+        "120": "Critical - 2 min",
+        "300": "  Normal - 5 min",
+        "600": " Relaxed - 10 min"
+      },
+      "selected": 300
+    }
+  },
+  "create": {
+    "alertRules": [
+      {
+        "alertType": "End-to-End (Server)",
+        "default": 0,
+        "expression": "((jitter >= 30 ms))",
+        "minimumSources": 1,
+        "notifyOnClear": 1,
+        "roundsViolatingOutOf": 3,
+        "roundsViolatingRequired": 3,
+        "roundsViolatingMode": "EXACT",
+        "ruleName": "DC-to-Site Underlay Jitter"
+      },
+      {
+        "alertType": "End-to-End (Server)",
+        "default": 0,
+        "expression": "((avgLatency >= 200 ms))",
+        "minimumSources": 1,
+        "notifyOnClear": 1,
+        "roundsViolatingOutOf": 3,
+        "roundsViolatingRequired": 3,
+        "roundsViolatingMode": "EXACT",
+        "ruleName": "DC-to-Site Underlay Latency"
+      },
+      {
+        "alertType": "End-to-End (Server)",
+        "default": 0,
+        "expression": "((loss >= 10%))",
+        "minimumSources": 1,
+        "notifyOnClear": 1,
+        "roundsViolatingOutOf": 3,
+        "roundsViolatingRequired": 3,
+        "roundsViolatingMode": "EXACT",
+        "ruleName": "DC-to-Site Underlay Packet Loss"
+      },
+      {
+        "alertType": "BGP",
+        "default": 0,
+        "expression": "[(((prefixLengthIPv4 >= 16) && (prefixLengthIPv4 <= 32)) || ((prefixLengthIPv6 >= 32) && (prefixLengthIPv6 <= 128)))]((reachability < 100%) && (changes > 1))",
+        "minimumSources": 1,
+        "notifyOnClear": 1,
+        "roundsViolatingOutOf": 3,
+        "roundsViolatingRequired": 3,
+        "roundsViolatingMode": "EXACT",
+        "ruleName": "BGP Alerts"
+      },
+      {
+        "alertType": "End-to-End (Server)",
+        "default": 0,
+        "expression": "((loss >= 10%) || (avgLatency >= 100 ms) || (jitter >= 15 ms))",
+        "minimumSources": 1,
+        "notifyOnClear": 1,
+        "roundsViolatingOutOf": 3,
+        "roundsViolatingRequired": 3,
+        "roundsViolatingMode": "EXACT",
+        "ruleName": "Overlay Network Delay"
+      },
+      {
+        "alertType": "HTTP Server",
+        "default": 0,
+        "expression": "((responseTime >= 1500 ms))",
+        "minimumSources": 1,
+        "notifyOnClear": 1,
+        "roundsViolatingOutOf": 3,
+        "roundsViolatingRequired": 3,
+        "roundsViolatingMode": "EXACT",
+        "ruleName": "Site to On-Prem Application Response Time Delay"
+      }
+    ],
+    "labels": [
+      {
+        "name": "SD-WAN Branch",
+        "type": "agents",
+        "agents": "$formBranchEnterpriseAgent"
+      },
+      {
+        "name": "SD-WAN Data Center",
+        "type": "agents",
+        "agents": [{"agentId": "$formDCEnterpriseAgent"}]
+      },
+      {
+        "name": "Cisco SD-WAN",
+        "type": "tests"
+      },
+      {
+        "name": "DC to Site Underlay Circuit #1",
+        "type": "tests"
+      },
+      {
+        "name": "DC to Site Underlay Circuit #2",
+        "type": "tests"
+      },
+      {
+        "name": "DC to Site Overlay",
+        "type": "tests"
+      },
+      {
+        "name": "Site to On-Prem Application",
+        "type": "tests"
+      },
+      {
+        "name": "Site to vSmart Controller",
+        "type": "tests"
+      }
+    ],
+    "tests": [
+      {
+        "enabled": 1,
+        "testName": "Site to On-Prem Application",
+        "type": "http-server",
+        "interval": "$formOnPremAppInterval",
+        "url": "$formOnPremAppURL",
+        "protocol": "TCP",
+        "ipv6Policy": "USE_AGENT_POLICY",
+        "networkMeasurements": 1,
+        "mtuMeasurements": 1,
+        "bandwidthMeasurements": 0,
+        "bgpMeasurements": 1,
+        "usePublicBgp": 1,
+        "alertsEnabled": 1,
+        "alertRules": [
+          "Overlay Network Delay",
+          "Site to On-Prem Application Response Time Delay"
+        ],
+        "httpTimeLimit": 5,
+        "httpTargetTime": 1000,
+        "httpVersion": 2,
+        "followRedirects": 0,
+        "sslVersionId": 0,
+        "verifyCertificate": 1,
+        "useNtlm": 0,
+        "authType": "NONE",
+        "contentRegex": "",
+        "probeMode": "AUTO",
+        "pathTraceMode": "inSession",
+        "numPathTraces": 3,
+        "groups": ["Site to On-Prem Application", "Cisco SD-WAN"],
+        "port": "443",
+        "agents": "$formBranchEnterpriseAgent"
+      },
+      {
+        "enabled": 1,
+        "testName": "Data Center to Site - Underlay Circuit #1",
+        "type": "agent-to-server",
+        "interval": "$formSDWANTestInterval",
+        "server": "$formCircuit1IP",
+        "protocol": "ICMP",
+        "ipv6Policy": "USE_AGENT_POLICY",
+        "networkMeasurements": 1,
+        "mtuMeasurements": 1,
+        "bandwidthMeasurements": 0,
+        "bgpMeasurements": 0,
+        "usePublicBgp": 0,
+        "alertsEnabled": 1,
+        "alertRules": [
+          "DC-to-Site Underlay Packet Loss",
+          "DC-to-Site Underlay Jitter",
+          "DC-to-Site Underlay Latency"
+        ],
+        "pingPayloadSize": -1,
+        "probeMode": "AUTO",
+        "pathTraceMode": "inSession",
+        "numPathTraces": 3,
+        "groups": ["DC to Site Underlay Circuit #1", "Cisco SD-WAN"],
+        "agent": "$formDCEnterpriseAgent"
+      },
+      {
+        "enabled": 1,
+        "testName": "Data Center to Site - Underlay Circuit #2",
+        "type": "agent-to-server",
+        "interval": "$formSDWANTestInterval",
+        "server": "$formCircuit2IP",
+        "protocol": "ICMP",
+        "ipv6Policy": "USE_AGENT_POLICY",
+        "networkMeasurements": 1,
+        "mtuMeasurements": 1,
+        "bandwidthMeasurements": 0,
+        "bgpMeasurements": 0,
+        "usePublicBgp": 0,
+        "alertsEnabled": 1,
+        "alertRules": [
+          "DC-to-Site Underlay Packet Loss",
+          "DC-to-Site Underlay Jitter",
+          "DC-to-Site Underlay Latency"
+        ],
+        "pingPayloadSize": -1,
+        "probeMode": "AUTO",
+        "pathTraceMode": "inSession",
+        "numPathTraces": 3,
+        "groups": ["DC to Site Underlay Circuit #2", "Cisco SD-WAN"],
+        "agent": "$formDCEnterpriseAgent"
+      },
+      {
+        "testName": "Site to Data Center - Bidirectional",
+        "testType": "agent-to-agent",
+        "targetAgentId": "$formDCEnterpriseAgent",
+        "agents": "$formBranchEnterpriseAgent",
+        "direction": "BIDIRECTIONAL",
+        "interval": "$formSDWANTestInterval",
+        "port": "49153",
+        "protocol": "TCP"
+      },
+      {
+        "enabled": 1,
+        "testName": "Site to vSmart Controller",
+        "type": "agent-to-server",
+        "interval": 1800,
+        "server": "$formvSmartIP",
+        "protocol": "ICMP",
+        "ipv6Policy": "USE_AGENT_POLICY",
+        "networkMeasurements": 1,
+        "mtuMeasurements": 1,
+        "bandwidthMeasurements": 0,
+        "bgpMeasurements": 0,
+        "usePublicBgp": 0,
+        "alertsEnabled": 1,
+        "alertRules": [
+          "DC-to-Site Underlay Packet Loss",
+          "DC-to-Site Underlay Jitter",
+          "DC-to-Site Underlay Latency"
+        ],
+        "pingPayloadSize": -1,
+        "probeMode": "AUTO",
+        "pathTraceMode": "inSession",
+        "numPathTraces": 3,
+        "groups": ["Site to vSmart Controller", "Cisco SD-WAN"],
+        "agents": "$formBranchEnterpriseAgent"
+      }
+    ],
+    "reports": [
+      {
+        "title": "Cisco SD-WAN Global Status",
+        "isDefaultForAccount": true,
+        "widgets": [
+          {
+            "type": "Number",
+            "title": "SD-WAN Global Status - past 24 hours",
+            "visualMode": "Full",
+            "numberCards": [
+              {
+                "description": "On-Prem Application Availability",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 100.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Test Labels": ["Site to On-Prem Application"],
+                  "Agent Labels": ["SD-WAN Branch"]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Number",
+            "title": "Baseline of Webex Online Access - past 14 days",
+            "visualMode": "Full",
+            "numberCards": [
+              {
+                "description": "On-Prem Application Response Time",
+                "measure": {
+                  "type": "nth Percentile",
+                  "percentileValue": 98.0
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": ["Site to On-Prem Application"],
+                  "Agent Labels": ["SD-WAN Branch"]
+                }
+              },
+              {
+                "description": "Site to vSmart Controller Latency",
+                "measure": {
+                  "type": "nth Percentile",
+                  "percentileValue": 98.0
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Test Labels": ["Site to vSmart Controller"],
+                  "Agent Labels": ["SD-WAN Branch"]
+                }
+              },
+              {
+                "description": "DC to Site Underlay Circuit #1 - Latency",
+                "measure": {
+                  "type": "nth Percentile",
+                  "percentileValue": 98.0
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Test Labels": ["DC to Site Underlay Circuit #1"],
+                  "Agent Labels": ["SD-WAN Data Center"]
+                }
+              },
+              {
+                "description": "DC to Site Underlay Circuit #2 - Latency",
+                "measure": {
+                  "type": "nth Percentile",
+                  "percentileValue": 98.0
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Test Labels": ["DC to Site Underlay Circuit #2"],
+                  "Agent Labels": ["SD-WAN Data Center"]
+                }
+              },
+              {
+                "description": "DC to Site Overlay Latency",
+                "measure": {
+                  "type": "nth Percentile",
+                  "percentileValue": 98.0
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+                "metricGroup": "AGENT_TO_AGENT",
+                "direction": "TO_TARGET",
+                "metric": "ONE_WAY_NET_LATENCY_TO_TARGET",
+                "filters": {
+                  "Test Labels": ["DC to Site Overlay"],
+                  "Agent Labels": ["SD-WAN Data Center"]
+                }
+              },
+              {
+                "description": "Site to DC Overlay Latency",
+                "measure": {
+                  "type": "nth Percentile",
+                  "percentileValue": 98.0
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+                "metricGroup": "AGENT_TO_AGENT",
+                "direction": "FROM_TARGET",
+                "metric": "ONE_WAY_NET_LATENCY_FROM_TARGET",
+                "filters": {
+                  "Test Labels": ["DC to Site Overlay"]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Number",
+            "title": "Cisco SD-WAN Status - past 24 hours",
+            "visualMode": "Half screen",
+            "numberCards": [
+              {
+                "description": "On-Prem Application Response Time",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 300.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Test Labels": ["Site to On-Prem Application"],
+                  "Agent Labels": ["SD-WAN Branch"]
+                }
+              },
+              {
+                "description": "Site to vSmart Controller Latency",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 300.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Test Labels": ["Site to vSmart Controller"],
+                  "Agent Labels": ["SD-WAN Branch"]
+                }
+              },
+              {
+                "description": "DC to Site Underlay Circuit #1 - Latency",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 300.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Test Labels": ["DC to Site Underlay Circuit #1"],
+                  "Agent Labels": ["SD-WAN Data Center"]
+                }
+              },
+              {
+                "description": "DC to Site Underlay Circuit #2 - Latency",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 300.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Test Labels": ["DC to Site Underlay Circuit #2"],
+                  "Agent Labels": ["SD-WAN Data Center"]
+                }
+              },
+              {
+                "description": "DC to Site Overlay Latency",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 300.0,
+                "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+                "metricGroup": "AGENT_TO_AGENT",
+                "direction": "TO_TARGET",
+                "metric": "ONE_WAY_NET_LATENCY_TO_TARGET",
+                "filters": {
+                  "Test Labels": ["DC to Site Overlay"]
+                }
+              },
+              {
+                "description": "Site to DC Overlay Latency",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 300.0,
+                "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+                "metricGroup": "AGENT_TO_AGENT",
+                "direction": "FROM_TARGET",
+                "metric": "ONE_WAY_NET_LATENCY_FROM_TARGET",
+                "filters": {
+                  "Test Labels": ["DC to Site Overlay"]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Map",
+            "title": "On-Prem Application - Mean Response Time",
+            "visualMode": "Half screen",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Web - HTTP Server",
+            "metric": "Response Time",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["Site to On-Prem Application"],
+              "Agent Labels": ["SD-WAN Branch"]
+            },
+            "fixedTimespan": {
+              "value": 1,
+              "unit": "Days"
+            },
+            "groupBy": "Agents",
+            "maxScale": 1500.0,
+            "sortBy": "Value",
+            "sortDirection": "Descending"
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "On-Prem Application - Jitter",
+            "visualMode": "Full",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Jitter",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["Site to On-Prem Application"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 30.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "On-Prem Application - Latency",
+            "visualMode": "Full",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Latency",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["Site to On-Prem Application"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 300.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "On-Prem Application - Packet Loss",
+            "visualMode": "Full",
+            "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+            "metricGroup": "AGENT_TO_SERVER",
+            "metric": "NET_LOSS",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["Site to On-Prem Application"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 10.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Site to vSmart Controller - Jitter",
+            "visualMode": "Full",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Jitter",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["Site to vSmart Controller"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 30.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Site to vSmart Controller - Latency",
+            "visualMode": "Full",
+            "dataSource": "Cloud & Enterprise Agents",
+            "metricGroup": "Network - Agent to Server",
+            "metric": "Latency",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["Site to vSmart Controller"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 300.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Site to vSmart Controller - Packet Loss",
+            "visualMode": "Full",
+            "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+            "metricGroup": "AGENT_TO_SERVER",
+            "metric": "NET_LOSS",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["Site to vSmart Controller"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 10.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "DC to Site Overlay - Jitter",
+            "visualMode": "Full",
+            "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+            "metricGroup": "AGENT_TO_AGENT",
+            "direction": "TO_TARGET",
+            "metric": "ONE_WAY_NET_JITTER_TO_TARGET",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["DC to Site Overlay"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 30.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "DC to Site Overlay - Latency",
+            "visualMode": "Full",
+            "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+            "metricGroup": "AGENT_TO_AGENT",
+            "direction": "TO_TARGET",
+            "metric": "ONE_WAY_NET_LATENCY_TO_TARGET",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["DC to Site Overlay"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 300.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "DC to Site Overlay - Packet Loss",
+            "visualMode": "Full",
+            "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+            "metricGroup": "AGENT_TO_AGENT",
+            "direction": "TO_TARGET",
+            "metric": "ONE_WAY_NET_LOSS_TO_TARGET",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["DC to Site Overlay"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 10.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Site to DC Overlay - Jitter",
+            "visualMode": "Full",
+            "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+            "metricGroup": "AGENT_TO_AGENT",
+            "direction": "FROM_TARGET",
+            "metric": "ONE_WAY_NET_JITTER_FROM_TARGET",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["DC to Site Overlay"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 30.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Site to DC Overlay - Packet Loss",
+            "visualMode": "Full",
+            "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+            "metricGroup": "AGENT_TO_AGENT",
+            "direction": "FROM_TARGET",
+            "metric": "ONE_WAY_NET_LOSS_FROM_TARGET",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["DC to Site Overlay"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 10.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "Site to DC Overlay - Latency",
+            "visualMode": "Full",
+            "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+            "metricGroup": "AGENT_TO_AGENT",
+            "direction": "FROM_TARGET",
+            "metric": "ONE_WAY_NET_LATENCY_FROM_TARGET",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["DC to Site Overlay"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 300.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "DC to Site Underlay Circuit #1 - Jitter",
+            "visualMode": "Full",
+            "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+            "metricGroup": "AGENT_TO_SERVER",
+            "metric": "Jitter",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["DC to Site Underlay Circuit #1"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 30.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "DC to Site Underlay Circuit #1 - Latency",
+            "visualMode": "Full",
+            "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+            "metricGroup": "AGENT_TO_SERVER",
+            "metric": "Latency",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["DC to Site Underlay Circuit #1"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 300.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "DC to Site Underlay Circuit #1 - Packet Loss",
+            "visualMode": "Full",
+            "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+            "metricGroup": "AGENT_TO_SERVER",
+            "metric": "NET_LOSS",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["DC to Site Underlay Circuit #1"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 10.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "DC to Site Underlay Circuit #2 - Jitter",
+            "visualMode": "Full",
+            "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+            "metricGroup": "AGENT_TO_SERVER",
+            "metric": "Jitter",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["DC to Site Underlay Circuit #2"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 30.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "DC to Site Underlay Circuit #2 - Latency",
+            "visualMode": "Full",
+            "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+            "metricGroup": "AGENT_TO_SERVER",
+            "metric": "Latency",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["DC to Site Underlay Circuit #2"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 300.0
+          },
+          {
+            "type": "Time Series: Line",
+            "title": "DC to Site Underlay Circuit #2 - Packet Loss",
+            "visualMode": "Full",
+            "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+            "metricGroup": "AGENT_TO_SERVER",
+            "metric": "NET_LOSS",
+            "measure": {
+              "type": "Mean"
+            },
+            "filters": {
+              "Test Labels": ["DC to Site Underlay Circuit #2"]
+            },
+            "showTimeseriesOverallBaseline": false,
+            "groupBy": "AGENT_LABEL",
+            "isTimeseriesOneChartPerLine": false,
+            "maxScale": 10.0
+          }
+        ]
+      }
+    ],
+    "dashboards": [
+      {
+        "title": "Cisco SD-WAN Global Dashboard",
+        "isPrivate": false,
+        "isDefaultForUser": false,
+        "isDefaultForAccount": true,
+        "widgets": [
+          {
+            "type": "Alert Grid",
+            "title": "SD-WAN Alerts",
+            "visualMode": "Full",
+            "fixedTimespan": {
+              "value": 1,
+              "unit": "Days"
+            },
+            "alertType": "Agents",
+            "filter": {
+              "filters": [],
+              "type": "any"
+            },
+            "exclude": {
+              "filters": [],
+              "type": "all"
+            }
+          },
+          {
+            "type": "Number",
+            "title": "On-Prem Application - Availability",
+            "visualMode": "Full",
+            "numberCards": [
+              {
+                "description": "On-Prem Application Availability",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": false,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Hours"
+                },
+                "maxScale": 100.0,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Availability",
+                "filters": {
+                  "Tests": ["Site to On-Prem Application"]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Number",
+            "title": "SD-WAN Latency - 24 hours",
+            "visualMode": "Half screen",
+            "numberCards": [
+              {
+                "description": "Site to On-Prem Application Response Time",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 300.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Tests": ["Site to On-Prem Application"]
+                }
+              },
+              {
+                "description": "Site to vSmart Controller - Latency",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 300.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Tests": ["Site to vSmart Controller"]
+                }
+              },
+              {
+                "description": "Site to Data Center Overlay - Latency",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 300.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+                "metricGroup": "AGENT_TO_AGENT",
+                "direction": "TO_TARGET",
+                "metric": "ONE_WAY_NET_LATENCY_TO_TARGET",
+                "filters": {
+                  "Tests": ["Site to Data Center Overlay - Bidirectional"]
+                }
+              },
+              {
+                "description": "Data Center to Site Overlay - Latency",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 300.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+                "metricGroup": "AGENT_TO_AGENT",
+                "direction": "FROM_TARGET",
+                "metric": "ONE_WAY_NET_LATENCY_FROM_TARGET",
+                "filters": {
+                  "Tests": ["Site to Data Center Overlay - Bidirectional"]
+                }
+              },
+              {
+                "description": "Data Center to Site Underlay Circuit #2 - Latency",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 300.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Tests": ["Data Center to Site - Underlay Circuit #2"]
+                }
+              },
+              {
+                "description": "Data Center to Site Underlay Circuit #1 - Latency",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 300.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Tests": ["Data Center to Site - Underlay Circuit #1"]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Number",
+            "title": "SD-WAN Packet Loss - 24 hours",
+            "visualMode": "Half screen",
+            "numberCards": [
+              {
+                "description": "Site to On-Prem Application Packet Loss",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 10.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Packet Loss",
+                "filters": {
+                  "Tests": ["Site to On-Prem Application"]
+                }
+              },
+              {
+                "description": "Site to vSmart Controller - Packet Loss",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 10.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Packet Loss",
+                "filters": {
+                  "Tests": ["Site to vSmart Controller"]
+                }
+              },
+              {
+                "description": "Site to Data Center Overlay - Packet Loss",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 10.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+                "metricGroup": "AGENT_TO_AGENT",
+                "direction": "TO_TARGET",
+                "metric": "ONE_WAY_NET_LOSS_TO_TARGET",
+                "filters": {
+                  "Tests": ["Site to Data Center Overlay - Bidirectional"]
+                }
+              },
+              {
+                "description": "Data Center to Site Overlay - Packet Loss",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 10.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+                "metricGroup": "AGENT_TO_AGENT",
+                "direction": "FROM_TARGET",
+                "metric": "ONE_WAY_NET_LOSS_FROM_TARGET",
+                "filters": {
+                  "Tests": ["Site to Data Center Overlay - Bidirectional"]
+                }
+              },
+              {
+                "description": "Data Center to Site Underlay Circuit #2 - Packet Loss",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 10.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Packet Loss",
+                "filters": {
+                  "Tests": ["Data Center to Site - Underlay Circuit #2"]
+                }
+              },
+              {
+                "description": "Data Center to Site Underlay Circuit #1 - Packet Loss",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 10.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Packet Loss",
+                "filters": {
+                  "Tests": ["Data Center to Site - Underlay Circuit #1"]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Number",
+            "title": "SD-WAN Jitter - 24 hours",
+            "visualMode": "Half screen",
+            "numberCards": [
+              {
+                "description": "Site to On-Prem Application Jitter",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 30.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Jitter",
+                "filters": {
+                  "Tests": ["Site to On-Prem Application"]
+                }
+              },
+              {
+                "description": "Site to vSmart Controller - Jitter",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 30.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Jitter",
+                "filters": {
+                  "Tests": ["Site to vSmart Controller"]
+                }
+              },
+              {
+                "description": "Site to Data Center Overlay - Jitter",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 30.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+                "metricGroup": "AGENT_TO_AGENT",
+                "direction": "TO_TARGET",
+                "metric": "ONE_WAY_NET_JITTER_TO_TARGET",
+                "filters": {
+                  "Tests": ["Site to Data Center Overlay - Bidirectional"]
+                }
+              },
+              {
+                "description": "Data Center to Site Overlay - Jitter",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 30.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+                "metricGroup": "AGENT_TO_AGENT",
+                "direction": "FROM_TARGET",
+                "metric": "ONE_WAY_NET_JITTER_FROM_TARGET",
+                "filters": {
+                  "Tests": ["Site to Data Center Overlay - Bidirectional"]
+                }
+              },
+              {
+                "description": "Data Center to Site Underlay Circuit #2 - Jitter",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 30.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Jitter",
+                "filters": {
+                  "Tests": ["Data Center to Site - Underlay Circuit #2"]
+                }
+              },
+              {
+                "description": "Data Center to Site Underlay Circuit #1 - Jitter",
+                "measure": {
+                  "type": "Mean"
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 1,
+                  "unit": "Days"
+                },
+                "maxScale": 30.0,
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Jitter",
+                "filters": {
+                  "Tests": ["Data Center to Site - Underlay Circuit #1"]
+                }
+              }
+            ]
+          },
+          {
+            "type": "Number",
+            "title": "Baseline SDWAN Performance - 14 Days",
+            "visualMode": "Full",
+            "numberCards": [
+              {
+                "description": "Site to On-Prem Application",
+                "measure": {
+                  "type": "nth Percentile",
+                  "percentileValue": 98.0
+                },
+                "compareToPreviousValue": false,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Web - HTTP Server",
+                "metric": "Response Time",
+                "filters": {
+                  "Tests": ["Site to On-Prem Application"]
+                }
+              },
+              {
+                "description": "Site to vSmart Controller",
+                "measure": {
+                  "type": "nth Percentile",
+                  "percentileValue": 98.0
+                },
+                "compareToPreviousValue": false,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Tests": ["Site to vSmart Controller"]
+                }
+              },
+              {
+                "description": "Data Center to Site - Underlay Circuit #1",
+                "measure": {
+                  "type": "nth Percentile",
+                  "percentileValue": 98.0
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Tests": ["Data Center to Site - Underlay Circuit #1"]
+                }
+              },
+              {
+                "description": "Data Center to Site - Underlay Circuit #2",
+                "measure": {
+                  "type": "nth Percentile",
+                  "percentileValue": 98.0
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "Cloud & Enterprise Agents",
+                "metricGroup": "Network - Agent to Server",
+                "metric": "Latency",
+                "filters": {
+                  "Tests": ["Data Center to Site - Underlay Circuit #2"]
+                }
+              },
+              {
+                "description": "Site to Data Center Overlay",
+                "measure": {
+                  "type": "nth Percentile",
+                  "percentileValue": 98.0
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+                "metricGroup": "AGENT_TO_AGENT",
+                "direction": "FROM_TARGET",
+                "metric": "ONE_WAY_NET_LATENCY_FROM_TARGET",
+                "filters": {
+                  "Tests": ["Site to Data Center Overlay - Bidirectional"]
+                }
+              },
+              {
+                "description": "Data Center to Site Overlay",
+                "measure": {
+                  "type": "nth Percentile",
+                  "percentileValue": 98.0
+                },
+                "compareToPreviousValue": true,
+                "fixedTimespan": {
+                  "value": 14,
+                  "unit": "Days"
+                },
+                "shouldExcludeAlertSuppressionWindows": true,
+                "dataSource": "CLOUD_AND_ENTERPRISE_AGENTS",
+                "metricGroup": "AGENT_TO_AGENT",
+                "direction": "TO_TARGET",
+                "metric": "ONE_WAY_NET_LATENCY_TO_TARGET",
+                "filters": {
+                  "Tests": ["Site to Data Center Overlay - Bidirectional"]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

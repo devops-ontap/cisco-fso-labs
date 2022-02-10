@@ -8,9 +8,9 @@ from netmiko import *
 from netmiko import ConnectHandler
 
 
-key_file='sconrod-dev.pem'
+key_file='ENTER_YOUR_PEM'
 username='ec2-user'
-ip='54.215.86.194'
+ip='ENTER_CSR_PUB_IP'
 
 net_connect = netmiko.ConnectHandler(ip=ip, device_type="cisco_ios", username="ec2-user", key_file=key_file)
 

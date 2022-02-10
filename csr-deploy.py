@@ -195,7 +195,7 @@ with open(outfile_vars, 'a') as my_file:
 #Create a Secondary NIC and assign to the Lan subnet
 #cmd_add_nic_router='aws ec2 create-network-interface --subnet-id' + " " + "{}".format(subnetid_lan) + " " + '--description "csr_nic"' + " " + '--groups' + " " + "{}".format(router_sg_id) + " " + '--private-ip-address 10.10.20.100'
 outfile_add_csr_nic='add-csr-nic.json'
-cmd_add_csr_nic='aws ec2 create-network-interface --region' + " " "{}".format(region) + " " + '--subnet-id' + " " + "{}".format(subnetid_lan) + " " + '--description "csr_nic_lan_sub"' + " " + '--groups' + " " + "{}".format(sgid) + " " + '--private-ip-address 10.10.20.101'
+cmd_add_csr_nic='aws ec2 create-network-interface --region' + " " "{}".format(region) + " " + '--subnet-id' + " " + "{}".format(subnetid_lan) + " " + '--description "csr_nic_lan_sub"' + " " + '--groups' + " " + "{}".format(sgid) + " " + '--private-ip-address 10.10.20.101' + " " + '--tag-specifications' + " " + "'ResourceType=network-interface,Tags=[{Key=Name,Value=" + "{}".format(name) + '}]'"" + "'"
 output = check_output("{}".format(cmd_add_csr_nic), shell=True).decode().strip()
 print("Output: \n{}\n".format(output))
 with open(outfile_add_csr_nic, 'w') as my_file:
@@ -213,6 +213,7 @@ with open(outfile_add_csr_nic) as access_json:
     print(eni_id_var)
 with open(outfile_vars, 'a') as my_file:
     my_file.write(eni_id_var + "\n")
+
 
 
 #Associate the new NIC with the CSRV Instance ID
