@@ -16,14 +16,14 @@ jobs:
       run:
         path: sh
         args:
-          - -exc
+          - -ec
           - |
             echo $AWS_KEY_ID
             echo $AWS_KEY
             export AWS_PAGER=""
             aws configure set aws_access_key_id $AWS_KEY_ID
             aws configure set aws_secret_access_key $AWS_KEY
-            aws configure set default.region us-west-2
+            aws configure set default.region ((region))
             aws sts get-caller-identity --query Account --output text
     task: check-aws
     params:
@@ -50,12 +50,10 @@ jobs:
             - |
               cd git-resource
               export AWS_PAGER=""
-              echo $AWS_KEY_ID
-              echo $AWS_KEY
               export AWS_PAGER=""
               aws configure set aws_access_key_id $AWS_KEY_ID
               aws configure set aws_secret_access_key $AWS_KEY
-              aws configure set default.region us-west-1
+              aws configure set default.region ((region))
               aws sts get-caller-identity --query Account --output text
               export AWS_PAGER=""
               chmod a+x aws_key.sh
@@ -89,7 +87,7 @@ jobs:
               export AWS_PAGER=""
               aws configure set aws_access_key_id $AWS_KEY_ID
               aws configure set aws_secret_access_key $AWS_KEY
-              aws configure set default.region us-west-1
+              aws configure set default.region ((region))
               aws sts get-caller-identity --query Account --output text
               export AWS_PAGER=""
               chmod a+x csr_deploy.sh
@@ -120,7 +118,7 @@ jobs:
               cd git-resource
               aws configure set aws_access_key_id $AWS_KEY_ID
               aws configure set aws_secret_access_key $AWS_KEY
-              aws configure set default.region us-west-1
+              aws configure set default.region ((region))
               aws sts get-caller-identity --query Account --output text
               export AWS_PAGER=""
               chmod a+x aws_ubuntu_lan_deploy.sh
