@@ -7,7 +7,6 @@ https://accounts.appdynamics.com/downloads
 
 Install JRE JRE 1.8 is required.
 sudo apt-get install procps
-
 https://docs.appdynamics.com/22.1/en/infrastructure-visibility/machine-agent/install-the-machine-agent/linux-install-using-zip-with-bundled-jre
 
 
@@ -24,3 +23,287 @@ sudo ./install.sh
 
 https://docs.appdynamics.com/22.1/en/infrastructure-visibility/machine-agent/install-the-machine-agent/linux-install-using-zip-with-bundled-jre#
 
+
+JAVA APP AGENT DOWNLOAD FOR SUPER CAR TRADER APP
+
+
+scp /tmp/AppServerAgent-20.3.0.29587.zip centos@application.vm.ip.address:/tmp/
+installing java agent:
+cd /opt
+sudo mkdir appdynamics
+sudo chown -R centos:centos /opt/appdynamics
+cd /opt/appdynamics
+mkdir javaagent
+
+cp /tmp/AppServerAgent-20.3.0.29587.zip /opt/appdynamics/javaagent/
+cd /opt/appdynamics/javaagent
+unzip AppServerAgent-20.3.0.29587.zip
+
+
+Update the config file
+cd /opt/appdynamics/javaagent/verXX.X.X.XXXXX/conf
+Update the controller-info.xml file
+
+Update the application-name, tier-name, and node-name properties in the file with the following values. Do not change the values of any other properties in the file. If you are using WinSCP to update the file, ensure that the Transfer Settings are set to Text.
+
+<application-name>Supercar-Trader</application-name>
+<tier-name>Web-Portal</tier-name>
+<node-name>Web-Portal_Node-01</node-name>
+
+Your file should be similar to the following example after you have made the changes and saved the file.
+
+Java Install 5
+
+Modify the Apache Tomcat startup script to add the Java agent
+Apache Tomcat is installed and running on your Application VM. Perform the following steps to add the Java agent to the Tomcat startup script.
+
+Use the following command to stop the running instance of Apache Tomcat.
+
+sudo systemctl stop apache-tomcat-7.service
+Find the catalina.sh startup file for Apache Tomcat. The file is located in the following directory.
+
+cd /usr/local/apache/apache-tomcat-7/bin
+Update the catalina.sh file and add the following export command right after line 111 in the file. If you are using WinSCP to update the file, ensure that the Transfer Settings are set to Text.
+
+export CATALINA_OPTS="$CATALINA_OPTS -javaagent:/opt/appdynamics/javaagent/javaagent.jar"
+Your file should be similar to the following example after you have made the changes and saved the file.
+
+Java Install 6
+
+Restart Apache Tomcat using the following command.
+
+sudo systemctl start apache-tomcat-7.service
+Wait for two minutes and use the following command to ensure Apache Tomcat is running on port 8080.
+
+sudo netstat -tulpn | grep LISTEN
+You should see output similar to the following image showing that port 8080 is in use by Apache Tomcat.
+
+Java Install 7
+
+Next: Initialize the sample application
+
+Initialize the sample application
+In this exercise you will perform the following actions:
+
+Clone the GitHub lab repository on your Application VM.
+Install the sample application on Apache Tomcat.
+Start the load generation for the sample application.
+Confirm the transaction load in the Controller.
+Clone the GitHub lab repository
+On the Application VM, use the commands below to clone the GitHub lab repository.
+
+cd /opt/appdynamics
+git clone https://github.com/Appdynamics/DevNet-Labs.git
+The output of the commands will be similar to the following:
+
+Initialize App 1
+
+Install the sample application on Apache Tomcat
+The Apache Tomcat landing page can be accessed through your web browser with a URL in the format http://IP_OF_APPLICATION_VM:8080.
+
+Use the IP address of your Application VM to access the landing page. You should see the Tomcat landing page.
+
+Click Manager App.
+
+You will be prompted to enter a username and password. Use following the case sensitive credentials to login to the Tomcat Manager App.
+
+Username: admin
+Password: welcome1
+Initialize App 2
+
+You should now see the Tomcat Manager App page.
+
+Enter /Supercar-Trader in the Context Path (required): field.
+
+Enter the following path in the WAR or Directory path: field.
+
+file://opt/appdynamics/DevNet-Labs/applications/Supercar-Trader/Supercar-Trader.war
+Click the Deploy button.
+
+Initialize App 3
+
+Once the deployment is completed, you should see the application running as shown in the following image.
+
+Initialize App 4
+
+The sample application home page is accessible through your web browser with a URL in the format http://IP_OF_APPLICATION_VM:8080/Supercar-Trader/home.do. Enter that URL in your browser's navigation bar, substituting the IP Address of your Application VM.
+
+You should see the home page.
+
+Initialize App 5
+
+Start the load generation for the sample application
+Initiate the transaction load for the application using the commands below.
+
+sudo chmod 754 /opt/appdynamics/DevNet-Labs/applications/Load-Generator/phantomjs/*.sh
+
+cd /opt/appdynamics/DevNet-Labs/applications/Load-Generator/phantomjs
+
+./start_load.sh
+You should see similar to the following.
+
+Initialize App 6
+
+Confirm the transaction load in the Controller
+Use your web browser to access the AppDynamics Controller.
+
+Login to the Controller and you should see the Supercar-Trader application.
+
+Double-click on the Supercar-Trader application to open the application flow map.
+
+Initialize App 7
+
+When you open the flow map for the application, you should see all the application components appear after twelve minutes.
+
+If you don't see all the application components after twelve minutes, try waiting a few more minutes and refresh your browser tab.
+
+Initialize App 8
+
+In the last exercise, you updated the controller-info.xml file to assign a Tier name and Node name to the Tomcat JVM.
+
+<tier-name>Web-Portal</tier-name>
+<node-name>Web-Portal_Node-01</node-name>
+You might be wondering how the other four services had their Tier and Node name assigned. The sample application dynamically creates four additional JVMs from the initial Tomcat JVM and assigns the Tier and Node names by passing those properties into the JVM startup command as -D properties for each of the four services. Any -D properties included on the JVM startup command line will supersede the properties defined in the Java agents controller-info.xml file.
+
+To see the JVM startup parameters used for each of the four services that were dynamically started, issue the following command in your terminal window of your Application VM.
+
+ps -ef | grep appdynamics.agent.tierName
+Once all of the components appear on the flow map, you should see an HTTP cloud icon that represents the three HTTP backends called by the Insurance-Services Tier.
+
+Ungroup the the three HTTP backends by following these steps.
+
+Right click the HTTP cloud icon labeled 3 HTTP backends
+From the drop down menu, select Ungroup Backends
+Initialize App 9
+
+Once the HTTP backends have been ungrouped, you should see all three HTTP backends as shown in the following image.
+
+Initialize App 10
+
+Flow maps
+AppDynamics app agents automatically discover the most common application frameworks and services. Using built-in application detection and configuration settings, agents collect application data and metrics to build flow maps.
+
+AppDynamics automatically captures and scores every transaction. Flow maps present a dynamic visual representation of the components and activities of your monitored application environment in direct context of the time frame that you have selected.
+
+Familiarize yourself with the some of the different features of the Flow Map.
+
+Try using the different layout options (you can also click and drag each icon on the flow map to position it)
+Try using the slider to adjust the zoom level
+Look at the Transaction Scorecard
+Explore the options for editing the flow map
+You can read more about Flow Maps here
+
+Initialize App 11
+
+Verifying business transactions
+In the AppDynamics model, a business transaction represents the data processing flow for a request, most often a user request. In real-world terms, many different components in your application may interact to provide services to fulfill the following types of requests:
+
+In an e-commerce application, a user logging in, searching for items or adding items to the cart.
+In a content portal, a user requests content such as sports, business or entertainment news..
+In a stock trading application, operations such as receiving a stock quote, buying or selling stocks.
+Because AppDynamics orients performance monitoring around business transactions, you can focus on the performance of your application components from the user perspective. You can quickly identify whether a component is readily available or if it is having performance issues. For instance, you can check whether users are able to log in, check out or view their data. You can see response times for users, and the causes of problems when they occur.
+
+Verify that business transactions are being automatically detected by following these steps.
+
+Click the Business Transactions option on the left menu.
+Look at the list of Business Transactions and their performance.
+You can read more about Business Transactions here and here
+
+Initialize App 12
+
+Snapshots
+AppDynamics monitors every execution of a business transaction in the instrumented environment, and the metrics reflect all such executions. However, for troubleshooting purposes, AppDynamics takes snapshots (containing deep diagnostic information) of specific instances of transactions that are having problems.
+
+Verify that transaction snapshots are being automatically collected by following these steps.
+
+Click the Application Dashboard option on the left menu.
+Click the Transaction Snapshots tab.
+Click the Exe Time (ms) column to sort the snapshots with the greatest execution time.
+Double-click a business transaction snapshot to display the snapshot viewer.
+Initialize App 13
+
+A transaction snapshot gives you a cross-tier view of the processing flow for a single invocation of a transaction.
+
+The Potential Issues panel highlights slow methods and slow remote service calls and help you investigate the root cause for performance issues.
+
+Drill downs
+Call drill downs provide key information, including slowest methods, errors, and remote service calls for the transaction execution on a tier. A drill down may include a partial or complete call graph. Call graphs reflect the code-level view of the processing of the business transaction on a particular tier.
+
+In the flow map for a business transaction snapshot, a tier with a Drill Down link indicates AppDynamics has taken a call graph for that tier.
+
+Drill down into a call graph of the transaction snapshot by following these steps.
+
+Click on a slow call in the Potential Issues list on the left.
+Click Drill Down into Call Graph.
+Initialize App 14
+
+The call graph view shows you the following details.
+
+The method execution sequence shows the names of the classes and methods that participated in processing the business transaction on this node, in the order in which the flow of control proceeded.
+For each method, you can see the time and percentage spent processing and the line number in the source code, enabling you to pinpoint the location in the code that could be affecting the performance of the transaction.
+The call graph displays exit call links for methods that make outbound calls to other components such as database queries and web service calls.
+You can read more about Transaction Snapshots here
+
+You can read more about Call Graphs here
+
+Initialize App 15
+
+Next: Configure collection settings in the Controller
+
+Configure collection settings in the Controller
+In this exercise you will complete the following tasks:
+
+Adjust Business Transaction auto-detection settings.
+Adjust Call Graph settings.
+Observe results of Business Transaction setting changes.
+Adjust Business Transaction auto-detection settings
+In the last exercise, you validated that the Business Transactions were being auto-detected. There are times when you want to adjust the Business Transaction auto-detection rules to get them to an optimal state. This is the case with our sample application, which is built on an older Apache Struts framework.
+
+The business transactions highlighted in the following image show that each pair has a Struts Action (.execute) and a Servlet type (.jsp). You will be adjusting the settings of the transaction detection rules so that these two types of transactions will be combined into one.
+
+Anytime you see the time frame selector visible in the AppDynamics UI, the view you see will represent the context of the time frame selected. You can choose one of the pre-defined time frames or create your own custom time frame with the specific date and time range you want to view.
+
+Select the last 1 hour time frame.
+Use your mouse to hover over the blue icons to see the Entry Point Type of the transaction.
+Config Settings 1
+
+Optimize the transaction detection by following these steps.
+
+Click the Configuration option toward the bottom left menu.
+Click the Instrumentation link.
+Config Settings 2
+
+Select Transaction Detection from the Instrumentation menu.
+Select the Java Auto Discovery Rule.
+Click Edit.
+Config Settings 3
+
+Select the Rule Configuration tab on the Rule Editor.
+Uncheck all the boxes on Struts Action.
+Uncheck all the boxes on Web Service.
+Scroll down to find the Servlet settings.
+Check the box Enable Servlet Filter Detection (all three boxes should be checked on Servlet settings).
+Click Save to save your changes.
+You can read more about Transaction Detection Rules here.
+
+Config Settings 4
+Config Settings 5
+
+Adjust Call Graph settings
+You can control the data captured in call graphs within transaction snapshots with the Call Graph Settings window seen below. In this step you will change the SQL Capture settings so the parameters of each SQL query are captured along with the full query. You can change the SQL Capture settings by following these steps.
+
+Select the Call Graph Settings tab from the Instrumentation window.
+Ensure you have the Java tab selected within the settings.
+Scroll down until you see the SQL Capture Settings.
+Click the Capture Raw SQL option.
+Click Save.
+You can read more about Call Graph settings here.
+
+Config Settings 6
+
+Observe results of Business Transaction setting changes.
+It may take up to 30 minutes for the new business transactions to replace the prior transactions. The list of business transactions should look like the following example after the new transactions are detected.
+
+Config Settings 7
+
+Next: Monitor and troubleshoot application issues - Part 1

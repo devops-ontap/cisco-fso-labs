@@ -1,3 +1,7 @@
+The Thousand Eyes Agent must be installed Manaually or via script.
+The API is not currently enabled to setup the agents via API
+
+API calls are quite limited at this point and are mostly used to set up test
 
 
 curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
