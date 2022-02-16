@@ -1,3 +1,19 @@
+Catalyst DNA 8000 switch
+
+Virginia
+ami-0216821a00dda2db3
+
+Ohio
+ami-00bc0a0b8b804c85e
+
+California
+ami-0c3f9d6c64b21282a
+
+
+
+
+
+
 Cisco Cloud Services Router (CSR) 1000V - BYOL for SD-WAN 17.3
 Virginia:
 US-EAST
@@ -24,3 +40,5 @@ Ami Id: ami-05117a5348bb8a291
 
 CALIFORNIA - US-WEST-1
 ami-0c5db8b1650fb4b47
+
+

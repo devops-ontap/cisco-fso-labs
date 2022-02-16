@@ -9,6 +9,9 @@ Install JRE JRE 1.8 is required.
 sudo apt-get install procps
 https://docs.appdynamics.com/22.1/en/infrastructure-visibility/machine-agent/install-the-machine-agent/linux-install-using-zip-with-bundled-jre
 
+https://docs.appdynamics.com/4.5.x/en/infrastructure-visibility/machine-agent/install-the-machine-agent
+See Independant machine Agent
+
 
 
 Linux 64 Bit

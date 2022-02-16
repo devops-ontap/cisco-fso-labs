@@ -1,0 +1,426 @@
+ip-10-10-10-235==> [main] 15 Feb 2022 22:25:08,288  INFO FlexibleX509TrustManager - Using default keystore for SSL certificate validation.
+ip-10-10-10-235==> [main] 15 Feb 2022 22:25:09,031  INFO HostIdProvider - Default Host Identifier Resolver using host name for unique host identifier [ip-10-10-10-235]
+ip-10-10-10-235==> [main] 15 Feb 2022 22:25:09,142  INFO MachineLicensePropertiesProvider - Detected Virtual CPU Count: 1
+ip-10-10-10-235==> [main] 15 Feb 2022 22:25:09,142  INFO MachineLicensePropertiesProvider - Detected Logical CPU Count: 1
+ip-10-10-10-235==> [main] 15 Feb 2022 22:25:09,143  INFO MachineLicensePropertiesProvider - Detected Physical CPU Count: 1
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:11,539  INFO SecondStageSystem - Starting main system with features Features(features=[dmm, sim], reason=Features.Reason(message=, code=))
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,135  INFO SystemAgent - ####################################################################################
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,135  INFO SystemAgent - Agent Install Directory [/home/ubuntu]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,135  INFO SystemAgent - Using Agent Version [Machine Agent v22.1.0-3252 GA compatible with 4.4.1.0 Build Date 2022-01-23 09:46:20]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,137  INFO SystemAgent - JVM Runtime: 
+	java.home=/home/ubuntu/jre
+	java.vm.vendor=Azul Systems, Inc.
+	java.vm.name=OpenJDK 64-Bit Server VM
+	java.version=11.0.13
+	java.specification.version=11
+	java.runtime.version=11.0.13+8-LTS
+	java.io.tmpdir=/tmp
+	user.language=en
+	user.country=US
+	user.variant=
+	Default locale=en_US
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,137  INFO SystemAgent - OS Runtime: 
+	os.name=Linux
+	os.arch=amd64
+	os.version=5.11.0-1027-aws
+	user.name=ubuntu
+	user.home=/home/ubuntu
+	user.dir=/home/ubuntu
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,137  INFO SystemAgent - JVM Args : -Xmx256m | -Dlog4j.configuration=file:/home/ubuntu/conf/logging/log4j.xml | 
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,154  INFO SystemAgent - JVM Runtime Name: 18604@ip-10-10-10-235
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,155  INFO SystemAgent - JVM PID: 18604
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,155  INFO SystemAgent - Machine Agent is resolving bootstrap info....
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,315  INFO SystemAgent - Orchestration is disabled - disabling virtualization resolvers by default.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,323  INFO SystemAgent - Full Agent Registration Info Resolver found system property [appdynamics.agent.create.agent.info.if.missing] for appdynamics.agent.create.agent.info.if.missing [false]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,339  INFO SystemAgent - Default Host Identifier Resolver using host name for unique host identifier [ip-10-10-10-235]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,342  INFO SystemAgent - Default IP Address Resolver found IP addresses [[fe80:0:0:0:469:49ff:fe18:26fb%eth0, 10.10.10.235]]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,350  INFO SystemAgent - Full Agent Registration Info Resolver using selfService [false]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,350  INFO SystemAgent - Full Agent Registration Info Resolver using ephemeral node setting [false]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,350  INFO SystemAgent - Full Agent Registration Info Resolver using application name [null]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,351  INFO SystemAgent - Full Agent Registration Info Resolver using tier name [null]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,351  INFO SystemAgent - Full Agent Registration Info Resolver using node name [null]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,355  INFO SystemAgent - XML Controller Info Resolver found controller host [cisco-apipartnertraininglab.saas.appdynamics.com]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,357  INFO SystemAgent - XML Controller Info Resolver found controller port [443]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,364  INFO SystemAgent - XML Agent Account Info Resolver using account name [cisco-apipartnertraininglab]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,364  INFO SystemAgent - XML Agent Account Info Resolver using account access key [****]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,369  INFO SystemAgent - Keystore file /home/ubuntu/conf/cacerts.jks was not found
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,388  INFO SystemAgent - Machine Agent resolved bootstrap info!
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,388  INFO SystemAgent - Creating machine agent scheduler, pool size: 2
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,402  INFO SystemAgent - Creating machine agent monitor scheduler, pool size: 4
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,406  INFO SystemAgent - Started Agent Schedulers
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:25:12,430  INFO DefaultLegacyAgentRegistrationStateManager - Registered machine with machine ID [Optional.of(599374)]
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:25:12,432  INFO DefaultLegacyAgentRegistrationStateManager - Scheduling System-Agent start...
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,442  INFO SimAgentRepetitiveLoggingModule - The turnover time for the SIM agent repetitive logger is 5 minutes
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,444  INFO SimAgentRepetitiveLoggingModule - The cache size for the SIM agent repetitive logger is 1000
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:12,825  INFO Fabric8Client - No Kubernetes was detected.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,171  INFO DefaultLegacyAgentRegistrationStateManager - Starting machine agent...
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,172  INFO SystemAgent - Starting Machine Agent....
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,172  INFO ControllerTimeSkewHandler - Skew Handler is : [enabled].
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,287  INFO SystemAgent - Full certificate chain validation performed using default certificate file
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,422  INFO ManagedMonitorDelegate - Started Agent Metric Generation Service
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,438  INFO ManagedMonitorDelegate - Event Service is : [enabled].
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,453  INFO ManagedMonitorDelegate - Initialized with maxPublishQueueLength [2], aggregationFrequencyInMillis [60000]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,462  INFO ManagedMonitorDelegate - Metric Service is : [enabled].
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,464  INFO ManagedMonitorDelegate - Started Agent Env Properties Service
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,470  INFO ManagedMonitorDelegate - Scheduled Continuous Task Monitor with frequency [30000]ms
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,475  INFO MonitorConfigReader - Reading monitor config file:/home/ubuntu/monitors/analytics-agent/monitor.xml
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,497  INFO MonitorConfigReader - os name [linux] version [5.11.0-1027-aws]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,507  INFO NodeMonitorManager - Initializing managed monitor [analytics-agent]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,507  INFO ManagedMonitorDelegate - Initializing managed monitor [AppDynamics Analytics Agent]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,507  INFO ManagedMonitorDelegate - Executing managed monitor [AppDynamics Analytics Agent], task name [null]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,507  INFO ManagedMonitorDelegate - Task [null] for monitor [AppDynamics Analytics Agent] is SCHEDULED
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,535  INFO InProcessLauncherTask - Found a directory [/home/ubuntu/monitors/analytics-agent/lib]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,552  INFO InProcessLauncherTask - Working directory appears to be [/home/ubuntu/monitors/analytics-agent]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,553  INFO AnalyticsAgentLauncher - The logs directory property [ad.dw.log.path] has been set to [/home/ubuntu/logs]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:13,553  INFO InProcessLauncherTask - Starting to execute actual task with parameters [{csvMethodArgs=/home/ubuntu/monitors/analytics-agent/conf/analytics-agent.properties, methodName=main, className=com.appdynamics.analytics.agent.AnalyticsAgent}]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:25,718  INFO InProcessLauncherTask - Started [com.appdynamics.analytics.agent.AnalyticsAgent]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:25,723  INFO NodeMonitorManager - Not running legacy system-agent monitor because SIM is enabled.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:25,723  INFO NodeMonitorManager - Not running legacy system-agent monitor because SIM is enabled.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:25,723  INFO NodeMonitorManager - Directory [/home/ubuntu/monitors/unmanaged] not found, continuing.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:25,723  INFO AgentMonitorManager - Initialized System Monitor Manager with directory [/home/ubuntu/monitors]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:25,723  INFO SystemAgent - Set up agent monitor manager
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:25,725  INFO SystemAgent - Orchestration is disabled - disabling one-way agent transport. The agent will not be able to execute workflow tasks.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:25,733  INFO SystemAgentConfigManager - Scheduling configuration refresh at an interval of 60 seconds
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:25,738  INFO SystemAgentConfigManager - Configuration refresh task interval is 60 seconds
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:25,738  INFO SystemAgent - Configuration manager successfully configured
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:25,741  INFO RunbookHandler - Runbook Operation Execution is : [enabled].
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:25:25,741  INFO SystemAgent - Started AppDynamics Machine Agent Successfully.
+ip-10-10-10-235==> [ExtensionStarter-AgentServer] 15 Feb 2022 22:25:42,860  INFO SystemAgent - Creating machine agent scheduler, pool size: 2
+ip-10-10-10-235==> [ExtensionStarter-AgentServer] 15 Feb 2022 22:25:42,861  INFO SystemAgent - Creating machine agent monitor scheduler, pool size: 4
+ip-10-10-10-235==> [ExtensionStarter-AgentServer] 15 Feb 2022 22:25:42,861  INFO SystemAgent - Started Agent Schedulers
+ip-10-10-10-235==> [ExtensionStarter-ServerMonitoring] 15 Feb 2022 22:25:44,149  INFO ServersExtensionModule - OS is LINUX
+ip-10-10-10-235==> [ExtensionStarter-ServerMonitoring] 15 Feb 2022 22:25:45,053  INFO SystemAgent - Creating machine agent scheduler, pool size: 2
+ip-10-10-10-235==> [ExtensionStarter-ServerMonitoring] 15 Feb 2022 22:25:45,054  INFO SystemAgent - Creating machine agent monitor scheduler, pool size: 4
+ip-10-10-10-235==> [ExtensionStarter-ServerMonitoring] 15 Feb 2022 22:25:45,054  INFO SystemAgent - Started Agent Schedulers
+ip-10-10-10-235==> [extension-scheduler-pool-0] 15 Feb 2022 22:25:45,057  INFO ServersDataCollectorManager - There is change in components collection configurations.
+ip-10-10-10-235==> [ExtensionStarter-ServerMonitoring] 15 Feb 2022 22:25:45,100  INFO ServersDataCollectorManager - Version of free command : free from procps-ng 3.3.16
+ip-10-10-10-235==> [extension-scheduler-pool-0] 15 Feb 2022 22:25:45,102  INFO ServersDataCollectorManager - Starting data collectors.
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:25:45,125  INFO AwsTagsScheduledRunner - Started AWS tags scheduled runner to poll for tags
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:25:45,127  INFO K8sTagsScheduledRunner - Started K8s tags scheduled runner to poll for tags
+ip-10-10-10-235==> [ExtensionStarter-NetVizExtension] 15 Feb 2022 22:25:45,428  INFO SystemAgent - Creating machine agent scheduler, pool size: 2
+ip-10-10-10-235==> [ExtensionStarter-NetVizExtension] 15 Feb 2022 22:25:45,428  INFO SystemAgent - Creating machine agent monitor scheduler, pool size: 4
+ip-10-10-10-235==> [ExtensionStarter-NetVizExtension] 15 Feb 2022 22:25:45,429  INFO SystemAgent - Started Agent Schedulers
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:25:45,433  INFO NetVizConfigrationListener - Applying conf: NetVizConfiguration(start=false)
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:25:45,634  INFO NetVizConfigrationListener - NetViz Agent is not running
+ip-10-10-10-235==> [extension-scheduler-pool-0] 15 Feb 2022 22:25:45,887  INFO ServersDataCollector - Started servers data collector - DataCollectorConfig(samplingInterval=30000, componentNames=[partitions, monitored.process.classes, networks, load, operating.system, memory, availability, volumes, cpus]).
+ip-10-10-10-235==> [extension-scheduler-pool-0] 15 Feb 2022 22:25:45,892  INFO ServersDataCollector - Started servers data collector - DataCollectorConfig(samplingInterval=30001, componentNames=[remote.volumes, partitions]).
+ip-10-10-10-235==> [ExtensionStarter-DockerMonitoring] 15 Feb 2022 22:25:45,982  INFO SystemAgent - Creating machine agent scheduler, pool size: 2
+ip-10-10-10-235==> [ExtensionStarter-DockerMonitoring] 15 Feb 2022 22:25:45,982  INFO SystemAgent - Creating machine agent monitor scheduler, pool size: 4
+ip-10-10-10-235==> [ExtensionStarter-DockerMonitoring] 15 Feb 2022 22:25:45,989  INFO SystemAgent - Started Agent Schedulers
+ip-10-10-10-235==> [ExtensionStarter-DockerMonitoring] 15 Feb 2022 22:25:45,994  INFO DockerMonitoringModule - Initializing Executor Service for Docker Metric Collection, pool size:  3
+ip-10-10-10-235==> [ExtensionStarter-DockerMonitoring] 15 Feb 2022 22:25:46,023 ERROR CGroupFileSystemRootProvider - Could not find CGroup files in following path(s) : [/sys/fs/cgroup, /cgroup]
+ip-10-10-10-235==> [ExtensionStarter-DockerMonitoring] 15 Feb 2022 22:25:46,244  INFO DockerMonitor - Not starting docker monitoring extension
+ip-10-10-10-235==> [ExtensionStarter-DockerMonitoring] 15 Feb 2022 22:25:46,245  INFO DockerMonitor - Docker Enabled: false; SIM Enabled: true; MA Plus available: false
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:25:46,283  INFO DockerMonitorConfigListener - Docker tags is collection is disabled.
+ip-10-10-10-235==> [ExtensionStarter-CrashGuard] 15 Feb 2022 22:25:46,353  INFO SystemAgent - Creating machine agent scheduler, pool size: 2
+ip-10-10-10-235==> [ExtensionStarter-CrashGuard] 15 Feb 2022 22:25:46,353  INFO SystemAgent - Creating machine agent monitor scheduler, pool size: 4
+ip-10-10-10-235==> [ExtensionStarter-CrashGuard] 15 Feb 2022 22:25:46,354  INFO SystemAgent - Started Agent Schedulers
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:25:48,259  INFO CrashGuardRunner - Not starting crash guard extension because it is disabled.To enable, please update the configuration enabled in CrashGuardConfig.yml.
+ip-10-10-10-235==> [extension-scheduler-pool-6] 15 Feb 2022 22:26:15,057  INFO ServersDataCollectorManager - There is change in components collection configurations.
+ip-10-10-10-235==> [extension-scheduler-pool-6] 15 Feb 2022 22:26:15,058  INFO ServersDataCollector - Stopped servers data collector - DataCollectorConfig(samplingInterval=30000, componentNames=[partitions, monitored.process.classes, networks, load, operating.system, memory, availability, volumes, cpus]).
+ip-10-10-10-235==> [extension-scheduler-pool-6] 15 Feb 2022 22:26:15,059  INFO ServersDataCollector - Stopped servers data collector - DataCollectorConfig(samplingInterval=30001, componentNames=[remote.volumes, partitions]).
+ip-10-10-10-235==> [extension-scheduler-pool-6] 15 Feb 2022 22:26:15,059  INFO ServersDataCollectorManager - Starting data collectors.
+ip-10-10-10-235==> [extension-scheduler-pool-6] 15 Feb 2022 22:26:15,062  INFO ServersDataCollector - Started servers data collector - DataCollectorConfig(samplingInterval=30000, componentNames=[monitored.process.classes, networks, load, operating.system, availability]).
+ip-10-10-10-235==> [extension-scheduler-pool-6] 15 Feb 2022 22:26:15,062  INFO ServersDataCollector - Started servers data collector - DataCollectorConfig(samplingInterval=30001, componentNames=[remote.volumes, partitions]).
+ip-10-10-10-235==> [extension-scheduler-pool-6] 15 Feb 2022 22:26:15,063  INFO ServersDataCollector - Started servers data collector - DataCollectorConfig(samplingInterval=3000, componentNames=[partitions, memory, volumes, cpus]).
+ip-10-10-10-235==> [main] 15 Feb 2022 22:34:53,077  INFO FlexibleX509TrustManager - Using default keystore for SSL certificate validation.
+ip-10-10-10-235==> [main] 15 Feb 2022 22:34:53,767  INFO HostIdProvider - Default Host Identifier Resolver using host name for unique host identifier [ip-10-10-10-235]
+ip-10-10-10-235==> [main] 15 Feb 2022 22:34:53,868  INFO MachineLicensePropertiesProvider - Detected Virtual CPU Count: 1
+ip-10-10-10-235==> [main] 15 Feb 2022 22:34:53,868  INFO MachineLicensePropertiesProvider - Detected Logical CPU Count: 1
+ip-10-10-10-235==> [main] 15 Feb 2022 22:34:53,869  INFO MachineLicensePropertiesProvider - Detected Physical CPU Count: 1
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:54,879  INFO SecondStageSystem - Starting main system with features Features(features=[dmm, sim], reason=Features.Reason(message=, code=))
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,451  INFO SystemAgent - ####################################################################################
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,451  INFO SystemAgent - Agent Install Directory [/home/ubuntu]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,451  INFO SystemAgent - Using Agent Version [Machine Agent v22.1.0-3252 GA compatible with 4.4.1.0 Build Date 2022-01-23 09:46:20]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,453  INFO SystemAgent - JVM Runtime: 
+	java.home=/home/ubuntu/jre
+	java.vm.vendor=Azul Systems, Inc.
+	java.vm.name=OpenJDK 64-Bit Server VM
+	java.version=11.0.13
+	java.specification.version=11
+	java.runtime.version=11.0.13+8-LTS
+	java.io.tmpdir=/tmp
+	user.language=en
+	user.country=US
+	user.variant=
+	Default locale=en_US
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,453  INFO SystemAgent - OS Runtime: 
+	os.name=Linux
+	os.arch=amd64
+	os.version=5.11.0-1027-aws
+	user.name=ubuntu
+	user.home=/home/ubuntu
+	user.dir=/home/ubuntu
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,453  INFO SystemAgent - JVM Args : -Xmx256m | -Dlog4j.configuration=file:/home/ubuntu/conf/logging/log4j.xml | 
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,467  INFO SystemAgent - JVM Runtime Name: 19087@ip-10-10-10-235
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,467  INFO SystemAgent - JVM PID: 19087
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,467  INFO SystemAgent - Machine Agent is resolving bootstrap info....
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,680  INFO SystemAgent - Orchestration is disabled - disabling virtualization resolvers by default.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,684  INFO SystemAgent - Full Agent Registration Info Resolver found system property [appdynamics.agent.create.agent.info.if.missing] for appdynamics.agent.create.agent.info.if.missing [false]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,703  INFO SystemAgent - Default Host Identifier Resolver using host name for unique host identifier [ip-10-10-10-235]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,707  INFO SystemAgent - Default IP Address Resolver found IP addresses [[fe80:0:0:0:469:49ff:fe18:26fb%eth0, 10.10.10.235]]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,718  INFO SystemAgent - Full Agent Registration Info Resolver using selfService [false]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,718  INFO SystemAgent - Full Agent Registration Info Resolver using ephemeral node setting [false]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,719  INFO SystemAgent - Full Agent Registration Info Resolver using application name [null]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,722  INFO SystemAgent - Full Agent Registration Info Resolver using tier name [null]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,723  INFO SystemAgent - Full Agent Registration Info Resolver using node name [null]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,730  INFO SystemAgent - XML Controller Info Resolver found controller host [cisco-apipartnertraininglab.saas.appdynamics.com]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,731  INFO SystemAgent - XML Controller Info Resolver found controller port [443]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,738  INFO SystemAgent - XML Agent Account Info Resolver using account name [cisco-apipartnertraininglab]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,738  INFO SystemAgent - XML Agent Account Info Resolver using account access key [****]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,740  INFO SystemAgent - Keystore file /home/ubuntu/conf/cacerts.jks was not found
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,766  INFO SystemAgent - Machine Agent resolved bootstrap info!
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,767  INFO SystemAgent - Creating machine agent scheduler, pool size: 2
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,786  INFO SystemAgent - Creating machine agent monitor scheduler, pool size: 4
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,791  INFO SystemAgent - Started Agent Schedulers
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:34:55,807  INFO DefaultLegacyAgentRegistrationStateManager - Registered machine with machine ID [Optional.of(599374)]
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:34:55,810  INFO DefaultLegacyAgentRegistrationStateManager - Scheduling System-Agent start...
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,820  INFO SimAgentRepetitiveLoggingModule - The turnover time for the SIM agent repetitive logger is 5 minutes
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:55,820  INFO SimAgentRepetitiveLoggingModule - The cache size for the SIM agent repetitive logger is 1000
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,189  INFO Fabric8Client - No Kubernetes was detected.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,265  INFO DefaultLegacyAgentRegistrationStateManager - Starting machine agent...
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,265  INFO SystemAgent - Starting Machine Agent....
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,270  INFO ControllerTimeSkewHandler - Skew Handler is : [enabled].
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,386  INFO SystemAgent - Full certificate chain validation performed using default certificate file
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,508  INFO ManagedMonitorDelegate - Started Agent Metric Generation Service
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,522  INFO ManagedMonitorDelegate - Event Service is : [enabled].
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,535  INFO ManagedMonitorDelegate - Initialized with maxPublishQueueLength [2], aggregationFrequencyInMillis [60000]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,543  INFO ManagedMonitorDelegate - Metric Service is : [enabled].
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,545  INFO ManagedMonitorDelegate - Started Agent Env Properties Service
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,550  INFO ManagedMonitorDelegate - Scheduled Continuous Task Monitor with frequency [30000]ms
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,556  INFO MonitorConfigReader - Reading monitor config file:/home/ubuntu/monitors/analytics-agent/monitor.xml
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,574  INFO MonitorConfigReader - os name [linux] version [5.11.0-1027-aws]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,583  INFO NodeMonitorManager - Initializing managed monitor [analytics-agent]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,583  INFO ManagedMonitorDelegate - Initializing managed monitor [AppDynamics Analytics Agent]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,583  INFO ManagedMonitorDelegate - Executing managed monitor [AppDynamics Analytics Agent], task name [null]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,584  INFO ManagedMonitorDelegate - Task [null] for monitor [AppDynamics Analytics Agent] is SCHEDULED
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,610  INFO InProcessLauncherTask - Found a directory [/home/ubuntu/monitors/analytics-agent/lib]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,627  INFO InProcessLauncherTask - Working directory appears to be [/home/ubuntu/monitors/analytics-agent]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,628  INFO AnalyticsAgentLauncher - The logs directory property [ad.dw.log.path] has been set to [/home/ubuntu/logs]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:34:56,628  INFO InProcessLauncherTask - Starting to execute actual task with parameters [{csvMethodArgs=/home/ubuntu/monitors/analytics-agent/conf/analytics-agent.properties, methodName=main, className=com.appdynamics.analytics.agent.AnalyticsAgent}]
+ip-10-10-10-235==> [Thread-0] 15 Feb 2022 22:35:07,361  INFO SecondStageSystem - Stopping main system with features Features(features=[dmm, sim], reason=Features.Reason(message=, code=)).
+ip-10-10-10-235==> [Thread-0] 15 Feb 2022 22:35:07,362  INFO ManagedScheduledThreadPool - Shutting down extensions thread pool
+ip-10-10-10-235==> [Thread-0] 15 Feb 2022 22:35:07,362  INFO SystemAgent - Stopping Machine Agent....
+ip-10-10-10-235==> [Thread-0] 15 Feb 2022 22:35:07,366  INFO SystemAgent - Shutting down agent scheduler manager
+ip-10-10-10-235==> [Thread-1] 15 Feb 2022 22:35:07,370  INFO SystemAgent - Stopping Machine Agent....
+ip-10-10-10-235==> [Thread-1] 15 Feb 2022 22:35:07,371  INFO SystemAgent - Shutting down agent scheduler manager
+ip-10-10-10-235==> [Thread-0] 15 Feb 2022 22:35:07,375  INFO SystemAgent - Shutting down agent scheduler manager
+ip-10-10-10-235==> [Thread-0] 15 Feb 2022 22:35:07,375  INFO SystemAgent - Shutting down scheduler
+ip-10-10-10-235==> [Thread-1] 15 Feb 2022 22:35:07,375  INFO SystemAgent - Shutting down agent scheduler manager
+ip-10-10-10-235==> [Thread-0] 15 Feb 2022 22:35:07,375  INFO SystemAgent - Stopped scheduler
+ip-10-10-10-235==> [Thread-0] 15 Feb 2022 22:35:07,375  INFO SystemAgent - Shutting down monitor scheduler
+ip-10-10-10-235==> [Thread-0] 15 Feb 2022 22:35:07,375  INFO SystemAgent - Machine Agent Stopped!
+ip-10-10-10-235==> [Thread-1] 15 Feb 2022 22:35:07,378  INFO SystemAgent - Machine Agent Stopped!
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:08,127  INFO InProcessLauncherTask - Started [com.appdynamics.analytics.agent.AnalyticsAgent]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:08,130  INFO NodeMonitorManager - Not running legacy system-agent monitor because SIM is enabled.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:08,131  INFO NodeMonitorManager - Not running legacy system-agent monitor because SIM is enabled.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:08,131  INFO NodeMonitorManager - Directory [/home/ubuntu/monitors/unmanaged] not found, continuing.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:08,131  INFO AgentMonitorManager - Initialized System Monitor Manager with directory [/home/ubuntu/monitors]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:08,131  INFO SystemAgent - Set up agent monitor manager
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:08,133  INFO SystemAgent - Orchestration is disabled - disabling one-way agent transport. The agent will not be able to execute workflow tasks.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:08,133 ERROR SystemAgent - Error Starting Machine Agent
+java.lang.IllegalStateException: Agent Scheduler not initialized
+	at com.singularity.ee.agent.configuration.impl.AgentSchedulerManagerInstance.getAgentGlobalScheduler(AgentSchedulerManagerInstance.java:336) ~[shared-21.11.4.33358.jar:?]
+	at com.singularity.ee.agent.configuration.impl.AgentSchedulerManager.getAgentGlobalScheduler(AgentSchedulerManager.java:68) ~[shared-21.11.4.33358.jar:?]
+	at com.singularity.ee.agent.systemagent.Agent.setupConfigurationManager(Agent.java:436) ~[machineagent.jar:Machine Agent v22.1.0-3252 GA compatible with 4.4.1.0 Build Date 2022-01-23 09:46:20]
+	at com.singularity.ee.agent.systemagent.Agent.startServices(Agent.java:403) ~[machineagent.jar:Machine Agent v22.1.0-3252 GA compatible with 4.4.1.0 Build Date 2022-01-23 09:46:20]
+	at com.singularity.ee.agent.systemagent.SystemAgent.startServices(SystemAgent.java:79) ~[machineagent.jar:Machine Agent v22.1.0-3252 GA compatible with 4.4.1.0 Build Date 2022-01-23 09:46:20]
+	at com.singularity.ee.agent.systemagent.Agent.start(Agent.java:378) [machineagent.jar:Machine Agent v22.1.0-3252 GA compatible with 4.4.1.0 Build Date 2022-01-23 09:46:20]
+	at com.appdynamics.agent.sim.legacy.DefaultLegacyAgentRegistrationStateManager$1.run(DefaultLegacyAgentRegistrationStateManager.java:80) [machineagent.jar:Machine Agent v22.1.0-3252 GA compatible with 4.4.1.0 Build Date 2022-01-23 09:46:20]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source) [?:?]
+	at java.util.concurrent.FutureTask.run(Unknown Source) [?:?]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(Unknown Source) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) [?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) [?:?]
+	at java.lang.Thread.run(Unknown Source) [?:?]
+ip-10-10-10-235==> [main] 15 Feb 2022 22:35:20,524  INFO FlexibleX509TrustManager - Using default keystore for SSL certificate validation.
+ip-10-10-10-235==> [main] 15 Feb 2022 22:35:21,163  INFO HostIdProvider - Default Host Identifier Resolver using host name for unique host identifier [ip-10-10-10-235]
+ip-10-10-10-235==> [main] 15 Feb 2022 22:35:21,268  INFO MachineLicensePropertiesProvider - Detected Virtual CPU Count: 1
+ip-10-10-10-235==> [main] 15 Feb 2022 22:35:21,268  INFO MachineLicensePropertiesProvider - Detected Logical CPU Count: 1
+ip-10-10-10-235==> [main] 15 Feb 2022 22:35:21,268  INFO MachineLicensePropertiesProvider - Detected Physical CPU Count: 1
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,174  INFO SecondStageSystem - Starting main system with features Features(features=[dmm, sim], reason=Features.Reason(message=, code=))
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,743  INFO SystemAgent - ####################################################################################
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,743  INFO SystemAgent - Agent Install Directory [/home/ubuntu]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,743  INFO SystemAgent - Using Agent Version [Machine Agent v22.1.0-3252 GA compatible with 4.4.1.0 Build Date 2022-01-23 09:46:20]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,744  INFO SystemAgent - JVM Runtime: 
+	java.home=/home/ubuntu/jre
+	java.vm.vendor=Azul Systems, Inc.
+	java.vm.name=OpenJDK 64-Bit Server VM
+	java.version=11.0.13
+	java.specification.version=11
+	java.runtime.version=11.0.13+8-LTS
+	java.io.tmpdir=/tmp
+	user.language=en
+	user.country=US
+	user.variant=
+	Default locale=en_US
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,744  INFO SystemAgent - OS Runtime: 
+	os.name=Linux
+	os.arch=amd64
+	os.version=5.11.0-1027-aws
+	user.name=ubuntu
+	user.home=/home/ubuntu
+	user.dir=/home/ubuntu
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,744  INFO SystemAgent - JVM Args : -Xmx256m | -Dlog4j.configuration=file:/home/ubuntu/conf/logging/log4j.xml | 
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,757  INFO SystemAgent - JVM Runtime Name: 19174@ip-10-10-10-235
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,757  INFO SystemAgent - JVM PID: 19174
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,758  INFO SystemAgent - Machine Agent is resolving bootstrap info....
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,921  INFO SystemAgent - Orchestration is disabled - disabling virtualization resolvers by default.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,925  INFO SystemAgent - Full Agent Registration Info Resolver found system property [appdynamics.agent.create.agent.info.if.missing] for appdynamics.agent.create.agent.info.if.missing [false]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,942  INFO SystemAgent - Default Host Identifier Resolver using host name for unique host identifier [ip-10-10-10-235]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,948  INFO SystemAgent - Default IP Address Resolver found IP addresses [[fe80:0:0:0:469:49ff:fe18:26fb%eth0, 10.10.10.235]]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,953  INFO SystemAgent - Full Agent Registration Info Resolver using selfService [false]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,954  INFO SystemAgent - Full Agent Registration Info Resolver using ephemeral node setting [false]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,954  INFO SystemAgent - Full Agent Registration Info Resolver using application name [null]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,954  INFO SystemAgent - Full Agent Registration Info Resolver using tier name [null]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,954  INFO SystemAgent - Full Agent Registration Info Resolver using node name [null]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,969  INFO SystemAgent - XML Controller Info Resolver found controller host [cisco-apipartnertraininglab.saas.appdynamics.com]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,969  INFO SystemAgent - XML Controller Info Resolver found controller port [443]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,977  INFO SystemAgent - XML Agent Account Info Resolver using account name [cisco-apipartnertraininglab]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,978  INFO SystemAgent - XML Agent Account Info Resolver using account access key [****]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:22,980  INFO SystemAgent - Keystore file /home/ubuntu/conf/cacerts.jks was not found
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,003  INFO SystemAgent - Machine Agent resolved bootstrap info!
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,003  INFO SystemAgent - Creating machine agent scheduler, pool size: 2
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,018  INFO SystemAgent - Creating machine agent monitor scheduler, pool size: 4
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,022  INFO SystemAgent - Started Agent Schedulers
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:35:23,051  INFO DefaultLegacyAgentRegistrationStateManager - Registered machine with machine ID [Optional.of(599374)]
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:35:23,054  INFO DefaultLegacyAgentRegistrationStateManager - Scheduling System-Agent start...
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,069  INFO SimAgentRepetitiveLoggingModule - The turnover time for the SIM agent repetitive logger is 5 minutes
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,069  INFO SimAgentRepetitiveLoggingModule - The cache size for the SIM agent repetitive logger is 1000
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,421  INFO Fabric8Client - No Kubernetes was detected.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,676  INFO DefaultLegacyAgentRegistrationStateManager - Starting machine agent...
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,676  INFO SystemAgent - Starting Machine Agent....
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,677  INFO ControllerTimeSkewHandler - Skew Handler is : [enabled].
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,787  INFO SystemAgent - Full certificate chain validation performed using default certificate file
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,901  INFO ManagedMonitorDelegate - Started Agent Metric Generation Service
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,917  INFO ManagedMonitorDelegate - Event Service is : [enabled].
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,926  INFO ManagedMonitorDelegate - Initialized with maxPublishQueueLength [2], aggregationFrequencyInMillis [60000]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,938  INFO ManagedMonitorDelegate - Metric Service is : [enabled].
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,940  INFO ManagedMonitorDelegate - Started Agent Env Properties Service
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,946  INFO ManagedMonitorDelegate - Scheduled Continuous Task Monitor with frequency [30000]ms
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,949  INFO MonitorConfigReader - Reading monitor config file:/home/ubuntu/monitors/analytics-agent/monitor.xml
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,966  INFO MonitorConfigReader - os name [linux] version [5.11.0-1027-aws]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,975  INFO NodeMonitorManager - Initializing managed monitor [analytics-agent]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,975  INFO ManagedMonitorDelegate - Initializing managed monitor [AppDynamics Analytics Agent]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,975  INFO ManagedMonitorDelegate - Executing managed monitor [AppDynamics Analytics Agent], task name [null]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:23,975  INFO ManagedMonitorDelegate - Task [null] for monitor [AppDynamics Analytics Agent] is SCHEDULED
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:24,000  INFO InProcessLauncherTask - Found a directory [/home/ubuntu/monitors/analytics-agent/lib]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:24,019  INFO InProcessLauncherTask - Working directory appears to be [/home/ubuntu/monitors/analytics-agent]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:24,020  INFO AnalyticsAgentLauncher - The logs directory property [ad.dw.log.path] has been set to [/home/ubuntu/logs]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:24,020  INFO InProcessLauncherTask - Starting to execute actual task with parameters [{csvMethodArgs=/home/ubuntu/monitors/analytics-agent/conf/analytics-agent.properties, methodName=main, className=com.appdynamics.analytics.agent.AnalyticsAgent}]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:35,275  INFO InProcessLauncherTask - Started [com.appdynamics.analytics.agent.AnalyticsAgent]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:35,277  INFO NodeMonitorManager - Not running legacy system-agent monitor because SIM is enabled.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:35,277  INFO NodeMonitorManager - Not running legacy system-agent monitor because SIM is enabled.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:35,277  INFO NodeMonitorManager - Directory [/home/ubuntu/monitors/unmanaged] not found, continuing.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:35,277  INFO AgentMonitorManager - Initialized System Monitor Manager with directory [/home/ubuntu/monitors]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:35,277  INFO SystemAgent - Set up agent monitor manager
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:35,279  INFO SystemAgent - Orchestration is disabled - disabling one-way agent transport. The agent will not be able to execute workflow tasks.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:35,289  INFO SystemAgentConfigManager - Scheduling configuration refresh at an interval of 60 seconds
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:35,294  INFO SystemAgentConfigManager - Configuration refresh task interval is 60 seconds
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:35,294  INFO SystemAgent - Configuration manager successfully configured
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:35,297  INFO RunbookHandler - Runbook Operation Execution is : [enabled].
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:35:35,297  INFO SystemAgent - Started AppDynamics Machine Agent Successfully.
+ip-10-10-10-235==> [main] 15 Feb 2022 22:55:33,375  INFO FlexibleX509TrustManager - Using default keystore for SSL certificate validation.
+ip-10-10-10-235==> [main] 15 Feb 2022 22:55:34,096  INFO HostIdProvider - Default Host Identifier Resolver using host name for unique host identifier [ip-10-10-10-235]
+ip-10-10-10-235==> [main] 15 Feb 2022 22:55:34,200  INFO MachineLicensePropertiesProvider - Detected Virtual CPU Count: 1
+ip-10-10-10-235==> [main] 15 Feb 2022 22:55:34,200  INFO MachineLicensePropertiesProvider - Detected Logical CPU Count: 1
+ip-10-10-10-235==> [main] 15 Feb 2022 22:55:34,200  INFO MachineLicensePropertiesProvider - Detected Physical CPU Count: 1
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:35,175  INFO SecondStageSystem - Starting main system with features Features(features=[dmm, sim], reason=Features.Reason(message=, code=))
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:35,752  INFO SystemAgent - ####################################################################################
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:35,752  INFO SystemAgent - Agent Install Directory [/home/ubuntu]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:35,752  INFO SystemAgent - Using Agent Version [Machine Agent v22.1.0-3252 GA compatible with 4.4.1.0 Build Date 2022-01-23 09:46:20]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:35,753  INFO SystemAgent - JVM Runtime: 
+	java.home=/home/ubuntu/jre
+	java.vm.vendor=Azul Systems, Inc.
+	java.vm.name=OpenJDK 64-Bit Server VM
+	java.version=11.0.13
+	java.specification.version=11
+	java.runtime.version=11.0.13+8-LTS
+	java.io.tmpdir=/tmp
+	user.language=en
+	user.country=US
+	user.variant=
+	Default locale=en_US
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:35,754  INFO SystemAgent - OS Runtime: 
+	os.name=Linux
+	os.arch=amd64
+	os.version=5.11.0-1027-aws
+	user.name=root
+	user.home=/root
+	user.dir=/home/ubuntu
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:35,754  INFO SystemAgent - JVM Args : -Xmx256m | -Dlog4j.configuration=file:/home/ubuntu/conf/logging/log4j.xml | 
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:35,768  INFO SystemAgent - JVM Runtime Name: 19451@ip-10-10-10-235
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:35,768  INFO SystemAgent - JVM PID: 19451
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:35,768  INFO SystemAgent - Machine Agent is resolving bootstrap info....
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:35,999  INFO SystemAgent - Orchestration is disabled - disabling virtualization resolvers by default.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,002  INFO SystemAgent - Full Agent Registration Info Resolver found system property [appdynamics.agent.create.agent.info.if.missing] for appdynamics.agent.create.agent.info.if.missing [false]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,016  INFO SystemAgent - Default Host Identifier Resolver using host name for unique host identifier [ip-10-10-10-235]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,019  INFO SystemAgent - Default IP Address Resolver found IP addresses [[fe80:0:0:0:469:49ff:fe18:26fb%eth0, 10.10.10.235]]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,026  INFO SystemAgent - Full Agent Registration Info Resolver using selfService [false]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,026  INFO SystemAgent - Full Agent Registration Info Resolver using ephemeral node setting [false]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,027  INFO SystemAgent - Full Agent Registration Info Resolver using application name [null]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,027  INFO SystemAgent - Full Agent Registration Info Resolver using tier name [null]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,027  INFO SystemAgent - Full Agent Registration Info Resolver using node name [null]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,036  INFO SystemAgent - XML Controller Info Resolver found controller host [cisco-apipartnertraininglab.saas.appdynamics.com]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,036  INFO SystemAgent - XML Controller Info Resolver found controller port [443]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,047  INFO SystemAgent - XML Agent Account Info Resolver using account name [cisco-apipartnertraininglab]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,048  INFO SystemAgent - XML Agent Account Info Resolver using account access key [****]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,051  INFO SystemAgent - Keystore file /home/ubuntu/conf/cacerts.jks was not found
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,066  INFO SystemAgent - Machine Agent resolved bootstrap info!
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,067  INFO SystemAgent - Creating machine agent scheduler, pool size: 2
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,086  INFO SystemAgent - Creating machine agent monitor scheduler, pool size: 4
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,095  INFO SystemAgent - Started Agent Schedulers
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:55:36,119  INFO DefaultLegacyAgentRegistrationStateManager - Registered machine with machine ID [Optional.of(599374)]
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:55:36,122  INFO DefaultLegacyAgentRegistrationStateManager - Scheduling System-Agent start...
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,134  INFO SimAgentRepetitiveLoggingModule - The turnover time for the SIM agent repetitive logger is 5 minutes
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,134  INFO SimAgentRepetitiveLoggingModule - The cache size for the SIM agent repetitive logger is 1000
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,491  INFO Fabric8Client - No Kubernetes was detected.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,557  INFO DefaultLegacyAgentRegistrationStateManager - Starting machine agent...
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,557  INFO SystemAgent - Starting Machine Agent....
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,558  INFO ControllerTimeSkewHandler - Skew Handler is : [enabled].
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,681  INFO SystemAgent - Full certificate chain validation performed using default certificate file
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,775  INFO ManagedMonitorDelegate - Started Agent Metric Generation Service
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,788  INFO ManagedMonitorDelegate - Event Service is : [enabled].
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,805  INFO ManagedMonitorDelegate - Initialized with maxPublishQueueLength [2], aggregationFrequencyInMillis [60000]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,811  INFO ManagedMonitorDelegate - Metric Service is : [enabled].
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,813  INFO ManagedMonitorDelegate - Started Agent Env Properties Service
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,822  INFO ManagedMonitorDelegate - Scheduled Continuous Task Monitor with frequency [30000]ms
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,825  INFO MonitorConfigReader - Reading monitor config file:/home/ubuntu/monitors/analytics-agent/monitor.xml
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,845  INFO MonitorConfigReader - os name [linux] version [5.11.0-1027-aws]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,850  INFO NodeMonitorManager - Initializing managed monitor [analytics-agent]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,850  INFO ManagedMonitorDelegate - Initializing managed monitor [AppDynamics Analytics Agent]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,851  INFO ManagedMonitorDelegate - Executing managed monitor [AppDynamics Analytics Agent], task name [null]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,851  INFO ManagedMonitorDelegate - Task [null] for monitor [AppDynamics Analytics Agent] is SCHEDULED
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,875  INFO InProcessLauncherTask - Found a directory [/home/ubuntu/monitors/analytics-agent/lib]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,893  INFO InProcessLauncherTask - Working directory appears to be [/home/ubuntu/monitors/analytics-agent]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,895  INFO AnalyticsAgentLauncher - The logs directory property [ad.dw.log.path] has been set to [/home/ubuntu/logs]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:36,896  INFO InProcessLauncherTask - Starting to execute actual task with parameters [{csvMethodArgs=/home/ubuntu/monitors/analytics-agent/conf/analytics-agent.properties, methodName=main, className=com.appdynamics.analytics.agent.AnalyticsAgent}]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:48,098  INFO InProcessLauncherTask - Started [com.appdynamics.analytics.agent.AnalyticsAgent]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:48,102  INFO NodeMonitorManager - Not running legacy system-agent monitor because SIM is enabled.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:48,102  INFO NodeMonitorManager - Not running legacy system-agent monitor because SIM is enabled.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:48,103  INFO NodeMonitorManager - Directory [/home/ubuntu/monitors/unmanaged] not found, continuing.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:48,103  INFO AgentMonitorManager - Initialized System Monitor Manager with directory [/home/ubuntu/monitors]
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:48,103  INFO SystemAgent - Set up agent monitor manager
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:48,106  INFO SystemAgent - Orchestration is disabled - disabling one-way agent transport. The agent will not be able to execute workflow tasks.
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:48,114  INFO SystemAgentConfigManager - Scheduling configuration refresh at an interval of 60 seconds
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:48,118  INFO SystemAgentConfigManager - Configuration refresh task interval is 60 seconds
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:48,118  INFO SystemAgent - Configuration manager successfully configured
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:48,121  INFO RunbookHandler - Runbook Operation Execution is : [enabled].
+ip-10-10-10-235==> [system-thread-0] 15 Feb 2022 22:55:48,121  INFO SystemAgent - Started AppDynamics Machine Agent Successfully.
+ip-10-10-10-235==> [ExtensionStarter-AgentServer] 15 Feb 2022 22:56:06,443  INFO SystemAgent - Creating machine agent scheduler, pool size: 2
+ip-10-10-10-235==> [ExtensionStarter-AgentServer] 15 Feb 2022 22:56:06,449  INFO SystemAgent - Creating machine agent monitor scheduler, pool size: 4
+ip-10-10-10-235==> [ExtensionStarter-AgentServer] 15 Feb 2022 22:56:06,449  INFO SystemAgent - Started Agent Schedulers
+ip-10-10-10-235==> [ExtensionStarter-ServerMonitoring] 15 Feb 2022 22:56:07,771  INFO ServersExtensionModule - OS is LINUX
+ip-10-10-10-235==> [ExtensionStarter-ServerMonitoring] 15 Feb 2022 22:56:08,693  INFO SystemAgent - Creating machine agent scheduler, pool size: 2
+ip-10-10-10-235==> [ExtensionStarter-ServerMonitoring] 15 Feb 2022 22:56:08,693  INFO SystemAgent - Creating machine agent monitor scheduler, pool size: 4
+ip-10-10-10-235==> [ExtensionStarter-ServerMonitoring] 15 Feb 2022 22:56:08,693  INFO SystemAgent - Started Agent Schedulers
+ip-10-10-10-235==> [extension-scheduler-pool-0] 15 Feb 2022 22:56:08,697  INFO ServersDataCollectorManager - There is change in components collection configurations.
+ip-10-10-10-235==> [ExtensionStarter-ServerMonitoring] 15 Feb 2022 22:56:08,725  INFO ServersDataCollectorManager - Version of free command : free from procps-ng 3.3.16
+ip-10-10-10-235==> [extension-scheduler-pool-0] 15 Feb 2022 22:56:08,726  INFO ServersDataCollectorManager - Starting data collectors.
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:56:08,744  INFO AwsTagsScheduledRunner - Started AWS tags scheduled runner to poll for tags
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:56:08,859  INFO K8sTagsScheduledRunner - Started K8s tags scheduled runner to poll for tags
+ip-10-10-10-235==> [ExtensionStarter-NetVizExtension] 15 Feb 2022 22:56:09,160  INFO SystemAgent - Creating machine agent scheduler, pool size: 2
+ip-10-10-10-235==> [ExtensionStarter-NetVizExtension] 15 Feb 2022 22:56:09,160  INFO SystemAgent - Creating machine agent monitor scheduler, pool size: 4
+ip-10-10-10-235==> [ExtensionStarter-NetVizExtension] 15 Feb 2022 22:56:09,160  INFO SystemAgent - Started Agent Schedulers
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:56:09,165  INFO NetVizConfigrationListener - Applying conf: NetVizConfiguration(start=false)
+ip-10-10-10-235==> [ConfigExecutor-0] 15 Feb 2022 22:56:09,424  INFO NetVizConfigrationListener - NetViz Agent is not running
