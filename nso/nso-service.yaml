@@ -1,0 +1,25 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nso-svc
+spec:
+  clusterIP: None
+  ports:
+    - protocol: TCP
+      port: 8080
+      name: webui
+  selector:
+    app: nso-app
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: nso-svc-master
+spec:
+  ports:
+    - protocol: TCP
+      port: 2024
+      name: ssh
+    - protocol: TCP
+      port: 8080
+      name: webui

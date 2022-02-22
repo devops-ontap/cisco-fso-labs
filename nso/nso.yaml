@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nso
+spec:
+  selector:
+    matchLabels:
+      app: nso-app
+  serviceName: nso-svc
+  # Deploy three instances of NSO
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: nso-app
+    spec:
+      # Specify anti-affinity to make sure NSO nodes are not
+      # scheduled on the same k8s node
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - nso-app
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: nso-master
+          image: kube-1:5000/nso-k8s-lab
+          # Probes for liveness and readiness
+          livenessProbe:
+            httpGet:
+              path: /restconf/data/ncs-state
+              port: 8080
+              httpHeaders:
+                - name: Authorization
+                  # echo -n "admin:admin" | base64
+                  value: Basic YWRtaW46YWRtaW4=
+          readinessProbe:
+            httpGet:
+              path: /restconf/data/ncs-state
+              port: 8080
+              httpHeaders:
+                - name: Authorization
+                  # echo -n "admin:admin" | base64
+                  value: Basic YWRtaW46YWRtaW4=
+          ports:
+            - containerPort: 2024
+              name: ssh
+            - containerPort: 8080
+              name: webui
+        # The leader elector side car. HTTP GET on http://localhost:4040
+        # will return the leader
+        - name: elector
+          image: fredrikjanssonse/leader-elector:0.6
+          args:
+            - --election=nso-svc
+            - --http=localhost:4040
+          ports:
+            - containerPort: 4040
+              protocol: TCP
