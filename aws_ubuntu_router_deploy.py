@@ -131,9 +131,9 @@ output = check_output("{}".format(ubuntu_router_tag), shell=True).decode().strip
 print("Output: \n{}\n".format(output))
 
 #Get the external public address assigned to the router ec2 instance and write it to the var file or vault
-outfile_csr_pub_ip='router_pub_ip.json'
-cmd_get_csr_pub_ip='aws ec2 describe-instances --region' + " " + "{}".format(region) + " " '--instance-id' + " " + "{}".format(ubuntu_router_instance_id) + " " + '--query "Reservations[*].Instances[*].PublicIpAddress"'
-output = check_output("{}".format(cmd_get_csr_pub_ip), shell=True).decode().strip()
+outfile_router_pub_ip='router_pub_ip.json'
+cmd_get_router_pub_ip='aws ec2 describe-instances --region' + " " + "{}".format(region) + " " '--instance-id' + " " + "{}".format(ubuntu_router_instance_id) + " " + '--query "Reservations[*].Instances[*].PublicIpAddress"'
+output = check_output("{}".format(cmd_get_router_pub_ip), shell=True).decode().strip()
 print("Output: \n{}\n".format(output))
 with open(outfile_router_pub_ip, 'w') as my_file:
     my_file.write(output)
