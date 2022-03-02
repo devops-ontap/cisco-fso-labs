@@ -129,3 +129,20 @@ print("Output: \n{}\n".format(output))
 ubuntu_lan_tag='aws ec2 create-tags --region' + " " + "{}".format(region) + " " + '--resources' + " " +  "{}".format(ubuntu_lan_instance_id) + " " + '--tags' + " " + "'" + 'Key="Name",Value=ubuntu_lan' + "'"
 output = check_output("{}".format(ubuntu_lan_tag), shell=True).decode().strip()
 print("Output: \n{}\n".format(output))
+
+#Get the external public address assigned to the lan ec2 instance and write it to the var file or vault
+outfile_lan_pub_ip='lan_pub_ip.json'
+cmd_get_lan_pub_ip='aws ec2 describe-instances --region' + " " + "{}".format(region) + " " '--instance-id' + " " + "{}".format(ubuntu_lan_instance_id) + " " + '--query "Reservations[*].Instances[*].PublicIpAddress"'
+output = check_output("{}".format(cmd_get_lan_pub_ip), shell=True).decode().strip()
+print("Output: \n{}\n".format(output))
+with open(outfile_lan_pub_ip, 'w') as my_file:
+    my_file.write(output)
+
+outfile_lan_pub_ip='lan_pub_ip.json'
+with open(outfile_lan_pub_ip) as access_json:
+    read_content = json.load(access_json)
+    question_access = read_content[0]
+    print(read_content)
+    question_data=question_access[0]
+    lan_pub_ip=question_data
+    print(lan_pub_ip)

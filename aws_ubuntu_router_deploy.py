@@ -130,4 +130,19 @@ ubuntu_router_tag='aws ec2 create-tags --region' + " " + "{}".format(region) + "
 output = check_output("{}".format(ubuntu_router_tag), shell=True).decode().strip()
 print("Output: \n{}\n".format(output))
 
-#Get the internal IP address and write it to the vars file
+#Get the external public address assigned to the router ec2 instance and write it to the var file or vault
+outfile_router_pub_ip='router_pub_ip.json'
+cmd_get_router_pub_ip='aws ec2 describe-instances --region' + " " + "{}".format(region) + " " '--instance-id' + " " + "{}".format(ubuntu_router_instance_id) + " " + '--query "Reservations[*].Instances[*].PublicIpAddress"'
+output = check_output("{}".format(cmd_get_router_pub_ip), shell=True).decode().strip()
+print("Output: \n{}\n".format(output))
+with open(outfile_router_pub_ip, 'w') as my_file:
+    my_file.write(output)
+
+outfile_router_pub_ip='router_pub_ip.json'
+with open(outfile_router_pub_ip) as access_json:
+    read_content = json.load(access_json)
+    question_access = read_content[0]
+    print(read_content)
+    question_data=question_access[0]
+    router_pub_ip=question_data
+    print(router_pub_ip)
