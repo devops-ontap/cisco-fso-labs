@@ -8,9 +8,9 @@ from netmiko import *
 from netmiko import ConnectHandler
 
 
-key_file='ENTER_YOUR_PEM'
+key_file='us-west-1a.pem'
 username='ec2-user'
-ip='ENTER_CSR_PUB_IP'
+ip='UPDATE THE IP OF CSR HERE'
 
 net_connect = netmiko.ConnectHandler(ip=ip, device_type="cisco_ios", username="ec2-user", key_file=key_file)
 
