@@ -2,8 +2,9 @@
 cisco-fso-lab
 # LAB SETUP
 
-This lab demonstrates simple integration with a variety of common APIs that perform standard operational standard stack functions:
-vault & artifactory placeholder- lastpass
+Part 1 of this lab demonstrates simple integration with a variety of common APIs that perform standard operational standard stack functions:
+vault & artifactory placeholder- 
+hashicorp vault
 kubernetes - ci tool
 kubernetes - sample java apps
 aws - cloud provider
@@ -14,6 +15,13 @@ ThousandEyes
 github/gitlab
 cisco csr1000v
 IOX XE
+
+Part 2 of this lab demonstrates:
+Config Management with Terraform Cloud
+Automation with Cisco NSO (large managed service providers audience)
+
+
+
 
 Instructors of this lab should have:
 Intermediate hands on skills with the following:
@@ -35,64 +43,90 @@ basic docker
 
 Once vetted, the repo will be made public so this is only temporary during the beta testing of the lab
 
-1. Clone the git repo
-https://github.com/devops-ontap/cisco-fso-labs
 
-2. Create a Branch - each lab user will create their own branch
-- in this lab we will not doing a git merge. people will work from their own branches
-- git checkout -b yourname
-- git status
-- git fetch --all
-
-Do a first commit by 1. creating a notes file then do:
-git add mynotes.txt
-git commit -m "added notes file for first commit"
-git push --set-upstream origin yourbranchname
-git pull
-git fetch -all
-
-Check you are on your branch
-git branch
-
-
-
-
-3. Setup your IAM account with Admin/FullEC2 and ability to generate VPCs and add the key in lastpass vault secure note
-    - In this lab - using lastpass as it is free and fast/simple to set up an account. Add the key to lastpass in a note in the AWS csv format
-    - we will be using lastpass as our vault for now. Subsequent iterations will use Hashicorp Vault and AD
-
-4. Login to the ci tool concourse (you will be provided with a credential - the credential is assigned to a Team).
+1. Login to the ci tool concourse (you will be provided with a credential - the credential is assigned to a Team).
    Everyone in your Team has access to the same pipelines. Access to pipe-lines is by Team.
    download the fly too from http://ci.devops-ontap.com:8080
+   After downloading the fly too run these commands:
 
 sudo mkdir -p /usr/local/bin
 sudo mv ~/Downloads/fly /usr/local/bin
 sudo chmod 0755 /usr/local/bin/fly
 
-5. From within your git repo directory - update your lab_vars.py file with the name you want to use for your lab. For simplicity, keep the the name the same as your branch name
-6. create a params directory outside of the git repo, and copy out the sample-params.yml file into that directory.
-7. Update the master pipeline file parameters file with your branch name
-8. Update the params file with your branch name(same as lab name) and your git SSH private key and email address (the git credentials are only required when the lab repo is private)
+2. Unpause your pipeline, select to deploy the AWS Environment when its complete it will turn green. While it is deploying review the Powerpoint slide which details the architecture and components of the AWS lab environment from a network perspective. Its important to have an understanding of the networking architecture of the lab as we progress through the lab phases.
 
-Please note, in AWS the AMI names for images are different per region - so prior to entering in the AMI code - you must discover what it is for the region you want to provision your lab to
-For simplicity, each lab environment is deployed to its own region and az. You can have 4 azs to a region, so you can have 4 isolated labs to a region.
-For an instructor wanting each student to have their own lab, they would select 4 regions, each with one az and assign it to each student.
+3. Once the AWS job in the pipeline turns green, you can go ahead and deploy the CSR and the Ubuntu and LAN router instances. These will take some time(about 3 minnutes to build) so during that time you can go ahead and clone the git repo. We are going to configure our CSR using the DEVOPS methodology of rapid iteration in an isolated task (outside the pipeline) to test it then once we are happy with it, we can add it to the pipeline to automate this going forward.
 
-9.
+When DEVOPS engineers are working on their code - they work from a branc that typically has a naming convention of username/jira ticket #
+In more sophisticated Devops Pipelines such as Microsoft Azure Devops Pipelines, the ticketing system is integrated with both git and the pipeline. 
+So after an Engineer has tested their code via a task, they will do a build of the pipeline from their branch. 
+If the build is successful, they will create a PR.
+It is worth nothing immediately prior to building, they should ensure they have pulled and merged the latest master branch into their test branch so they are testing against the latest production version of the code.
+
+In this lab, we will not be creating merge requests - however, we will be working like Devops Engineers but building our pipelines from our branch code.
+
+In Later Phases of the Lab, students will be requested to create a PR (Pull Request) that will add in their vetted and tested tasks into the pipeline so these will be automated going forward. 
+
+In Large Software Companies, there can be anywhere between 5-100 or more Engineers working on multiple branches on different features or bug requests.
+
+Typically either weekly, bi-weekly, as the business or customer require or on a set release cycle, Engineers will be requested to submit their work by a cut off date and the PRs will be analyzed by two more more Senior Software Leads for a merge into the DEV branch. Once all merges are squashed, the pre-release is build in the DEV branch of the pipeline.
+
+When the DEV branch build is green or passes, it is either automatically or manually promoted to the QA branch where more extensive testing is done.
+Typically when the infratructure DEV branch is promoted to QA, it will "initiate" a build of the other 'overlay pipelines'. These are pipelines that deploy the latest production version of the 'bread and butter' business applications on top of the infrastructure. Examples of this are the "Speed Car Racer" java app that we will deploy onto our infrastructure release.
+
+If all our business app pipelines are deployed successfully on top of our QA infra pipeline, we promote our QA to Stage(External Business Customers Test) and then to Production. Typically there are adjacent 'test' pipelines that will run in parallel to run extensive testing against the pipelines. In some cases the tests are simply added in as jobs, and each job will promote only after the test jobs succeed in the pipelines.
+
+Before you can practise 'rapid interation development' on your branch, you need to ensure your SSH key is added to your git account, and you have provided your git account to the lab instructor. The lab Instructor will add you to the repo and you will receive an invite to your email, once you accept you will be able to run the CSR configure task.
+
+On the last day of the lab, we will allow everyone to submit PRs for any tasks we have run manually into their pipeline. 
+We can then delete their entire lab environment, and build it completely automated end to end from their own newly developed version of their own pipeline.
+
+This is optional and only for individuals passionate about automation and pipelining.
+
+
+
+
+After adding SSH key to git account and receiving invite to the git repo proceed as follows:
+
+1. Clone the git repo
+https://github.com/devops-ontap/cisco-fso-labs
+
+2. Create a Branch - each lab user will create their own branch
+- in this lab we will not doing a git merge. people will work from their own branches
+- git checkout -b yourbranchname
+- git status
+- git fetch --all
+
+2. From within your git repo directory - verify your lab_vars.py. You will see the entire lab is deployed using just 5 variables.
+
+3. create a params directory outside of the git repo, and copy out the sample-params.yml file into that directory.
+7. Update the params file with your branch name and your SSH private key. You can name the params file by your branch example: us-west-1a.yml
+(This is required for when your run a manual iteration task on your branch because, it will need to authenticate through to the pipeline to allow the pipeline to run the task as a one off).
+
+Once your CSR is deployed you can now practise being a 'DEVOPS Engineer' working on your branch by testing out the CSR Configure task.
+This is a one off task that will utilize the pipeline mechanism to launch a 'one off task' that will:
+
+Connect to the Pipeline
+Instruct the Pipeline to pull the docker image which netmiko and python installed to create your ephemeral build container
+Pull your git branch (using the SSH key specified in the params file) onto the docker build container
+Copies your input directory that includes your scripts onto the ephemeral build container
+Executes the code on the CSR
+If the tasks builds successfully, the task will turn green. If there is an error it will turn red.
+The task will provide you with a URL that you can use to view the build progress in your browswer
+If the build fails, your ephemeral build container will 'hang out' for several minutes so you can 'hijack' the container to debug.
+Typically, hijacking a container is not required. In some cases if our error indicates something to do with connectivity or free space, we would hijack the container to see if we may need to increase our build container size but this is very rare. In this lab, we will not be needing to hijack containers.
+
+To run your task you need need to authenticate via your CLI first as follows:
+
 target the ci tool using fly and set your pipeline
 example:
 Login to a Team
-fly -t ci login --concourse-url=http://ci.devops-ontap.com:8080 -n nterone
+fly -t ci login --concourse-url=http://ci.devops-ontap.com:8080 -n cisco-fso-labs
 This command opens a browser, login and then capture the token and paste it into your command prompt
 
-10. set the pipeline and keep the pipeline suffix name the same as your lab name and your branch name for consistency, example:
-    fly -t ci set-pipeline -c pipeline-master-v1.yml -p cicsco-fso-lab1 -l ../params/pipeline-params.yml
 
-Update the lab_vars.py file accordingly
-git add  lab_vars.py
-git commit - "updated lab vars file"
-git push
 
+Detailed Description of what the first step in pipeline automation:
 As soon as a git push is done to the branch, the first step in the pipeline
 automatically starts. This step:
 
@@ -125,9 +159,9 @@ instance to fully initialize, so there is polling set up in the job.
 
 
 
+All configuration in this lab will be done via code in TRUE DEVOPS SPIRIT accept for certain aspects of the Thousand Eyes, AppD and Intersight Setup which is not yet available via API calls.
 
-
-All configuration in this lab will be done via code - we will only use the GUI to view the changes we make via code. In reality the GUI is not even required
+We will only use the GUI to view the changes we make via code. In reality the GUI is not even required
 however, we use it only as a visual familiar representation of our changes as it is most familiar to the students in the lab.
 
 The Instructor and the students will be constantly doing git updates throughout the lab to their branch as the Instructure steps them through the lab
@@ -146,11 +180,6 @@ As soon as a git push is complete, the lab prep job in the pipeline automaticall
 
 
 
-
-
-openssl rsa -outform der -in private.pem -out private.key
-
-
 Common Error when trying to SSH to the CSR1000v:
 Unable to negotiate with 18.220.247.107 port 22: no matching key exchange method found. Their offer: diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1
 
@@ -161,30 +190,4 @@ AWS Ref Docs:
 https://docs.aws.amazon.com/cli/latest/reference/ec2/
 To see what is possible with an AWS Cli command run this:
 aws ec2 create-vpc --generate-cli-skeleton
-
-BASIC LAB CONFIG
-One instance of this pipeline creates a pop up lab in aws that contains:
-vpc01 with CIDR 10.10.0.0/16
-
-Create Two Subnets for vpc01:
-
-router
-lan - associated to lan subnet and default route goes to the csr1000v so all traffic going out of AWS passes through our router
-internet gateway
-default route table for vpc has 0.0.0.0/0 to destination our internet gateway
-
-Creates a Security Group in the az and region that has an ingress allowing inbound on port 22
-to enable the lab users to SSH to the instances that are provisioned
-
-Creates an SSH key - one for each instance of the lab
-
----------
-
-After the LAB BASE is deployed, the FSO stack is deployed along with one more more test apps
-for which agents will be configured and deployed in the lab via the pipeline.
-
-Thousand Eyes
-Intersight
-AppDynamics
-
 
