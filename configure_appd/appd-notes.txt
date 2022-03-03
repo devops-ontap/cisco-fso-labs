@@ -11,11 +11,10 @@ sudo apt-get install procps
 https://docs.appdynamics.com/22.1/en/infrastructure-visibility/machine-agent/install-the-machine-agent/linux-install-using-zip-with-bundled-jre
 
 
-
 Linux 64 Bit
 
 sudo apt install unzip
-sudp apt-get install vim
+sudo apt-get -y install vim
 
 curl -L -O -H "Authorization: Bearer eyJraWQiOiJGemtxZ1A1SDNaa1hVLTZRUDFxcUFtdTFCN1pvSk5FNE52akVSaFNaMG5ZIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmM3XzJmOVBDak9ES1BVY3ZfaTIzZ25wSDJNcjB6N0VCeFc1MDJWc0hSSlEub2FyMTh5ZmJ6cW9tMzdrZXEycDciLCJpc3MiOiJodHRwczovL2FwcGQtaWRlbnRpdHkub2t0YS5jb20vb2F1dGgyL2F1c3B2bnAzdmtrclNIMk9RMnA2IiwiYXVkIjoibWljb3JzZXJ2aWNlcyIsImlhdCI6MTY0NDIwOTE0MSwiZXhwIjoxNjQ0Mjk1NTQxLCJjaWQiOiIwb2ExanMxMHQ3ekJjTENnRzJwNyIsInVpZCI6IjAwdWVzNmxnMm5xZ0pBdmE0MnA3Iiwic2NwIjpbIm9mZmxpbmVfYWNjZXNzIiwiZG93bmxvYWQiLCJvcGVuaWQiXSwic3ViIjoic2NvbnJvZDFAZ21haWwuY29tIn0.EaR2OOAh2WDtIVbKMFaFMykGUitGtVEwSyezIB-85qChvzAI-uPecRRo4tiVUJHMq6vtGckiHYUpNfKy90FCNDXKalYGyPbL6huGMbOhrYWkcBBKfeXGlQxHs_8PtieqIVlxLHoUtp7yi2xRcqSFubN-ks9VTfVkkgdIe29rQ3hejPBf4UmmTj-AU9ltSUpEVzqWFVhgNPoN464c1Zx5sguEbujeA7DYfBHUmwJVPQ5uDxU2TuJLv6vVoCHVQWwRnk5qguRXw_qbUUaXiSX-ZYo2Q8rr5cYX4X1BTAScWr2to4glX4QNS5RqNuCl4d9Ht84TtvFHgCHTDkRDpd1SRQ;" "https://download.appdynamics.com/download/prox/download-file/netviz-linux/21.3.0.2181/appd-netviz-x64-linux-21.3.0.2181.zip"
 
@@ -24,3 +23,12 @@ sudo ./install.sh
 
 https://docs.appdynamics.com/22.1/en/infrastructure-visibility/machine-agent/install-the-machine-agent/linux-install-using-zip-with-bundled-jre#
 
+Start the Machine Agent by executing <machine_agent_home>/bin/machine-agent. If you have java or system properties, you can add them to the end of the command. To review machine usage, enter machine-agent -h
+
+Install Service Agent with JRE
+https://docs.appdynamics.com/22.1/en/infrastructure-visibility/machine-agent/install-the-machine-agent
+https://docs.appdynamics.com/22.1/en/infrastructure-visibility/machine-agent/install-the-machine-agent/linux-install-using-zip-with-bundled-jre
+
+To Download the Client, Logon to the Console, Servers, Download the installer with JRE then you will need to SCP it to the client
+example:
+scp -i us-east-2b.yml ~/Downloads/AppServerAgent-21.8.0.32958.zip ubuntu@3.145.73.32:/tmp
