@@ -29,6 +29,33 @@ Install Service Agent with JRE
 https://docs.appdynamics.com/22.1/en/infrastructure-visibility/machine-agent/install-the-machine-agent
 https://docs.appdynamics.com/22.1/en/infrastructure-visibility/machine-agent/install-the-machine-agent/linux-install-using-zip-with-bundled-jre
 
+[Support Method to Download the Client
 To Download the Client, Logon to the Console, Servers, Download the installer with JRE then you will need to SCP it to the client
+
+
+Prep - Run Test to Check This
+Before Installing Client, check that your instance has enough RAM and CPU
+https://docs.appdynamics.com/22.1/en/infrastructure-visibility/machine-agent/machine-agent-requirements-and-supported-environments
+Machine Agent >= 21.4.0 collects diskstats from Linux kernels versions >= 4.18.
+
+Check Your Kernel Version:
+hostnamectl | grep Kernel
+
+Check your BASH Version:
+echo "${BASH_VERSION}"
+
+sudo apt-get install procps
+
+Add an Additional 1 GB of RAM
+
+
+
+
+
 example:
 scp -i us-east-2b.yml ~/Downloads/AppServerAgent-21.8.0.32958.zip ubuntu@3.145.73.32:/tmp
+
+Or Curl it down direct:
+[This method is not supported by AppD]
+https://download-files.appdynamics.com/download-file/machine-bundle/21.4.0.3075/machineagent-bundle-64bit-linux-21.4.0.3075.zip
+{This will not be pre-configured for the controller}

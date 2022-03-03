@@ -11,7 +11,7 @@ keypair_name=name
 
 #Create the ubuntu router subnet tools instance
 ubuntu_ami_id=ubuntu_ami_id
-instance_type='t2.nano'
+instance_type='t2.medium'
 
 outfile_get_vpcid='outfile_get_vpcid.json'
 get_vpcid='aws ec2 describe-vpcs --region' + " " + "{}".format(region) + " " + '--filters Name=tag:Name,Values=' + "{}".format(name)
