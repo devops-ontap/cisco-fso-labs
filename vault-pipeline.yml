@@ -179,7 +179,9 @@ jobs:
           args:
             - -cex
             - |
-              cd git-resource
+              cd git-resources
+              cd cisco-fso-lab
+              ls -la
               export AWS_PAGER=""
               chmod a+x configure_te.sh
               ./configure_te.sh
