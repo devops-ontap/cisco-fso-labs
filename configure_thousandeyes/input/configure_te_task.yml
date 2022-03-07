@@ -1,0 +1,19 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {repository: sconrod/netmiko}
+
+inputs:
+  - name: input
+run:
+  path: /bin/sh
+  args:
+    - -cex
+    - |
+      cd input
+      curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
+      scp -i us-east-2a.pem install_thousandeyes.sh ubuntu@
+      ./input/configure_te.sh
+
