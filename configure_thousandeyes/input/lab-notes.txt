@@ -2,11 +2,38 @@ Install the Thousand Eyes Enterprise Agent
 
 curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
 chmod +x install_thousandeyes.sh
-sudo ./install_thousandeyes.sh -b vojylvcce2gwg4u0e1mcg000gn96h0tj
+sudo ./install_thousandeyes.sh -f -b vojylvcce2gwg4u0e1mcg000gn96h0tj
 
 Login to TE and check Agent shows up
 https://app.thousandeyes.com/login
 
 How to Stop, Start, Restart Agent and View Logs.
+
+Check status:
+service te-agent status
+
+Stop:
+sudo service te-agent stop
+
+Start:
+sudo service te-agent start
+
+remote the agent:
+sudo apt-get -y purge te-agent
+
+Config File:
+-/etc/te-agent.cfg
+
+
+ubuntu@ip-10-10-10-236:~$ ps -u -p 102600
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root      102600  0.2  0.7 1381504 30324 ?       Ssl  21:11   0:00 /usr/local/bin/te-agent -C /etc/te-agent.cfg
+ubuntu@ip-10-10-10-236:~$
+
+ubuntu@ip-10-10-10-236:~$ ps -u -p 113703
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root      113703  0.0  0.7 611048 28184 ?        Ssl  21:21   0:00 /usr/local/bin/te-agent -C /etc/te-agent.cfg
+
+
 
 Configure a Test
