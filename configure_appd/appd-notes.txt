@@ -1,3 +1,7 @@
+**Note do not download hte Agent from the SAAS Controller under Servers, instead download it then
+complete the conf xml file manually from the main console ***
+
+
 https://cisco-apipartnertraininglab.saas.appdynamics.com/controller/#/
 
 All Students Must Be Added in here
@@ -47,6 +51,29 @@ echo "${BASH_VERSION}"
 sudo apt-get install procps
 
 Add an Additional 1 GB of RAM
+
+Check if systemd or sysvinit
+pstree -p
+
+Check if this dir exists:
+/run/systemd/system
+
+Identify the MachineAgent:
+ps -ef | grep machineagent
+
+The supported download installer file doesn't include JRE
+
+So you can download that manually, then copy the conf xml file
+
+Install JRE
+sudo apt install default-jre
+
+
+
+
+
+systemctl start appdynamics-machine-agent
+
 
 
 

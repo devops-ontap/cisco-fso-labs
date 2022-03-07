@@ -1,0 +1,178 @@
+Thu Mar 03 22:40:12 UTC 2022
+com.google.inject.CreationException: Unable to create injector, see the following errors:
+
+1) Could not read configuration file /home/ubuntu/conf/controller-info.xml
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationProvider
+  at com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationModule.configure(BootstrapConfigurationModule.java:71)
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfiguration annotated with @com.appdynamics.voltron.utils.annotations.Raw()
+    for the 1st parameter of com.appdynamics.agent.sim.configuration.bootstrap.ClearTextBootstrapConfiguration.<init>(ClearTextBootstrapConfiguration.java:51)
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.ClearTextBootstrapConfiguration
+  at com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationModule.configure(BootstrapConfigurationModule.java:76)
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfiguration
+    for the 1st parameter of com.appdynamics.agent.sim.client.ControllerUrlProvider.<init>(ControllerUrlProvider.java:24)
+  while locating com.appdynamics.agent.sim.client.ControllerUrlProvider
+  at com.appdynamics.voltron.rest.client.FeignClientBuilderModule.configure(FeignClientBuilderModule.java:110) (via modules: com.appdynamics.agent.sim.client.ControllerClientModule -> com.appdynamics.agent.sim.client.ControllerClientBuilderModule)
+  while locating java.lang.String annotated with @com.appdynamics.voltron.rest.client.RestClientBaseUrl()
+    for the 1st parameter of com.appdynamics.voltron.rest.client.DefaultFeignServiceFactory.<init>(DefaultFeignServiceFactory.java:26)
+  while locating com.appdynamics.voltron.rest.client.DefaultFeignServiceFactory
+  at com.appdynamics.voltron.rest.client.FeignClientBuilderModule.configure(FeignClientBuilderModule.java:123) (via modules: com.appdynamics.agent.sim.client.ControllerClientModule -> com.appdynamics.agent.sim.client.ControllerClientBuilderModule)
+  while locating com.appdynamics.voltron.rest.client.FeignServiceFactory annotated with @com.google.inject.name.Named(value="ControllerClient")
+  while locating com.appdynamics.voltron.rest.client.FeignServiceFactory
+    for the 1st parameter of com.appdynamics.voltron.rest.client.RestClientProvider.setServiceFactory(RestClientProvider.java:35)
+  at com.appdynamics.voltron.rest.client.FeignClientServicesModule$ClientService.configure(FeignClientServicesModule.java:179) (via modules: com.appdynamics.agent.sim.client.ControllerClientModule -> com.appdynamics.agent.sim.client.ControllerClientServicesModule -> com.appdynamics.voltron.rest.client.FeignClientServicesModule$ClientService)
+
+2) Could not read configuration file /home/ubuntu/conf/controller-info.xml
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationProvider
+  at com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationModule.configure(BootstrapConfigurationModule.java:71)
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfiguration annotated with @com.appdynamics.voltron.utils.annotations.Raw()
+    for the 1st parameter of com.appdynamics.agent.sim.configuration.bootstrap.ClearTextBootstrapConfiguration.<init>(ClearTextBootstrapConfiguration.java:51)
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.ClearTextBootstrapConfiguration
+  at com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationModule.configure(BootstrapConfigurationModule.java:76)
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfiguration
+    for the 1st parameter of com.appdynamics.agent.sim.client.ControllerUrlProvider.<init>(ControllerUrlProvider.java:24)
+  while locating com.appdynamics.agent.sim.client.ControllerUrlProvider
+  at com.appdynamics.voltron.rest.client.FeignClientBuilderModule.configure(FeignClientBuilderModule.java:110) (via modules: com.appdynamics.agent.sim.client.ControllerClientModule -> com.appdynamics.agent.sim.client.ControllerClientBuilderModule)
+  while locating java.lang.String annotated with @com.appdynamics.voltron.rest.client.RestClientBaseUrl()
+    for the 1st parameter of com.appdynamics.voltron.rest.client.DefaultFeignServiceFactory.<init>(DefaultFeignServiceFactory.java:26)
+  while locating com.appdynamics.voltron.rest.client.DefaultFeignServiceFactory
+  at com.appdynamics.voltron.rest.client.FeignClientBuilderModule.configure(FeignClientBuilderModule.java:123) (via modules: com.appdynamics.agent.sim.client.ControllerClientModule -> com.appdynamics.agent.sim.client.ControllerClientBuilderModule)
+  while locating com.appdynamics.voltron.rest.client.FeignServiceFactory annotated with @com.google.inject.name.Named(value="ControllerClient")
+  while locating com.appdynamics.voltron.rest.client.FeignServiceFactory
+    for the 1st parameter of com.appdynamics.voltron.rest.client.RestClientProvider.setServiceFactory(RestClientProvider.java:35)
+  at com.appdynamics.voltron.rest.client.FeignClientServicesModule$ClientService.configure(FeignClientServicesModule.java:179) (via modules: com.appdynamics.agent.sim.client.ControllerClientModule -> com.appdynamics.agent.sim.client.ControllerClientServicesModule -> com.appdynamics.voltron.rest.client.FeignClientServicesModule$ClientService)
+
+3) Could not read configuration file /home/ubuntu/conf/controller-info.xml
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationProvider
+  at com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationModule.configure(BootstrapConfigurationModule.java:71)
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfiguration annotated with @com.appdynamics.voltron.utils.annotations.Raw()
+    for the 1st parameter of com.appdynamics.agent.sim.configuration.bootstrap.ClearTextBootstrapConfiguration.<init>(ClearTextBootstrapConfiguration.java:51)
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.ClearTextBootstrapConfiguration
+  at com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationModule.configure(BootstrapConfigurationModule.java:76)
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfiguration
+    for the 1st parameter of com.appdynamics.agent.sim.client.ControllerUrlProvider.<init>(ControllerUrlProvider.java:24)
+  while locating com.appdynamics.agent.sim.client.ControllerUrlProvider
+  at com.appdynamics.voltron.rest.client.FeignClientBuilderModule.configure(FeignClientBuilderModule.java:110) (via modules: com.appdynamics.agent.sim.client.ControllerClientModule -> com.appdynamics.agent.sim.client.ControllerClientBuilderModule)
+  while locating java.lang.String annotated with @com.appdynamics.voltron.rest.client.RestClientBaseUrl()
+    for the 1st parameter of com.appdynamics.voltron.rest.client.DefaultFeignServiceFactory.<init>(DefaultFeignServiceFactory.java:26)
+  while locating com.appdynamics.voltron.rest.client.DefaultFeignServiceFactory
+  at com.appdynamics.voltron.rest.client.FeignClientBuilderModule.configure(FeignClientBuilderModule.java:123) (via modules: com.appdynamics.agent.sim.client.ControllerClientModule -> com.appdynamics.agent.sim.client.ControllerClientBuilderModule)
+  while locating com.appdynamics.voltron.rest.client.FeignServiceFactory annotated with @com.google.inject.name.Named(value="ControllerClient")
+  while locating com.appdynamics.voltron.rest.client.FeignServiceFactory
+    for the 1st parameter of com.appdynamics.voltron.rest.client.RestClientProvider.setServiceFactory(RestClientProvider.java:35)
+  at com.appdynamics.voltron.rest.client.FeignClientServicesModule$ClientService.configure(FeignClientServicesModule.java:179) (via modules: com.appdynamics.agent.sim.client.ControllerClientModule -> com.appdynamics.agent.sim.client.ControllerClientServicesModule -> com.appdynamics.voltron.rest.client.FeignClientServicesModule$ClientService)
+
+4) Could not read configuration file /home/ubuntu/conf/controller-info.xml
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationProvider
+  at com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationModule.configure(BootstrapConfigurationModule.java:71)
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfiguration annotated with @com.appdynamics.voltron.utils.annotations.Raw()
+    for the 1st parameter of com.appdynamics.agent.sim.configuration.bootstrap.ClearTextBootstrapConfiguration.<init>(ClearTextBootstrapConfiguration.java:51)
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.ClearTextBootstrapConfiguration
+  at com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationModule.configure(BootstrapConfigurationModule.java:76)
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfiguration
+    for the 1st parameter of com.appdynamics.agent.sim.client.ControllerUrlProvider.<init>(ControllerUrlProvider.java:24)
+  while locating com.appdynamics.agent.sim.client.ControllerUrlProvider
+  at com.appdynamics.voltron.rest.client.FeignClientBuilderModule.configure(FeignClientBuilderModule.java:110) (via modules: com.appdynamics.agent.sim.client.ControllerClientModule -> com.appdynamics.agent.sim.client.ControllerClientBuilderModule)
+  while locating java.lang.String annotated with @com.appdynamics.voltron.rest.client.RestClientBaseUrl()
+    for the 1st parameter of com.appdynamics.voltron.rest.client.DefaultFeignServiceFactory.<init>(DefaultFeignServiceFactory.java:26)
+  while locating com.appdynamics.voltron.rest.client.DefaultFeignServiceFactory
+  at com.appdynamics.voltron.rest.client.FeignClientBuilderModule.configure(FeignClientBuilderModule.java:123) (via modules: com.appdynamics.agent.sim.client.ControllerClientModule -> com.appdynamics.agent.sim.client.ControllerClientBuilderModule)
+  while locating com.appdynamics.voltron.rest.client.FeignServiceFactory annotated with @com.google.inject.name.Named(value="ControllerClient")
+  while locating com.appdynamics.voltron.rest.client.FeignServiceFactory
+    for the 1st parameter of com.appdynamics.voltron.rest.client.RestClientProvider.setServiceFactory(RestClientProvider.java:35)
+  at com.appdynamics.voltron.rest.client.FeignClientServicesModule$ClientService.configure(FeignClientServicesModule.java:179) (via modules: com.appdynamics.agent.sim.client.ControllerClientModule -> com.appdynamics.agent.sim.client.ControllerClientServicesModule -> com.appdynamics.voltron.rest.client.FeignClientServicesModule$ClientService)
+
+5) Could not read configuration file /home/ubuntu/conf/controller-info.xml
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationProvider
+  at com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationModule.configure(BootstrapConfigurationModule.java:71)
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfiguration annotated with @com.appdynamics.voltron.utils.annotations.Raw()
+    for the 1st parameter of com.appdynamics.agent.sim.configuration.bootstrap.ClearTextBootstrapConfiguration.<init>(ClearTextBootstrapConfiguration.java:51)
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.ClearTextBootstrapConfiguration
+  at com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationModule.configure(BootstrapConfigurationModule.java:76)
+  while locating com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfiguration
+    for the 1st parameter of com.appdynamics.agent.sim.client.ControllerUrlProvider.<init>(ControllerUrlProvider.java:24)
+  while locating com.appdynamics.agent.sim.client.ControllerUrlProvider
+  at com.appdynamics.voltron.rest.client.FeignClientBuilderModule.configure(FeignClientBuilderModule.java:110) (via modules: com.appdynamics.agent.sim.client.ControllerClientModule -> com.appdynamics.agent.sim.client.ControllerClientBuilderModule)
+  while locating java.lang.String annotated with @com.appdynamics.voltron.rest.client.RestClientBaseUrl()
+    for the 1st parameter of com.appdynamics.voltron.rest.client.DefaultFeignServiceFactory.<init>(DefaultFeignServiceFactory.java:26)
+  while locating com.appdynamics.voltron.rest.client.DefaultFeignServiceFactory
+  at com.appdynamics.voltron.rest.client.FeignClientBuilderModule.configure(FeignClientBuilderModule.java:123) (via modules: com.appdynamics.agent.sim.client.ControllerClientModule -> com.appdynamics.agent.sim.client.ControllerClientBuilderModule)
+  while locating com.appdynamics.voltron.rest.client.FeignServiceFactory annotated with @com.google.inject.name.Named(value="ControllerClient")
+  while locating com.appdynamics.voltron.rest.client.FeignServiceFactory
+    for the 1st parameter of com.appdynamics.voltron.rest.client.RestClientProvider.setServiceFactory(RestClientProvider.java:35)
+  at com.appdynamics.voltron.rest.client.FeignClientServicesModule$ClientService.configure(FeignClientServicesModule.java:179) (via modules: com.appdynamics.agent.sim.client.ControllerClientModule -> com.appdynamics.agent.sim.client.ControllerClientServicesModule -> com.appdynamics.voltron.rest.client.FeignClientServicesModule$ClientService)
+
+5 errors
+	at com.google.inject.internal.Errors.throwCreationExceptionIfErrorsExist(Errors.java:554)
+	at com.google.inject.internal.InternalInjectorCreator.injectDynamically(InternalInjectorCreator.java:180)
+	at com.google.inject.internal.InternalInjectorCreator.build(InternalInjectorCreator.java:111)
+	at com.google.inject.Guice.createInjector(Guice.java:87)
+	at com.google.inject.Guice.createInjector(Guice.java:69)
+	at com.appdynamics.voltron.FrameworkBootstrap.createInjector(FrameworkBootstrap.java:107)
+	at com.appdynamics.voltron.FrameworkBootstrap.start(FrameworkBootstrap.java:162)
+	at com.appdynamics.voltron.FrameworkBootstrap.startAndRun(FrameworkBootstrap.java:120)
+	at com.appdynamics.voltron.FrameworkApplication.start(FrameworkApplication.java:31)
+	at com.appdynamics.agent.sim.Main.startSafe(Main.java:62)
+	at com.appdynamics.agent.sim.bootstrap.Bootstrap.main(Bootstrap.java:45)
+Caused by: com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field "agent-runtime-dir" (class com.appdynamics.agent.sim.configuration.bootstrap.DefaultBootstrapConfiguration), not marked as ignorable (57 known properties: "agent-config-update-interval", "main-config-timeout-millis", "proxyUsePreemptiveAuth", "sam-event-update-interval-millis", "proxyPort", "client-gzip-enabled", "agent-registration-interval", "controller-port", "docker-enabled", "agent-request-max-retry-period", "account-access-key", "dotnet-compatibility-mode", "bindMountOfHostRoot", "controller-keystore-filename", "force-agent-registration", "use-simple-hostname", "credential-store-filename", "account-name", "use-encrypted-credentials", "docker-engine-url", "sam-state-update-interval-millis", "controller-keystore-password", "proxyHost", "controller-host", "extensions-max-start-time", "credential-store-password", "asymmetric-key-password", "proxyPasswordFile", "sam-config-update-interval-millis", "asymmetric-key-alias", "controller-ssl-enabled", "agent-request-max-retries", "compatibility-mode", "use-ssl-client-auth", "proxyUsername", "application-name", "machine-path", "metric-aggregator-cache-expiration-seconds" [truncated]])
+ at [Source: (StringReader); line: 84, column: 44] (through reference chain: com.appdynamics.agent.sim.configuration.bootstrap.DefaultBootstrapConfiguration["agent-runtime-dir"])
+	at com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException.from(UnrecognizedPropertyException.java:61)
+	at com.fasterxml.jackson.databind.DeserializationContext.handleUnknownProperty(DeserializationContext.java:1127)
+	at com.fasterxml.jackson.databind.deser.std.StdDeserializer.handleUnknownProperty(StdDeserializer.java:1989)
+	at com.fasterxml.jackson.databind.deser.BeanDeserializerBase.handleUnknownProperty(BeanDeserializerBase.java:1700)
+	at com.fasterxml.jackson.databind.deser.BeanDeserializerBase.handleUnknownVanilla(BeanDeserializerBase.java:1678)
+	at com.fasterxml.jackson.databind.deser.BeanDeserializer.vanillaDeserialize(BeanDeserializer.java:319)
+	at com.fasterxml.jackson.databind.deser.BeanDeserializer.deserialize(BeanDeserializer.java:176)
+	at com.fasterxml.jackson.dataformat.xml.deser.XmlDeserializationContext.readRootValue(XmlDeserializationContext.java:91)
+	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4674)
+	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3629)
+	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3597)
+	at com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationProvider.parseXmlBootstrapConfig(BootstrapConfigurationProvider.java:170)
+	at com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationProvider.parseConfigData(BootstrapConfigurationProvider.java:113)
+	at com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationProvider.get(BootstrapConfigurationProvider.java:64)
+	at com.appdynamics.agent.sim.configuration.bootstrap.BootstrapConfigurationProvider.get(BootstrapConfigurationProvider.java:36)
+	at com.google.inject.internal.ProviderInternalFactory.provision(ProviderInternalFactory.java:85)
+	at com.google.inject.internal.BoundProviderFactory.provision(BoundProviderFactory.java:77)
+	at com.google.inject.internal.ProviderInternalFactory.circularGet(ProviderInternalFactory.java:59)
+	at com.google.inject.internal.BoundProviderFactory.get(BoundProviderFactory.java:61)
+	at com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40)
+	at com.google.inject.internal.SingletonScope$1.get(SingletonScope.java:168)
+	at com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:39)
+	at com.google.inject.internal.SingleParameterInjector.inject(SingleParameterInjector.java:42)
+	at com.google.inject.internal.SingleParameterInjector.getAll(SingleParameterInjector.java:65)
+	at com.google.inject.internal.ConstructorInjector.provision(ConstructorInjector.java:113)
+	at com.google.inject.internal.ConstructorInjector.construct(ConstructorInjector.java:91)
+	at com.google.inject.internal.ConstructorBindingImpl$Factory.get(ConstructorBindingImpl.java:306)
+	at com.google.inject.internal.FactoryProxy.get(FactoryProxy.java:62)
+	at com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40)
+	at com.google.inject.internal.SingletonScope$1.get(SingletonScope.java:168)
+	at com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:39)
+	at com.google.inject.internal.ExposedKeyFactory.get(ExposedKeyFactory.java:57)
+	at com.google.inject.internal.SingleParameterInjector.inject(SingleParameterInjector.java:42)
+	at com.google.inject.internal.SingleParameterInjector.getAll(SingleParameterInjector.java:65)
+	at com.google.inject.internal.ConstructorInjector.provision(ConstructorInjector.java:113)
+	at com.google.inject.internal.ConstructorInjector.construct(ConstructorInjector.java:91)
+	at com.google.inject.internal.ConstructorBindingImpl$Factory.get(ConstructorBindingImpl.java:306)
+	at com.google.inject.internal.BoundProviderFactory.get(BoundProviderFactory.java:60)
+	at com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40)
+	at com.google.inject.internal.SingletonScope$1.get(SingletonScope.java:168)
+	at com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:39)
+	at com.google.inject.internal.SingleParameterInjector.inject(SingleParameterInjector.java:42)
+	at com.google.inject.internal.SingleParameterInjector.getAll(SingleParameterInjector.java:65)
+	at com.google.inject.internal.ConstructorInjector.provision(ConstructorInjector.java:113)
+	at com.google.inject.internal.ConstructorInjector.construct(ConstructorInjector.java:91)
+	at com.google.inject.internal.ConstructorBindingImpl$Factory.get(ConstructorBindingImpl.java:306)
+	at com.google.inject.internal.FactoryProxy.get(FactoryProxy.java:62)
+	at com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40)
+	at com.google.inject.internal.SingletonScope$1.get(SingletonScope.java:168)
+	at com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:39)
+	at com.google.inject.internal.ExposedKeyFactory.get(ExposedKeyFactory.java:57)
+	at com.google.inject.internal.FactoryProxy.get(FactoryProxy.java:62)
+	at com.google.inject.internal.SingleParameterInjector.inject(SingleParameterInjector.java:42)
+	at com.google.inject.internal.SingleParameterInjector.getAll(SingleParameterInjector.java:65)
+	at com.google.inject.internal.SingleMethodInjector.inject(SingleMethodInjector.java:82)
+	at com.google.inject.internal.MembersInjectorImpl.injectMembers(MembersInjectorImpl.java:147)
+	at com.google.inject.internal.MembersInjectorImpl.injectAndNotify(MembersInjectorImpl.java:101)
+	at com.google.inject.internal.Initializer$InjectableReference.get(Initializer.java:245)
+	at com.google.inject.internal.Initializer.injectAll(Initializer.java:140)
+	at com.google.inject.internal.InternalInjectorCreator.injectDynamically(InternalInjectorCreator.java:178)
+	... 9 more
