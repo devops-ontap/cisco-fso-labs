@@ -163,7 +163,6 @@ jobs:
 - name: install-te-agents
   plan:
     - get: git-resource
-      passed: [deploy-ubuntu-router]
     - config:
         image_resource:
           name: ""
@@ -179,8 +178,8 @@ jobs:
           args:
             - -cex
             - |
-              cd git-resources
-              cd cisco-fso-lab
+              ls -la
+              cd git-resource
               ls -la
               export AWS_PAGER=""
               chmod a+x configure_te.sh
