@@ -35,3 +35,4 @@ for command in commands:
     if err:
         print(err)
 con.close()
+
