@@ -17,8 +17,6 @@ con.load_system_host_keys()
 con.connect(host, username=username, allow_agent=False, pkey=key)
 
 commands = [
-    "pwd",
-    "whoami",
     "export TERMINFO=/usr/lib/terminfo",
     "TERM=xterm",
     "sudo cp /tmp/install_thousandeyes.sh .",
