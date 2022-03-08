@@ -34,4 +34,4 @@ for command in commands:
     time.sleep(3)
     if err:
         print(err)
-client.close()
+con.close()
