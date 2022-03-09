@@ -1,3 +1,14 @@
+Install the Thousand Eyes Network Utilities
+https://success.thousandeyes.com/ViewArticle?articleIdParam=kA0E0000000CmoAKAS
+
+sudo apt-add-repository https://apt.thousandeyes.com
+sudo wget -q https://apt.thousandeyes.com/thousandeyes-apt-key.pub -O- | sudo apt-key add -
+sudo apt-get update
+sudo apt-key list
+sudo apt-get install te-agent-utils
+
+
+
 Install the Thousand Eyes Enterprise Agent
 
 curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
@@ -35,5 +46,10 @@ USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root      113703  0.0  0.7 611048 28184 ?        Ssl  21:21   0:00 /usr/local/bin/te-agent -C /etc/te-agent.cfg
 
 
+
+
+
+fsolab4
+--header "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441"
 
 Configure a Test

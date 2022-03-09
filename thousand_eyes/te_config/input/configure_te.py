@@ -9,7 +9,7 @@ import paramiko
 private_key='us-east-2a.pem'
 key = paramiko.RSAKey.from_private_key_file(private_key)
 username='ubuntu'
-host='3.145.46.2'
+host='3.142.196.185'
 
 # connect to server
 con = paramiko.SSHClient()
@@ -22,6 +22,11 @@ commands = [
     "sudo cp /tmp/install_thousandeyes.sh .",
     "sudo chmod a+x install_thousandeyes.sh",
     "sudo ./install_thousandeyes.sh -f -b vojylvcce2gwg4u0e1mcg000gn96h0tj",
+    "sudo apt-add-repository https://apt.thousandeyes.com",
+    "sudo wget -q https://apt.thousandeyes.com/thousandeyes-apt-key.pub -O- | sudo apt-key add -"
+    "sudo -y apt-get update"
+sudo apt-key list
+sudo apt-get install te-agent-utils
 
 ]
 
