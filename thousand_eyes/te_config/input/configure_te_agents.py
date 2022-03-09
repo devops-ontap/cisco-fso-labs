@@ -9,31 +9,25 @@ from requests.structures import CaseInsensitiveDict
 private_key='us-east-2a.pem'
 key = paramiko.RSAKey.from_private_key_file(private_key)
 username='ubuntu'
-host='3.142.196.185'
+#host='3.142.196.185'
 
-coins = ["3.142.196.185","18.218.15.201"]
-for coin in zip(coins):
-    # connect to server
-    con = paramiko.SSHClient()
-    con.load_system_host_keys()
-    con.connect(host, username=username, allow_agent=False, pkey=key)
+hostfile='hostfile'
+commandfile='commandfile'
 
-    commands = [
-        "export TERMINFO=/usr/lib/terminfo",
-        "TERM=xterm",
-        "sudo cp /tmp/install_thousandeyes.sh .",
-        "sudo chmod a+x install_thousandeyes.sh",
-        "sudo ./install_thousandeyes.sh -f -b vojylvcce2gwg4u0e1mcg000gn96h0tj",
-        "sudo apt-add-repository https://apt.thousandeyes.com",
-        "sudo wget -q https://apt.thousandeyes.com/thousandeyes-apt-key.pub -O- | sudo apt-key add -",
-        "sudo -y apt-get update",
-        "sudo apt-key list",
-        "sudo apt-get install te-agent-utils"
+# Opens files in read mode
+f1 = open(hostfile,"r")
+f2 = open(commandfile,"r")
 
-    ]
+# Creates list based on f1 and f2
+devices = f1.readlines()
+commands = f2.readlines()
 
-    # execute the commands
+for device in devices:
+    device = device.rstrip()
     for command in commands:
+        con = paramiko.SSHClient()
+        con.load_system_host_keys()
+        con.connect(device, username=username, allow_agent=False, pkey=key)
         print("="*50, command, "="*50)
         stdin, stdout, stderr = con.exec_command(command, get_pty=True)
         print(stdout.read().decode())
@@ -41,4 +35,6 @@ for coin in zip(coins):
         time.sleep(3)
         if err:
             print(err)
-    con.close()
+        f1.close()
+        f2.close()
+con.close()

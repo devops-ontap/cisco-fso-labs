@@ -1,5 +1,10 @@
 Install the Thousand Eyes Enterprise Agent
 
+After installing the Agent, immediately after you will want to get the AgentIds
+And all other variables related to the Agents so that you can set up the tests
+
+
+
 curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
 chmod +x install_thousandeyes.sh
 sudo ./install_thousandeyes.sh -f -b vojylvcce2gwg4u0e1mcg000gn96h0tj
@@ -38,6 +43,12 @@ root      113703  0.0  0.7 611048 28184 ?        Ssl  21:21   0:00 /usr/local/bi
 https://developer.thousandeyes.com/v6/
 
 Get Token from GUI - Accounts Section
+
+
+
+
+
+
 Replace your token in the commands below
 
 Create API Token via GUI

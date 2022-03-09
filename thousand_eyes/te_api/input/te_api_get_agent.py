@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 #!/usr/bin/env python
 import json, re, sys, os, json, subprocess, time, logging, requests, paramiko
-import pandas as pd
 from subprocess import call, check_output
 from requests.structures import CaseInsensitiveDict
 
@@ -21,14 +20,10 @@ print("Output: \n{}\n".format(output))
 with open(agents_file) as access_json:
     read_content = json.load(access_json)
     question_content = read_content['agents']
-
-new_dict = {}
-df = pd.DataFrame(question_content)
-for index, row in df.iterrows() :
-    new_dict['agents'] = row['a']['agentId']
-    print(new_dict)
-
-
+    question_data=question_content[0]
+    agentId=question_data['agentId']
+    print(agentId)
+    agentId=agentId
 
 
 

@@ -9,7 +9,7 @@ from requests.structures import CaseInsensitiveDict
 private_key='us-east-2a.pem'
 key = paramiko.RSAKey.from_private_key_file(private_key)
 username='ubuntu'
-host='3.142.196.185'
+host='3.21.246.206'
 
 # connect to server
 con = paramiko.SSHClient()
