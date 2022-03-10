@@ -1,3 +1,53 @@
+oathToken:
+--header "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441"
+
+Basic:
+c15grnkt6n0gw5trys3wn18ggtfi01vc
+
+API Create Tests:
+https://www.thousandeyes.com/blog/automating-test-creation-with-thousandeyes-api/
+
+After running script to get the AgentIDs into a list and or vars, ingest that list
+into creating the tests
+
+Get Tests:
+curl https://api.thousandeyes.com/v6/tests.json \
+
+Get Agents:
+curl https://api.thousandeyes.com/v6/agents.json \
+--header "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441"
+
+curl https://api.thousandeyes.com/v6/agents.json \
+-u c15grnkt6n0gw5trys3wn18ggtfi01vc
+
+
+CREATE A TEST - this fails
+GUI:
+ANOJ MODI Recording on how to create Network Tests and Details around how the tests work:
+https://salesconnect.cloudapps.cisco.com/vid/index.html?cid=95f4fd1d-b4eb-4208-ab00-c7a48ee22cd3
+
+curl -i https://api.thousandeyes.com/v6/tests/network/new.json \
+    -d '{ "interval": 600,
+           "agents": [
+             {"agentId": 438241}
+           ],
+       "targetAgentId": 438241
+           "testName": "AWS eu-west-2 -- AWS us-east-1",
+           "alertsEnabled": 0
+         }' \
+     -H "Content-Type: application/json" \
+     -H "Accept: application/json" \
+     --header "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441"
+
+
+Create a Test - This Fails
+curl https://api.thousandeyes.com/tests/agent-to-server/new.json?authToken=c15grnkt6n0gw5trys3wn18ggtfi01vc \
+-d '{"interval": 300, "agents": [{"agentId": 438241}], "testName": "API agent to server test addition for www.thousandeyes.com", "server": "www.thousandeyes.com"}' \
+-H "Content-Type: application/json"
+
+
+
+
 Install the Thousand Eyes Enterprise Agent
 
 After installing the Agent, immediately after you will want to get the AgentIds

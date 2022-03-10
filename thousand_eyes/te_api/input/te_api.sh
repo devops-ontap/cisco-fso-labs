@@ -9,8 +9,7 @@ git clone git://github.com/psf/requests.git
 cd requests
 python -m pip install .
 cd ../
-chmod a+x te_api.sh
-python3 te_api_get_agentss.py
+python3 te_api_get_agent.py
 
 
 

@@ -8,7 +8,10 @@ from requests.structures import CaseInsensitiveDict
 #token=call the token from vault
 
 url = "https://api.thousandeyes.com/v6/agents.json"
-token = "1d0acd78-a470-44ad-a6d6-0892ac2db441"
+
+# Get environment variables
+token = os.getenv('TE_OATHTOKEN')
+
 agents_file = 'agents.json'
 #curl -o https://api.thousandeyes.com/v6/agents.json --header "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441"
 cmd_1='curl -o' + " " + agents_file + " "  + url + " " + '--header' + " " '"' + 'Authorization: Bearer' + " " + token + '"'

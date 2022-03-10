@@ -13,12 +13,8 @@ run:
     - -cex
     - |
       cd input
-      echo $TE_OATHTOKEN
       chmod a+x te_api.sh
       ./te_api.sh
-params:
-  TE_OATHTOKEN: ((te.oathtoken))
-  TE_BASICTOKEN: ((te.basic))
 
 
 
