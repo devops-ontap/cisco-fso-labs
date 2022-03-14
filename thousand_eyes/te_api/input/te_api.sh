@@ -9,7 +9,7 @@ git clone git://github.com/psf/requests.git
 cd requests
 python -m pip install .
 cd ../
-python3 te_api_get_agent.py
+python3 te_api_agent_server_tests.py
 
 
 

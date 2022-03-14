@@ -47,45 +47,10 @@ for k in (dict(collect)):
 #save this list of agentIds to a file then use it to run a loop over the file in order to set up tests
 #or just put this to a list in RAM and then loop over it to add all the agents to that particular test
 
+agents_file='agents.txt'
+with open(agents_file, 'a+') as my_file:
+    my_file.write(k + "\n")
 
 
 
 
-
-
-
-
-'''
-headers = CaseInsensitiveDict()
-headers["Accept"] = "application/json"
-headers["Authorization"] = "Bearer {token}"
-
-
-resp = requests.get(url, headers=headers)
-
-print(resp.status_code)
-
-
-#Filter Output to get the Agent ID
-
-
-#Open json file to write output
-# read file
-with open('agents.json', 'r') as myfile:
-    data=myfile.read()
-
-# parse file
-obj = json.loads(data)
-print(obj)
-
-# show values
-#print("usd: " + str(obj['usd']))
-
-outfile_agents='agents.json'
-with open(outfile_agents, 'w') as my_file:
-    my_file.write(resp)
-with open (outfile_agents) as access_json:
-    read_content = json.load(access_json)
-    print(read_content)
-
-'''

@@ -21,29 +21,12 @@ curl https://api.thousandeyes.com/v6/agents.json \
 -u c15grnkt6n0gw5trys3wn18ggtfi01vc
 
 
-CREATE A TEST - this fails
+
 GUI:
 ANOJ MODI Recording on how to create Network Tests and Details around how the tests work:
 https://salesconnect.cloudapps.cisco.com/vid/index.html?cid=95f4fd1d-b4eb-4208-ab00-c7a48ee22cd3
 
-curl -i https://api.thousandeyes.com/v6/tests/network/new.json \
-    -d '{ "interval": 600,
-           "agents": [
-             {"agentId": 438241}
-           ],
-       "targetAgentId": 438241
-           "testName": "AWS eu-west-2 -- AWS us-east-1",
-           "alertsEnabled": 0
-         }' \
-     -H "Content-Type: application/json" \
-     -H "Accept: application/json" \
-     --header "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441"
 
-
-Create a Test - This Fails
-curl https://api.thousandeyes.com/tests/agent-to-server/new.json?authToken=c15grnkt6n0gw5trys3wn18ggtfi01vc \
--d '{"interval": 300, "agents": [{"agentId": 438241}], "testName": "API agent to server test addition for www.thousandeyes.com", "server": "www.thousandeyes.com"}' \
--H "Content-Type: application/json"
 
 
 
@@ -80,12 +63,12 @@ Config File:
 -/etc/te-agent.cfg
 
 
-ubuntu@ip-10-10-10-236:~$ ps -u -p 102600
+ps -u -p 102600
 USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root      102600  0.2  0.7 1381504 30324 ?       Ssl  21:11   0:00 /usr/local/bin/te-agent -C /etc/te-agent.cfg
 ubuntu@ip-10-10-10-236:~$
 
-ubuntu@ip-10-10-10-236:~$ ps -u -p 113703
+ps -u -p 113703
 USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root      113703  0.0  0.7 611048 28184 ?        Ssl  21:21   0:00 /usr/local/bin/te-agent -C /etc/te-agent.cfg
 
@@ -104,7 +87,7 @@ Replace your token in the commands below
 Create API Token via GUI
 oAuth
 --header "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441" - fsolab4
-2c55b646-eb53-4802-b3fe-0a02885ad516
+
 
 curl https://api.thousandeyes.com/v6/agents --header "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441"
 

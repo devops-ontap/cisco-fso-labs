@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+
 #!/usr/bin/env python
 import json, re, sys, os, json, subprocess, time, logging, requests, paramiko
 import pandas as pd
@@ -43,49 +43,64 @@ for key in test_dict:
 for k in (dict(collect)):
     print(k)
 
-
-#save this list of agentIds to a file then use it to run a loop over the file in order to set up tests
-#or just put this to a list in RAM and then loop over it to add all the agents to that particular test
-
-
+agents_file='agents.txt'
+with open(agents_file, 'a+') as my_file:
+    my_file.write(str(k) + "\n")
 
 
+import subprocess, json
+agentId = 'agents.txt'
 
-
-
-
+with open("agents.txt") as file_in:
+    lines = []
+    for line in file_in:
+        subprocess.run([
+            'curl',
+            '-X', 'POST',
+            '-H', 'Content-Type: application/json',
+            '-H', 'Accept: application/json',
+            '-d', json.dumps({"interval": 300, "agents": [{"agentId": "{line}"}], "testName": "agent to server", "server": "www.thousandeyes.com"}),
+            '-H', 'Authorization: $token',
+            'https://api.thousandeyes.com/v6/instant/agent-to-server',
+       ])
+file(close)
 
 '''
-headers = CaseInsensitiveDict()
-headers["Accept"] = "application/json"
-headers["Authorization"] = "Bearer {token}"
+curl -i https://api.thousandeyes.com/v6/instant/agent-to-server \
+-d '{ "agents": [ {"agentId": 113} ], "testName": "API Instant test", "server": "www.thousandeyes.com" }' \
+-H "Content-Type: application/json" \
+-H "Accept: application/json" \
+--header "Authorization: Bearer 2c55b646-eb53-4802-b3fe-0a02885ad516"
 
 
-resp = requests.get(url, headers=headers)
-
-print(resp.status_code)
 
 
-#Filter Output to get the Agent ID
+
+        subprocess.run([
+            'curl',
+            '-X', 'POST',
+            '-H "Content-Type: application/json" 
+            '-d json.dummps('{"interval": 300, "agents": [{"agentId": line}], "testName": "agent to server", "server": "www.thousandeyes.com"}),          
+            'http://localhost.yxy',
+        ])
+        
+        for var_name in k:
+        
+        #save this list of agentIds to a file then use it to run a loop over the file in order to set up tests
+        #or just put this to a list in RAM and then loop over it to add all the agents to that particular test
+        #curl url -d '{"interval": 300, "agents": [{"agentId": 438241}], "testName": "agent to server", "server": "www.thousandeyes.com"}' -H "Content-Type: application/json" --header "Authorization: Bearer token
+        cmd='curl' + " " + url + " " + '' + -d '{"interval": 300, "agents": [{"agentId":' + agentId + '}],' + " " + '"testName": "agent to server", "server": "www.thousandeyes.com"}' -H "Content-Type: application/json" --header "Authorization: Bearer' + " " + token
+        print(cmd)
+        
 
 
-#Open json file to write output
-# read file
-with open('agents.json', 'r') as myfile:
-    data=myfile.read()
+output = check_output("{}".format(cmd), shell=True).decode().strip()
+print("Output: \n{}\n".format(output))
 
-# parse file
-obj = json.loads(data)
-print(obj)
 
-# show values
-#print("usd: " + str(obj['usd']))
 
-outfile_agents='agents.json'
-with open(outfile_agents, 'w') as my_file:
-    my_file.write(resp)
-with open (outfile_agents) as access_json:
-    read_content = json.load(access_json)
-    print(read_content)
-
+curl https://api.thousandeyes.com/tests/agent-to-server/new.json \
+-d '{"interval": 300, "agents": [{"agentId": 438241}], "testName": "agent to server", "server": "www.thousandeyes.com"}' \
+-H "Content-Type: application/json" \
+--header "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441"
 '''
