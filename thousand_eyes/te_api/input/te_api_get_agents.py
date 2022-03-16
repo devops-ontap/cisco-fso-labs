@@ -41,9 +41,14 @@ collect = defaultdict(dict)
 for key in test_dict:
     collect[key['agentId']]
 for k in (dict(collect)):
-    print(str(k))
+    print(k)
 
-with open('file.txt','w') as data:
-    data.write(str(k))
+a = list(dictionary.values())
+with open('test.txt', 'w') as f:
+    for item in a:
+        f.write(' '.join(item) + "\n")
+
+
+
 
 
