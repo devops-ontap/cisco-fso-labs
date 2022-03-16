@@ -45,35 +45,11 @@ for key in test_dict:
 for k in (dict(collect)):
     print(k)
 
-#write k to a file
-with open('agents.txt', 'w') as f:
-    for item in collect:
-        f.write("%s\n" % item)
+with open('agents.txt', 'w') as file:
+    file.write('\n'.join(str(key['agentId']) for key in test_dict))
 
 
 import requests
-
-Token = token
-Url = 'https://api.thousandeyes.com/v6/instant/agent-to-server'
-data = '{"interval": 300, "agents": [{"agentId": "{}".format(line)}], "testName": "agent to server 3", "server": "www.thousandeyes.com"}'
-head = {'Authorization': 'token {}'.format(Token)}
-response = requests.post(Url, headers=head, data=data)
-print(response)
-
-
-
-
-
-session = requests.Session()
-session.headers.update({'Authorization': 'Bearer {access_token}'})
-response = session.get('https://httpbin.org/headers')
-
-response = requests.get("https://api.thousandeyes.com/v6/instant/agent-to-server")
-print(response)
-
-response = requests.post('https://api.thousandeyes.com/v6/instant/agent-to-server', data = {"interval": 300, "agents": [{"agentId": "{}".format(line)}], "testName": "agent to server 3", "server": "www.thousandeyes.com"},
-print(response)
-
 with open("agents.txt") as file:
     lines = []
     for line in file:
@@ -82,11 +58,12 @@ with open("agents.txt") as file:
             '-X', 'POST',
             '-H', 'Content-Type: application/json',
             '-H', 'Accept: application/json',
-            '-d', json.dumps({"interval": 300, "agents": [{"agentId": "{}".format(line)}], "testName": "agent to server 3", "server": "www.thousandeyes.com"}),
+            '-d', json.dumps({"interval": 300, "agents": [{"agentId": "{}".format(line)}], "testName": "agent to server 1-", "server": "www.thousandeyes.com"}),
             '-H', "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441",
             'https://api.thousandeyes.com/v6/instant/agent-to-server'
        ])
 
+'''
 # -d '{ "agents": [ {"agentId": 442696} ], "testName": "agent-to-server-test-2", "server": "www.thousandeyes.com" }'
 
 data = '{"interval": "300", "agents": [ {"agentId": "".format(line)} ], "testName": "agent-to-server-test-3", "server": "www.thousandeyes.com" }'

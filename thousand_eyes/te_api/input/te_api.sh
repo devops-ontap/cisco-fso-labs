@@ -6,7 +6,7 @@ pip3 install pycurl
 pip3 install pandas
 python3 -m pip install requests
 cd input
-python3 te_api_get_agents.py
+python3 te_api_agent_server_tests.py
 
 
 

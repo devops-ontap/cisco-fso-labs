@@ -43,7 +43,7 @@ for key in test_dict:
 for k in (dict(collect)):
     print(k)
 
-with open('test.txt', 'w') as file:
+with open('agents.txt', 'w') as file:
     file.write('\n'.join(str(key['agentId']) for key in test_dict))
 
 
