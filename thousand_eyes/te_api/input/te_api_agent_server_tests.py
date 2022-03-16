@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python
 import json, re, sys, os, json, subprocess, time, logging, requests, paramiko
 import pandas as pd
@@ -63,11 +62,3 @@ with open("agents.txt") as file:
             'https://api.thousandeyes.com/v6/instant/agent-to-server'
        ])
 
-'''
-# -d '{ "agents": [ {"agentId": 442696} ], "testName": "agent-to-server-test-2", "server": "www.thousandeyes.com" }'
-
-data = '{"interval": "300", "agents": [ {"agentId": "".format(line)} ], "testName": "agent-to-server-test-3", "server": "www.thousandeyes.com" }'
-headers = {"Authorization": "Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441"}
-endpoint = 'https://api.thousandeyes.com/v6/instant/agent-to-server'
-print(requests.post(endpoint, data=data, headers=headers).json())
-'''
