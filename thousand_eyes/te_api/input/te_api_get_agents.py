@@ -41,17 +41,9 @@ collect = defaultdict(dict)
 for key in test_dict:
     collect[key['agentId']]
 for k in (dict(collect)):
-    print(k)
+    print(str(k))
 
-
-#save this list of agentIds to a file then use it to run a loop over the file in order to set up tests
-#or just put this to a list in RAM and then loop over it to add all the agents to that particular test
-
-agents_file='agents.txt'
-with open(agents_file, 'a+') as my_file:
-    my_file.write(subnetid_router_var + "\n")
-
-
-
+with open('file.txt','w') as data:
+    data.write(str(k))
 
 
