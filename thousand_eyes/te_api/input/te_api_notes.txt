@@ -1,3 +1,24 @@
+INSTANT TESTS DO NOT SHOW UP IN GUI
+
+CREATE A REGULAR TEST....
+
+ curl -i https://api.thousandeyes.com/v6/tests/agent-to-server/new.json \
+  -d '{ "interval": 300,
+        "agents": [
+          {"agentId": 113}
+        ],
+        "testName": "API agent-to-server test addition for www.thousandeyes.com",
+        "server": "www.thousandeyes.com",
+        "port": 80,
+        "alertsEnabled": 0
+      }' \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  --header "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441"
+
+
+
+
 oathToken:
 --header "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441"
 
@@ -104,10 +125,10 @@ Setup Tests via API
 Get Your AgentID
 
 curl -i https://api.thousandeyes.com/v6/instant/agent-to-server \
--d '{ "agents": [ {"agentId": 113} ], "testName": "API Instant test", "server": "www.thousandeyes.com" }' \
+-d '{ "agents": [ {"agentId": 443531} ], "testName": "agent-to-server-test-443531", "server": "www.thousandeyes.com" }' \
 -H "Content-Type: application/json" \
 -H "Accept: application/json" \
---header "Authorization: Bearer 2c55b646-eb53-4802-b3fe-0a02885ad516"
+--header "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441"
 
 
 Basic

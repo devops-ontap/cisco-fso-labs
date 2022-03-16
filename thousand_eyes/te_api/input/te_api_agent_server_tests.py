@@ -14,6 +14,7 @@ agents_file = 'agents.json'
 #example:
 #curl -o https://api.thousandeyes.com/v6/agents.json --header "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441"
 cmd_1='curl -o' + " " + agents_file + " "  + url + " " + '--header' + " " '"' + 'Authorization: Bearer' + " " + token + '"'
+print(cmd_1)
 output = check_output("{}".format(cmd_1), shell=True).decode().strip()
 print("Output: \n{}\n".format(output))
 
@@ -38,69 +39,58 @@ test_dict = found_values
 collect = defaultdict(dict)
 
 # at this moment, 'key' becomes every dict of your list of dict
+agents_file='agents.txt'
 for key in test_dict:
     collect[key['agentId']]
 for k in (dict(collect)):
     print(k)
 
-agents_file='agents.txt'
-with open(agents_file, 'a+') as my_file:
-    my_file.write(str(k) + "\n")
+#write k to a file
+with open('agents.txt', 'w') as f:
+    for item in collect:
+        f.write("%s\n" % item)
 
 
-import subprocess, json
-agentId = 'agents.txt'
+import requests
 
-with open("agents.txt") as file_in:
+Token = token
+Url = 'https://api.thousandeyes.com/v6/instant/agent-to-server'
+data = '{"interval": 300, "agents": [{"agentId": "{}".format(line)}], "testName": "agent to server 3", "server": "www.thousandeyes.com"}'
+head = {'Authorization': 'token {}'.format(Token)}
+response = requests.post(Url, headers=head, data=data)
+print(response)
+
+
+
+
+
+session = requests.Session()
+session.headers.update({'Authorization': 'Bearer {access_token}'})
+response = session.get('https://httpbin.org/headers')
+
+response = requests.get("https://api.thousandeyes.com/v6/instant/agent-to-server")
+print(response)
+
+response = requests.post('https://api.thousandeyes.com/v6/instant/agent-to-server', data = {"interval": 300, "agents": [{"agentId": "{}".format(line)}], "testName": "agent to server 3", "server": "www.thousandeyes.com"},
+print(response)
+
+with open("agents.txt") as file:
     lines = []
-    for line in file_in:
-        subprocess.run([
+    for line in file:
+        subprocess.call([
             'curl',
             '-X', 'POST',
             '-H', 'Content-Type: application/json',
             '-H', 'Accept: application/json',
-            '-d', json.dumps({"interval": 300, "agents": [{"agentId": "{line}"}], "testName": "agent to server", "server": "www.thousandeyes.com"}),
-            '-H', 'Authorization: $token',
-            'https://api.thousandeyes.com/v6/instant/agent-to-server',
+            '-d', json.dumps({"interval": 300, "agents": [{"agentId": "{}".format(line)}], "testName": "agent to server 3", "server": "www.thousandeyes.com"}),
+            '-H', "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441",
+            'https://api.thousandeyes.com/v6/instant/agent-to-server'
        ])
-file(close)
 
-'''
-curl -i https://api.thousandeyes.com/v6/instant/agent-to-server \
--d '{ "agents": [ {"agentId": 113} ], "testName": "API Instant test", "server": "www.thousandeyes.com" }' \
--H "Content-Type: application/json" \
--H "Accept: application/json" \
---header "Authorization: Bearer 2c55b646-eb53-4802-b3fe-0a02885ad516"
+# -d '{ "agents": [ {"agentId": 442696} ], "testName": "agent-to-server-test-2", "server": "www.thousandeyes.com" }'
 
-
-
-
-
-        subprocess.run([
-            'curl',
-            '-X', 'POST',
-            '-H "Content-Type: application/json" 
-            '-d json.dummps('{"interval": 300, "agents": [{"agentId": line}], "testName": "agent to server", "server": "www.thousandeyes.com"}),          
-            'http://localhost.yxy',
-        ])
-        
-        for var_name in k:
-        
-        #save this list of agentIds to a file then use it to run a loop over the file in order to set up tests
-        #or just put this to a list in RAM and then loop over it to add all the agents to that particular test
-        #curl url -d '{"interval": 300, "agents": [{"agentId": 438241}], "testName": "agent to server", "server": "www.thousandeyes.com"}' -H "Content-Type: application/json" --header "Authorization: Bearer token
-        cmd='curl' + " " + url + " " + '' + -d '{"interval": 300, "agents": [{"agentId":' + agentId + '}],' + " " + '"testName": "agent to server", "server": "www.thousandeyes.com"}' -H "Content-Type: application/json" --header "Authorization: Bearer' + " " + token
-        print(cmd)
-        
-
-
-output = check_output("{}".format(cmd), shell=True).decode().strip()
-print("Output: \n{}\n".format(output))
-
-
-
-curl https://api.thousandeyes.com/tests/agent-to-server/new.json \
--d '{"interval": 300, "agents": [{"agentId": 438241}], "testName": "agent to server", "server": "www.thousandeyes.com"}' \
--H "Content-Type: application/json" \
---header "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441"
+data = '{"interval": "300", "agents": [ {"agentId": "".format(line)} ], "testName": "agent-to-server-test-3", "server": "www.thousandeyes.com" }'
+headers = {"Authorization": "Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441"}
+endpoint = 'https://api.thousandeyes.com/v6/instant/agent-to-server'
+print(requests.post(endpoint, data=data, headers=headers).json())
 '''

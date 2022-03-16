@@ -6,9 +6,9 @@ rm -rf __pycache__
 /usr/local/bin/python -m pip install --upgrade pip
 pip3 install paramiko
 pip3 install requests
+pip3 install urllib2
 apt -y install ncurses-term
-curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
-ssh-keyscan -H 3.142.196.185 >> ~/.ssh/known_hosts
-scp -i us-east-2a.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null install_thousandeyes.sh ubuntu@3.142.196.185:/tmp
+chmod a+x scp.sh
+./scp.sh
 python3 configure_te_agents.py
 

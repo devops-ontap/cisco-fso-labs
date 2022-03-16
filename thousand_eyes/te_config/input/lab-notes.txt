@@ -1,3 +1,4 @@
+
 Install the Thousand Eyes Network Utilities
 https://success.thousandeyes.com/ViewArticle?articleIdParam=kA0E0000000CmoAKAS
 
@@ -9,7 +10,7 @@ sudo apt-get install te-agent-utils
 
 
 
-Install the Thousand Eyes Enterprise Agent
+Manual Install the Thousand Eyes Enterprise Agent
 
 curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
 chmod +x install_thousandeyes.sh
@@ -29,7 +30,7 @@ sudo service te-agent stop
 Start:
 sudo service te-agent start
 
-remote the agent:
+remove the agent:
 sudo apt-get -y purge te-agent
 
 Config File:
@@ -44,7 +45,6 @@ ubuntu@ip-10-10-10-236:~$
 ubuntu@ip-10-10-10-236:~$ ps -u -p 113703
 USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root      113703  0.0  0.7 611048 28184 ?        Ssl  21:21   0:00 /usr/local/bin/te-agent -C /etc/te-agent.cfg
-
 
 
 

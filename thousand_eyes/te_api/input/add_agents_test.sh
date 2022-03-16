@@ -1,12 +1,9 @@
 #!/bin/bash
-#
-
 while read line
-for project in `cat output.txt`; do
-echo $project
-curl -D- -u user:pass -X POST --data "{\"fields\":{\"project\":{\"key\":\"TECH\"},\"parent\":{\"key\":\"$project\"},\"summary\":\"TestChargenNr\",\"description\":\"some description\",\"issuetype\":{\"name\":\"Sub-task\"},\"customfield_10107\":{\"id\":\"10400\"}}}" -H "Content-Type:application/json" https://jira.company.com/rest/api/latest/issue/
-
- done
-xargs -I{} curl "xyz.com/v1/"{} <file
-
-#xargs -I{} curl "curl url -d '{"interval": 300, "agents": [{"agentId":"{}], "testName": "agent to server", "server": "www.thousandeyes.com"}' -H "Content-Type: application/json" --header "Authorization: $token <agents
+for project in `cat agents`; do
+  echo $agentid
+  curl https://api.thousandeyes.com/tests/agent-to-server/new.json \
+  -d '{"interval": 300, "agents": [{"agentId": $agentid}], "testName": "API network test addition for www.thousandeyes.com", "server": "www.thousandeyes.com"}' \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441"
+done

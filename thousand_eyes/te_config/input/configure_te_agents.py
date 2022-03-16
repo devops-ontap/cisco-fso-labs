@@ -3,14 +3,11 @@ import json, re, sys, os, json, subprocess, time, logging, requests, paramiko
 from subprocess import call, check_output
 from requests.structures import CaseInsensitiveDict
 
-#Download the TE Agent
-#Scp the Agent to the Ubuntu
 #Install the Agent
-private_key='us-east-2a.pem'
+#See if  you can pull the pem from vault
+private_key = 'key.pem'
 key = paramiko.RSAKey.from_private_key_file(private_key)
 username='ubuntu'
-#host='3.142.196.185'
-
 hostfile='hostfile'
 commandfile='commandfile'
 

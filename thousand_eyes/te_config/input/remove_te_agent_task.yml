@@ -14,8 +14,8 @@ run:
     - |
       cd input
       /usr/local/bin/python -m pip install --upgrade pip
-      chmod a+x configure_te_agent.sh
-      ./configure_te_agent.sh
+      chmod a+x remove_te_agent.sh
+      ./remove_te_agent.sh
 
 
 

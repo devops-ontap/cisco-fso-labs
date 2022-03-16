@@ -49,7 +49,8 @@ for k in (dict(collect)):
 
 agents_file='agents.txt'
 with open(agents_file, 'a+') as my_file:
-    my_file.write(k + "\n")
+    my_file.write(collect)
+
 
 
 
