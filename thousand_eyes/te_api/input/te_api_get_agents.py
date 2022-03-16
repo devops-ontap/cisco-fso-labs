@@ -49,7 +49,7 @@ for k in (dict(collect)):
 
 agents_file='agents.txt'
 with open(agents_file, 'a+') as my_file:
-    my_file.write(collect)
+    my_file.write(subnetid_router_var + "\n")
 
 
 
