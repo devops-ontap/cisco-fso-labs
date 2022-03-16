@@ -43,10 +43,8 @@ for key in test_dict:
 for k in (dict(collect)):
     print(k)
 
-a = list(dictionary.values())
-with open('test.txt', 'w') as f:
-    for item in a:
-        f.write(' '.join(item) + "\n")
+with open('test.txt', 'w') as file:
+    file.write('\n'.join(str(key['agentId']) for key in test_dict))
 
 
 
