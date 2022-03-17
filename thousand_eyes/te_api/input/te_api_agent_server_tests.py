@@ -44,21 +44,20 @@ for key in test_dict:
 for k in (dict(collect)):
     print(k)
 
+#Need to change this so that it writes a dictionary to the file
 with open('agents.txt', 'w') as file:
     file.write('\n'.join(str(key['agentId']) for key in test_dict))
 
+#manually created this list for now which is a json dictionary
+agent_id_list='test.json'
+with open(agent_id_list) as access_json:
+    read_content = json.load(access_json)
+    print(read_content)
 
-import requests
-with open("agents.txt") as file:
-    lines = []
-    for line in file:
-        subprocess.call([
-            'curl',
-            '-X', 'POST',
-            '-H', 'Content-Type: application/json',
-            '-H', 'Accept: application/json',
-            '-d', json.dumps({"interval": 300, "agents": [{"agentId": "{}".format(line)}], "testName": "agent to server 1-", "server": "www.thousandeyes.com"}),
-            '-H', "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441",
-            'https://api.thousandeyes.com/v6/instant/agent-to-server'
-       ])
-
+#THIS WORKS NOW TRY FROM FILE, SO LOAD THE FILE AS JSON
+agents = [{'agentId': '443526'}, {'agentId': '443531'}]
+url='https://api.thousandeyes.com/v6/tests/agent-to-server/new.json'
+payload = {'interval': '300', 'agents': agents, 'testName': 'agent to server-25', 'port': '80', 'server': 'www.thousandeyes.com','alertsEnabled': '0'}
+header = {'content-type': 'application/json', 'authorization': 'Bearer ' + token}
+r = requests.post(url, data=json.dumps(payload), headers=header, verify=False)
+print(r)
