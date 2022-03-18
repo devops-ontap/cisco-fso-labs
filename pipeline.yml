@@ -16,7 +16,7 @@ jobs:
       run:
         path: sh
         args:
-          - -ec
+          - -ex
           - |
             echo $AWS_KEY_ID
             echo $AWS_KEY
