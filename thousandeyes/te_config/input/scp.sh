@@ -1,8 +1,6 @@
 #!/bin/sh
 printenv
 echo "${SSHKEY}" | ssh-add -
-export SSHKEY=`cat sshkey.pem`
-chmod 400 sshkey.pem
 #key='key.pem'
 user='ubuntu'
 hostfile='hostfile'

@@ -1,13 +1,23 @@
 #!/usr/bin/env python
 import json, re, sys, os, json, subprocess, time, logging, requests, paramiko
 from subprocess import call, check_output
-from requests.structures import CaseInsensitiveDict
 
 #Install the Agent
 #See if  you can pull the pem from vault
 
+from os import environ
 os.environ.get('SSHKEY')
 print(os.environ.get('SSHKEY'))
+
+
+sshkey = environ.get('SSHKEY')
+print(sshkey)
+
+with open('sshkey.pem', 'w+') as my_file:
+    my_file.write(sshkey)
+
+os.chmod("sshkey.pem", 400)
+
 private_key = 'sshkey.pem'
 key = paramiko.RSAKey.from_private_key_file(private_key)
 username='ubuntu'
