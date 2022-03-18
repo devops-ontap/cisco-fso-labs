@@ -16,10 +16,8 @@ jobs:
       run:
         path: sh
         args:
-          - -ex
+          - -ce
           - |
-            echo $AWS_KEY_ID
-            echo $AWS_KEY
             export AWS_PAGER=""
             aws configure set aws_access_key_id $AWS_KEY_ID
             aws configure set aws_secret_access_key $AWS_KEY
