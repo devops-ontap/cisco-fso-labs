@@ -7,8 +7,6 @@ from subprocess import call, check_output
 
 from os import environ
 os.environ.get('SSHKEY')
-print(os.environ.get('SSHKEY'))
-
 
 sshkey = environ.get('SSHKEY')
 print(sshkey)

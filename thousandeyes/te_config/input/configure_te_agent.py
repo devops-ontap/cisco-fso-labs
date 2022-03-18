@@ -6,7 +6,7 @@ from requests.structures import CaseInsensitiveDict
 #Download the TE Agent
 #Scp the Agent to the Ubuntu
 #Install the Agent
-private_key='us-east-2a.pem'
+private_key='sshkey.pem'
 key = paramiko.RSAKey.from_private_key_file(private_key)
 username='ubuntu'
 host='3.21.246.206'
