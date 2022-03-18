@@ -137,8 +137,7 @@ curl -i https://api.thousandeyes.com/v6/status -u noreply@thousandeyes.com:z4eyl
 
 
 
+Helpful Links on working with Json..
+https://stackoverflow.com/questions/29051573/python-filter-list-of-dictionaries-based-on-key-value
+https://www.geeksforgeeks.org/python-convert-a-list-to-dictionary/
 
-
-
-
-Configure a Test

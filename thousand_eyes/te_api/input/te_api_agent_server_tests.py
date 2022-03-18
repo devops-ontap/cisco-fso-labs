@@ -6,9 +6,10 @@ from requests.structures import CaseInsensitiveDict
 urllib3.disable_warnings()
 token = os.getenv('TE_OATHTOKEN')
 
+test_name = 'test_31'
 url = "https://api.thousandeyes.com/v6/agents.json"
 payload={}
-headers = {'Authorization': 'Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441'}
+headers = {'Authorization': 'Bearer ' + token}
 agent_response = requests.request("GET", url, headers=headers, data=payload)
 
 agent_list_json = agent_response.json()
@@ -31,7 +32,7 @@ print(empty_list)
 #For some reason the API will only see to accept the list of agents like this.....
 #agents = [{'agentId': '443526'}, {'agentId': '443531'}]
 url='https://api.thousandeyes.com/v6/tests/agent-to-server/new.json'
-payload = {'interval': '300', 'agents': empty_list, 'testName': 'agent to server-30', 'port': '80', 'server': 'www.thousandeyes.com','alertsEnabled': '0'}
+payload = {'interval': '300', 'agents': empty_list, 'testName': test_name, 'port': '80', 'server': 'www.thousandeyes.com','alertsEnabled': '0'}
 header = {'content-type': 'application/json', 'authorization': 'Bearer ' + token}
 r = requests.post(url, data=json.dumps(payload), headers=header, verify=False)
 print(r)
