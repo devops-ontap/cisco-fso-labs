@@ -1,6 +1,7 @@
 #!/bin/sh
 printenv
 echo "${SSHKEY}" | ssh-add -
+echo -e "${SSHKEY//_/\\n}" > ~/.ssh/sshkey && chmod 400 ~/.ssh/sshkey
 #key='key.pem'
 user='ubuntu'
 hostfile='hostfile'

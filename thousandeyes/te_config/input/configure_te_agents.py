@@ -6,8 +6,10 @@ from requests.structures import CaseInsensitiveDict
 #Install the Agent
 #See if  you can pull the pem from vault
 
-os.environ.get('SSHKEY')
-private_key = SSHKEY
+#os.environ.get('SSHKEY')
+#print(os.environ.get('SSHKEY'))
+#private_key = (os.environ.get('SSHKEY'))
+privatekey = '~/.ssh/sshkey'
 key = paramiko.RSAKey.from_private_key_file(private_key)
 username='ubuntu'
 hostfile='hostfile'
