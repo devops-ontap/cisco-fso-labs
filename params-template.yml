@@ -1,10 +1,12 @@
-lpass-username:
-lpass-password:
-git-branch:
+git-branch: yourbranch
 git-uri: git@github.com:devops-ontap/cisco-fso-labs.git
-Username:
-email:
+Username: fsolab4
+email: fsolab4@gmail.com
 private_key: |
-image-repo-name:
-registry-username:
-registry-password:
+  -----BEGIN OPENSSH PRIVATE KEY-----
+ssh_aws_key: |
+  -----BEGIN OPENSSH PRIVATE KEY-----
+
+
+
+
