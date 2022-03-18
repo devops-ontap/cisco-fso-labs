@@ -1,0 +1,24 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {repository: sconrod/netmiko}
+
+inputs:
+  - name: input
+run:
+  path: /bin/sh
+  args:
+    - -cex
+    - |
+      cd input
+      echo $TE_OATHTOKEN
+      chmod a+x te_api.sh
+      ./te_api.sh
+params:
+  TE_OATHTOKEN: ((te.oathtoken))
+  TE_BASICTOKEN: ((te.basic))
+
+
+

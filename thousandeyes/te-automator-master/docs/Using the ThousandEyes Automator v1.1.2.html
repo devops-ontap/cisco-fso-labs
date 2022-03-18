@@ -1,0 +1,657 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Using the ThousandEyes Automator</title>
+    <meta name="author" content="gmeuse" />
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+        text-indent: 0;
+      }
+      h1 {
+        color: #0892a0;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 16pt;
+      }
+      p {
+        color: black;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 11pt;
+        margin: 0pt;
+      }
+      .s1 {
+        color: #00f;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 11pt;
+      }
+      .a,
+      a {
+        color: #00f;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 11pt;
+      }
+      h2 {
+        color: #4f565c;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 13pt;
+      }
+    </style>
+  </head>
+  <body>
+    <h1
+      style="
+        padding-top: 7pt;
+        padding-left: 5pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      How to use the ThousandEyes Automator
+    </h1>
+    <p
+      style="
+        padding-top: 4pt;
+        padding-left: 5pt;
+        text-indent: 0pt;
+        line-height: 90%;
+        text-align: left;
+      "
+    >
+      This document describes how to use the ThousandEyes Automator to deploy
+      initial environments that support these use cases. The recommended key use
+      cases are as follows:
+    </p>
+    <p
+      style="
+        padding-top: 4pt;
+        padding-left: 13pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      • Microsoft 365 End User Experience
+    </p>
+    <p
+      style="
+        padding-top: 4pt;
+        padding-left: 13pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      • Microsoft Teams End User Experience
+    </p>
+    <p
+      style="
+        padding-top: 4pt;
+        padding-left: 13pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      • Cisco Webex End User Experience
+    </p>
+    <p
+      style="
+        padding-top: 4pt;
+        padding-left: 13pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      • Cisco SD-WAN Network Performance Visibility
+    </p>
+    <p
+      style="
+        padding-top: 4pt;
+        padding-left: 13pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      • Customer Website User Experience
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p
+      style="
+        padding-top: 8pt;
+        padding-left: 5pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      This document is associated with the following documents or tools:
+    </p>
+    <p
+      class="s1"
+      style="
+        padding-top: 4pt;
+        padding-left: 13pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      •
+      <a
+        href="/docs/What%20is%20the%20ThousandEyes%20Automator%20v1.1.2.html"
+        target="docs"
+        >What is the ThousandEyes Automator?</a
+      >
+    </p>
+    <p
+      class="s1"
+      style="
+        padding-top: 4pt;
+        padding-left: 13pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      •
+      <a href="/docs/Deploying%20the%20Use%20Cases%20v1.1.2.html" target="docs"
+        >Deploying the Use Cases</a
+      >
+    </p>
+    <p
+      style="
+        padding-top: 4pt;
+        padding-left: 13pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      •
+      <a href="https://cs.co/price-te" target="pricing"
+        >ThousandEyes Pricing Tool</a
+      >
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <h2 style="padding-left: 5pt; text-indent: 0pt; text-align: justify;">
+      What is the Automator?
+    </h2>
+    <p
+      style="
+        padding-top: 5pt;
+        padding-left: 5pt;
+        text-indent: 0pt;
+        line-height: 90%;
+        text-align: justify;
+      "
+    >
+      The ThousandEyes Automator is a chrome extension that can be installed on
+      Windows and Mac devices with Google Chrome installed. The ThousandEyes
+      Automator intended use is for deployment of a prescribed set of tests,
+      alert rules, labels, dashboards and reports that have been preconfigured
+      for use with ThousandEyes Cloud and Enterprise agents is support of the
+      recommended key use cases.
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <h2 style="padding-left: 5pt; text-indent: 0pt; text-align: justify;">
+      Accessing the Automator
+    </h2>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p
+      style="
+        padding-left: 5pt;
+        text-indent: 0pt;
+        line-height: 90%;
+        text-align: justify;
+      "
+    >
+      The ThousandEyes Automator is a Chrome Browser extension that can be
+      installed on Windows and Mac devices with Google Chrome installed. Once
+      the Automator is installed using the Automator requires the following:
+    </p>
+    <p
+      style="
+        padding-top: 4pt;
+        padding-left: 7pt;
+        text-indent: 0pt;
+        text-align: justify;
+      "
+    >
+      1. A Windows or Mac device with Google Chrome installed
+    </p>
+    <p
+      style="
+        padding-top: 4pt;
+        padding-left: 7pt;
+        text-indent: 0pt;
+        text-align: justify;
+      "
+    >
+      2. A Cisco CCOID
+    </p>
+    <p
+      style="
+        padding-top: 4pt;
+        padding-left: 7pt;
+        text-indent: 0pt;
+        text-align: justify;
+      "
+    >
+      3. A ThousandEyes ID and API Token
+    </p>
+    <p
+      style="
+        padding-top: 5pt;
+        padding-left: 22pt;
+        text-indent: -14pt;
+        line-height: 90%;
+        text-align: left;
+      "
+    >
+      4. A ThousandEyes Organization and Account Group pre-allocated with the
+      ThousandEyes ID having the role of (at minimum) Account Admin in the
+      Account Group being deployed to
+    </p>
+    <p
+      style="
+        padding-top: 4pt;
+        padding-left: 7pt;
+        text-indent: 0pt;
+        text-align: justify;
+      "
+    >
+      5. Access to SalesConnect.Cisco.com
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p
+      style="
+        padding-top: 8pt;
+        padding-left: 7pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      You can access the Automator by:
+    </p>
+    <p
+      style="
+        padding-top: 4pt;
+        padding-left: 7pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      1. Browsing to SalesConnect.Cisco.com
+    </p>
+    <p
+      style="
+        padding-top: 4pt;
+        padding-left: 7pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      2. Login using your Cisco CCOID
+    </p>
+    <p
+      style="
+        padding-top: 4pt;
+        padding-left: 5pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      Once logged in, insure the active tab is Salesconnect.Cisco.com and
+      either:
+    </p>
+    <p
+      style="
+        padding-top: 4pt;
+        padding-left: 7pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      1. Clicking on the Manage Extensions icon then scrolling to the
+      ThousandEyes Automator
+    </p>
+    <p
+      style="
+        padding-top: 4pt;
+        padding-left: 7pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      2. Clicking on the ThousandEyes icon pinned in the Extensions Taskbar
+    </p>
+    <h2
+      style="
+        padding-top: 7pt;
+        padding-left: 5pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      Using the Automator
+    </h2>
+    <p
+      style="
+        padding-top: 5pt;
+        padding-left: 24pt;
+        text-indent: -11pt;
+        line-height: 90%;
+        text-align: justify;
+      "
+    >
+      • The Automator will load and present a dialog box to have the user enter
+      their ThousandEyes ID and API Token
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p style="padding-left: 64pt; text-indent: 0pt; text-align: left;">
+      <span
+        ><img
+          width="562"
+          height="299"
+          alt="image"
+          src="Using%20the%20ThousandEyes%20Automator%20v1.1.2_files/Image_001.png"
+      /></span>
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p
+      style="
+        padding-left: 24pt;
+        text-indent: -11pt;
+        line-height: 90%;
+        text-align: justify;
+      "
+    >
+      • If you don’t not have your API Token you can click on the “Find your API
+      user token” link. A new tab will open where you will need to login
+      ThousandEyes then you will be brought to your ThousandEyes profile page.
+      The Basic Authentication token is located at the bottom of the page. Copy
+      it and then paste it back into the dialog box.
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p style="padding-left: 102pt; text-indent: 0pt; text-align: left;">
+      <span
+        ><img
+          width="451"
+          height="364"
+          alt="image"
+          src="Using%20the%20ThousandEyes%20Automator%20v1.1.2_files/Image_002.png"
+      /></span>
+    </p>
+    <p
+      style="
+        padding-top: 8pt;
+        padding-left: 13pt;
+        text-indent: 0pt;
+        text-align: left;
+      "
+    >
+      • Once you have the ThousandEyes ID and Token in their respective input
+      fields, click “Enter API Credentials:
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p style="padding-left: 142pt; text-indent: 0pt; text-align: left;">
+      <span
+        ><img
+          width="354"
+          height="319"
+          alt="image"
+          src="Using%20the%20ThousandEyes%20Automator%20v1.1.2_files/Image_003.png"
+      /></span>
+    </p>
+    <p
+      style="
+        padding-top: 9pt;
+        padding-left: 24pt;
+        text-indent: -11pt;
+        line-height: 90%;
+        text-align: left;
+      "
+    >
+      • You will be presented with a screen validating your ThousandEyes
+      platform login. To continue and open the Automator click “Start”.
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p style="padding-left: 127pt; text-indent: 0pt; text-align: left;">
+      <span
+        ><img
+          width="385"
+          height="233"
+          alt="image"
+          src="Using%20the%20ThousandEyes%20Automator%20v1.1.2_files/Image_004.png"
+      /></span>
+    </p>
+    <p
+      style="
+        padding-top: 9pt;
+        padding-left: 24pt;
+        text-indent: -11pt;
+        line-height: 90%;
+        text-align: justify;
+      "
+    >
+      • The ThousandEyes Automator homepage will open. There are links to the
+      documents “What is the ThousandEyes Automator?”, “How to use the
+      ThousandEyes Automator?” (this document) and What are the Uses Cases?. To
+      proceed to the use cases and deploy, click “Go to the Use Cases”.
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p style="padding-left: 43pt; text-indent: 0pt; text-align: left;">
+      <span
+        ><img
+          width="618"
+          height="242"
+          alt="image"
+          src="Using%20the%20ThousandEyes%20Automator%20v1.1.2_files/Image_005.png"
+      /></span>
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p
+      style="
+        padding-top: 10pt;
+        padding-left: 24pt;
+        text-indent: -11pt;
+        line-height: 90%;
+        text-align: justify;
+      "
+    >
+      • You will be presented with the Use Case page. Four of the five use cases
+      have 2 options for deployment. The Microsoft 365 , Microsoft Teams and
+      Cisco Webex use cases all have 2 options that are listed as Comprehensive
+      and Lite. The details of the difference and which to choose is based upon
+      criteria outlined in the “What are the Use Cases?” Documentation. The
+      Customer Website use case has 2 options based upon whether the use case
+      involves access to the website via a CDN (Content Delivery Network). There
+      is only one Cisco SD-WAN use case choice.
+    </p>
+    <p
+      style="
+        padding-top: 4pt;
+        padding-left: 23pt;
+        text-indent: 0pt;
+        text-align: justify;
+      "
+    >
+      Once a use case (and option) has been determined, click on the appropriate
+      tile to begin.
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p style="padding-left: 107pt; text-indent: 0pt; text-align: left;">
+      <span
+        ><img
+          width="441"
+          height="293"
+          alt="image"
+          src="Using%20the%20ThousandEyes%20Automator%20v1.1.2_files/Image_006.png"
+      /></span>
+    </p>
+    <p
+      style="
+        padding-top: 9pt;
+        padding-bottom: 4pt;
+        padding-left: 24pt;
+        text-indent: -11pt;
+        line-height: 90%;
+        text-align: justify;
+      "
+    >
+      • To demonstrate how to use the ThousandEyes Automator, we will do a
+      sample deployment one of the Use Cases. We will choose the “Microsoft 365
+      End User Experience - Lite” use case. Clicking on the Microsoft 365 End
+      User Experience - Lite tile will open the Deployment page.
+    </p>
+    <p style="padding-left: 121pt; text-indent: 0pt; text-align: left;">
+      <span
+        ><img
+          width="458"
+          height="313"
+          alt="image"
+          src="Using%20the%20ThousandEyes%20Automator%20v1.1.2_files/Image_007.png"
+      /></span>
+    </p>
+    <p
+      style="
+        padding-top: 8pt;
+        padding-left: 13pt;
+        text-indent: 0pt;
+        text-align: justify;
+      "
+    >
+      • For each Use Case, there will be customer specific inputs that will need
+      to be filled in.
+    </p>
+    <p
+      style="
+        padding-top: 5pt;
+        padding-left: 5pt;
+        text-indent: 0pt;
+        line-height: 90%;
+        text-align: justify;
+      "
+    >
+      It is very important that any customer specific requirements for the input
+      fields be gathered <b>prior </b>to using the Automator for deployment.
+      These include installation of targeted Enterprise Agent, application
+      specific information and test interval preference. For this example, we
+      have gathered the necessary information, have created an Account Group to
+      deploy to and have the Enterprise Agents installed and given access to the
+      Account Group. Here is the what that looks like.
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p style="padding-left: 80pt; text-indent: 0pt; text-align: left;">
+      <span
+        ><img
+          width="555"
+          height="391"
+          alt="image"
+          src="Using%20the%20ThousandEyes%20Automator%20v1.1.2_files/Image_008.png"
+      /></span>
+    </p>
+    <p
+      style="
+        padding-top: 9pt;
+        padding-left: 24pt;
+        text-indent: -11pt;
+        line-height: 90%;
+        text-align: justify;
+      "
+    >
+      • Once the inputs are complete, you can deploy the by clicking the DEPLOY
+      button. The Deployment progress can be followed by scrolling to the bottom
+      of the page.
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p style="padding-left: 90pt; text-indent: 0pt; text-align: left;">
+      <span
+        ><img
+          width="493"
+          height="347"
+          alt="image"
+          src="Using%20the%20ThousandEyes%20Automator%20v1.1.2_files/Image_009.png"
+      /></span>
+    </p>
+    <p
+      style="
+        padding-top: 9pt;
+        padding-left: 24pt;
+        text-indent: -11pt;
+        line-height: 90%;
+        text-align: justify;
+      "
+    >
+      • Once the deployment is complete, simply click on any of the items in the
+      deployment list and you will be brought into the ThousandEyes platform (if
+      you not yet logged in or logged in under a different account you we need
+      to log in with the account used to deploy using the ThousandEyes
+      Automator.
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p style="padding-left: 75pt; text-indent: 0pt; text-align: left;">
+      <span
+        ><img
+          width="523"
+          height="368"
+          alt="image"
+          src="Using%20the%20ThousandEyes%20Automator%20v1.1.2_files/Image_010.png"
+      /></span>
+    </p>
+    <p
+      style="
+        padding-top: 9pt;
+        padding-left: 24pt;
+        text-indent: -11pt;
+        line-height: 90%;
+        text-align: left;
+      "
+    >
+      • You now have a fully functioning ThousandEyes environment in support of
+      the Microsoft 365 End User Experience - Lite use case.
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p style="padding-left: 49pt; text-indent: 0pt; text-align: left;">
+      <span
+        ><img
+          width="604"
+          height="281"
+          alt="image"
+          src="Using%20the%20ThousandEyes%20Automator%20v1.1.2_files/Image_011.png"
+      /></span>
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p style="padding-left: 49pt; text-indent: 0pt; text-align: left;">
+      <span
+        ><img
+          width="604"
+          height="281"
+          alt="image"
+          src="Using%20the%20ThousandEyes%20Automator%20v1.1.2_files/Image_012.png"
+      /></span>
+    </p>
+    <p style="text-indent: 0pt; text-align: left;"><br /></p>
+    <p style="padding-left: 49pt; text-indent: 0pt; text-align: left;">
+      <span
+        ><img
+          width="580"
+          height="252"
+          alt="image"
+          src="Using%20the%20ThousandEyes%20Automator%20v1.1.2_files/Image_013.png"
+      /></span>
+    </p>
+  </body>
+</html>

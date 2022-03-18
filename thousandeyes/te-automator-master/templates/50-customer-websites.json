@@ -1,0 +1,332 @@
+{
+	"name": "Customer Website User Experience",
+	"description": "Setup testing to Customer Websites",
+	"logo_url": "assets/img/brand/web.png",
+	"formVariables": {
+		"$formAgents": {
+			"name": "Cloud Agents",
+			"type": "cloudAgents"
+		},
+		"$formURL1": {
+			"name": "Customer Website URL",
+			"type": "url"
+		},
+		"$formDomainName1": {
+			"name": "Customer Website Domain Name",
+			"type": "hostnameOrIpAddress"
+		},
+		"$formTestInterval": {
+			"name": "Test Interval",
+			"type": "object",
+			"options": {
+				"120": "Critical - 2 min",
+				"300": "  Normal - 5 min",
+				"600": "Relaxed - 10 min"
+			},
+			"selected": 300
+		}
+	},
+	"create": {
+    "alertRules": [
+      {
+        "alertType": "Page Load",
+        "expression": "((!pageLoaded) || (pageLoadHasError == true) || (pageLoadTimedOut == true))",
+        "minimumSources": 2,
+        "notifyOnClear": 0,
+        "roundsViolatingOutOf": 1,
+        "roundsViolatingRequired": 1,
+        "ruleName": "Website Page Load Issue"
+      },
+      {
+        "alertType": "HTTP Server",
+        "expression": "((errorType != \"None\"))",
+        "minimumSources": 2,
+        "notifyOnClear": 0,
+        "roundsViolatingOutOf": 1,
+        "roundsViolatingRequired": 1,
+        "ruleName": "Website Availability Issue"
+      },
+      {
+        "alertType": "End-to-End (Server)",
+        "expression": "((loss >= 15%))",
+        "minimumSources": 2,
+        "notifyOnClear": 0,
+        "roundsViolatingOutOf": 1,
+        "roundsViolatingRequired": 1,
+        "ruleName": "Website Network Packet Loss"
+        },
+      {
+        "alertType": "End-to-End (Server)",
+        "expression": "((avgLatency >= 150ms))",
+        "minimumSources": 2,
+        "notifyOnClear": 0,
+        "roundsViolatingOutOf": 1,
+        "roundsViolatingRequired": 1,
+        "ruleName": "Website Network Latency"
+			},
+			{
+				"alertType":"DNS Trace",
+				"default":0,
+				"expression":"((probDetail != \"\"))",
+				"minimumSources":1,
+				"notifyOnClear":1,
+				"roundsViolatingOutOf":3,
+				"roundsViolatingRequired":3,
+				"roundsViolatingMode":"EXACT",
+				"ruleName":"DNS Server Alert"
+			}
+    ],
+    "labels": [
+      {
+        "name": "Websites",
+        "type": "tests"
+      },
+			{
+				"name": "DNS Server",
+				"type": "tests"
+			},
+      {
+        "name": "Agents",
+        "type": "agents",
+        "agents": "$formAgents"
+      }
+    ],
+		"tests": [
+			{
+				"agents": "$formAgents",
+				"enabled":1,
+				"testName":"DNS Trace to Website",
+				"type":"dns-trace",
+				"interval":"$formTestInterval",
+				"domain":"$formDomainName1 A",
+				"dnsQueryClass":"IN",
+				"dnsTransportProtocol":"UDP",
+				"alertsEnabled":1,
+				"liveShare":0,
+				"alertRules": [
+					"DNS Server Alert"
+					],
+				  "groups":  [
+						"DNS Server"
+					]
+			},
+			{
+				"enabled": 1,
+				"testName": "$formURL1 - Page Load",
+				"type": "page-load",
+				"interval": "$formTestInterval",
+				"url": "$formURL1",
+				"httpInterval": "$formTestInterval",
+				"protocol": "TCP",
+				"networkMeasurements": 1,
+				"mtuMeasurements": 1,
+				"bandwidthMeasurements": 0,
+				"bgpMeasurements": 1,
+				"usePublicBgp": 1,
+				"alertsEnabled": 1,
+				"httpTimeLimit": 5,
+				"httpTargetTime": 1000,
+				"httpVersion": 2,
+				"pageLoadTimeLimit": 10,
+				"pageLoadTargetTime": 6,
+				"followRedirects": 1,
+				"includeHeaders": 1,
+				"sslVersionId": 0,
+				"verifyCertificate": 1,
+				"useNtlm": 0,
+				"authType": "NONE",
+				"contentRegex": "",
+				"probeMode": "AUTO",
+				"pathTraceMode": "inSession",
+				"numPathTraces": 3,
+				"sslVersion": "Auto",
+        "alertRules" : [
+          "Website Network Latency",
+          "Website Network Packet Loss",
+          "Website Availability Issue",
+          "Website Page Load Issue"
+        ],
+				"agents": "$formAgents",
+        "groups":  [
+            "Websites"
+        ]
+			}
+		],
+		"dashboards": [{
+			"title": "Global Website Overview",
+			"widgets": [{
+					"type": "Color Grid",
+					"title": "Site Availability by Agent",
+					"visualMode": "Half screen",
+					"dataSource": "Cloud & Enterprise Agents",
+					"metricGroup": "Web - HTTP Server",
+					"metric": "Availability",
+					"filters": {
+						"Test Labels": ["Websites"]
+					},
+					"measure": {
+						"type": "Mean"
+					},
+					"cards": "Agents",
+					"groupCardsBy": "Tests",
+					"columns": 1,
+					"sortBy": "Value",
+					"sortDirection": "Descending"
+				},
+				{
+					"type": "Color Grid",
+					"title": "Site Page Load by Agent",
+					"visualMode": "Half screen",
+					"dataSource": "Cloud & Enterprise Agents",
+					"metricGroup": "Web - Page Load",
+					"metric": "Page Load Time",
+					"filters": {
+						"Test Labels": ["Websites"]
+					},
+					"measure": {
+						"type": "Mean"
+					},
+					"cards": "Agents",
+					"groupCardsBy": "Tests",
+					"maxScale": 10000.0,
+					"columns": 1,
+					"sortBy": "Value",
+					"sortDirection": "Descending"
+				},
+				{
+					"type": "Color Grid",
+					"title": "Site Packet Loss by Agent",
+					"visualMode": "Half screen",
+					"dataSource": "Cloud & Enterprise Agents",
+					"metricGroup": "Network - Agent to Server",
+					"metric": "Packet Loss",
+					"filters": {
+						"Test Labels": ["Websites"]
+					},
+					"measure": {
+						"type": "Mean"
+					},
+					"cards": "Agents",
+					"groupCardsBy": "Tests",
+					"columns": 1,
+					"sortBy": "Value",
+					"maxScale": 2.0,
+					"sortDirection": "Descending"
+				},
+				{
+					"type": "Color Grid",
+					"title": "Site Latency by Agent",
+					"visualMode": "Half screen",
+					"dataSource": "Cloud & Enterprise Agents",
+					"metricGroup": "Network - Agent to Server",
+					"metric": "Latency",
+					"filters": {
+						"Test Labels": ["Websites"]
+					},
+					"measure": {
+						"type": "Mean"
+					},
+					"cards": "Agents",
+					"groupCardsBy": "Tests",
+					"maxScale": 300.0,
+					"columns": 1,
+					"sortBy": "Value",
+					"sortDirection": "Descending"
+				},
+
+				{
+					"type": "Alert List",
+					"title": "Alert List",
+					"visualMode": "Full",
+					"filters": {
+						"Test Labels": ["Websites"]
+					},
+					"alertTypes": [
+						"Network - End-to-End (Server)",
+						"Web - HTTP Server",
+						"Web - Page Load"
+					],
+					"limitTo": 10,
+					"activeWithin": {
+						"value": 1,
+						"unit": "Hours"
+					}
+				}
+			]
+		}],
+		"reports": [{
+			"title": "Website Metrics",
+			"widgets": [{
+					"type": "Time Series: Line",
+					"title": "$formURL1 Availability by Agent",
+					"visualMode": "Half screen",
+					"dataSource": "Cloud & Enterprise Agents",
+					"metricGroup": "Web - HTTP Server",
+					"metric": "Availability",
+					"filters": {
+						"Tests": ["$formURL1 - Page Load"]
+					},
+					"measure": {
+						"type": "Mean"
+					},
+					"showTimeseriesOverallBaseline": false,
+					"groupBy": "Agents",
+					"isTimeseriesOneChartPerLine": false
+				},
+				{
+					"type": "Time Series: Line",
+					"title": "$formURL1 Page Load by Agent",
+					"visualMode": "Half screen",
+					"dataSource": "Cloud & Enterprise Agents",
+					"metricGroup": "Web - Page Load",
+					"metric": "Page Load Time",
+					"filters": {
+						"Tests": ["$formURL1 - Page Load"]
+					},
+					"measure": {
+						"type": "Mean"
+					},
+					"showTimeseriesOverallBaseline": false,
+					"groupBy": "Agents",
+					"maxScale": 10000.0,
+					"isTimeseriesOneChartPerLine": false
+				},
+				{
+					"type": "Time Series: Line",
+					"title": "$formURL1 Packet Loss by Agent",
+					"visualMode": "Half screen",
+					"dataSource": "Cloud & Enterprise Agents",
+					"metricGroup": "Network - Agent to Server",
+					"metric": "Packet Loss",
+					"filters": {
+						"Tests": ["$formURL1 - Page Load"]
+					},
+					"measure": {
+						"type": "Mean"
+					},
+					"showTimeseriesOverallBaseline": false,
+					"groupBy": "Agents",
+					"maxScale": 2.0,
+					"isTimeseriesOneChartPerLine": false
+				},
+				{
+					"type": "Time Series: Line",
+					"title": "$formURL1 Latency by Agent",
+					"visualMode": "Half screen",
+					"dataSource": "Cloud & Enterprise Agents",
+					"metricGroup": "Network - Agent to Server",
+					"metric": "Latency",
+					"filters": {
+						"Tests": ["$formURL1 - Page Load"]
+					},
+					"measure": {
+						"type": "Mean"
+					},
+					"showTimeseriesOverallBaseline": false,
+					"groupBy": "Agents",
+					"isTimeseriesOneChartPerLine": false,
+					"maxScale": 300.0
+				}]
+		}]
+	}
+}
