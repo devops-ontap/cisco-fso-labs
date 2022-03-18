@@ -1,0 +1,3 @@
+When adding tests and agents to tests via the API, if you delete those agents. You cannot delete the tests from the GUI
+you get this pop up error:
+
