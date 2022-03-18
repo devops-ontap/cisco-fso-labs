@@ -1,0 +1,172 @@
+jobs:
+- name: lab-prep
+  plan:
+  - get: git-resource
+    trigger: true
+  - config:
+      image_resource:
+        name: ""
+        source:
+          repository: sconrod/python-aws
+          tag: v2
+        type: docker-image
+      inputs:
+      - name: git-resource
+      platform: linux
+      run:
+        path: sh
+        args:
+          - -ec
+          - |
+            echo $AWS_KEY_ID
+            echo $AWS_KEY
+            export AWS_PAGER=""
+            aws configure set aws_access_key_id $AWS_KEY_ID
+            aws configure set aws_secret_access_key $AWS_KEY
+            aws configure set default.region us-east-2
+            aws sts get-caller-identity --query Account --output text
+    task: check-aws
+    params:
+      AWS_KEY_ID: ((Access_key_ID.Access_key))
+      AWS_KEY: ((Secret_access_key.Secret_access_key))
+
+- name: deploy-aws-env
+  plan:
+    - get: git-resource
+    - config:
+        image_resource:
+          name: ""
+          source:
+            repository: sconrod/python-aws
+            tag: v2
+          type: docker-image
+        inputs:
+          - name: git-resource
+        platform: linux
+        run:
+          path: /bin/sh
+          args:
+            - -ce
+            - |
+              cd git-resource
+              export AWS_PAGER=""
+              aws configure set aws_access_key_id $AWS_KEY_ID
+              aws configure set aws_secret_access_key $AWS_KEY
+              aws configure set default.region us-east-2
+              aws sts get-caller-identity --query Account --output text
+              export AWS_PAGER=""
+              chmod a+x aws_key.sh
+              chmod a+x aws_deploy.sh
+              ./aws_key.sh
+              ./aws_deploy.sh
+      task: build-vpc
+      params:
+        AWS_KEY_ID: ((Access_key_ID.Access_key))
+        AWS_KEY: ((Secret_access_key.Secret_access_key))
+
+- name: deploy-csr1000v
+  plan:
+    - get: git-resource
+    - config:
+        image_resource:
+          name: ""
+          source:
+            repository: sconrod/python-aws
+            tag: v2
+          type: docker-image
+        inputs:
+          - name: git-resource
+        platform: linux
+        run:
+          path: /bin/sh
+          args:
+            - -ce
+            - |
+              cd git-resource
+              export AWS_PAGER=""
+              aws configure set aws_access_key_id $AWS_KEY_ID
+              aws configure set aws_secret_access_key $AWS_KEY
+              aws configure set default.region us-east-2
+              aws sts get-caller-identity --query Account --output text
+              export AWS_PAGER=""
+              chmod a+x csr_deploy.sh
+              ./csr_deploy.sh
+      task: build-csr1000v
+      params:
+        AWS_KEY_ID: ((Access_key_ID.Access_key))
+        AWS_KEY: ((Secret_access_key.Secret_access_key))
+
+- name: deploy-ubuntu-lan
+  plan:
+    - get: git-resource
+    - config:
+        image_resource:
+          name: ""
+          source:
+            repository: sconrod/python-aws
+            tag: v2
+          type: docker-image
+        inputs:
+          - name: git-resource
+        platform: linux
+        run:
+          path: /bin/sh
+          args:
+            - -ce
+            - |
+              cd git-resource
+              export AWS_PAGER=""
+              aws configure set aws_access_key_id $AWS_KEY_ID
+              aws configure set aws_secret_access_key $AWS_KEY
+              aws configure set default.region us-east-2
+              aws sts get-caller-identity --query Account --output text
+              export AWS_PAGER=""
+              chmod a+x aws_ubuntu_lan_deploy.sh
+              ./aws_ubuntu_lan_deploy.sh
+      task: build-ubuntu-lan
+      params:
+        AWS_KEY_ID: ((Access_key_ID.Access_key))
+        AWS_KEY: ((Secret_access_key.Secret_access_key))
+
+- name: deploy-ubuntu-router
+  plan:
+    - get: git-resource
+    - config:
+        image_resource:
+          name: ""
+          source:
+            repository: sconrod/python-aws
+            tag: v2
+          type: docker-image
+        inputs:
+          - name: git-resource
+        platform: linux
+        run:
+          path: /bin/sh
+          args:
+            - -ce
+            - |
+              cd git-resource
+              export AWS_PAGER=""
+              aws configure set aws_access_key_id $AWS_KEY_ID
+              aws configure set aws_secret_access_key $AWS_KEY
+              aws configure set default.region us-east-2
+              aws sts get-caller-identity --query Account --output text
+              export AWS_PAGER=""
+              chmod a+x aws_ubuntu_router_deploy.sh
+              ./aws_ubuntu_router_deploy.sh
+      task: build-ubuntu-router
+      params:
+        AWS_KEY_ID: ((Access_key_ID.Access_key))
+        AWS_KEY: ((Secret_access_key.Secret_access_key))
+
+resource_types:
+resources:
+  - name: git-resource
+    source:
+      Username: ((Username))
+      branch: ((git-branch))
+      email: ((email))
+      private_key: ((private_key))
+      uri: ((git-uri))
+    type: git

@@ -1,0 +1,23 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {repository: sconrod/netmiko}
+
+inputs:
+  - name: input
+run:
+  path: /bin/sh
+  args:
+    - -cex
+    - |
+      cd input
+      /usr/local/bin/python -m pip install --upgrade pip
+      curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
+      scp -i us-east-2a.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null install_thousandeyes.sh ubuntu@3.21.246.206:/tmp
+      chmod a+x configure_te_agent.sh
+      ./configure_te_agent.sh
+
+
+

@@ -1,0 +1,21 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {repository: sconrod/netmiko}
+
+inputs:
+  - name: input
+run:
+  path: /bin/sh
+  args:
+    - -cex
+    - |
+      cd input
+      /usr/local/bin/python -m pip install --upgrade pip
+      chmod a+x remove_te_agent.sh
+      ./remove_te_agent.sh
+
+
+
