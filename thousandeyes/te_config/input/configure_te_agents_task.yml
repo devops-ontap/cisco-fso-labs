@@ -13,12 +13,11 @@ run:
     - -cex
     - |
       cd input
-      /usr/local/bin/python -m pip install --upgrade pip
       chmod a+x scp.sh
       ./scp.sh
       chmod a+x configure_te_agents.sh
       ./configure_te_agents.sh
 params:
-  PEM: ((pem_key))
+  SSHKEY: ((ssh_aws_key))
 
 
