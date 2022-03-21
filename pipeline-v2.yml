@@ -161,6 +161,7 @@ jobs:
 - name: deploy-thousand-eyes-agents
   plan:
     - get: git-resource
+      passed: [deploy-ubuntu-router]
     - config:
         image_resource:
           name: ""
@@ -176,7 +177,7 @@ jobs:
           args:
             - -cex
             - |
-              cd input
+              cd git-resource/thousandeyes/te_config
               chmod a+x scp.sh
               ./scp.sh
               chmod a+x configure_te_agents.sh
