@@ -9,6 +9,7 @@ pip3 install requests
 pip3 install urllib3
 apt -y install unzip
 apt -y install ncurses-term
+apt -y install rpm
 python3 configure_appd_agents.py
 
 
