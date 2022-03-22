@@ -12,7 +12,5 @@ sudo rpm -ivh appdynamics-machine-agent-22.2.0.3282.x86_64.rpmsudo systemctl sta
 sudo systemctl start appdynamics-machine-agent
 sudo systemctl status appdynamics-machine-agent
 
-#use rpm to remove it
-
 
 
