@@ -14,7 +14,7 @@ cp *.pem $name.pem
 PRIVATE_KEY=$name + '.pem'
 echo $PRIVATE_KEY
 cat $PRIVATE_KEY
-touch ssh-key.json:jq
+touch ssh-key.json
 awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' *.pem > ssh-key.json
 #Later iteration, set up access so that the key can be written to vault for the team, for now manually add it.
 #This is where send the key to the vault under the team name
