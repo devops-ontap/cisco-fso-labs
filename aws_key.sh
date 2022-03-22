@@ -10,10 +10,9 @@ python3 aws_key.py
 echo $name
 ls -la *.pem
 cat *.pem
-cp *.pem $name.pem
-PRIVATE_KEY=$name + '.pem'
+#PRIVATE_KEY=$name + '.pem'
+#echo "echo-ing out the var $PRIVATE_KEY
 echo $PRIVATE_KEY
-cat $PRIVATE_KEY
 touch ssh-key.json
 awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' *.pem > ssh-key.json
 #Later iteration, set up access so that the key can be written to vault for the team, for now manually add it.
