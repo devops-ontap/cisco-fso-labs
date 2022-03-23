@@ -1,0 +1,36 @@
+Branch - AppD
+Was testing out installing the vault-cli onto the build container in order to write the aws ssh key to the vault.
+Can do manually but not functioning as of yet in the automation.
+Requires to set up a policy and token and or user login and password in order to write to the vault.
+
+vault login -address=http://vault.devops-ontap.com:8200
+
+export VAULT_API_ADDR=http://127.0.0.1:8200
+export VAULT_TOKEN=
+
+sconrod@SCONROD-M-5E7D lab-keys % vault kv put concourse/main/ssh-cert cert=@us-east-2a.pem
+
+however, when doing from vault-cli the command requires the cert in json format so must also install jq on the build container and then:
+touch ssh-key.json
+awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' *.pem > ssh-key.json
+
+Somehow, need to authenticate through to vault in order to write the key.
+
+Now, if using in the lab, its a good idea to make one team for each user in concourse. 
+Then this team will under the vault concourse path, and each branch login will only have access to update certs into their path.
+So from pipeline, the pipeline params will need to specify their login to vault, for which a policy is assigned to their user, matching their branch
+name and keep the vault username and password the same as their concourse username and password.
+
+Will need to do an update of the concourse to create all the teams.
+Create one team for each branch
+create one path for each team in vault
+create one policy for each team in vault 
+Add vault user to vault policy.
+Password for vault and for concourse need to be rotated each new lab.
+
+
+
+
+
+
+

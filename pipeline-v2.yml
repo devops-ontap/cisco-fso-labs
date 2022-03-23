@@ -21,7 +21,7 @@ jobs:
             export AWS_PAGER=""
             aws configure set aws_access_key_id $AWS_KEY_ID
             aws configure set aws_secret_access_key $AWS_KEY
-            aws configure set default.region us-east-2
+            aws configure set default.region $REGION
             aws sts get-caller-identity --query Account --output text
     task: check-aws
     params:
@@ -50,7 +50,7 @@ jobs:
               export AWS_PAGER=""
               aws configure set aws_access_key_id $AWS_KEY_ID
               aws configure set aws_secret_access_key $AWS_KEY
-              aws configure set default.region us-east-2
+              aws configure set default.region $REGION
               aws sts get-caller-identity --query Account --output text
               export AWS_PAGER=""
               chmod a+x aws_key.sh
@@ -61,6 +61,7 @@ jobs:
       params:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
+        REGION: ((aws.region))
 
 - name: deploy-csr1000v
   plan:
@@ -84,7 +85,7 @@ jobs:
               export AWS_PAGER=""
               aws configure set aws_access_key_id $AWS_KEY_ID
               aws configure set aws_secret_access_key $AWS_KEY
-              aws configure set default.region us-east-2
+              aws configure set default.region $REGION
               aws sts get-caller-identity --query Account --output text
               export AWS_PAGER=""
               chmod a+x csr_deploy.sh
@@ -93,6 +94,7 @@ jobs:
       params:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
+        REGION: ((aws.region))
 
 - name: deploy-ubuntu-lan
   plan:
@@ -116,7 +118,7 @@ jobs:
               export AWS_PAGER=""
               aws configure set aws_access_key_id $AWS_KEY_ID
               aws configure set aws_secret_access_key $AWS_KEY
-              aws configure set default.region us-east-2
+              aws configure set default.region $REGION
               aws sts get-caller-identity --query Account --output text
               export AWS_PAGER=""
               chmod a+x aws_ubuntu_lan_deploy.sh
@@ -125,6 +127,7 @@ jobs:
       params:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
+        REGION: ((aws.region))
 
 - name: deploy-ubuntu-router
   plan:
@@ -148,7 +151,7 @@ jobs:
               export AWS_PAGER=""
               aws configure set aws_access_key_id $AWS_KEY_ID
               aws configure set aws_secret_access_key $AWS_KEY
-              aws configure set default.region us-east-2
+              aws configure set default.region $REGION
               aws sts get-caller-identity --query Account --output text
               export AWS_PAGER=""
               chmod a+x aws_ubuntu_router_deploy.sh
@@ -157,6 +160,7 @@ jobs:
       params:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
+        REGION: ((aws.region))
 
 - name: deploy-thousand-eyes-agents
   plan:
