@@ -6,11 +6,9 @@ apt -y install jq
 apt -y install vault
 apt -y install jq
 python3 aws_key.py
-#name the pem key with the name var
-#See how the pem key is named
-echo $name
 ls -la *.pem
 cat *.pem
+cp *.pem ssh-key.pem
 PRIVATE_KEY='ssh-key.pem'
 #echo "echo-ing out the var $PRIVATE_KEY
 echo $PRIVATE_KEY
