@@ -4,7 +4,7 @@ rm -rf __pycache__
 apt -y update
 apt -y install jq
 apt -y install vault
-apk -y install jq
+apt -y install jq
 python3 aws_key.py
 #name the pem key with the name var
 #See how the pem key is named
