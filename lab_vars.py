@@ -1,4 +1,4 @@
-name='us-east-2a'
+name='us-east-2b'
 region='us-east-2'
 az='us-east-2a'
 csr_ami_id='ami-00811671609253811'
