@@ -11,8 +11,7 @@ python3 aws_key.py
 echo $name
 ls -la *.pem
 cat *.pem
-name='us-east-2a'
-PRIVATE_KEY= name + '_ssh-key.pem'
+PRIVATE_KEY='ssh-key.pem'
 #echo "echo-ing out the var $PRIVATE_KEY
 echo $PRIVATE_KEY
 touch ssh-key.json
