@@ -32,7 +32,7 @@ print(empty_list)
 #For some reason the API will only see to accept the list of agents like this.....
 #agents = [{'agentId': '443526'}, {'agentId': '443531'}]
 url='https://api.thousandeyes.com/v6/tests/agent-to-server/new.json'
-payload = {'interval': '300', 'agents': empty_list, 'testName': test_name, 'port': '80', 'server': 'www.thousandeyes.com','alertsEnabled': '0'}
+payload = {'interval': '300', 'agents': empty_list, 'testName': 'test-60', 'port': '80', 'server': 'www.thousandeyes.com','alertsEnabled': '0'}
 header = {'content-type': 'application/json', 'authorization': 'Bearer ' + token}
 r = requests.post(url, data=json.dumps(payload), headers=header, verify=False)
 print(r)
