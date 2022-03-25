@@ -1,5 +1,51 @@
 # cisco-fso-labs
 cisco-fso-lab
+
+#API
+
+DA(Developer Advocate) Reach out to Matt and Jeff. They decide on the use cases the demos etc for Cisco Live. They speakto the community and know the use cases.
+
+Anne Gentle on Eric Thiel's Team - Responsible for API Documentation
+Defines Publishing Process
+Decides what goes onto Cisco.Developer.com
+
+Mel Delgado****
+Developer Advocate Managers:
+DA Managers: Jeff Bull & Matt Denapoli under Eric thiel
+
+Devnet Advisory
+Devnet Tagging
+Meeting Planeed for May. Jeff Bull organizes this meeting.
+
+Two types of feedback
+Feedback from Partner - 
+
+DEV
+Feedback form for external and internal for API Feedback
+DevRel API Quality Feedback form: internal / external
+
+internal: https://cs.co/devrelfeedback
+
+external: https://developer.cisco.com/feedback (early stages)
+Focus on Deals, what have we lost and what have we won - this data is used to report to the top execs at L2
+
+This is being extended for deals at risk.
+Customer Complaint
+
+Source of this is coming from the Francois and other Leaders of SEs
+Check and Infirm if SEs are also 
+
+SHERRI: infirm partners SE are also part of WW SE community so for programmability articulated by Francois Caen(Americas, Julio Gomez(EMEA) and Jeff Wang(APJC)
+
+API Quality Champion - Security, Collab, Etc
+Which ones should be prioritized. Evaluate Scope. 
+
+Mel Delgado evaluated Thousand Eyes.
+
+What is the business case, the target, etc. 
+The DA (Developer Advocate)
+
+
 # LAB SETUP
 
 Part 1 of this lab demonstrates simple integration with a variety of common APIs that perform standard operational standard stack functions:
