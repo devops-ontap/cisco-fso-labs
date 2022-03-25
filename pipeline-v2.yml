@@ -27,6 +27,7 @@ jobs:
     params:
       AWS_KEY_ID: ((Access_key_ID.Access_key))
       AWS_KEY: ((Secret_access_key.Secret_access_key))
+      REGION: ((aws.region))
 
 - name: deploy-aws-env
   plan:
@@ -53,7 +54,7 @@ jobs:
               aws configure set default.region $REGION
               aws sts get-caller-identity --query Account --output text
               export AWS_PAGER=""
-              chmmod a+x aws_key_vault.sh
+              chmod a+x aws_key_vault.sh
               chmod a+x aws_deploy.sh
               ./aws_key_vault.sh
               ./aws_deploy.sh
@@ -167,6 +168,7 @@ jobs:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
         REGION: ((aws.region))
+
 
 - name: deploy-thousand-eyes-agents
   plan:
