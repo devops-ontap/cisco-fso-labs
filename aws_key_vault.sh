@@ -3,7 +3,10 @@ export AWS_PAGER=""
 rm -rf __pycache__
 apt -y update
 apt -y install jq
-apt -y install vault
+curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
+apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+apt-get update && sudo apt-get install vault
+setcap cap_ipc_lock= /usr/bin/vault
 apt -y install jq
 python3 aws_key.py
 ls -la *.pem
