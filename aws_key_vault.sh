@@ -22,7 +22,7 @@ awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' $PRIVATE_KEY > ssh-key.json
 export VAULT_ADDR=http://vault.devops-ontap.com:8200
 #get the vault address from the vault via var
 #How to logon to vault with the cli to do this....
-export VAULT_TOKEN=$SSH_TOKEN
+echo $SSH_TOKEN
 #vault kv put kv-v1/prod/cert/mysql cert=@cert.pem
 vault login $SSH_TOKEN
 vault kv put concourse/cisco-fso-labs/ssh-cert cert=@ssh-key.pem
