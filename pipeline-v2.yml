@@ -38,6 +38,8 @@ jobs:
 - name: deploy-aws-env
   plan:
     - get: git-resource
+      passed: [lab-prep]
+      trigger: true
     - config:
         image_resource:
           name: ""
@@ -190,8 +192,8 @@ jobs:
       params:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
-        REGION: ((aws.region)
         NAME: ((az.name))
+        REGION: ((aws.region))
         VAULT_ADDR: ((vault.addr))
         SSH_TOKEN: ((ssh-token.token))
 
