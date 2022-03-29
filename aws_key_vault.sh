@@ -1,27 +1,21 @@
 #!/bin/sh
-printenv
+#printenv
 export AWS_PAGER=""
 rm -rf __pycache__
 apt -y update
-#apt -y install jq
-#curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
-#apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-#apt-get update && apt-get install vault
+#This is required for vault
 setcap cap_ipc_lock= /usr/bin/vault
-#apt -y install jq
 python3 aws_key.py
 PRIVATE_KEY=$(ls *.pem)
+cat $PRIVATE_KEY
+#This may be deprecated in the future
 touch touch $PRIVATE_KEY.json
 awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' $PRIVATE_KEY >  $PRIVATE_KEY.json
-
-
-#Later iteration, set up access so that the key can be written to vault for the team, for now manually add it.
-#This is where send the key to the vault under the team name
-export VAULT_ADDR=http://vault.devops-ontap.com:8200
-#get the vault address from the vault via var
-#How to logon to vault with the cli to do this....
+#Consider having each Lab User Setup with their own Team in CI and Vault
+export VAULT_ADDR=$VAULT_ADDR
+#Sample Command to logon to vault with the cli to do this....
 #vault kv put kv-v1/prod/cert/mysql cert=@cert.pem
-vault login $SSH_TOKEN
+vault login $SSH_TOKEN --no-print
 vault kv put concourse/cisco-fso-labs/$NAME ssh-key=@$PRIVATE_KEY
 
 
