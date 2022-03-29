@@ -15,7 +15,7 @@ awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' $PRIVATE_KEY >  $PRIVATE_KEY.json
 export VAULT_ADDR=$VAULT_ADDR
 #Sample Command to logon to vault with the cli to do this....
 #vault kv put kv-v1/prod/cert/mysql cert=@cert.pem
-vault login $SSH_TOKEN --no-print
+vault login --no-print $SSH_TOKEN
 vault kv put concourse/cisco-fso-labs/$NAME ssh-key=@$PRIVATE_KEY
 
 
