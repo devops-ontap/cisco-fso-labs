@@ -26,7 +26,7 @@ export VAULT_ADDR=http://vault.devops-ontap.com:8200
 echo $SSH_TOKEN
 #vault kv put kv-v1/prod/cert/mysql cert=@cert.pem
 vault login $SSH_TOKEN
-vault kv put concourse/cisco-fso-labs/$NAME-ssh-cert cert=@ssh-key.pem
+vault kv put concourse/cisco-fso-labs/$NAME-ssh-cert cert=@$NAME-ssh-key.pem
 
 
 
