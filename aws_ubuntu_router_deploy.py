@@ -9,6 +9,8 @@ from lab_vars import *
 sg_name=name
 keypair_name=name
 
+print("printing out the region name......" + $REGION)
+
 #Create the ubuntu router subnet tools instance
 ubuntu_ami_id=ubuntu_ami_id
 instance_type='t2.medium'

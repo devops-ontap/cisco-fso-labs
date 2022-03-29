@@ -26,15 +26,6 @@ jobs:
             aws configure set default.region $REGION
             aws sts get-caller-identity --query Account --output text
             echo "WELCOME TO THE CISCO FSO API LAB FOR DEVOPS/NETOPS ENGINEERS"
-            echo "Your Region is " $REGION
-            echo "Your Environment Name is " $NAME
-            echo "Your Availability Zone is " $NAME
-            echo "Your git branch name is " $NAME
-            echo "Please Clone the git repo and checkout your branch"
-            echo "git clone https://github.com/devops-ontap/cisco-fso-labs.git"
-            echo "git checkout " $NAME
-            echo "git pull origin main"
-            echo "Open up the README.MD and follow the instructions"
 
     task: check-aws
     params:
@@ -195,6 +186,7 @@ jobs:
               export AWS_PAGER=""
               chmod a+x aws_ubuntu_router_deploy.sh
               ./aws_ubuntu_router_deploy.sh
+              echo $REGION
       task: build-ubuntu-router
       params:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
