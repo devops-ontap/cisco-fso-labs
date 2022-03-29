@@ -218,7 +218,7 @@ jobs:
             - |
               export NAME=$NAME
               echo $NAME
-              cd input
+              cd git-resource
               chmod a+x configure_te_agents.sh
               ./configure_te_agents.sh
       params:
@@ -247,9 +247,9 @@ jobs:
             - |
               export NAME=$NAME
               echo $NAME
-              cd input
-              chmod a+x appdynamics/agent-installs/server-agent/input/configure_appd_agents.sh
-              appdynamics/agent-installs/server-agent/input/configure_appd_agents.sh
+              cd git-resource
+              chmod a+x configure_appd_agents.sh
+              configure_appd_agents.sh
       params:
         SSHKEY: (($NAME-ssh-key))
         NAME: ((az.name))

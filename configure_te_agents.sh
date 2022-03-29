@@ -1,8 +1,6 @@
 #!/bin/sh
-pwd
-ls -la
-chmod 400 *.pem
 export AWS_PAGER=""
+pip3 install paramiko
 #apt -y install ncurses-term
 #Call the vault and set the SSH key to env var
 
