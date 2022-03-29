@@ -159,7 +159,6 @@ jobs:
 - name: deploy-ubuntu-router
   plan:
     - get: git-resource
-      passed: [deploy-aws-env]
     - config:
         image_resource:
           name: ""
