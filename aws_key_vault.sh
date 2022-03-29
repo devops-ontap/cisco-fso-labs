@@ -1,6 +1,5 @@
 #!/bin/sh
-echo "echo-ing out the $NAME as set in pipeline set step with var"
-echo $NAME
+printenv
 export AWS_PAGER=""
 rm -rf __pycache__
 apt -y update
