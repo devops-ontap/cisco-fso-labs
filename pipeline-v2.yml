@@ -222,9 +222,9 @@ jobs:
               chmod a+x configure_te_agents.sh
               ./configure_te_agents.sh
       params:
-        SSHKEY: (($NAME-ssh-key))
         NAME: ((az.name))
         VAULT_ADDR: ((vault.addr))
+        SSH_TOKEN: ((ssh-token.token))
       task: deploy-thousand-eyes-agents
 
 - name: deploy-appdynamics-agents
