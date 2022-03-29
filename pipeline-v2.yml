@@ -19,15 +19,29 @@ jobs:
           - -ce
           - |
             export AWS_PAGER=""
+            export Name=$NAME
+            echo $NAME
             aws configure set aws_access_key_id $AWS_KEY_ID
             aws configure set aws_secret_access_key $AWS_KEY
             aws configure set default.region $REGION
             aws sts get-caller-identity --query Account --output text
+            echo "WELCOME TO THE CISCO FSO API LAB FOR DEVOPS/NETOPS ENGINEERS"
+            echo "Your Region is " $REGION
+            echo "Your Environment Name is " $NAME
+            echo "Your Availability Zone is " $NAME
+            echo "Your git branch name is " $NAME
+            echo "Please Clone the git repo and checkout your branch"
+            echo "git clone https://github.com/devops-ontap/cisco-fso-labs.git"
+            echo "git checkout " $NAME
+            echo "git pull origin main"
+            echo "Open up the README.MD and follow the instructions"
+
     task: check-aws
     params:
       AWS_KEY_ID: ((Access_key_ID.Access_key))
       AWS_KEY: ((Secret_access_key.Secret_access_key))
       REGION: ((aws.region))
+      NAME: ((az.name))
 
 - name: deploy-aws-env
   plan:
@@ -49,11 +63,12 @@ jobs:
             - |
               cd git-resource
               export AWS_PAGER=""
+              export NAME=$NAME
+              echo $NAME
               aws configure set aws_access_key_id $AWS_KEY_ID
               aws configure set aws_secret_access_key $AWS_KEY
               aws configure set default.region $REGION
               aws sts get-caller-identity --query Account --output text
-              export NAME=$AZ
               export AWS_PAGER=""
               export SSH_TOKEN=$SSH_TOKEN
               echo $SSH_TOKEN
@@ -66,7 +81,7 @@ jobs:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
         REGION: ((aws.region))
-        NAME: ((az))
+        NAME: ((az.name))
         SSH_TOKEN: ((ssh-token.token))
 
 - name: deploy-csr1000v
@@ -89,6 +104,8 @@ jobs:
             - -ce
             - |
               cd git-resource
+              export NAME=$NAME
+              echo $NAME
               export AWS_PAGER=""
               aws configure set aws_access_key_id $AWS_KEY_ID
               aws configure set aws_secret_access_key $AWS_KEY
@@ -102,7 +119,7 @@ jobs:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
         REGION: ((aws.region))
-        NAME: ((az))
+        NAME: ((az.name))
         SSH_TOKEN: ((ssh-token.token))
 
 - name: deploy-ubuntu-lan
@@ -125,6 +142,8 @@ jobs:
             - -ce
             - |
               cd git-resource
+              export NAME=$NAME
+              echo $NAME
               export AWS_PAGER=""
               aws configure set aws_access_key_id $AWS_KEY_ID
               aws configure set aws_secret_access_key $AWS_KEY
@@ -139,7 +158,7 @@ jobs:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
         REGION: ((aws.region))
-        NAME: ((az))
+        NAME: ((az.name))
         SSH_TOKEN: ((ssh-token.token))
 
 - name: deploy-ubuntu-router
@@ -162,6 +181,8 @@ jobs:
             - -ce
             - |
               cd git-resource
+              export NAME=$NAME
+              echo $NAME
               export AWS_PAGER=""
               aws configure set aws_access_key_id $AWS_KEY_ID
               aws configure set aws_secret_access_key $AWS_KEY
@@ -175,7 +196,7 @@ jobs:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
         REGION: ((aws.region)
-        NAME: ((az))
+        NAME: ((az.name))
         SSH_TOKEN: ((ssh-token.token))
 
 
@@ -198,11 +219,14 @@ jobs:
           args:
             - -cex
             - |
+              export NAME=$NAME
+              echo $NAME
               cd input
               chmod a+x thousandeyes/te_config/input/configure_te_agents.sh
               ./thousandeyes/te_config/input/configure_te_agents.sh
       params:
         SSHKEY: ((ssh_aws_key))
+        NAME: ((az.name))
       task: deploy-thousand-eyes-agents
 
 - name: deploy-appdynamics-agents
@@ -224,12 +248,14 @@ jobs:
           args:
             - -cex
             - |
+              export NAME=$NAME
+              echo $NAME
               cd input
               chmod a+x appdynamics/agent-installs/server-agent/input/configure_appd_agents.sh
               appdynamics/agent-installs/server-agent/input/configure_appd_agents.sh
       params:
         SSHKEY: ((ssh_aws_key))
-        NAME: ((az))
+        NAME: ((az.name))
       task: deploy-thousand-eyes-agents
 
 resource_types:
