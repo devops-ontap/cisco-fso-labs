@@ -1,5 +1,6 @@
 #!/bin/sh
-cd input
+pwd
+ls -la
 chmod 400 *.pem
 export AWS_PAGER=""
 #apt -y install ncurses-term
