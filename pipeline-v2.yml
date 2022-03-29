@@ -7,8 +7,8 @@ jobs:
       image_resource:
         name: ""
         source:
-          repository: sconrod/python-aws
-          tag: v2
+          repository: sconrod/python-aws-image
+          tag: 2
         type: docker-image
       inputs:
       - name: git-resource
@@ -36,8 +36,8 @@ jobs:
         image_resource:
           name: ""
           source:
-            repository: sconrod/python-aws
-            tag: v2
+            repository: sconrod/python-aws-image
+            tag: 2
           type: docker-image
         inputs:
           - name: git-resource
@@ -75,8 +75,8 @@ jobs:
         image_resource:
           name: ""
           source:
-            repository: sconrod/python-aws
-            tag: v2
+            repository: sconrod/python-aws-image
+            tag: 2
           type: docker-image
         inputs:
           - name: git-resource
@@ -109,8 +109,8 @@ jobs:
         image_resource:
           name: ""
           source:
-            repository: sconrod/python-aws
-            tag: v2
+            repository: sconrod/python-aws-image
+            tag: 2
           type: docker-image
         inputs:
           - name: git-resource
@@ -144,8 +144,8 @@ jobs:
         image_resource:
           name: ""
           source:
-            repository: sconrod/python-aws
-            tag: v2
+            repository: sconrod/python-aws-image
+            tag: 2
           type: docker-image
         inputs:
           - name: git-resource
