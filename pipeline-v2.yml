@@ -53,6 +53,7 @@ jobs:
               aws configure set aws_secret_access_key $AWS_KEY
               aws configure set default.region $REGION
               aws sts get-caller-identity --query Account --output text
+              export NAME=$AZ
               export AWS_PAGER=""
               export SSH_TOKEN=$SSH_TOKEN
               echo $SSH_TOKEN
@@ -65,6 +66,7 @@ jobs:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
         REGION: ((aws.region))
+        NAME: ((az))
         SSH_TOKEN: ((ssh-token.token))
 
 - name: deploy-csr1000v
@@ -100,6 +102,8 @@ jobs:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
         REGION: ((aws.region))
+        NAME: ((az))
+        SSH_TOKEN: ((ssh-token.token))
 
 - name: deploy-ubuntu-lan
   plan:
@@ -135,6 +139,8 @@ jobs:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
         REGION: ((aws.region))
+        NAME: ((az))
+        SSH_TOKEN: ((ssh-token.token))
 
 - name: deploy-ubuntu-router
   plan:
@@ -168,7 +174,9 @@ jobs:
       params:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
-        REGION: ((aws.region))
+        REGION: ((aws.region)
+        NAME: ((az))
+        SSH_TOKEN: ((ssh-token.token))
 
 
 - name: deploy-thousand-eyes-agents
@@ -221,6 +229,7 @@ jobs:
               appdynamics/agent-installs/server-agent/input/configure_appd_agents.sh
       params:
         SSHKEY: ((ssh_aws_key))
+        NAME: ((az))
       task: deploy-thousand-eyes-agents
 
 resource_types:

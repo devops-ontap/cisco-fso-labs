@@ -1,4 +1,5 @@
 #!/bin/sh
+echo "echo-ing out the $NAME as set in pipeline set step with var"
 export AWS_PAGER=""
 rm -rf __pycache__
 apt -y update
@@ -12,6 +13,8 @@ python3 aws_key.py
 PRIVATE_KEY=$(ls *.pem)
 touch touch $PRIVATE_KEY.json
 awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' $PRIVATE_KEY >  $PRIVATE_KEY.json
+
+
 #Later iteration, set up access so that the key can be written to vault for the team, for now manually add it.
 #This is where send the key to the vault under the team name
 export VAULT_ADDR=http://vault.devops-ontap.com:8200
