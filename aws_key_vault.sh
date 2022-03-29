@@ -10,9 +10,9 @@ touch touch $PRIVATE_KEY.json
 awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' $PRIVATE_KEY >  $PRIVATE_KEY.json
 #Consider having each Lab User Setup with their own Team in CI and Vault
 export VAULT_ADDR=$VAULT_ADDR
-export VAULT_TOKEN=$SSH_TOKE
+export VAULT_TOKEN=$SSH_TOKEN
 vault login --no-print $SSH_TOKEN
-vault kv put concourse/cisco-fso-labs/$NAME/aws-ssh ssh-key=@ssh-key.pem
+vault kv put concourse/cisco-fso-labs/$NAME ssh-key=@ssh-key.pem
 
 
 
