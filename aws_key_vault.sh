@@ -11,12 +11,9 @@ setcap cap_ipc_lock= /usr/bin/vault
 python3 aws_key.py
 ls -la *.pem
 cat *.pem
-cp *.pem ssh-key.pem
-a = 'ssh-key.pem'
-name = $NAME
-c = c="${a} ${b}"
-echo "printing what should be the az name + ssh-key.pem"
-echo c
+cp *.pem $NAME + ssh-key.pem
+echo 'printing out the name of the key..."
+ls -la *.pem
 
 
 PRIVATE_KEY=c
