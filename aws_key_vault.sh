@@ -1,8 +1,6 @@
 #!/bin/sh
 #printenv
 export AWS_PAGER=""
-rm -rf __pycache__
-apt -y update
 #This is required for vault
 setcap cap_ipc_lock= /usr/bin/vault
 python3 aws_key.py
