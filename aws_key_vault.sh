@@ -14,7 +14,7 @@ export VAULT_ADDR=$VAULT_ADDR
 #Sample Command to logon to vault with the cli to do this....
 #vault kv put kv-v1/prod/cert/mysql cert=@cert.pem
 vault login --no-print $SSH_TOKEN
-vault kv put concourse/cisco-fso-labs/$NAME ssh-key=@$PRIVATE_KEY
+vault kv put concourse/cisco-fso-labs/$NAME/aws-ssh ssh-key=@PRIVATE_KEY
 
 
 

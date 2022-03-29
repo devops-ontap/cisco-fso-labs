@@ -6,6 +6,10 @@ pip3 install paramiko
 #export VAULT_ADDR=$VAULT_ADDR
 vault login --no-print $SSH_TOKEN
 vault kv get concourse/cisco-fso-labs/$NAME ssh-key
+
+#Get the Key from the Vault and Set it to an ENV VAR
+
+
 #python3 configure_te_agents.py
 
 

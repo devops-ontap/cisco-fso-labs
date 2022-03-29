@@ -16,7 +16,7 @@ with open('sshkey.pem', 'w+') as my_file:
 
 os.chmod("sshkey.pem", 400)
 
-private_key = SSH
+private_key = 'sshkey.pem'
 key = paramiko.RSAKey.from_private_key_file(private_key)
 username='ubuntu'
 hostfile='hostfile'
