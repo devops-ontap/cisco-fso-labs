@@ -16,9 +16,10 @@ a = 'ssh-key.pem'
 name = $NAME
 c = c="${a} ${b}"
 echo "printing what should be the az name + ssh-key.pem"
+echo c
 
 
-PRIVATE_KEY=$NAME+'-ssh-key.pem'
+PRIVATE_KEY=c
 echo "checking that the PRIVATE_KEY is resolving to the Name VAR plus -ssh-key.pem"
 #echo "echo-ing out the var $PRIVATE_KEY
 echo $PRIVATE_KEY
