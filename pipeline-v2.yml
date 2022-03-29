@@ -201,7 +201,6 @@ jobs:
 - name: deploy-thousand-eyes-agents
   plan:
     - get: git-resource
-      passed: [deploy-ubuntu-router]
     - config:
         image_resource:
           name: ""
@@ -231,7 +230,6 @@ jobs:
 - name: deploy-appdynamics-agents
   plan:
     - get: git-resource
-      passed: [deploy-ubuntu-router]
     - config:
         image_resource:
           name: ""
@@ -253,10 +251,10 @@ jobs:
               chmod a+x appdynamics/agent-installs/server-agent/input/configure_appd_agents.sh
               appdynamics/agent-installs/server-agent/input/configure_appd_agents.sh
       params:
-        SSHKEY: ((ssh_aws_key))
+        SSHKEY: (($NAME-ssh-key))
         NAME: ((az.name))
         VAULT_ADDR: ((vault.addr))
-      task: deploy-thousand-eyes-agents
+      task: deploy-appdynamics-agents
 
 resource_types:
 resources:
