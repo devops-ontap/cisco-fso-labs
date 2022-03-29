@@ -205,8 +205,8 @@ jobs:
         image_resource:
           name: ""
           source:
-            repository: sconrod/netmiko
-            tag: latest
+            repository: sconrod/thousandeyes-image
+            tag: 1
           type: docker-image
         inputs:
           - name: git-resource
@@ -219,8 +219,8 @@ jobs:
               export NAME=$NAME
               echo $NAME
               cd input
-              chmod a+x thousandeyes/te_config/input/configure_te_agents.sh
-              ./thousandeyes/te_config/input/configure_te_agents.sh
+              chmod a+x configure_te_agents.sh
+              ./configure_te_agents.sh
       params:
         SSHKEY: (($NAME-ssh-key))
         NAME: ((az.name))
