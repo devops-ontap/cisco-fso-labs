@@ -46,4 +46,5 @@ with open (outfile_key_pair_id) as access_json:
     keypairid=replies_access
     print(keypairid)
 
-#Write the key to the vault.
+#set the os env variable for name value which is always equal to the AZ
+os.environ['NAME'] = name

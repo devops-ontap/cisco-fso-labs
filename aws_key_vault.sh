@@ -9,28 +9,17 @@ apt -y update
 setcap cap_ipc_lock= /usr/bin/vault
 #apt -y install jq
 python3 aws_key.py
-ls -la *.pem
-cat *.pem
-cp *.pem $NAME + ssh-key.pem
-echo 'printing out the name of the key..."
-ls -la *.pem
-
-
-PRIVATE_KEY=c
-echo "checking that the PRIVATE_KEY is resolving to the Name VAR plus -ssh-key.pem"
-#echo "echo-ing out the var $PRIVATE_KEY
-echo $PRIVATE_KEY
-touch ssh-key.json
-awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' $PRIVATE_KEY > ssh-key.json
+PRIVATE_KEY=$(ls *.pem)
+touch touch $PRIVATE_KEY.json
+awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' $PRIVATE_KEY >  $PRIVATE_KEY.json
 #Later iteration, set up access so that the key can be written to vault for the team, for now manually add it.
 #This is where send the key to the vault under the team name
 export VAULT_ADDR=http://vault.devops-ontap.com:8200
 #get the vault address from the vault via var
 #How to logon to vault with the cli to do this....
-echo $SSH_TOKEN
 #vault kv put kv-v1/prod/cert/mysql cert=@cert.pem
 vault login $SSH_TOKEN
-vault kv put concourse/cisco-fso-labs/$NAME-ssh-cert cert=@$NAME-ssh-key.pem
+vault kv put concourse/cisco-fso-labs/$NAME ssh-key=@$PRIVATE_KEY
 
 
 
