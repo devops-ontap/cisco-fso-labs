@@ -14,6 +14,7 @@ print(keypair_name)
 region=region
 outfile_key_pair = 'keypair_name' + '.json'
 
+
 #1 - Create a Key Pair
 #If it comes as .cer then you need to change it to .pem
 #openssl x509 -inform der -in cert.cer -outform pem -out cert.pem
@@ -45,3 +46,4 @@ with open (outfile_key_pair_id) as access_json:
     keypairid=replies_access
     print(keypairid)
 
+#Write the key to the vault.
