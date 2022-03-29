@@ -148,4 +148,7 @@ with open(outfile_router_pub_ip) as access_json:
     print(read_content)
     question_data=question_access[0]
     router_pub_ip=question_data
+    print('The External IP Address is:')
     print(router_pub_ip)
+
+
