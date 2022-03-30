@@ -19,7 +19,7 @@ echo "${SSHKEY}" | ssh-add -
 for server in $(cat hostfile)
 do
   ssh-keyscan -H "$server" >> ~/.ssh/known_hosts
-  ssh -i sshkey.pem ubuntu@'$server' env TE_GROUP=$TE_GROUP
+  ssh -i sshkey.pem ubuntu@"$server" env TE_GROUP=$TE_GROUP
 done
 #Need to figure out what is required for the Instance to be able to set the env var or call vault to pass in the token
 #remotely set the VAR for now
