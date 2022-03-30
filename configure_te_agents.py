@@ -6,7 +6,8 @@ from subprocess import call, check_output
 #See if  you can pull the pem from vault
 
 #from os import environ
-#os.environ.get('SSHKEY')
+os.environ.get('SSHKEY')
+os.environ.get('TE_GROUP')
 
 #sshkey = environ.get('SSHKEY')
 #print(sshkey)
