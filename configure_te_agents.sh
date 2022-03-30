@@ -19,6 +19,6 @@ do
   ssh-keyscan -H "$server" >> ~/.ssh/known_hosts
 done
 python3 configure_te_agents.py
-tail -n 500 /tmp/install_thousandeyes_*.log
+
 
 
