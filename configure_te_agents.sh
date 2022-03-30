@@ -7,6 +7,7 @@ export VAULT_ADDR=$VAULT_ADDR
 export SSH_TOKEN=$SSH_TOKEN
 vault login --no-print $SSH_TOKEN
 vault kv get --field=ssh-key concourse/cisco-fso-labs/$NAME >> sshkey.pem
+chmod 400 sshkey.pem
 SSHKEY='sshkey.pem'
 #TRY THIS AND SEE IF PYTHON AN INGEST IT
 #PRIVATE_KEY=$(vault kv get --field=ssh-key concourse/cisco-fso-labs/$NAME)
