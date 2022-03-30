@@ -4,5 +4,3 @@ sudo curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
 sudo chmod a+x install_thousandeyes.sh
 sudo ./install_thousandeyes.sh -f $TE_GROUP
 sudo service te-agent status
-
-HOW TO SET THE TE_GROUP VAR ON THE REMOTE HOST
