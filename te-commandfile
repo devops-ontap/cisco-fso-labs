@@ -1,10 +1,8 @@
 export TERMINFO=/usr/lib/terminfo
 TERM=xterm
-whoami
-export TE_GROUP=$TE_GROUP
 sudo curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
 sudo chmod a+x install_thousandeyes.sh
-sudo ./install_thousandeyes.sh -f -I /var/log/te_install.log $TE_GROUP
+sudo ./install_thousandeyes.sh -f $TE_GROUP
 sudo service te-agent status
 
 HOW TO SET THE TE_GROUP VAR ON THE REMOTE HOST
