@@ -221,6 +221,7 @@ jobs:
         NAME: ((az.name))
         VAULT_ADDR: ((vault.addr))
         SSH_TOKEN: ((ssh-token.token))
+        TE_GROUP: ((te-group.token))
       task: deploy-thousand-eyes-agents
 
 - name: deploy-appdynamics-agents
