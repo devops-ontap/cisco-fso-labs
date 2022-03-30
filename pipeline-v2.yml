@@ -80,7 +80,6 @@ jobs:
 - name: deploy-csr1000v
   plan:
     - get: git-resource
-      passed: [deploy-aws-env]
     - config:
         image_resource:
           name: ""
@@ -119,7 +118,6 @@ jobs:
 - name: deploy-ubuntu-lan
   plan:
     - get: git-resource
-      passed: [deploy-aws-env]
     - config:
         image_resource:
           name: ""

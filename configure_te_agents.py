@@ -5,11 +5,11 @@ from subprocess import call, check_output
 #Install the Agent
 #See if  you can pull the pem from vault
 
-from os import environ
-os.environ.get('SSHKEY')
+#from os import environ
+#os.environ.get('SSHKEY')
 
-sshkey = environ.get('SSHKEY')
-print(sshkey)
+#sshkey = environ.get('SSHKEY')
+#print(sshkey)
 
 with open('sshkey.pem', 'w+') as my_file:
     my_file.write(sshkey)
