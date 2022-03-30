@@ -11,8 +11,8 @@ from subprocess import call, check_output
 #sshkey = environ.get('SSHKEY')
 #print(sshkey)
 
-with open('sshkey.pem', 'w+') as my_file:
-    my_file.write(sshkey)
+#with open('sshkey.pem', 'r+') as my_file:
+#    my_file.write(sshkey)
 
 os.chmod("sshkey.pem", 400)
 
