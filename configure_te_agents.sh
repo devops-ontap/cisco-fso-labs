@@ -20,6 +20,7 @@ do
   ssh-keyscan -H "$server" >> ~/.ssh/known_hosts
 # ssh -i sshkey.pem ubuntu@"$server" env TE_GROUP=$TE_GROUP
   scp -i sshkey.pem var ubuntu@"$server":~/
+  scp -i sshkey.pem var.sh ubuntu@"$server":~/
 done
 python3 configure_te_agents.py
 
