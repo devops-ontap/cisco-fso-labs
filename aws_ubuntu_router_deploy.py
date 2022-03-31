@@ -9,6 +9,9 @@ from lab_vars import *
 sg_name=name
 keypair_name=name
 
+print('Printing out the Name of the Region')
+print(region)
+
 #Create the ubuntu router subnet tools instance
 ubuntu_ami_id=ubuntu_ami_id
 instance_type='t2.medium'
@@ -145,4 +148,7 @@ with open(outfile_router_pub_ip) as access_json:
     print(read_content)
     question_data=question_access[0]
     router_pub_ip=question_data
+    print('The External IP Address is:')
     print(router_pub_ip)
+
+

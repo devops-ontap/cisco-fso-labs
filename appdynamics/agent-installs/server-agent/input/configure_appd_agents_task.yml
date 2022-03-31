@@ -19,5 +19,6 @@ run:
       ./configure_appd_agents.sh
 params:
   SSHKEY: ((ssh_aws_key))
+  APPD_API: ((appd-api-key))
 
 
