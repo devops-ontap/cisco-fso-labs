@@ -44,10 +44,6 @@ curl -X POST "http://vault.devops-ontap.com:8200/v1/auth/aws/login" -d '{"role":
 
 ubuntu@ip-10-10-10-4:~$ aws sts get-caller-identity
 {
-    "UserId": "AROAUICEOKZYR77DF7EAD:i-090fee62d38fea877",
-    "Account": "292201322097",
-    "Arn": "arn:aws:sts::292201322097:assumed-role/vault_read/i-090fee62d38fea877"
-}
 
 
 vault write auth/aws/role/vault_read auth_type=iam \
