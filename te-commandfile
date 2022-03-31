@@ -1,5 +1,6 @@
 export TERMINFO=/usr/lib/terminfo
 TERM=xterm
+TE_GROUP=$(cat var)
 sudo curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
 sudo chmod a+x install_thousandeyes.sh
 sudo ./install_thousandeyes.sh -f $TE_GROUP
