@@ -1,7 +1,7 @@
 export TERMINFO=/usr/lib/terminfo
 TERM=xterm
 echo "Working Directory is........"
-sudo apt -y update && upgrade
+sudo apt -y update && sudo apt-y upgrade
 sudo apt -y install rpm
 sudo mkdir /opt/appdynamics
 sudo mkdir /opt/appdynamics/machineagent

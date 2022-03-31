@@ -18,44 +18,6 @@ sg_name=name
 keypair_name=name
 outfile_key_pair = 'keypair_name' + '.json'
 
-''''
-#Get the default vpc for the us-east region
-outfile_def_vpcid = 'def_vpcid.json'
-#def_vpcid='aws ec2 describe-vpcs --region us-east-1 --filters Name=tag:Name,Values=DEFAULT'
-def_vpcid='aws ec2 describe-vpcs --region' + " " + "{}".format(region) + " " + '--filters Name=tag:Name,Values=DEFAULT'
-output = check_output("{}".format(def_vpcid), shell=True).decode().strip()
-print("Output: \n{}\n".format(output))
-with open(outfile_def_vpcid, 'w') as my_file:
-    my_file.write(output)
-with open (outfile_def_vpcid) as access_json:
-    read_content = json.load(access_json)
-    question_access = read_content['Vpcs']
-    print(question_access)
-    replies_access = question_access[0]
-    print(replies_access)
-    replies_data=replies_access['VpcId']
-    default_vpcid=replies_data
-    default_vpcid_var=('default_vpcid=' + "'" + "{}".format(default_vpcid) + "'")
-    print(default_vpcid_var)
-
-with open(outfile_vars, 'w') as my_file:
-    my_file.write(default_vpcid_var + "\n")
-
-
-#Get the Default VPC Default InternetGateway ID
-outfile_def_igid='default_ig_id.json'
-get_default_ig_id='aws ec2 describe-internet-gateways --region' + " " + "{}".format(region) + " " + '--filters Name=tag:Name,Values=DEFAULT'
-output = check_output("{}".format(get_default_ig_id), shell=True).decode().strip()
-print("Output: \n{}\n".format(output))
-with open(outfile_def_igid, 'w') as my_file:
-    my_file.write(output)
-with open (outfile_def_igid) as access_json:
-    read_content = json.load(access_json)
-    print(read_content)
-    question_access = read_content['InternetGateways']
-    replies_access = question_access[0]
-    default_igid = replies_access['InternetGatewayId']
-'''
 #CREATE THE NEW VPC01 AND GET VPCID
 outfile = 'aws-vpc.json'
 #cmd_deploy='aws ec2 create-vpc --region' + " " + "{}".format(region) + " " + '--cidr-block 10.10.0.0/16 --tag-specifications' + " " + "'ResourceType=vpc,Tags=[{Key=Name,Value=trainee1}]'"
