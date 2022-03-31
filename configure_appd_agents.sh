@@ -23,6 +23,6 @@ do
   scp -i sshkey.pem var ubuntu@"$server":~/
   scp -i sshkey.pem controller-info.xml ubuntu@"$server":~/
 done
-#python3 configure_appd_agents.py
+python3 configure_appd_agents.py
 
 

@@ -280,7 +280,7 @@ jobs:
               chmod a+x configure_appd_agents.sh
               ./configure_appd_agents.sh
       params:
-        SSHKEY: (($NAME-ssh-key))
+        SSH_TOKEN: ((ssh-token.token))
         NAME: ((az.name))
         VAULT_ADDR: ((vault.addr))
         APPD_ACCESS: ((appd-access.key))
