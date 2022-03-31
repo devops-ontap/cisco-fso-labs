@@ -9,9 +9,6 @@ export TE_GROUP=$TE_GROUP
 vault login --no-print $SSH_TOKEN
 vault kv get --field=ssh-key concourse/cisco-fso-labs/$NAME >> sshkey.pem
 SSHKEY='sshkey.pem'
-#TRY THIS AND SEE IF PYTHON AN INGEST IT
-#PRIVATE_KEY=$(vault kv get --field=ssh-key concourse/cisco-fso-labs/$NAME)
-#Add the IPs in the hostfile to the known_hosts
 chmod 400 sshkey.pem
 mkdir ~/.ssh
 touch ~/.ssh/known_hosts
