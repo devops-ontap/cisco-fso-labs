@@ -21,7 +21,7 @@ do
 # ssh -i sshkey.pem ubuntu@"$server" env TE_GROUP=$TE_GROUP
   scp -i sshkey.pem var ubuntu@"$server":~/
 done
-#python3 configure_te_agents.py
+python3 configure_te_agents.py
 
 
 
