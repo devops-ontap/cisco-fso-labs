@@ -1,5 +1,4 @@
 #!/bin/sh
-cd input
 export AWS_PAGER=""
 #!/bin/sh
 #Call the vault and set the SSH key to env var

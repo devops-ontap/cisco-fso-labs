@@ -261,8 +261,8 @@ jobs:
         image_resource:
           name: ""
           source:
-            repository: sconrod/netmiko
-            tag: latest
+            repository: sconrod/appdynamics
+            tag: 1
           type: docker-image
         inputs:
           - name: git-resource
@@ -275,8 +275,10 @@ jobs:
               export NAME=$NAME
               echo $NAME
               cd git-resource
+              ls -la
+              pwd
               chmod a+x configure_appd_agents.sh
-              configure_appd_agents.sh
+              ./configure_appd_agents.sh
       params:
         SSHKEY: (($NAME-ssh-key))
         NAME: ((az.name))
