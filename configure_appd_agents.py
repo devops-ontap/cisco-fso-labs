@@ -5,14 +5,11 @@ from subprocess import call, check_output
 #Install the Agent
 #See if  you can pull the pem from vault
 
-from os import environ
+#from os import environ
 os.environ.get('SSHKEY')
-
-sshkey = environ.get('SSHKEY')
-print(sshkey)
-
-with open('sshkey.pem', 'w+') as my_file:
-    my_file.write(sshkey)
+os.environ.get('VAULT_ADDR')
+os.environ.get('APPD_ACCESS')
+os.environ.get('APPD_OATH')
 
 os.chmod("sshkey.pem", 400)
 
