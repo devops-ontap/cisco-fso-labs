@@ -62,4 +62,6 @@ root      113703  0.0  0.7 611048 28184 ?        Ssl  21:21   0:00 /usr/local/bi
 fsolab4
 --header "Authorization: Bearer 1d0acd78-a470-44ad-a6d6-0892ac2db441"
 
-Configure a Test
+Modules to Create for Training:
+Create a Module to Delete the Agents
+

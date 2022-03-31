@@ -86,3 +86,10 @@ Or Curl it down direct:
 [This method is not supported by AppD]
 https://download-files.appdynamics.com/download-file/machine-bundle/21.4.0.3075/machineagent-bundle-64bit-linux-21.4.0.3075.zip
 {This will not be pre-configured for the controller}
+
+
+TO DO:
+See if can get IAM for vault on these machines so that they can make call to vault and get VARS for the controller.xml file
+Pass those to ENV VARs then can load them dynamically into the controller.xml file
+
+
