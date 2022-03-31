@@ -1,0 +1,5 @@
+export TERMINFO=/usr/lib/terminfo
+TERM=xterm
+sudo chmod a+x var.sh
+sudo ./var.sh
+sudo apt-get -y purge te-agent
