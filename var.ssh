@@ -1,3 +1,0 @@
-#!/bin/sh
-TE_GROUP=$(cat var)
-export TE_GROUP=$TE_GROUP
