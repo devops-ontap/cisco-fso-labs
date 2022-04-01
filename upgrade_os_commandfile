@@ -1,5 +1,6 @@
-sudo chmod a+x vault.sh
-sudo ./vault.sh
+touch ~/.bashrc
+VAULT_ADDR="http://vault.devops-ontap.com:8200"
+echo $VAULT_ADDR >> ~/.bashrc
 echo "$SHELL"
 ps -p $$
 cat /etc/shells
@@ -11,3 +12,4 @@ sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(l
 sudo apt update && sudo apt -y install vault
 vault --version
 ls -la *.sh
+
