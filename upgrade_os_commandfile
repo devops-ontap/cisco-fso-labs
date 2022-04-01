@@ -1,7 +1,7 @@
 echo "$SHELL"
 ps -p $$
 cat /etc/shells
-/bin/sh
+chsh -s sh
 sudo apt -y update
 sudo apt -y upgrade
 #install vault
