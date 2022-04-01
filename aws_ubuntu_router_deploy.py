@@ -152,3 +152,5 @@ with open(outfile_router_pub_ip) as access_json:
     print(router_pub_ip)
 
 
+#ssh to the instance using the key and do an apt-get update && apt-get upgrade
+#install vault client

@@ -158,6 +158,7 @@ jobs:
   plan:
     - get: git-resource
     - config:
+      task: build-ubuntu-router
         image_resource:
           name: ""
           source:
@@ -184,7 +185,6 @@ jobs:
               chmod a+x aws_ubuntu_router_deploy.sh
               ./aws_ubuntu_router_deploy.sh
               echo $REGION
-      task: build-ubuntu-router
       params:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
@@ -193,6 +193,44 @@ jobs:
         VAULT_ADDR: ((vault.addr))
         SSH_TOKEN: ((ssh-token.token))
 
+- name: upgrade-os
+  plan:
+    - get: git-resource
+    - config:
+      task: upgrade-os
+        image_resource:
+          name: ""
+          source:
+            repository: sconrod/python-aws-image
+            tag: 2
+          type: docker-image
+        inputs:
+          - name: git-resource
+        platform: linux
+        run:
+          path: /bin/sh
+          args:
+            - -ce
+            - |
+              cd git-resource
+              export NAME=$NAME
+              echo $NAME
+              export AWS_PAGER=""
+              aws configure set aws_access_key_id $AWS_KEY_ID
+              aws configure set aws_secret_access_key $AWS_KEY
+              aws configure set default.region $REGION
+              aws sts get-caller-identity --query Account --output text
+              export AWS_PAGER=""
+              chmod a+x upgrade_os.sh
+              ./upgrade_os.sh
+              echo $REGION
+      params:
+        AWS_KEY_ID: ((Access_key_ID.Access_key))
+        AWS_KEY: ((Secret_access_key.Secret_access_key))
+        NAME: ((az.name))
+        REGION: ((aws.region))
+        VAULT_ADDR: ((vault.addr))
+        SSH_TOKEN: ((ssh-token.token))
 
 - name: deploy-thousand-eyes-agents
   plan:
@@ -223,6 +261,7 @@ jobs:
         SSH_TOKEN: ((ssh-token.token))
         TE_GROUP: ((te-group.token))
       task: deploy-thousand-eyes-agents
+
 
 - name: uninstall-thousand-eyes-agents
   plan:
