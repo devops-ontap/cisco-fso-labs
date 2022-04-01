@@ -10,3 +10,4 @@ sudo apt update && sudo apt -y install vault
 vault --version
 export VAULT_ADDR="http://vault.devops-ontap.com:8200"
 source .bashrc
+echo $VAULT_ADDR
