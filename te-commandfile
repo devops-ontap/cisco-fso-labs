@@ -1,8 +1,7 @@
 export TERMINFO=/usr/lib/terminfo
 TERM=xterm
-touch ~/.bashrc
-VAULT_ADDR="http://vault.devops-ontap.com:8200"
-echo $VAULT_ADDR >> ~/.bashrc
+sudo a+x set_var.sh
+./set_var.sh
 cat ~/.bashrc
 echo $VAULT_ADDR
 vault login -method=aws header_value=vault.devops-ontap.com role=vault
