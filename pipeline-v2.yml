@@ -158,7 +158,6 @@ jobs:
   plan:
     - get: git-resource
     - config:
-      task: build-ubuntu-router
         image_resource:
           name: ""
           source:
@@ -185,6 +184,7 @@ jobs:
               chmod a+x aws_ubuntu_router_deploy.sh
               ./aws_ubuntu_router_deploy.sh
               echo $REGION
+      task: build-ubuntu-router
       params:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
@@ -197,7 +197,6 @@ jobs:
   plan:
     - get: git-resource
     - config:
-      task: upgrade-os
         image_resource:
           name: ""
           source:
@@ -224,6 +223,7 @@ jobs:
               chmod a+x upgrade_os.sh
               ./upgrade_os.sh
               echo $REGION
+      task: upgrade-os
       params:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
