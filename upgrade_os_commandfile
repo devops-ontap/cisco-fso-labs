@@ -1,6 +1,5 @@
 touch ~/.bashrc
-VAULT_ADDR="http://vault.devops-ontap.com:8200"
-echo $VAULT_ADDR >> ~/.bashrc
+echo $(VAULT_ADDR="http://vault.devops-ontap.com:8200") >> ~/.bashrc
 echo "$SHELL"
 ps -p $$
 cat /etc/shells
