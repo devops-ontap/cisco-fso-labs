@@ -30,6 +30,7 @@ for item in found_values:
 print(empty_list)
 
 #For some reason the API will only see to accept the list of agents like this.....
+#The expected format of the list of agents, is cumbersome because it requires you to create a list of dictionaries instead of just using the list of agentIDs
 #agents = [{'agentId': '443526'}, {'agentId': '443531'}]
 url='https://api.thousandeyes.com/v6/tests/agent-to-server/new.json'
 payload = {'interval': '300', 'agents': empty_list, 'testName': 'test-60', 'port': '80', 'server': 'www.thousandeyes.com','alertsEnabled': '0'}
