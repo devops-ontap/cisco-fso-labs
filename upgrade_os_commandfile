@@ -6,3 +6,5 @@ sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(l
 sudo apt update && sudo apt -y install vault
 sudo export VAULT_ADDR="http://vault.devops-ontap.com"
 echo $VAULT_ADDR
+SET VAULT_ADDR="http://vault.devops-ontap.com"
+echo $VAULT_ADDR
