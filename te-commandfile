@@ -6,6 +6,7 @@ sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(l
 sudo apt update && sudo apt -y install vault \
 vault login -method=aws header_value=vault.devops-ontap.com role=vault
 TE_GROUP=$(vault kv get -field=token concourse/cisco-fso-labs/te-group)
+echo $TE_GROUP >> ~/.bashrc
 sudo curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
 sudo chmod a+x install_thousandeyes.sh
 sudo ./install_thousandeyes.sh -f $TE_GROUP
