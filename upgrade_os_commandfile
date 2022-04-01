@@ -8,5 +8,8 @@ sudo curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 sudo apt update && sudo apt -y install vault
 vault --version
-VAULT_ADDR="http://vault.devops-ontap.com:8200"
+touch set_var.sh
+sudo chmod a+x set_var.sh
+echo $(export VAULT_ADDR="http://vault.devops-ontap.com:8200") >> set_var.sh
+sudo ./set_var.sh
 echo $VAULT_ADDR
