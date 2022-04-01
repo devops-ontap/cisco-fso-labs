@@ -1,7 +1,6 @@
 echo "$SHELL"
 ps -p $$
 cat /etc/shells
-chsh -s sh
 sudo apt -y update
 sudo apt -y upgrade
 #install vault
@@ -10,3 +9,4 @@ sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(l
 sudo apt update && sudo apt -y install vault
 vault --version
 export VAULT_ADDR="http://vault.devops-ontap.com:8200"
+source .bashrc
