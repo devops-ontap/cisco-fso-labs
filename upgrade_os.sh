@@ -14,6 +14,5 @@ echo "${SSHKEY}" | ssh-add -
 for server in $(cat hostfile)
 do
   ssh-keyscan -H "$server" >> ~/.ssh/known_hosts
-  scp -i sshkey.pem vault.sh ubuntu@"$server":~/
 done
 python3 upgrade_os.py
