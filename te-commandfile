@@ -6,6 +6,8 @@ sudo apt -y install git
 sudo apt -y install jq
 sudo git clone https://github.com/12moons/ec2-tags-env
 pwd
+unset PROMPT_COMMAND
+PATH="/home/ubuntu:$PATH"
 ls -la
 sudo cd ec2-tags-env
 ls -la
