@@ -6,6 +6,8 @@ sudo apt -y install git
 sudo apt -y install jq
 sudo git clone https://github.com/12moons/ec2-tags-env
 cd ec2-tags-env
+pwd
+ls -la
 sudo chmod a+x import-tags.sh
 sudo -E ./import-tags.sh
 echo $VAULT_ADDR
