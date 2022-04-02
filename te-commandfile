@@ -1,7 +1,8 @@
 echo "$SHELL"
-echo $VAULT_ADDR
-printenv
-sudo -E vault login -method=aws header_value=vault.devops-ontap.com role=vault
+sudo -E cp install.sh /etc/profile.d/script.sh
+echo "export VAULT_ADDR=http://vault.devops-ontap.com:8200" >> ~/.bash_profile && \
+source ~/.bash_profile
+vault login -method=aws header_value=vault.devops-ontap.com role=vault
 TE_GROUP=$(vault kv get -field=token concourse/cisco-fso-labs/te-group)
 curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
 chmod a+x install_thousandeyes.sh

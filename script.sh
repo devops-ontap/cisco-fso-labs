@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $VAULT_ADDR
+export $VAULT_ADDR="http://vault.devops-ontap.com:8200"
