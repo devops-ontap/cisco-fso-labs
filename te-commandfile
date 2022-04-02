@@ -2,8 +2,8 @@ export TERMINFO=/usr/lib/terminfo
 TERM=xterm
 echo "$SHELL"
 curl ifconfig.me
-export VAULT_URL=http://vault.devops-ontap.com:8200 | sudo tee -a /etc/environment
-cat /etc/environment
+VAULT_ADDR=http://vault.devops-ontap.com:8200
+export VAULT_ADDR
 echo $VAULT_ADDR
 echo "VAULT_URL=http://vault.devops-ontap.com:8200" | sudo tee /etc/profile.d/vault_setup.sh
 cat /etc/profile.d/vault_setup.sh
