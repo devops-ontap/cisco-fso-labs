@@ -2,9 +2,11 @@ export TERMINFO=/usr/lib/terminfo
 TERM=xterm
 echo "$SHELL"
 curl ifconfig.me
-sudo touch /etc/environment
-sudo echo $(VAULT_ADDR=http://vault.devops-ontap.com:8200) >> /etc/environment
-source /etc/environment
+sudo apt -y install git
+sudo git clone https://github.com/12moons/ec2-tags-env
+cd ecec2-tags-env
+sudo chmod a+x import-tags.sh
+sudo -E ./import-tags.sh
 echo $VAULT_ADDR
 vault login -method=aws header_value=vault.devops-ontap.com role=vault
 export TE_GROUP=$(vault kv get -field=token concourse/cisco-fso-labs/te-group) | sudo -E tee -a /etc/environment
