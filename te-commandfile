@@ -1,4 +1,5 @@
 echo "$SHELL"
+pwd
 export VAULT_URL=http://vault.devops-ontap.com:8200 | sudo tee -a /etc/environment
 echo $VAULT_URL
 echo "VAULT_URL=http://vault.devops-ontap.com:8200" | sudo tee /etc/profile.d/vault_setup.sh
