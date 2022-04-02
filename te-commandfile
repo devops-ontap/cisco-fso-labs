@@ -2,12 +2,8 @@ export TERMINFO=/usr/lib/terminfo
 TERM=xterm
 echo "$SHELL"
 curl ifconfig.me
-su root
-whoami
-sudo -E touch /etc/profile.d/var.sh
-sudo -E echo $(export VAULT_ADDR=http://vault.devops-ontap.com:8200) >> /etc/profile.d/var.sh
-sudo -E chmod a+x /etc/profile.d/var.sh
-source ~/.profile
+echo "export VAULT_ADDR=http://vault.devops-ontap.com:8200" >> ~/.bash_profile
+source ~/.bash_profile
 echo $VAULT_ADDR
 vault login -method=aws header_value=vault.devops-ontap.com role=vault
 #export TE_GROUP=$(vault kv get -field=token concourse/cisco-fso-labs/te-group) | sudo -E tee -a /etc/environment
