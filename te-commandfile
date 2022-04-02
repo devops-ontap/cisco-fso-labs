@@ -1,8 +1,4 @@
 #!/bin/sh
-chmod a+x set_var.sh
-chmod a+x script.sh
-sudo ./script.sh
-sudo ./set_var.sh
 env VAULT_ADDR=http://vault.devops-ontap.com:8200
 echo $VAULT_ADDR
 VAULT_ADDR=http://vault.devops-ontap.com:8200
@@ -12,4 +8,4 @@ TE_GROUP=$(vault kv get -field=token concourse/cisco-fso-labs/te-group)
 echo $TE_GROUP >> ~/.bashrc
 sudo curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
 sudo chmod a+x install_thousandeyes.sh
-sudo ./install_thousandeyes.sh -f $TE_GROUP
+sudo ./install_thousandeyes.sh -f vojylvcce2gwg4u0e1mcg000gn96h0tj
