@@ -2,12 +2,13 @@ export TERMINFO=/usr/lib/terminfo
 TERM=xterm
 echo "$SHELL"
 curl ifconfig.me
-echo "export VAULT_ADDR=http://vault.devops-ontap.com:8200" >> ~/.bash_profile
-source ~/.bash_profile
+sudo touch /etc/environment
+sudo echo $(VAULT_ADDR=http://vault.devops-ontap.com:8200) >> /etc/environment
+source /etc/environment
 echo $VAULT_ADDR
 vault login -method=aws header_value=vault.devops-ontap.com role=vault
-#export TE_GROUP=$(vault kv get -field=token concourse/cisco-fso-labs/te-group) | sudo -E tee -a /etc/environment
-#curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
-#sudo -E install_thousandeyes.sh
-#sudo -E ./install_thousandeyes.sh -f $TE_GROUP
+export TE_GROUP=$(vault kv get -field=token concourse/cisco-fso-labs/te-group) | sudo -E tee -a /etc/environment
+curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
+sudo -E install_thousandeyes.sh
+sudo -E ./install_thousandeyes.sh -f $TE_GROUP
 
