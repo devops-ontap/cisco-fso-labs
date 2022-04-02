@@ -2,6 +2,8 @@
 chmod a+x set_var.sh
 sudo ./set_var.sh
 env VAULT_ADDR=http://vault.devops-ontap.com:8200
+echo $VAULT_ADDR
+VAULT_ADDR=http://vault.devops-ontap.com:8200
 vault login -method=aws header_value=vault.devops-ontap.com role=vault
 TE_GROUP=$(vault kv get -field=token concourse/cisco-fso-labs/te-group)
 echo $TE_GROUP >> ~/.bashrc
