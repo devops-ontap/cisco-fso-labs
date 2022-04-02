@@ -1,3 +1,5 @@
+export TERMINFO=/usr/lib/terminfo
+TERM=xterm
 sudo apt -y update
 sudo apt -y upgrade
 #install vault
