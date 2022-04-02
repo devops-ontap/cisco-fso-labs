@@ -7,7 +7,7 @@ from subprocess import call, check_output
 
 #from os import environ
 os.environ.get('SSHKEY')
-os.environ.get('TE_GROUP')
+os.environ['VAULT_ADDR'] = 'http://vault.devops-ontap.com:8200'
 
 #sshkey = environ.get('SSHKEY')
 #print(sshkey)
