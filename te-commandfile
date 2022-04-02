@@ -1,7 +1,7 @@
 echo "$SHELL"
-export VAULT_ADDR=http://vault.devops-ontap.com:8200 | sudo tee -a /etc/environment
-echo $VAULT_ADDR
-echo "VAULT_ADDR=http://vault.devops-ontap.com:8200" | sudo tee /etc/profile.d/vault_setup.sh
+export VAULT_URL=http://vault.devops-ontap.com:8200 | sudo tee -a /etc/environment
+echo $VAULT_URL
+echo "VAULT_URL=http://vault.devops-ontap.com:8200" | sudo tee /etc/profile.d/vault_setup.sh
 source /etc/environment
 vault login -method=aws header_value=vault.devops-ontap.com role=vault
 export TE_GROUP=$(vault kv get -field=token concourse/cisco-fso-labs/te-group) | sudo tee -a /etc/environment
