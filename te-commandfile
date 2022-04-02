@@ -8,8 +8,9 @@ sudo git clone https://github.com/12moons/ec2-tags-env
 pwd
 unset PROMPT_COMMAND
 PATH="/home/ubuntu:$PATH"
+type cd
 ls -la
-sudo cd ec2-tags-env
+sudo /usr/bin/sh cd ec2-tags-env
 ls -la
 sudo chmod a+x *.sh
 sudo -E ./import-tags.sh
