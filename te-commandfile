@@ -1,4 +1,5 @@
 #!/bin/sh
-sudo -E chmod a+x install_te.sh
-sudo -E ./install_te.sh
+sudo su -
+chmod a+x install_te.sh
+./install_te.sh
 
