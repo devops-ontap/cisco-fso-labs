@@ -3,8 +3,8 @@ TERM=xterm
 echo "$SHELL"
 curl ifconfig.me
 touch /etc/profile.d/var.sh
-echo $(export VAULT_ADDR=http://vault.devops-ontap.com:8200) >> /etc/profile.d/var.sh
-sudo chmod a+x /etc/profile.d/var.sh
+sudo -E echo $(export VAULT_ADDR=http://vault.devops-ontap.com:8200) >> /etc/profile.d/var.sh
+sudo -E chmod a+x /etc/profile.d/var.sh
 source ~/.profile
 echo $VAULT_ADDR
 vault login -method=aws header_value=vault.devops-ontap.com role=vault
