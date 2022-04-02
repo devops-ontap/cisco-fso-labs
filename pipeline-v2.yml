@@ -232,7 +232,7 @@ jobs:
         VAULT_ADDR: ((vault.addr))
         SSH_TOKEN: ((ssh-token.token))
 
-- name: deploy-thousand-eyes-agents
+- name: deploy-thousandeyes-agents
   plan:
     - get: git-resource
     - config:
@@ -266,6 +266,7 @@ jobs:
 - name: uninstall-thousand-eyes-agents
   plan:
     - get: git-resource
+      passed: [deploy-thousandeyes-agents]
     - config:
         image_resource:
           name: ""
