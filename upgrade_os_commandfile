@@ -1,9 +1,9 @@
-sudo apt update
-sudo apt upgrade
+sudo apt -y update
+sudo apt -y upgrade
 #install vault
 sudo curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-sudo apt update && sudo apt -y install vault
+sudo apt -y update && sudo apt -y install vault
 vault --version
 cat ~/etc/os-release
 
