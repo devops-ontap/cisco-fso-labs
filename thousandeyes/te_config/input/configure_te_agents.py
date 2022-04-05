@@ -20,7 +20,7 @@ private_key = 'sshkey.pem'
 key = paramiko.RSAKey.from_private_key_file(private_key)
 username='ubuntu'
 hostfile='hostfile'
-commandfile='commandfile'
+commandfile='appd-commandfile'
 
 # Opens files in read mode
 f1 = open(hostfile,"r")
