@@ -262,7 +262,6 @@ jobs:
         TE_GROUP: ((te-group.token))
       task: deploy-thousand-eyes-agents
 
-
 - name: uninstall-thousand-eyes-agents
   plan:
     - get: git-resource
@@ -302,7 +301,7 @@ jobs:
           name: ""
           source:
             repository: sconrod/appdynamics
-            tag: 1
+            tag: 1.1
           type: docker-image
         inputs:
           - name: git-resource
