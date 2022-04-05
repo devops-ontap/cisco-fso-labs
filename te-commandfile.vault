@@ -1,0 +1,12 @@
+export TERMINFO=/usr/lib/terminfo
+TERM=xterm
+echo "$SHELL"
+curl ifconfig.me
+sudo apt -y install jq
+echo $VAULT_ADDR
+vault login -method=aws header_value=vault.devops-ontap.com role=vault
+export TE_GROUP=$(vault kv get -field=token concourse/cisco-fso-labs/te-group) | sudo -E tee -a /etc/environment
+curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
+ls -la
+sudo ./install_thousandeyes.sh -f vojylvcce2gwg4u0e1mcg000gn96h0tj
+
