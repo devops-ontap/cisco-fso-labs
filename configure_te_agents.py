@@ -13,7 +13,7 @@ os.environ['VAULT_ADDR'] = 'http://vault.devops-ontap.com:8200'
 #print(sshkey)
 
 #with open('sshkey.pem', 'r+') as my_file:
-#    my_file.write(sshkey)
+#my_file.write(sshkey)
 
 os.chmod("sshkey.pem", 400)
 

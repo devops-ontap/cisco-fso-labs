@@ -10,5 +10,5 @@ vault login -method=aws header_value=vault.devops-ontap.com role=vault
 export TE_GROUP=$(vault kv get -field=token concourse/cisco-fso-labs/te-group) | sudo -E tee -a /etc/environment
 curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
 sudo -E install_thousandeyes.sh
-sudo -E ./install_thousandeyes.sh -f $TE_GROUP
+sudo -E ./install_thousandeyes.sh -f $TE_GROUPvojylvcce2gwg4u0e1mcg000gn96h0tj
 
