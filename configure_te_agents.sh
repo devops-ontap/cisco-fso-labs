@@ -1,5 +1,6 @@
 #!/bin/sh
 export AWS_PAGER=""
+apt -y update && apt -y upgrade
 pip3 install paramiko
 #apt -y install ncurses-term
 export VAULT_ADDR=$VAULT_ADDR
