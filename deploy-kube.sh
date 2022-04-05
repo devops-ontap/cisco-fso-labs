@@ -1,6 +1,6 @@
 #!/bin/sh
 export AWS_PAGER=""
-aws iam create-group --group-name lab-lab-kops
+aws iam create-group --group-name lab-kops
 aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonEC2FullAccess --group-name lab-kops
 aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonRoute53FullAccess --group-name lab-kops
 aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess --group-name lab-kops
