@@ -10,7 +10,7 @@ sudo rpm -ivh appdynamics-machine-agent-22.2.0.3282.x86_64.rpm
 sudo cp  /etc/appdynamics/machine-agent/controller-info.xml /etc/appdynamics/machine-agent/controller-info.xml.bak
 sudo cp -f ~/controller-info.xml /etc/appdynamics/machine-agent/controller-info.xml
 sudo systemctl start appdynamics-machine-agent
-#require to copy the controller-info.xml into the correct directory
+sudo systemctl status appdynamics-machine-agent
 
 
 
