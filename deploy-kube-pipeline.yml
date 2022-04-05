@@ -7,7 +7,7 @@ jobs:
       image_resource:
         name: ""
         source:
-          repository: sconrod/python-aws-image
+          repository: sconrod/python-aws
           tag: 2
         type: docker-image
       inputs:
@@ -26,7 +26,6 @@ jobs:
             aws configure set default.region $REGION
             aws sts get-caller-identity --query Account --output text
             echo "WELCOME TO THE CISCO FSO API LAB FOR DEVOPS/NETOPS ENGINEERS"
-
     task: check-aws
     params:
       AWS_KEY_ID: ((Access_key_ID.Access_key))
@@ -35,15 +34,15 @@ jobs:
       NAME: ((az.name))
       VAULT_ADDR: ((vault.addr))
 
-- name: deploy-aws-env
+- name: deploy-kube-aws
   plan:
     - get: git-resource
     - config:
         image_resource:
           name: ""
           source:
-            repository: sconrod/python-aws-image
-            tag: 2
+            repository: sconrod/kube
+            tag: 1
           type: docker-image
         inputs:
           - name: git-resource
@@ -64,11 +63,9 @@ jobs:
               export AWS_PAGER=""
               export SSH_TOKEN=$SSH_TOKEN
               echo $SSH_TOKEN
-              chmod a+x aws_key_vault.sh
-              chmod a+x aws_deploy.sh
-              ./aws_key_vault.sh
-              ./aws_deploy.sh
-      task: build-vpc
+              chmod a+x deploy-kube.sh
+              ./deploy-kube.sh
+      task: deploy-kube-aws
       params:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
@@ -77,285 +74,6 @@ jobs:
         VAULT_ADDR: ((vault.addr))
         SSH_TOKEN: ((ssh-token.token))
 
-- name: deploy-csr1000v
-  plan:
-    - get: git-resource
-    - config:
-        image_resource:
-          name: ""
-          source:
-            repository: sconrod/python-aws-image
-            tag: 2
-          type: docker-image
-        inputs:
-          - name: git-resource
-        platform: linux
-        run:
-          path: /bin/sh
-          args:
-            - -ce
-            - |
-              cd git-resource
-              export NAME=$NAME
-              echo $NAME
-              export AWS_PAGER=""
-              aws configure set aws_access_key_id $AWS_KEY_ID
-              aws configure set aws_secret_access_key $AWS_KEY
-              aws configure set default.region $REGION
-              aws sts get-caller-identity --query Account --output text
-              export AWS_PAGER=""
-              chmod a+x csr_deploy.sh
-              ./csr_deploy.sh
-      task: build-csr1000v
-      params:
-        AWS_KEY_ID: ((Access_key_ID.Access_key))
-        AWS_KEY: ((Secret_access_key.Secret_access_key))
-        REGION: ((aws.region))
-        NAME: ((az.name))
-        VAULT_ADDR: ((vault.addr))
-        SSH_TOKEN: ((ssh-token.token))
-
-- name: deploy-ubuntu-lan
-  plan:
-    - get: git-resource
-    - config:
-        image_resource:
-          name: ""
-          source:
-            repository: sconrod/python-aws-image
-            tag: 2
-          type: docker-image
-        inputs:
-          - name: git-resource
-        platform: linux
-        run:
-          path: /bin/sh
-          args:
-            - -ce
-            - |
-              cd git-resource
-              export NAME=$NAME
-              echo $NAME
-              export AWS_PAGER=""
-              aws configure set aws_access_key_id $AWS_KEY_ID
-              aws configure set aws_secret_access_key $AWS_KEY
-              aws configure set default.region $REGION
-              aws sts get-caller-identity --query Account --output text
-              export AWS_PAGER=""
-              chmod a+x aws_ubuntu_lan_deploy.sh
-              ./aws_ubuntu_lan_deploy.sh
-              export
-      task: build-ubuntu-lan
-      params:
-        AWS_KEY_ID: ((Access_key_ID.Access_key))
-        AWS_KEY: ((Secret_access_key.Secret_access_key))
-        REGION: ((aws.region))
-        NAME: ((az.name))
-        VAULT_ADDR: ((vault.addr))
-        SSH_TOKEN: ((ssh-token.token))
-
-- name: deploy-ubuntu-router
-  plan:
-    - get: git-resource
-    - config:
-        image_resource:
-          name: ""
-          source:
-            repository: sconrod/python-aws-image
-            tag: 2
-          type: docker-image
-        inputs:
-          - name: git-resource
-        platform: linux
-        run:
-          path: /bin/sh
-          args:
-            - -ce
-            - |
-              cd git-resource
-              export NAME=$NAME
-              echo $NAME
-              export AWS_PAGER=""
-              aws configure set aws_access_key_id $AWS_KEY_ID
-              aws configure set aws_secret_access_key $AWS_KEY
-              aws configure set default.region $REGION
-              aws sts get-caller-identity --query Account --output text
-              export AWS_PAGER=""
-              chmod a+x aws_ubuntu_router_deploy.sh
-              ./aws_ubuntu_router_deploy.sh
-              echo $REGION
-      task: build-ubuntu-router
-      params:
-        AWS_KEY_ID: ((Access_key_ID.Access_key))
-        AWS_KEY: ((Secret_access_key.Secret_access_key))
-        NAME: ((az.name))
-        REGION: ((aws.region))
-        VAULT_ADDR: ((vault.addr))
-        SSH_TOKEN: ((ssh-token.token))
-
-- name: upgrade-os
-  plan:
-    - get: git-resource
-    - config:
-        image_resource:
-          name: ""
-          source:
-            repository: sconrod/python-aws-image
-            tag: 2
-          type: docker-image
-        inputs:
-          - name: git-resource
-        platform: linux
-        run:
-          path: /bin/sh
-          args:
-            - -ce
-            - |
-              cd git-resource
-              export NAME=$NAME
-              echo $NAME
-              export AWS_PAGER=""
-              aws configure set aws_access_key_id $AWS_KEY_ID
-              aws configure set aws_secret_access_key $AWS_KEY
-              aws configure set default.region $REGION
-              aws sts get-caller-identity --query Account --output text
-              export AWS_PAGER=""
-              chmod a+x upgrade_os.sh
-              ./upgrade_os.sh
-              echo $REGION
-      task: upgrade-os
-      params:
-        AWS_KEY_ID: ((Access_key_ID.Access_key))
-        AWS_KEY: ((Secret_access_key.Secret_access_key))
-        NAME: ((az.name))
-        REGION: ((aws.region))
-        VAULT_ADDR: ((vault.addr))
-        SSH_TOKEN: ((ssh-token.token))
-
-- name: deploy-thousandeyes-agents
-  plan:
-    - get: git-resource
-    - config:
-        image_resource:
-          name: ""
-          source:
-            repository: sconrod/thousandeyes-image
-            tag: 1
-          type: docker-image
-        inputs:
-          - name: git-resource
-        platform: linux
-        run:
-          path: /bin/sh
-          args:
-            - -cex
-            - |
-              export NAME=$NAME
-              echo $NAME
-              cd git-resource
-              chmod a+x configure_te_agents.sh
-              ./configure_te_agents.sh
-      params:
-        NAME: ((az.name))
-        VAULT_ADDR: ((vault.addr))
-        SSH_TOKEN: ((ssh-token.token))
-        TE_GROUP: ((te-group.token))
-      task: deploy-thousand-eyes-agents
-
-- name: uninstall-thousand-eyes-agents
-  plan:
-    - get: git-resource
-      passed: [deploy-thousandeyes-agents]
-    - config:
-        image_resource:
-          name: ""
-          source:
-            repository: sconrod/thousandeyes-image
-            tag: 1
-          type: docker-image
-        inputs:
-          - name: git-resource
-        platform: linux
-        run:
-          path: /bin/sh
-          args:
-            - -cex
-            - |
-              export NAME=$NAME
-              echo $NAME
-              cd git-resource
-              chmod a+x delete_te_agents.sh
-              ./delete_te_agents.sh
-      params:
-        NAME: ((az.name))
-        VAULT_ADDR: ((vault.addr))
-        SSH_TOKEN: ((ssh-token.token))
-        TE_GROUP: ((te-group.token))
-      task: deploy-thousand-eyes-agents
-
-- name: deploy-appdynamics-agents
-  plan:
-    - get: git-resource
-    - config:
-        image_resource:
-          name: ""
-          source:
-            repository: sconrod/appdynamics
-            tag: 1.1
-          type: docker-image
-        inputs:
-          - name: git-resource
-        platform: linux
-        run:
-          path: /bin/sh
-          args:
-            - -cex
-            - |
-              export NAME=$NAME
-              echo $NAME
-              cd git-resource
-              ls -la
-              pwd
-              chmod a+x configure_appd_agents.sh
-              ./configure_appd_agents.sh
-      params:
-        SSH_TOKEN: ((ssh-token.token))
-        NAME: ((az.name))
-        VAULT_ADDR: ((vault.addr))
-        APPD_ACCESS: ((appd-access.key))
-        APPD_OATH: ((appd-oath.key))
-      task: deploy-appdynamics-agents
-
-- name: uninstall-appdynamics-agents
-  plan:
-    - get: git-resource
-      passed: [deploy-appdynamics-agents]
-    - config:
-        image_resource:
-          name: ""
-          source:
-            repository: sconrod/appdynamics-image
-            tag: 1.1
-          type: docker-image
-        inputs:
-          - name: git-resource
-        platform: linux
-        run:
-          path: /bin/sh
-          args:
-            - -cex
-            - |
-              export NAME=$NAME
-              echo $NAME
-              cd git-resource
-              chmod a+x delete_appd_agents.sh
-              ./delete_appd_agents.sh
-      params:
-        NAME: ((az.name))
-        VAULT_ADDR: ((vault.addr))
-        SSH_TOKEN: ((ssh-token.token))
-        TE_GROUP: ((te-group.token))
-      task: uninstall-appd-agents
 
 resource_types:
 resources:
