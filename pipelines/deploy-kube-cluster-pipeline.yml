@@ -63,8 +63,7 @@ jobs:
                 export SSH_TOKEN=$SSH_TOKEN
                 chmod a+x deploy-iam-aws.sh
                 ./deploy-iam-aws.sh
-                chmod a+x deploy-s3-aws.sh
-                ./deploy-s3-aws.sh
+
 
         task: deploy-aws-iam
         params:
@@ -76,7 +75,7 @@ jobs:
           SSH_TOKEN: ((ssh-token.token))
 
 
-  - name: deploy-kube-cluster
+  - name: deploy-s3
     plan:
       - get: git-resource
       - config:
@@ -107,10 +106,10 @@ jobs:
                 echo "Directory Contents ..."
                 ls -la
                 echo git branch
-                chmod a+x deploy-kube-cluster.sh
-                ./deploy-kube-cluster.sh
+                chmod a+x deploy-s3-aws.sh
+                ./deploy-s3-aws.sh
 
-        task: deploy-kube-cluster
+        task: deploy-s3
         params:
           AWS_KEY_ID: ((Access_key_ID.Access_key))
           AWS_KEY: ((Secret_access_key.Secret_access_key))
