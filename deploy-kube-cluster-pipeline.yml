@@ -80,8 +80,8 @@ jobs:
           image_resource:
             name: ""
             source:
-              repository: sconrod/python-aws-image
-              tag: 2.1
+              repository: sconrod/kops-kube
+              tag: 1
             type: docker-image
           inputs:
             - name: git-resource
@@ -89,7 +89,7 @@ jobs:
           run:
             path: /bin/sh
             args:
-              - -cex
+              - -ce
               - |
                 cd git-resource
                 export AWS_PAGER=""
