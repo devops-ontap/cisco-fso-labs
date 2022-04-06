@@ -8,21 +8,17 @@ export REGION=$REGION
 apt-get -y install wget
 
 aws sts get-caller-identity --query Account --output text
-#AKIAUICEOKZYZFVUL5GY
-#wxr41kvnV67bGjw+5nghqSpOgeRd+6c+NGn92SdN
 
-LAB_KOPS_AWS_KEY_ID=$(vault kv get -field=AccessKeyId concourse/cisco-fso-labs/us-east-2b/lab-kops)
-echo $LAB_KOPS_AWS_KEY_ID
-LAB_KOPS_AWS_KEY=$(vault kv get -field=SecretAccessKey concourse/cisco-fso-labs/us-east-2b/lab-kops)
-echo $LAB_KOPS_AWS_KEY
+export AWS_ACCESS_KEY_ID=$(vault kv get -field=AccessKeyId concourse/cisco-fso-labs/us-east-2b/lab-kops)
+export AWS_SECRET_ACCESS_KEY=$(vault kv get -field=SecretAccessKey concourse/cisco-fso-labs/us-east-2b/lab-kops)
 
-aws configure set aws_access_key_id $LAB_KOPS_AWS_KEY_ID
-aws configure set aws_secret_access_key $LAB_KOPS_AWS_KEY
+aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
 aws configure set default.region us-east-2
 
 aws sts get-caller-identity --query Account --output text
 
-aws s3api create-bucket --bucket lab-kube.k8s.local --region us-east-2
+aws s3api create-bucket --bucket lab-kube.k8s.local --region us-east-1
 aws s3api put-bucket-versioning --bucket lab-kube.k8s.local --versioning-configuration Status=Enabled
 aws s3api create-bucket --bucket lab-kops -oidc-store --region us-east-2 --acl public-read
 
