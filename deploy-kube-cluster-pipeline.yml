@@ -89,7 +89,7 @@ jobs:
           run:
             path: /bin/sh
             args:
-              - -ce
+              - -cex
               - |
                 cd git-resource
                 export AWS_PAGER=""
