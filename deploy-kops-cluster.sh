@@ -6,12 +6,16 @@ vault login --no-print $SSH_TOKEN
 export AZ=$NAME
 export REGION=$REGION
 
+kubectl --version
+
 #Install kops
 curl -Lo kops https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/v1.23.0 | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
 chmod +x kops
 mv kops /usr/local/bin/kops
 chmod +x kubectl
 mv kubectl /usr/local/bin/
+
+kops --version
 
 
 LAB_KOPS_AWS_KEY_ID=$(vault kv get -field=token concourse/main/us-east-2b/lab-kops/AccessKeyId)
