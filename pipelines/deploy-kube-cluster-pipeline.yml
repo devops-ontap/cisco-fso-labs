@@ -106,8 +106,8 @@ jobs:
                 echo "Directory Contents ..."
                 ls -la
                 echo git branch
-                chmod a+x deploy-s3-aws.sh
-                ./deploy-s3-aws.sh
+                chmod a+x deploy-kops-cluster.sh
+                ./deploy-kops-cluster.sh
 
         task: deploy-s3
         params:
