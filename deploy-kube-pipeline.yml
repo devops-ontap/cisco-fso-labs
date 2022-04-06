@@ -1,12 +1,12 @@
 jobs:
-- name: deploy-kube-aws
+- name: deploy-iam-aws
   plan:
     - get: git-resource
     - config:
         image_resource:
           name: ""
           source:
-            repository: sconrod/kube
+            repository: sconrod/python-aws
             tag: 1
           type: docker-image
         inputs:
@@ -46,7 +46,7 @@ jobs:
         image_resource:
           name: ""
           source:
-            repository: sconrod/kube
+            repository: sconrod/kops-kube
             tag: 1
           type: docker-image
         inputs:
@@ -72,13 +72,8 @@ jobs:
               ./deploy-kube-cluster.sh
       task: deploy-kube-cluster-aws
       params:
-<<<<<<< HEAD
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
-=======
-        AWS_KEY_ID: lab-kops/((Access_key_ID.Access_key))
-        AWS_KEY: lab-kops/((Secret_access_key.Secret_access_key))
->>>>>>> origin
         REGION: ((aws.region))
         NAME: ((az.name))
         VAULT_ADDR: ((vault.addr))

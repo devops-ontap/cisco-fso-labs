@@ -1,9 +1,8 @@
 #!/bin/sh
-export AWS_PAGER=""
-export VAULT_ADDR=$VAULT_ADDR
-export SSH_TOKEN=$SSH_TOKEN
-vault login --no-print $SSH_TOKEN
-AWS_KEY_ID=$(vault kv get --field=AccessKeyId concourse/main/lab-kops)
-AWS_SECRET=$(vault kv get --field=SecretAccessKey concourse/main/lab-kops)
-echo $AWS_KEY_ID
-echo $AWS_SECRET
+#Install kubectl
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/OS_DISTRIBUTION/amd64/kubectl
+chmod +x ./kubectl
+mv ./kubectl /usr/local/bin/kubectl
+#Install kops
+curl -Lo kops https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+chmod +x kops
