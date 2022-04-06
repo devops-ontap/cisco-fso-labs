@@ -7,7 +7,7 @@ jobs:
           name: ""
           source:
             repository: sconrod/python-aws
-            tag: 1
+            tag: 2.1
           type: docker-image
         inputs:
           - name: git-resource
@@ -27,50 +27,9 @@ jobs:
               aws sts get-caller-identity --query Account --output text
               export AWS_PAGER=""
               export SSH_TOKEN=$SSH_TOKEN
-              echo $SSH_TOKEN
-              chmod a+x deploy-kube.sh
+              chmod a+x deploy-iam-aws.sh
               ./deploy-kube.sh
       task: deploy-iam-aws
-      params:
-        AWS_KEY_ID: ((Access_key_ID.Access_key))
-        AWS_KEY: ((Secret_access_key.Secret_access_key))
-        REGION: ((aws.region))
-        NAME: ((az.name))
-        VAULT_ADDR: ((vault.addr))
-        SSH_TOKEN: ((ssh-token.token))
-
-- name: deploy-kube-cluster-aws
-  plan:
-    - get: git-resource
-    - config:
-        image_resource:
-          name: ""
-          source:
-            repository: sconrod/kops-kube
-            tag: 1
-          type: docker-image
-        inputs:
-          - name: git-resource
-        platform: linux
-        run:
-          path: /bin/sh
-          args:
-            - -ce
-            - |
-              cd git-resource
-              export AWS_PAGER=""
-              export NAME=$NAME
-              echo $NAME
-              aws configure set aws_access_key_id $AWS_KEY_ID
-              aws configure set aws_secret_access_key $AWS_KEY
-              aws configure set default.region $REGION
-              aws sts get-caller-identity --query Account --output text
-              export AWS_PAGER=""
-              export SSH_TOKEN=$SSH_TOKEN
-              echo $SSH_TOKEN
-              chmod a+x deploy-kube-cluster.sh
-              ./deploy-kube-cluster.sh
-      task: deploy-kube-cluster-aws
       params:
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
