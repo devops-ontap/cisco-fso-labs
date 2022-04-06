@@ -7,6 +7,8 @@ export AZ=$NAME
 export REGION=$REGION
 apt-get -y install wget
 
+aws sts get-caller-identity --query Account --output text
+
 
 LAB_KOPS_AWS_KEY_ID=$(vault kv get -field=AccessKeyId concourse/cisco-fso-labs/us-east-2b/lab-kops)
 echo $LAB_KOPS_AWS_KEY_ID

@@ -63,8 +63,6 @@ jobs:
                 export SSH_TOKEN=$SSH_TOKEN
                 chmod a+x deploy-iam-aws.sh
                 ./deploy-iam-aws.sh
-
-
         task: deploy-aws-iam
         params:
           AWS_KEY_ID: ((Access_key_ID.Access_key))
@@ -73,7 +71,6 @@ jobs:
           NAME: ((az.name))
           VAULT_ADDR: ((vault.addr))
           SSH_TOKEN: ((ssh-token.token))
-
 
   - name: deploy-kops-cluster
     plan:
@@ -94,14 +91,9 @@ jobs:
               - -cex
               - |
                 cd git-resource
-                export AWS_PAGER=""
                 export NAME=$NAME
                 echo $NAME
-                export AWS_PAGER=""
                 export SSH_TOKEN=$SSH_TOKEN
-                echo "Directory Contents ..."
-                ls -la
-                echo git branch
                 chmod a+x deploy-kops-cluster.sh
                 ./deploy-kops-cluster.sh
 
@@ -111,7 +103,6 @@ jobs:
           NAME: ((az.name))
           VAULT_ADDR: ((vault.addr))
           SSH_TOKEN: ((ssh-token.token))
-
 
 resource_types:
 resources:
