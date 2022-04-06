@@ -10,7 +10,7 @@ aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonSQSFullAc
 aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess --group-name lab-kops
 aws iam create-user --user-name lab-kops
 aws iam add-user-to-group --user-name lab-kops --group-name lab-kops
-
+aws iam create-access-key --user-name kops
 
 #Here need the python to get the response from the AWS API in Python
 #Set the variables for the new AWS key and Secret and write to the vault

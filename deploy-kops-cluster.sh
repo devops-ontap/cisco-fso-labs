@@ -9,13 +9,13 @@ export REGION=$REGION
 #Install kops
 curl -Lo kops https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/v1.23.0 | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
 chmod +x kops
-sudo mv kops /usr/local/bin/kops
-sudo chmod +x kubectl
-sudo mv kubectl /usr/local/bin/
+mv kops /usr/local/bin/kops
+chmod +x kubectl
+mv kubectl /usr/local/bin/
 
 
-LAB_KOPS_AWS_KEY_ID=$(vault kv get -field=token concourse/main/us-east-2b/lab-kops-test/AccessKeyId)
-LAB_KOPS_AWS_KEY=$(vault kv get -field=token concourse/main/us-east-2b/lab-kops-test/SecretAccessKey)
+LAB_KOPS_AWS_KEY_ID=$(vault kv get -field=token concourse/main/us-east-2b/lab-kops/AccessKeyId)
+LAB_KOPS_AWS_KEY=$(vault kv get -field=token concourse/main/us-east-2b/lab-kops/SecretAccessKey)
 
 aws configure set aws_access_key_id $LAB_KOPS_AWS_KEY_ID
 aws configure set aws_secret_access_key $LAB_KOPS_AWS_KEY
