@@ -72,8 +72,13 @@ jobs:
               ./deploy-kube-cluster.sh
       task: deploy-kube-cluster-aws
       params:
+<<<<<<< HEAD
         AWS_KEY_ID: ((Access_key_ID.Access_key))
         AWS_KEY: ((Secret_access_key.Secret_access_key))
+=======
+        AWS_KEY_ID: lab-kops/((Access_key_ID.Access_key))
+        AWS_KEY: lab-kops/((Secret_access_key.Secret_access_key))
+>>>>>>> origin
         REGION: ((aws.region))
         NAME: ((az.name))
         VAULT_ADDR: ((vault.addr))
