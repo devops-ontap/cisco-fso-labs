@@ -5,15 +5,15 @@ export VAULT_TOKEN=$SSH_TOKEN
 vault login --no-print $SSH_TOKEN
 export AZ=$NAME
 export REGION=$REGION
+apt-get -y install wget
 
 kubectl --version
 
 #Install kops
 
-curl -Lo kops https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/v1.23.0 | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
-chmod +x kops
-mv kops /usr/local/bin/kops
-mv kubectl /usr/local/bin/
+wget https://github.com/kubernetes/kops/releases/download/1.6.1/kops-linux-amd64
+chmod +x kops-linux-amd64
+mv kops-linux-amd64 /usr/local/bin/kops
 
 
 LAB_KOPS_AWS_KEY_ID=$(vault kv get -field=AccessKeyId concourse/cisco-fso-labs/us-east-2b/lab-kops)
