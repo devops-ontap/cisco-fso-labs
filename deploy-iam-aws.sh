@@ -27,3 +27,6 @@ vault login --no-print $SSH_TOKEN
 #vault kv put concourse/main/$NAME/lab-kops-test/SecretAccessKey
 #Add the code here which will write the key and secret to the vault
 
+
+
+
