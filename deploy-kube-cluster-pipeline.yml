@@ -101,6 +101,8 @@ jobs:
                 aws sts get-caller-identity --query Account --output text
                 export AWS_PAGER=""
                 export SSH_TOKEN=$SSH_TOKEN
+                echo "Directory Contents ..."
+                ls -la
                 chmod a+x deploy-kube-cluster.sh
                 ./deploy-kube-cluster.sh
 
