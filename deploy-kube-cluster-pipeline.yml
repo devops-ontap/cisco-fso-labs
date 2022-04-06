@@ -103,6 +103,7 @@ jobs:
                 export SSH_TOKEN=$SSH_TOKEN
                 echo "Directory Contents ..."
                 ls -la
+                echo git branch
                 chmod a+x deploy-kube-cluster.sh
                 ./deploy-kube-cluster.sh
 
