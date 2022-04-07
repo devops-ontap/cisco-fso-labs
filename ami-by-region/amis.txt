@@ -16,6 +16,8 @@ az:2c
 US-WEST-1
 AMI ID: ami-0b6cee046d4cae9a9
 
+Oregon-US-West-2
+
 ===========================
 UBUNTU:
 VIRGINIA US-EAST-1
@@ -26,3 +28,7 @@ Ami Id: ami-05117a5348bb8a291
 
 CALIFORNIA - US-WEST-1
 ami-0c5db8b1650fb4b47
+
+
+Oregon - US-WEST-2
+ami-06b98d47f6a0abaed
