@@ -1,0 +1,5 @@
+name='us-west-2b'
+region='us-west-2'
+az='us-west-2b'
+csr_ami_id='ami-0a26a933729195b66'
+ubuntu_ami_id='ami-06b98d47f6a0abaed'
