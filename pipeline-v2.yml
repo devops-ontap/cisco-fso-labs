@@ -38,7 +38,7 @@ jobs:
 - name: deploy-aws-env
   plan:
     - get: git-resource
-      passed: [lab-rep]
+      passed: [lab-prep]
       trigger: true
     - config:
         image_resource:
