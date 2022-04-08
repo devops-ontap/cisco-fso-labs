@@ -1,55 +1,47 @@
-# cisco-fso-labs
-cisco-fso-lab
+LAB SETUP
 
-#API
+Two Paths:
 
-DA(Developer Advocate) Reach out to Matt and Jeff. They decide on the use cases the demos etc for Cisco Live. They speakto the community and know the use cases.
+Path 1. API Development
+In this case the Instructor will deploy all pipelines in advance.
 
-Anne Gentle on Eric Thiel's Team - Responsible for API Documentation
-Defines Publishing Process
-Decides what goes onto Cisco.Developer.com
-
-Mel Delgado****
-Developer Advocate Managers:
-DA Managers: Jeff Bull & Matt Denapoli under Eric thiel
-
-Devnet Advisory
-Devnet Tagging
-Meeting Planeed for May. Jeff Bull organizes this meeting.
-
-Two types of feedback
-Feedback from Partner - 
-
-DEV
-Feedback form for external and internal for API Feedback
-DevRel API Quality Feedback form: internal / external
-
-internal: https://cs.co/devrelfeedback
-
-external: https://developer.cisco.com/feedback (early stages)
-Focus on Deals, what have we lost and what have we won - this data is used to report to the top execs at L2
-
-This is being extended for deals at risk.
-Customer Complaint
-
-Source of this is coming from the Francois and other Leaders of SEs
-Check and Infirm if SEs are also 
-
-SHERRI: infirm partners SE are also part of WW SE community so for programmability articulated by Francois Caen(Americas, Julio Gomez(EMEA) and Jeff Wang(APJC)
-
-API Quality Champion - Security, Collab, Etc
-Which ones should be prioritized. Evaluate Scope. 
-
-Mel Delgado evaluated Thousand Eyes.
-
-What is the business case, the target, etc. 
-The DA (Developer Advocate)
+Student Preps:
+Make sure you have the following before starting lab - Instructor will provide;
+Concourse Logon Name and Password
+Your Assigned Git Branch
+Your Assigned Availability Zone(az)
+You should have received an email invite to Logon to Thousand Eyes (test your login in advance)
 
 
-# LAB SETUP
+Student Steps:
+
+Logon to Concourse: http://dev.devops-ontap.com:8080
+-At the bottom right you will see three icons for mac, linux, windows. Click on the icon that matches your os to download the fly executabe.
+-Follow the steps to install it(see install fly)
+
+Clone Repo
+-Checkout your Branch
+-Copy your respective lab_vars.py file (There is a lab_vars directory, inside it is a directory for each az. Copy your az lab_vars.py file into the root of your rep)
+
+Logon to Concourse via the cli...example:
+(replace USERNAME with the username your Instructor provided and PASSWORD with the password provided)
+fly --target=cisco-fso-labs login --concourse-url=http://ci.devops-ontap.com:8080 -n cisco-fso-labs --username=USERNAME --password=PASSWORD
+
+Running this command will automatically open your default web browser. 
+Copy the bottom token and paste it back into the command prompt in our IDE.
+
+You are now setup to start developing code to APIs.
+
+
+
+
+
+
+
+
 
 Part 1 of this lab demonstrates simple integration with a variety of common APIs that perform standard operational standard stack functions:
-vault & artifactory placeholder- 
+vault & artifactory placeholder-
 hashicorp vault
 kubernetes - ci tool
 kubernetes - sample java apps
@@ -104,14 +96,14 @@ sudo chmod 0755 /usr/local/bin/fly
 3. Once the AWS job in the pipeline turns green, you can go ahead and deploy the CSR and the Ubuntu and LAN router instances. These will take some time(about 3 minnutes to build) so during that time you can go ahead and clone the git repo. We are going to configure our CSR using the DEVOPS methodology of rapid iteration in an isolated task (outside the pipeline) to test it then once we are happy with it, we can add it to the pipeline to automate this going forward.
 
 When DEVOPS engineers are working on their code - they work from a branc that typically has a naming convention of username/jira ticket #
-In more sophisticated Devops Pipelines such as Microsoft Azure Devops Pipelines, the ticketing system is integrated with both git and the pipeline. 
-So after an Engineer has tested their code via a task, they will do a build of the pipeline from their branch. 
+In more sophisticated Devops Pipelines such as Microsoft Azure Devops Pipelines, the ticketing system is integrated with both git and the pipeline.
+So after an Engineer has tested their code via a task, they will do a build of the pipeline from their branch.
 If the build is successful, they will create a PR.
 It is worth nothing immediately prior to building, they should ensure they have pulled and merged the latest master branch into their test branch so they are testing against the latest production version of the code.
 
 In this lab, we will not be creating merge requests - however, we will be working like Devops Engineers but building our pipelines from our branch code.
 
-In Later Phases of the Lab, students will be requested to create a PR (Pull Request) that will add in their vetted and tested tasks into the pipeline so these will be automated going forward. 
+In Later Phases of the Lab, students will be requested to create a PR (Pull Request) that will add in their vetted and tested tasks into the pipeline so these will be automated going forward.
 
 In Large Software Companies, there can be anywhere between 5-100 or more Engineers working on multiple branches on different features or bug requests.
 
@@ -124,7 +116,7 @@ If all our business app pipelines are deployed successfully on top of our QA inf
 
 Before you can practise 'rapid interation development' on your branch, you need to ensure your SSH key is added to your git account, and you have provided your git account to the lab instructor. The lab Instructor will add you to the repo and you will receive an invite to your email, once you accept you will be able to run the CSR configure task.
 
-On the last day of the lab, we will allow everyone to submit PRs for any tasks we have run manually into their pipeline. 
+On the last day of the lab, we will allow everyone to submit PRs for any tasks we have run manually into their pipeline.
 We can then delete their entire lab environment, and build it completely automated end to end from their own newly developed version of their own pipeline.
 
 This is optional and only for individuals passionate about automation and pipelining.
@@ -135,7 +127,7 @@ This is optional and only for individuals passionate about automation and pipeli
 After adding SSH key to git account and receiving invite to the git repo proceed as follows:
 
 1. Clone the git repo
-https://github.com/devops-ontap/cisco-fso-labs
+   https://github.com/devops-ontap/cisco-fso-labs
 
 2. Create a Branch - each lab user will create their own branch
 - in this lab we will not doing a git merge. people will work from their own branches
@@ -147,7 +139,7 @@ https://github.com/devops-ontap/cisco-fso-labs
 
 3. create a params directory outside of the git repo, and copy out the sample-params.yml file into that directory.
 7. Update the params file with your branch name and your SSH private key. You can name the params file by your branch example: us-west-1a.yml
-(This is required for when your run a manual iteration task on your branch because, it will need to authenticate through to the pipeline to allow the pipeline to run the task as a one off).
+   (This is required for when your run a manual iteration task on your branch because, it will need to authenticate through to the pipeline to allow the pipeline to run the task as a one off).
 
 Once your CSR is deployed you can now practise being a 'DEVOPS Engineer' working on your branch by testing out the CSR Configure task.
 This is a one off task that will utilize the pipeline mechanism to launch a 'one off task' that will:
@@ -236,4 +228,3 @@ AWS Ref Docs:
 https://docs.aws.amazon.com/cli/latest/reference/ec2/
 To see what is possible with an AWS Cli command run this:
 aws ec2 create-vpc --generate-cli-skeleton
-
