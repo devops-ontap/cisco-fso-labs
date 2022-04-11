@@ -1,2 +1,0 @@
-#!/bin/bash
-export VAULT_ADDR=http://vault.devopsontap.com:8200

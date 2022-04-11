@@ -80,8 +80,7 @@ jobs:
 - name: deploy-csr1000v
   plan:
     - get: git-resource
-      passed: [deploy-aws-env]
-      trigger: true
+      trigger: false
     - config:
         image_resource:
           name: ""
