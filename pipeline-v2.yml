@@ -119,8 +119,6 @@ jobs:
 - name: deploy-ubuntu-lan
   plan:
     - get: git-resource
-      passed: [ deploy-aws-env ]
-      trigger: true
     - config:
         image_resource:
           name: ""
@@ -160,8 +158,6 @@ jobs:
 - name: deploy-ubuntu-router
   plan:
     - get: git-resource
-      passed: [ deploy-aws-env ]
-      trigger: true
     - config:
         image_resource:
           name: ""
