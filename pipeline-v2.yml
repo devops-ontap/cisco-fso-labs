@@ -64,8 +64,6 @@ jobs:
               aws configure set default.region $REGION
               aws sts get-caller-identity --query Account --output text
               export AWS_PAGER=""
-              export SSH_TOKEN=$SSH_TOKEN
-              echo $SSH_TOKEN
               chmod a+x aws_key_vault.sh
               chmod a+x aws_deploy.sh
               ./aws_key_vault.sh
