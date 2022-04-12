@@ -15,8 +15,6 @@ echo "${SSHKEY}" | ssh-add -
 for server in $(cat hostfile)
 do
   ssh-keyscan -H "$server" >> ~/.ssh/known_hosts
-  scp -i sshkey.pem install_te.sh ubuntu@"$server":~/
-  scp -i sshkey.pem import-tags.sh ubuntu@"$server":~/
 done
 python3 configure_te_agents.py
 
