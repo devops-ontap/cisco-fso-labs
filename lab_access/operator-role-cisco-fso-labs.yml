@@ -1,0 +1,4 @@
+roles:
+  - name: pipeline-operator
+    local:
+      users: ["us-east-2a","us-east-2b", "us-east-2c", "us-west-1a", "us-west-1c", "us-west-2a", "us-west-2b", "us-west-2c"]
