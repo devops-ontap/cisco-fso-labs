@@ -8,6 +8,10 @@ image_resource:
 
 inputs:
   - name: input
+
+params:
+  TE_OATHTOKEN: ((te_oathtoken))
+
 run:
   path: /bin/sh
   args:
