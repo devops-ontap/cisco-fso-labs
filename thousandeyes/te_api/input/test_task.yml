@@ -1,0 +1,9 @@
+platform: linux
+
+image_resource:
+  type: registry-image
+  source: {repository: golang}
+
+run:
+  path: go
+  args: [version]
