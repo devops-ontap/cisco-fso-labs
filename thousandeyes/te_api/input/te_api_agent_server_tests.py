@@ -4,7 +4,7 @@ from subprocess import call, check_output
 from requests.structures import CaseInsensitiveDict
 urllib3.disable_warnings()
 token = os.getenv('TE_OATHTOKEN')
-test_name = 'test-102'
+test_name = 'test-103'
 url = "https://api.thousandeyes.com/v6/agents.json"
 payload={}
 headers = {'Authorization': 'Bearer ' + token}
