@@ -1,4 +1,5 @@
 #!/bin/bash
+#Update provisioning script to write the required AWS IDs into vault so it can be quickly deleted.
 vpc="vpc-xxxxxxxxxxxxx"
 aws ec2 describe-internet-gateways --filters 'Name=attachment.vpc-id,Values='$vpc | grep InternetGatewayId
 aws ec2 describe-subnets --filters 'Name=vpc-id,Values='$vpc | grep SubnetId

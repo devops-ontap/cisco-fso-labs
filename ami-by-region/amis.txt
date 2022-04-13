@@ -1,3 +1,8 @@
+AWS Regions have different AMI IDs.
+(The ami ID is originally specified in the branch lab vars file, however, this will be transitioned to the vault in the next release)
+
+
+
 Cisco Cloud Services Router (CSR) 1000V - BYOL for SD-WAN 17.3
 Virginia:
 US-EAST-1
