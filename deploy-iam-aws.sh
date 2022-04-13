@@ -10,7 +10,8 @@ aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonSQSFullAc
 aws iam attach-group-policy --policy-arn arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess --group-name lab-kops
 aws iam create-user --user-name lab-kops
 aws iam add-user-to-group --user-name lab-kops --group-name lab-kops
-aws iam create-access-key --user-name kops
+aws iam create-access-key --user-name lab-kops
+#This command returns the AccessKeyId and the SecretAccessKey, write these to the vault.
 
 #Here need the python to get the response from the AWS API in Python
 #Set the variables for the new AWS key and Secret and write to the vault
@@ -21,11 +22,11 @@ aws iam create-access-key --user-name kops
 export VAULT_ADDR=$VAULT_ADDR
 export VAULT_TOKEN=$SSH_TOKEN
 vault login --no-print $SSH_TOKEN
-#vault kv put concourse/main/us-east-2b/lab-kops/AccessKeyId
-#vault kv put concourse/main/$NAME/lab-kops/AccessKeyId
-#vault kv put concourse/main/us-east-2b/lab-kops/SecretAccessKey
-#vault kv put concourse/main/$NAME/lab-kops/SecretAccessKey
-#Add the code here which will write the key and secret to the vault
+vault kv put concourse/main/us-east-2b/lab-kops/AccessKeyId
+vault kv put concourse/main/$NAME/lab-kops/AccessKeyId
+vault kv put concourse/main/us-east-2b/lab-kops/SecretAccessKey
+vault kv put concourse/main/$NAME/lab-kops/SecretAccessKey
+Add the code here which will write the key and secret to the vault
 
 
 
