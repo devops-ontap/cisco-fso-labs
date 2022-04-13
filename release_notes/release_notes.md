@@ -1,6 +1,13 @@
 To Do
 ======
 
+AppD on temporary Kube Cluster for lab
+
+App D
+Try to move the entire controller-info.xml file to the vault 
+Or programatically update the controller-info.xml file using variables from vault
+
+
 Add in more regions and update the lab_vars directory with the lab_vars for these regions.
 Check with AWS if we can get more AZs for us-east-2 and the Western Regions.
 

@@ -12,6 +12,8 @@ aws iam create-user --user-name lab-kops
 aws iam add-user-to-group --user-name lab-kops --group-name lab-kops
 aws iam create-access-key --user-name lab-kops
 
+#Figure out how to have the AWS CLI dump the new account key into the vault. Borrow code from AWS Deploy.
+
 #Write the Key to the Vault
 export VAULT_ADDR=$VAULT_ADDR
 export VAULT_TOKEN=$SSH_TOKEN
