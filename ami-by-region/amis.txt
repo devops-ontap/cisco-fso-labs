@@ -1,4 +1,6 @@
 AWS Regions have different AMI IDs.
+We are reserving east for lab infra
+
 (The ami ID is originally specified in the branch lab vars file, however, this will be transitioned to the vault in the next release)
 
 

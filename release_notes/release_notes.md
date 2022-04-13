@@ -1,6 +1,10 @@
 To Do
 ======
 
+Add in more regions and update the lab_vars directory with the lab_vars for these regions.
+Check with AWS if we can get more AZs for us-east-2 and the Western Regions.
+
+
 
 Transition the AMI IDs into the vault
 When AWS deploy occurs, query vault based off the NAME supplied to retrieve the AMI IDs
