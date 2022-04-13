@@ -8,10 +8,7 @@ To save time, the day before the lab, the Instructor after each lab will set up 
 
 Create new branches with the AZ Name.
 =======================================
-The following AZs are reserved and will NOT be used for the labs:
-us-east-1a
-us-east-1b
-us-east-2a
+The us-east-1 region and all AZs are reserved for the lab infra
 
 There is a directory in the git repo called "lab_vars"
 There is a directory for each az that is available to use for the student labs.

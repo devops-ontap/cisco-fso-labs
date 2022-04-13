@@ -1,36 +1,40 @@
 LAB SETUP
+=============
 
-Two Paths:
+Two Paths to Prep Lab.
+- For Advanced Devops Engineers, they can deploy their own pipelines and AWS lab Envs.
 
-Path 1. API Development
-In this case the Instructor will deploy all pipelines in advance.
+- For Students new to Devops and Cisco APIS, setup everything in advance so they can hop skip jump to the API development
 
-Student Preps:
-Make sure you have the following before starting lab - Instructor will provide;
-Concourse Logon Name and Password
-Your Assigned Git Branch
-Your Assigned Availability Zone(az)
-You should have received an email invite to Logon to Thousand Eyes (test your login in advance)
 
+Students focusing on Developing Code to the Cisco APIS-
+In this case the Lab Admin will setup all pipelines in advance.
+All Students are working on the same team in concourse: cisco-fso-labs
+(this may change to one team per student in the future)
+Each Branch has a corresponding Pipeline under the cisco-fso-labs team
+
+***Students MUST authenticate via CLI to concourse*****
+This will automatically open their default browser and prompt them to enter credentials.
+
+Instructor Prep
+======================
+Make sure you have provided Students with following and done the prep one day in advance..
+Provide Students with:
+- Concourse Logon Name and Password (This is always going to be identical to the branch they are assigned)
+- Assigned Git Branch
+-Your Assigned Availability Zone(az)
+-Add the students email to Thousand Eyes lab - it will send them an email invitation to set their password to Thousand Eyes 
+Blitz Lab GUI ENV for which you grant them two roles: standard user, API Admin.
+-At Day of Lab verify with everyone they have received this. If not resend invitation via TE Console.
+
+Instructor Setup Steps are in:
+==============================
+Instructor_Lab_Setup_Prep.md
 
 Student Steps:
+==================
+Student Detailed Steps for Day are in Day-1.md
 
-Logon to Concourse: http://dev.devops-ontap.com:8080
--At the bottom right you will see three icons for mac, linux, windows. Click on the icon that matches your os to download the fly executabe.
--Follow the steps to install it(see install fly)
-
-Clone Repo
--Checkout your Branch
--Copy your respective lab_vars.py file (There is a lab_vars directory, inside it is a directory for each az. Copy your az lab_vars.py file into the root of your rep)
-
-Logon to Concourse via the cli...example:
-(replace USERNAME with the username your Instructor provided and PASSWORD with the password provided)
-fly --target=cisco-fso-labs login --concourse-url=http://ci.devops-ontap.com:8080 -n cisco-fso-labs --username=USERNAME --password=PASSWORD
-
-Running this command will automatically open your default web browser.
-Copy the bottom token and paste it back into the command prompt in our IDE.
-
-You are now setup to start developing code to APIs.
 
 
 
