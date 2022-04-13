@@ -32,10 +32,10 @@ MAC and Linux:
 
 Students
 =========
-To participate in the DEVOPS tasks, you will need to be added to the lab git repo.
-Please provide the Instructor with your git account so you can be added. Once the Instructor adds you to the git repo, you will receive an invite via the email address associated with your git account.
-Please accept the invite.
-
+Please ensure you accept the ThousandEyes invite before the lab starts
+You will receive an email invitation to the email address you used to sign up for the lab.
+Please accept it, and it will prompt you to logon and set credentials.
+Thank You!
 
 
 
