@@ -36,7 +36,7 @@ for device in devices:
         print("="*50, command, "="*50)
         stdin, stdout, stderr = con.exec_command(command, get_pty=True)
         print(stdout.read().decode())
-        err = stderr.read().decode()
+        #err = stderr.read().decode()
         time.sleep(3)
         if err:
             print(err)
