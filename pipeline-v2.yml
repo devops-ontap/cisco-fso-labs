@@ -262,7 +262,6 @@ jobs:
 - name: uninstall-thousand-eyes-agents
   plan:
     - get: git-resource
-      passed: [deploy-thousandeyes-agents]
     - config:
         image_resource:
           name: ""
@@ -322,7 +321,6 @@ jobs:
 - name: uninstall-appdynamics-agents
   plan:
     - get: git-resource
-      passed: [deploy-appdynamics-agents]
     - config:
         image_resource:
           name: ""
