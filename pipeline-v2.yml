@@ -325,7 +325,7 @@ jobs:
         image_resource:
           name: ""
           source:
-            repository: sconrod/appdynamics-image
+            repository: sconrod/appdynamics
             tag: 1.1
           type: docker-image
         inputs:
