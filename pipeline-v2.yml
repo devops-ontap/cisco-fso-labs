@@ -250,8 +250,6 @@ jobs:
             - -cex
             - |
               export NAME=$NAME
-              echo $NAME
-              cd git-resource
               chmod a+x configure_te_agents.sh
               ./configure_te_agents.sh
       params:
@@ -281,7 +279,6 @@ jobs:
             - -cex
             - |
               export NAME=$NAME
-              echo $NAME
               cd git-resource
               chmod a+x delete_te_agents.sh
               ./delete_te_agents.sh
@@ -311,10 +308,7 @@ jobs:
             - -cex
             - |
               export NAME=$NAME
-              echo $NAME
               cd git-resource
-              ls -la
-              pwd
               chmod a+x configure_appd_agents.sh
               ./configure_appd_agents.sh
       params:
