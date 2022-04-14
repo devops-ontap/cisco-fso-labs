@@ -1,6 +1,5 @@
 #!/bin/sh
 export AWS_PAGER=""
-#!/bin/sh
 pip3 install paramiko
 #Call the vault and set the SSH key to env var
 export VAULT_ADDR=$VAULT_ADDR
