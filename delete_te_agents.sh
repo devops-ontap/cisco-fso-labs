@@ -13,14 +13,9 @@ chmod 400 sshkey.pem
 mkdir ~/.ssh
 touch ~/.ssh/known_hosts
 echo "${SSHKEY}" | ssh-add -
-touch var
-echo $TE_GROUP > var
 for server in $(cat hostfile)
 do
   ssh-keyscan -H "$server" >> ~/.ssh/known_hosts
-# ssh -i sshkey.pem ubuntu@"$server" env TE_GROUP=$TE_GROUP
-  scp -i sshkey.pem var ubuntu@"$server":~/
-  scp -i sshkey.pem var.sh ubuntu@"$server":~/
 done
 python3 delete_te_agents.py
 
