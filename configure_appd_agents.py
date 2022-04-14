@@ -28,7 +28,7 @@ hosts = f1.readlines()
 commands = f2.readlines()
 
 for host in hosts:
-    host = device.rstrip()
+    host = host.rstrip()
     for command in commands:
         con = paramiko.SSHClient()
         con.load_system_host_keys()
