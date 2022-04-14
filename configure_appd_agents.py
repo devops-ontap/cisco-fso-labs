@@ -32,7 +32,7 @@ for device in devices:
     for command in commands:
         con = paramiko.SSHClient()
         con.load_system_host_keys()
-        con.connect(device, username=username, allow_agent=False, pkey=key)
+        con.connect(hostname=device, username=username, allow_agent=False, pkey=key)
         print("="*50, command, "="*50)
         stdin, stdout, stderr = con.exec_command(command, get_pty=True)
         print(stdout.read().decode())
