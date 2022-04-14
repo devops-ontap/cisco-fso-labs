@@ -250,6 +250,7 @@ jobs:
             - -cex
             - |
               export NAME=$NAME
+              cd git-resource
               chmod a+x configure_te_agents.sh
               ./configure_te_agents.sh
       params:
