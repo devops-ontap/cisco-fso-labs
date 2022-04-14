@@ -24,16 +24,16 @@ f1 = open(hostfile,"r")
 f2 = open(commandfile,"r")
 
 # Creates list based on f1 and f2
-devices = f1.readlines()
+hosts = f1.readlines()
 commands = f2.readlines()
 
-for device in devices:
+for host in hosts:
     device = device.rstrip()
     for command in commands:
         con = paramiko.SSHClient()
         con.load_system_host_keys()
         con.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        con.connect(device=str(device), username=str(username), allow_agent=False, pkey=key, port=22)
+        con.connect(device=str(host), username=str(username), allow_agent=False, pkey=key, port=22)
         print("="*50, command, "="*50)
         stdin, stdout, stderr = con.exec_command(command, get_pty=True)
         print(stdout.read().decode())
