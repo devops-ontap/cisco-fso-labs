@@ -24,11 +24,11 @@ f1 = open(hostfile,"r")
 f2 = open(commandfile,"r")
 
 # Creates list based on f1 and f2
-devices = f1.readlines()
+ips = f1.readlines()
 commands = f2.readlines()
 
-for ip in devices:
-    device: str = device.rstrip()
+for ip in ips:
+    ip: str = ip.rstrip()
     for command in commands:
         con = paramiko.SSHClient()
         con.load_system_host_keys()
