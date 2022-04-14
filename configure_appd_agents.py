@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-import json, re, sys, os, json, subprocess, time, logging, requests, paramiko
+import json, re, sys, os, json, subprocess, time, logging, requests, paramiko, socket
 from subprocess import call, check_output
-
+socket.getaddrinfo('localhost', None)
 #Install the Agent
 #See if  you can pull the pem from vault
 
