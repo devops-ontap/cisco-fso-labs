@@ -1,1 +1,2 @@
 sudo rpm -ev appdynamics-machine-agent
+/opt/appdynamics/machineagent
