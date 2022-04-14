@@ -5,6 +5,8 @@ All lab Docs are in the Docs folder
 Instructors
 ==============
 Follow Steps under Docs in the Instructor Folder
+**The APPD SAAS Controller is upgraded regularly and when this happens, I get an email, and then I need to uprev the agent versions to match the controller.
+
 
 Students
 =========

@@ -5,6 +5,8 @@ Day before
 ===========
 
 To save time, the day before the lab, the Instructor after each lab will set up the student lab environments. Delete any old student branches from the last lab and create new branches.
+It is worth noting, that the SAAS controller on AppD ugprades regularly. When this happens I get an email, and I will uprade the agent versions in the code.
+Moving forward, the agent versions should be set as a variable and passed in via vault. This way we can just update the version in vault and not need to change code.
 
 Create new branches with the AZ Name.
 =======================================
@@ -24,6 +26,11 @@ from within the git repo root...
 #git checkout -b azname
 example:
 #git checkout -b us-east-2b
+
+If a users branch get messed up, you can do one of two things. 
+Either rename their branch so they save local changes on their machine then create a new branch OR
+#git reset --hard master
+(this will over-write their local branch with master)
 
 Copy the az lab_vars.py for the az, example, us-east-2b from the lab_vars subdirectory into the root.
 #cp ./lab_vars/us-east-2b .
