@@ -28,12 +28,12 @@ devices = f1.readlines()
 commands = f2.readlines()
 
 for device in devices:
-    device = device.rstrip()
+    device: str = device.rstrip()
     for command in commands:
         con = paramiko.SSHClient()
         con.load_system_host_keys()
         con.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        con.connect(device, username=username, allow_agent=False, pkey=key)
+        con.connect(ip=ip, username=username, allow_agent=False, pkey=key)
         print("="*50, command, "="*50)
         stdin, stdout, stderr = con.exec_command(command, get_pty=True)
         print(stdout.read().decode())
