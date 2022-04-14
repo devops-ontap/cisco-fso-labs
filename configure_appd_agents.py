@@ -33,7 +33,7 @@ for device in devices:
         con = paramiko.SSHClient()
         con.load_system_host_keys()
         con.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        con.connect(device, username=username, allow_agent=False, pkey=key, port=22)
+        con.connect(device=str(device), username=str(username), allow_agent=False, pkey=key, port=22)
         print("="*50, command, "="*50)
         stdin, stdout, stderr = con.exec_command(command, get_pty=True)
         print(stdout.read().decode())
