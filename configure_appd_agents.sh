@@ -14,14 +14,9 @@ chmod 400 sshkey.pem
 mkdir ~/.ssh
 touch ~/.ssh/known_hosts
 echo "${SSHKEY}" | ssh-add -
-touch var
-echo $APPD_ACCESS > var
-echo $APPD_OATH > var
 for server in $(cat hostfile)
 do
   ssh-keyscan -H "$server" >> ~/.ssh/known_hosts
-# ssh -i sshkey.pem ubuntu@"$server" env TE_GROUP=$TE_GROUP
-  scp -i sshkey.pem var ubuntu@"$server":~/
   scp -i sshkey.pem controller-info.xml ubuntu@"$server":~/
 done
 python3 configure_appd_agents.py
