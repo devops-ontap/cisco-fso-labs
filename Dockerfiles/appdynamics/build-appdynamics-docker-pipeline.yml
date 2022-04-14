@@ -1,0 +1,48 @@
+display:
+  background_image: appd.jpg
+resources:
+  # The repo with our Dockerfile
+  - name: git-dockerfile-resource
+    type: git
+    icon: github
+    source:
+      uri: ((git-uri-docker))
+      branch: appdynamics
+      Username: ((Username))
+      email: ((email))
+      private_key: ((private_key))
+
+  # Where we will push the image
+  - name: appdynamics
+    type: registry-image
+    icon: docker
+    source:
+      repository: ((image-repo-name))/appdynamics
+      tag: 1.1
+      username: ((registry-username))
+      password: ((registry-password))
+
+jobs:
+  - name: build-and-push
+    plan:
+      - get: git-dockerfile-resource
+      - task: build-task-image
+        privileged: true
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: concourse/oci-build-task
+          inputs:
+            - name: git-dockerfile-resource
+          outputs:
+            - name: image
+          params:
+            CONTEXT: git-dockerfile-resource
+          run:
+            path: build
+      - put: appdynamics
+        params:
+          image: image/image.tar
+          bump_aliases: true
