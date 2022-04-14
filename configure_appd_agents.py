@@ -27,7 +27,7 @@ f2 = open(commandfile,"r")
 devices = f1.readlines()
 commands = f2.readlines()
 
-for device in devices:
+for ip in devices:
     device: str = device.rstrip()
     for command in commands:
         con = paramiko.SSHClient()
