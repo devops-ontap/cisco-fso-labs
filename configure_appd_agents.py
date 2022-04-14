@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-import json, re, sys, os, json, subprocess, time, logging, requests, paramiko, socket
+import json, re, sys, os, json, subprocess, time, logging, requests, paramiko
 from subprocess import call, check_output
-socket.getaddrinfo('localhost', None)
+
 #Install the Agent
 #See if  you can pull the pem from vault
 
@@ -24,16 +24,15 @@ f1 = open(hostfile,"r")
 f2 = open(commandfile,"r")
 
 # Creates list based on f1 and f2
-hosts = f1.readlines()
+devices = f1.readlines()
 commands = f2.readlines()
 
-for host in hosts:
-    host = host.rstrip()
+for device in devices:
+    device = device.rstrip()
     for command in commands:
         con = paramiko.SSHClient()
         con.load_system_host_keys()
-        con.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        con.connect(host=str(host), username=str(username), allow_agent=False, pkey=key, port=22)
+        con.connect(device, username=username, allow_agent=False, pkey=key)
         print("="*50, command, "="*50)
         stdin, stdout, stderr = con.exec_command(command, get_pty=True)
         print(stdout.read().decode())
