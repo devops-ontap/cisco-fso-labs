@@ -1,5 +1,11 @@
 To Do
 ======
+Since the AppD rpm download token is only good for one hour, need to spin up an S3 bucket just to hold this rpm and then edit pipeline to call it.
+Grrrrr!!!!!!!!!
+
+
+
+
 
 AppD on temporary Kube Cluster for lab
 
