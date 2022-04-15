@@ -6,7 +6,7 @@ sudo chown -R ubuntu:ubuntu /opt/appdynamics
 curl -L -O -H "Authorization: Bearer eyJraWQiOiJLRUpyaXk5V21PRVROVzlONF9mQnE2bE5WQ3A0UVBfNHdWS0V2RlR4dUJ3IiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULl93c3RzUWlTUHZTNWFpbExfNUN0NWxIc3JKSElEUTFHZW4zZ2hKbUJSZmsub2FyMWQxcDN4bnVZZXlkbWYycDciLCJpc3MiOiJodHRwczovL2FwcGQtaWRlbnRpdHkub2t0YS5jb20vb2F1dGgyL2F1c3B2bnAzdmtrclNIMk9RMnA2IiwiYXVkIjoibWljb3JzZXJ2aWNlcyIsImlhdCI6MTY1MDA0NzM3MCwiZXhwIjoxNjUwMTMzNzcwLCJjaWQiOiIwb2ExanMxMHQ3ekJjTENnRzJwNyIsInVpZCI6IjAwdWVleDBpZ3VORkppcjYwMnA3Iiwic2NwIjpbIm9mZmxpbmVfYWNjZXNzIiwiZG93bmxvYWQiLCJvcGVuaWQiXSwiYXV0aF90aW1lIjoxNjUwMDQ3MTc4LCJzdWIiOiJzY29ucm9kQGNpc2NvLmNvbSJ9.UARB9KUIyzcBQmhu9iU0E54JXLpbAGYAWUaWFdsc4jTz5T76yhqODrWmjUIVsbpl0JAH6Z5PjpyC5jxKF-o7gTcxL0kdSXXoKq9m374mi9tHqmQ0uDifSQ4bAGB1hKb9AFiGJAdlBEaic6KUbS1WvL_x7BM_hmUjz_MGksFGDHK1Tm9aJt18PZ5shFCpkktzaR6F6QZ_pGbNwmz1Xz_pTi9wXt8ODCzleIRvgZSm6A8ofvTcsiAphj8TK2mki8UcnngmpGCvxfk1DFUEVzL3nQqxb_BuNZ9oX4uD4QsMY2m22nw9l8lnfZwQDl29WKi8B2HlU-gT0JOYxs3vAjISFQ;" "https://download.appdynamics.com/download/prox/download-file/machine/22.3.0.3296/appdynamics-machine-agent-22.3.0.3296.x86_64.rpm"
 sudo cp appdynamics-machine-agent-22.3.0.3296.x86_64.rpm /opt/appdynamics/machineagent/appdynamics-machine-agent-22.3.0.3296.x86_64.rpm
 sudo alien /opt/appdynamics/machineagent/appdynamics-machine-agent-22.3.0.3296.x86_64.rpm
-
+sudo rpm -ivh /opt/appdynamics/machineagent/appdynamics-machine-agent-22.3.0.3296.x86_64.rpm
 sudo cp  /etc/appdynamics/machine-agent/controller-info.xml /etc/appdynamics/machine-agent/controller-info.xml.bak
 sudo cp -f ~/controller-info.xml /etc/appdynamics/machine-agent/controller-info.xml
 sudo systemctl start appdynamics-machine-agent
