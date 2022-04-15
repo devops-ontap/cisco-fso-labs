@@ -28,18 +28,18 @@ devices = f1.readlines()
 commands = f2.readlines()
 
 for device in devices:
-device = device.rstrip()
-for command in commands:
-    con = paramiko.SSHClient()
-    con.load_system_host_keys()
-    con.connect(hostname=device, username=username, allow_agent=False, pkey=key, port=22, timeout=60)
-    print("="*50, command, "="*50)
-    stdin, stdout, stderr = con.exec_command(command, get_pty=True)
-    print(stdout.read().decode())
-    err = stderr.read().decode()
-    time.sleep(3)
-    if err:
-        print(err)
-    f1.close()
-    f2.close()
+    device = device.rstrip()
+    for command in commands:
+        con = paramiko.SSHClient()
+        con.load_system_host_keys()
+        con.connect(hostname=device, username=username, allow_agent=False, pkey=key, port=22, timeout=60)
+        print("="*50, command, "="*50)
+        stdin, stdout, stderr = con.exec_command(command, get_pty=True)
+        print(stdout.read().decode())
+        err = stderr.read().decode()
+        time.sleep(3)
+        if err:
+            print(err)
+        f1.close()
+        f2.close()
 con.close()
