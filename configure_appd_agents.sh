@@ -13,6 +13,7 @@ chmod 400 sshkey.pem
 mkdir ~/.ssh
 touch ~/.ssh/known_hosts
 echo "${SSHKEY}" | ssh-add -
+
 for server in $(cat hostfile)
 do
   ssh-keyscan -H "$server" >> ~/.ssh/known_hosts
