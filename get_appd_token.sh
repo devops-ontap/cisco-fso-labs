@@ -10,4 +10,4 @@ echo $APPD_SECRET
 #python can now connect to appd to generate the bearer token and set to var
 python3 get_appd_token.py
 echo $TOKEN
-vault kv put concourse/cisco-fso-labs/appd-oath key=TOKEN
+vault kv put concourse/cisco-fso-labs/appd-oath key=$TOKEN
