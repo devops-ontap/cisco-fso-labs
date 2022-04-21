@@ -11,3 +11,4 @@ echo $APPD_SECRET
 python3 get_appd_token.py
 export APPD_OATH_TOKEN=$(echo $TOKEN)
 vault kv put concourse/cisco-fso-labs/appd-oath key=$APPD_OATH_TOKEN
+vault kv get --field=key concourse/cisco-fso-labs/appd-oath
