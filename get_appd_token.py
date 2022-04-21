@@ -33,15 +33,4 @@ outfile='token.json'
 with open(outfile, 'w') as my_file:
     my_file.write(appd_token)
 
-#write the access token to the vault (remember need to update this later so it does it for each environment - so each branch needs to have a user in vault with that name
-#Do this from the shell script until you add in the vault module for python here.....
 
-#run the vault command using subprocess...
-
-cmd_vault_put='vault kv put concourse/cisco-fso-labs/appd-oath' + ' ' + '@' + outfile
-output = check_output("{}".format(cmd_vault_put), shell=True).decode().strip()
-print("Output: \n{}\n".format(output))
-
-cmd_vault_get='vault kv put concourse/cisco-fso-labs/appd-oath key=' + appd_token
-output = check_output("{}".format(cmd_vault_get), shell=True).decode().strip()
-print("Output: \n{}\n".format(output))
