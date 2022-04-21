@@ -309,15 +309,16 @@ jobs:
             - |
               export NAME=$NAME
               cd git-resource
+              echo $VAULT_ADDR
               chmod a+x get_appd_token.py
               ./get_appd_token.py
       params:
         SSH_TOKEN: ((ssh-token.token))
         NAME: ((az.name))
         VAULT_ADDR: ((vault.addr))
-        APPD_SECRET: ((appd-secret.key))
-        APPD_OATH: ((appd-oath.key))
-      task: deploy-appdynamics-agents
+#       APPD_SECRET: ((appd-secret.key))
+#       APPD_OATH: ((appd-oath.key))
+      task: get_appd_token
 
 - name: uninstall-appdynamics-agents
   plan:
