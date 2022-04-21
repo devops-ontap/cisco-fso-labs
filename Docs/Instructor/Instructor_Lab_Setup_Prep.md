@@ -107,8 +107,26 @@ Move on to Part 11 - which starts to work with the API and Json and writing pyth
 
 
 
+Points Worth Noting:
+======================
+If a helm upgrade is performed on concourse, you need to reset the following two tokens in vault.
+This is because, concourse will automatically keep renewing the token until a new release of concourse is deployed, which 
+is essentially what happens when you do a helm upgrade.
 
+concourse token
+ssh-token
 
+ssh-token (same token value)
+under both mounts:
+main
+cisco-fso-labs
+
+#vault token create -policy=concourse -period="600h" -format=json
+Update this in the helm values file for concourse
+#vault token create -policy=cisco-fso-lab -period="600h" -format=json
+update this in the vault for both mount points 
+
+Refer to the lab-gen git for details.
 
 
 
