@@ -3,10 +3,11 @@ import json, re, sys, os, json, subprocess, time, logging, requests, paramiko, u
 from subprocess import call, check_output
 from requests.structures import CaseInsensitiveDict
 urllib3.disable_warnings()
-import requests
+
 
 url = "https://cisco-apipartnertraininglab.saas.appdynamics.com/auth/v1/oauth/token"
-payload='grant_type=client_credentials&client_id=fsolab4%40cisco-apipartnertraininglab&client_secret=cdb74fe0-a19e-4432-9350-9bb6ebc1fa56'
+
+payload='grant_type=client_credentials&client_id=sconrod%40cisco-apipartnertraininglab&client_secret=7b53b03a-d18f-413e-b56e-580853a4b5f0'
 headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
 }
