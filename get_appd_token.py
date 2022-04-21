@@ -18,7 +18,7 @@ headers = {
 }
 
 response = requests.request("POST", url, headers=headers, data=payload)
-
+print(response.json)
 #put the bearer token into a var
 token_json = response.json()
 appd_token = token_json['access_token']
