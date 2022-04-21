@@ -289,7 +289,7 @@ jobs:
         TE_GROUP: ((te-group.token))
       task: deploy-thousand-eyes-agents
 
-- name: deploy-appdynamics-agents
+- name: get_appd_token
   plan:
     - get: git-resource
     - config:
@@ -310,8 +310,8 @@ jobs:
               export NAME=$NAME
               cd git-resource
               echo $VAULT_ADDR
-              chmod a+x get_appd_token.py
-              ./get_appd_token.py
+              chmod a+x get_appd_token.sh
+              ./get_appd_token.sh
       params:
         SSH_TOKEN: ((ssh-token.token))
         NAME: ((az.name))
