@@ -38,7 +38,7 @@ with open(outfile, 'w') as my_file:
 
 #run the vault command using subprocess...
 
-cmd_vault_put='vault kv put concourse/cisco-fso-labs/appd-oath @' + outfile
+cmd_vault_put='vault kv put concourse/cisco-fso-labs/appd-oath' + '@' + outfile
 output = check_output("{}".format(cmd_vault_put), shell=True).decode().strip()
 print("Output: \n{}\n".format(output))
 
