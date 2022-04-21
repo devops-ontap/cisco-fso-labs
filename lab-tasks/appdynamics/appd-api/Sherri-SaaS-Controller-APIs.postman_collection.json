@@ -1,0 +1,328 @@
+{
+  "info": {
+    "_postman_id": "1e09797a-f9ca-4a07-b090-5b08290e3bfa",
+    "name": "Sherri SaaS Controller APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get OAuth Token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let responseData = pm.response.json();",
+              "",
+              "pm.environment.set(\"access_token\", responseData.access_token);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "strictSSL": false
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "grant_type",
+              "value": "client_credentials",
+              "type": "text"
+            },
+            {
+              "key": "client_id",
+              "value": "{{api_client_name}}@{{account_name}}",
+              "type": "text"
+            },
+            {
+              "key": "client_secret",
+              "value": "{{api_client_secret}}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://{{tenant_name}}.saas.appdynamics.com/auth/v1/oauth/token",
+          "protocol": "https",
+          "host": [
+            "{{tenant_name}}",
+            "saas",
+            "appdynamics",
+            "com"
+          ],
+          "path": [
+            "auth",
+            "v1",
+            "oauth",
+            "token"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Agent Versions",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.sendRequest({",
+              "    url: pm.environment.get(\"auth_url\"),",
+              "    method: \"POST\",",
+              "    body: {",
+              "        mode: \"urlencoded\",",
+              "        urlencoded: [",
+              "            { key: \"grant_type\", value: \"client_credentials\", disabled: false },",
+              "            { key: \"client_id\", value: pm.environment.get(\"api_client_name\") + \"@\" + pm.environment.get(\"account_name\"), disabled: false },",
+              "            { key: \"client_secret\", value: pm.environment.get(\"api_client_secret\"), disabled: false }",
+              "        ]",
+              "    }",
+              "}, function(err, res) {",
+              "    var responseData = res.json();",
+              "    console.log(responseData);",
+              "    pm.environment.set(\"access_token\", responseData.access_token);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "strictSSL": false
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://{{tenant_name}}.saas.appdynamics.com/zero/v1beta/install/agentVersions?latest=true",
+          "protocol": "https",
+          "host": [
+            "{{tenant_name}}",
+            "saas",
+            "appdynamics",
+            "com"
+          ],
+          "path": [
+            "zero",
+            "v1beta",
+            "install",
+            "agentVersions"
+          ],
+          "query": [
+            {
+              "key": "latest",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Download Command",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.sendRequest({",
+              "    url: pm.environment.get(\"auth_url\"),",
+              "    method: \"POST\",",
+              "    body: {",
+              "        mode: \"urlencoded\",",
+              "        urlencoded: [",
+              "            { key: \"grant_type\", value: \"client_credentials\", disabled: false },",
+              "            { key: \"client_id\", value: pm.environment.get(\"api_client_name\") + \"@\" + pm.environment.get(\"account_name\"), disabled: false },",
+              "            { key: \"client_secret\", value: pm.environment.get(\"api_client_secret\"), disabled: false }",
+              "        ]",
+              "    }",
+              "}, function(err, res) {",
+              "    var responseData = res.json();",
+              "    console.log(responseData);",
+              "    pm.environment.set(\"access_token\", responseData.access_token);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "strictSSL": false
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://{{tenant_name}}.saas.appdynamics.com/zero/v1beta/install/downloadCommand?javaVersion=latest&machineVersion=latest&infraVersion=latest&zeroVersion=latest&multiline=true",
+          "protocol": "https",
+          "host": [
+            "{{tenant_name}}",
+            "saas",
+            "appdynamics",
+            "com"
+          ],
+          "path": [
+            "zero",
+            "v1beta",
+            "install",
+            "downloadCommand"
+          ],
+          "query": [
+            {
+              "key": "javaVersion",
+              "value": "latest"
+            },
+            {
+              "key": "machineVersion",
+              "value": "latest"
+            },
+            {
+              "key": "infraVersion",
+              "value": "latest"
+            },
+            {
+              "key": "zeroVersion",
+              "value": "latest"
+            },
+            {
+              "key": "multiline",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Install Command",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.sendRequest({",
+              "    url: pm.environment.get(\"auth_url\"),",
+              "    method: \"POST\",",
+              "    body: {",
+              "        mode: \"urlencoded\",",
+              "        urlencoded: [",
+              "            { key: \"grant_type\", value: \"client_credentials\", disabled: false },",
+              "            { key: \"client_id\", value: pm.environment.get(\"api_client_name\") + \"@\" + pm.environment.get(\"account_name\"), disabled: false },",
+              "            { key: \"client_secret\", value: pm.environment.get(\"api_client_secret\"), disabled: false }",
+              "        ]",
+              "    }",
+              "}, function(err, res) {",
+              "    var responseData = res.json();",
+              "    console.log(responseData);",
+              "    pm.environment.set(\"access_token\", responseData.access_token);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "strictSSL": false
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://{{tenant_name}}.saas.appdynamics.com/zero/v1beta/install/installCommand?serviceUrl=https://{{tenant_name}}.saas.appdynamics.com&sudo=true&multiline=true",
+          "protocol": "https",
+          "host": [
+            "{{tenant_name}}",
+            "saas",
+            "appdynamics",
+            "com"
+          ],
+          "path": [
+            "zero",
+            "v1beta",
+            "install",
+            "installCommand"
+          ],
+          "query": [
+            {
+              "key": "application",
+              "value": "my-test-app",
+              "disabled": true
+            },
+            {
+              "key": "accessKey",
+              "value": "testkey",
+              "disabled": true
+            },
+            {
+              "key": "serviceUrl",
+              "value": "https://{{tenant_name}}.saas.appdynamics.com"
+            },
+            {
+              "key": "sudo",
+              "value": "true"
+            },
+            {
+              "key": "multiline",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
