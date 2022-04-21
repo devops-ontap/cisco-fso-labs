@@ -1,5 +1,4 @@
 #!/bin/sh
-chmod 400 *.pem
 export AWS_PAGER=""
 export VAULT_ADDR=$VAULT_ADDR
 export VAULT_TOKEN=$SSH_TOKEN
