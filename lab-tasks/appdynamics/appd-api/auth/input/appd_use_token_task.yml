@@ -11,11 +11,9 @@ inputs:
   - name: input
 run:
   path: /bin/sh
-  args: ["./input/appd_api.sh"]
+  args: ["./input/appd_use_token.sh"]
 
 params:
   SSH_TOKEN: ((ssh-token.token))
   NAME: ((az.name))
   VAULT_ADDR: ((vault.addr))
-  APPD_SECRET: ((appd-secret.key))
-  APPD_OATH: ((appd-oath.key))

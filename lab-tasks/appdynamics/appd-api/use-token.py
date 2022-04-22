@@ -13,14 +13,4 @@ response = requests.request("GET", url, headers=headers, data=payload)
 print(response.text)
 
 
-#put the bearer token into a var
-token_json = response.json()
-token = token_json['access_token']
-print(token)
-
-#login to vault and write the token to the appd-oath under cisco-fso-labs mount point
-
-
-
-
 
