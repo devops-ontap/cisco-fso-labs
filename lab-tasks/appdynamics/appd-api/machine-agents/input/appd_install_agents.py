@@ -10,7 +10,7 @@ os.environ.get('SSHKEY')
 os.environ.get('VAULT_ADDR')
 
 os.chmod("sshkey.pem", 400)
-os.chmod("appdynamics-machine-agent-22.3.0.3296.x86_64.rpm", 777)
+os.chmod("appdynamics-machine-agent-22.2.0.3282.x86_64.rpm", 777)
 
 private_key = 'sshkey.pem'
 key = paramiko.RSAKey.from_private_key_file(private_key)
