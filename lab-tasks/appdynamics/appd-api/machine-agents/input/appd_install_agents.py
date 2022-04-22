@@ -8,10 +8,9 @@ from subprocess import call, check_output
 #from os import environ
 os.environ.get('SSHKEY')
 os.environ.get('VAULT_ADDR')
-os.environ.get('APPD_ACCESS')
-os.environ.get('APPD_OATH_TOKEN')
 
 os.chmod("sshkey.pem", 400)
+os.chmod("appdynamics-machine-agent-22.3.0.3296.x86_64.rpm", 777)
 
 private_key = 'sshkey.pem'
 key = paramiko.RSAKey.from_private_key_file(private_key)
@@ -43,3 +42,7 @@ for device in devices:
         f1.close()
         f2.close()
 con.close()
+
+
+
+

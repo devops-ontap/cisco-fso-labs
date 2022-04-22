@@ -1,5 +1,5 @@
 #!/bin/sh
-export AWS_PAGER=""
+cd input
 apt -y update && apt -y upgrade
 pip3 install paramiko
 #apt -y install ncurses-term
@@ -21,6 +21,4 @@ do
   scp -i sshkey.pem controller-info.xml ubuntu@"$server":~/
   scp -i sshkey.pem appdynamics-machine-agent-22.3.0.3296.x86_64.rpm ubuntu@"$server":~/
 done
-python3 configure_appd_agents.py
-
-
+python3 appd_install_agents.py

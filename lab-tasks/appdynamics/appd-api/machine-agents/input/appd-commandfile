@@ -1,0 +1,16 @@
+sudo apt -y update
+sudo apt install rpm --reinstall
+sudo apt -y install procps
+sudo apt -y install default-jre
+sudo apt -y install alien
+sudo mkdir /opt/appdynamics
+sudo mkdir /opt/appdynamics/machineagent
+sudo cp appdynamics-machine-agent-22.3.0.3296.x86_64.rpm /opt/appdynamics/machineagent/appdynamics-machine-agent-22.3.0.3296.x86_64.rpm
+sudo chown -R ubuntu:ubuntu /opt/appdynamics
+sudo alien /opt/appdynamics/machineagent/appdynamics-machine-agent-22.3.0.3296.x86_64.rpm
+sudo apt install /opt/appdynamics/machineagent/appdynamics-machine-agent-22.3.0.3296.x86_64.deb
+sudo cp  /etc/appdynamics/machine-agent/controller-info.xml /etc/appdynamics/machine-agent/controller-info.xml.bak
+sudo cp -f ~/controller-info.xml /etc/appdynamics/machine-agent/controller-info.xml
+sudo systemctl start appdynamics-machine-agent
+
+
