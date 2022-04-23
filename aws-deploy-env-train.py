@@ -38,6 +38,11 @@ with open(outfile) as access_json:
 with open(outfile_vars, 'a+') as my_file:
     my_file.write(vpcid_var + "\n")
 
+#write the vpcid to the vault
+put_vault_vpcid='vault kv put concourse/cisco-fso-labs/' + "{}".format(name) + vpcid_var
+output = check_output("{}".format(put_vault_vpcid, shell=True).decode().strip()
+print("Output: \n{}\n".format(output))
+
 
 #Create the keypair
 create_keypair='aws ec2 create-key-pair --key-name' + " " +  "{}".format(name) + " " + '--region' + " " + "{}".format(region) + " " + '--availability-zone' + " " + "{}".format(az)

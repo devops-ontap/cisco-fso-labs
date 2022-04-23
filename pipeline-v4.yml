@@ -192,6 +192,48 @@ jobs:
         VAULT_ADDR: ((vault.addr))
         SSH_TOKEN: ((ssh-token.token))
 
+- name: deploy-centos-router
+  plan:
+    - get: git-resource
+    - config:
+        image_resource:
+          name: ""
+          source:
+            repository: sconrod/python-aws-image
+            tag: 2
+          type: docker-image
+        inputs:
+          - name: git-resource
+        platform: linux
+        run:
+          path: /bin/sh
+          args:
+            - -ce
+            - |
+              cd git-resource
+              export NAME=$NAME
+              echo $NAME
+              export AWS_PAGER=""
+              aws configure set aws_access_key_id $AWS_KEY_ID
+              aws configure set aws_secret_access_key $AWS_KEY
+              aws configure set default.region $REGION
+              aws sts get-caller-identity --query Account --output text
+              export AWS_PAGER=""
+              chmod a+x aws_centos_router_deploy.sh
+              ./aws_centos_deploy.sh
+              echo $REGION
+      task: build-ubuntu-centos
+      params:
+        AWS_KEY_ID: ((Access_key_ID.Access_key))
+        AWS_KEY: ((Secret_access_key.Secret_access_key))
+        NAME: ((az.name))
+        REGION: ((aws.region))
+        VAULT_ADDR: ((vault.addr))
+        SSH_TOKEN: ((ssh-token.token))
+
+
+
+
 - name: upgrade-os
   plan:
     - get: git-resource
@@ -289,7 +331,7 @@ jobs:
         TE_GROUP: ((te-group.token))
       task: deploy-thousand-eyes-agents
 
-- name: deploy-appdynamics
+- name: get_appd_token
   plan:
     - get: git-resource
     - config:
@@ -319,31 +361,6 @@ jobs:
 #       APPD_SECRET: ((appd-secret.key))
 #       APPD_OATH: ((appd-oath.key))
       task: get_appd_token
-        image_resource:
-          name: ""
-          source:
-            repository: sconrod/appdynamics
-            tag: 1.1
-          type: docker-image
-        inputs:
-          - name: git-resource
-        platform: linux
-        run:
-          path: /bin/sh
-          args:
-            - -cex
-            - |
-              export NAME=$NAME
-              cd git-resource
-              echo $VAULT_ADDR
-              chmod a+x get_appd_token.sh
-              ./get_appd_token.sh
-        params:
-          SSH_TOKEN: ((ssh-token.token))
-          NAME: ((az.name))
-          VAULT_ADDR: ((vault.addr))
-#we have the token in the last task written to vault so now we can call it from vault or not?
-        task: deploy-appdynamics-machine-agents
 
 - name: uninstall-appdynamics-agents
   plan:

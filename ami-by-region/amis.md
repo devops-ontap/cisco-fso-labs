@@ -33,3 +33,8 @@ Ami Id: ami-05117a5348bb8a291
 
 CALIFORNIA - US-WEST-1
 ami-0c5db8b1650fb4b47
+
+CENTOS
+=========
+
+ohio
