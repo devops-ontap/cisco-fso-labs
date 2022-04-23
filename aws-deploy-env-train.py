@@ -46,7 +46,7 @@ vault_login='vault login --no-print' + " " + SSH_TOKEN
 put_vault_vpcid='vault kv put concourse/cisco-fso-labs/' + "{}".format(name) + vpcid_var
 print(put_vault_vpcid)
 output = check_output("{}".format(put_vault_vpcid, shell=True).decode().strip()
-print("Output: \n{}\n".format(output))
+#print("Output: \n{}\n".format(output))
 
 
 #Create the keypair
