@@ -38,11 +38,15 @@ with open(outfile) as access_json:
 with open(outfile_vars, 'a+') as my_file:
     my_file.write(vpcid_var + "\n")
 
+#logon to the vault
+token = os.getenv(SSH-TOKEN)
+vault_login='vault login --no-print' + " " + SSH_TOKEN
+
 #write the vpcid to the vault
 put_vault_vpcid='vault kv put concourse/cisco-fso-labs/' + "{}".format(name) + vpcid_var
 print(put_vault_vpcid)
 output = check_output("{}".format(put_vault_vpcid, shell=True).decode().strip()
-#print("Output: \n{}\n".format(output))
+print("Output: \n{}\n".format(output))
 
 
 #Create the keypair
