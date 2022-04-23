@@ -1,8 +1,8 @@
 #!/bin/sh
 export AWS_PAGER=""
 #installing hvac
-pip3 install hvac
-pip3 install "hvac[parser"
 cp config ~/.aws
+export VAULT_ADDR=$VAULT_ADDR
+export VAULT_TOKEN=$SSH_TOKEN
 python3 aws-deploy-env-train.py
 
