@@ -49,7 +49,8 @@ print(resp.text)
 print(type(resp.text))
 
 
-
+#Here we are writing the temporary token for AppDynamics into the vault, so we may call it as a variable in subsequent API calls.
+#we need to put this in a module form, so that each time we perform API calls we get a new token
 import requests
 from requests.structures import CaseInsensitiveDict
 
