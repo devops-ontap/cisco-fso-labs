@@ -21,6 +21,9 @@ run:
       chmod a+x vault_vpc.sh
       ./vault_vpc.sh
 
+params:
+  VAULT_ADDR: ((vault.addr))
+  SSH_TOKEN: ((ssh-token.token))
 
 
 
