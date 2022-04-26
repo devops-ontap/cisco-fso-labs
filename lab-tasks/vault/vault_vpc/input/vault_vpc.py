@@ -5,7 +5,7 @@ from subprocess import call, check_output
 from requests.structures import CaseInsensitiveDict
 urllib3.disable_warnings()
 
-VAULT_ADDR = os.getenv('VAULT_ADDR')
+VAULT_ADDR = os.getenv('VAULT_ADDRR')
 VAULT_TOKEN = os.getenv('VAULT_TOKEN')
 token=str(VAULT_TOKEN)
 
