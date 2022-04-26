@@ -21,10 +21,8 @@ response = requests.request("POST", url, headers=headers, data=payload)
 
 
 token_json = response.json()
+print(token_json)
 TOKEN = token_json['access_token']
-print(TOKEN)
-
-
 
 #write the token to a json file called data.json
 outfile = 'token.json'
