@@ -11,8 +11,9 @@ inputs:
   - name: input
 run:
   path: /bin/sh
-  args: ["./input/appd_use_token.sh"]
+  args: ["./input/appd_get_token.sh"]
 
 params:
   SSH_TOKEN: ((ssh-token.token))
   VAULT_ADDR: ((vault.addr))
+

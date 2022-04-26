@@ -6,7 +6,6 @@ urllib3.disable_warnings()
 
 #import the env vars and logon to vault to get the secret and then use it to run this command and write the output to the vault
 APPD_OATH_TOKEN = os.getenv('APPD_OATH_TOKEN')
-print(APPD_OATH_TOKEN)
 STR_APPD_OATH_TOKEN=str(APPD_OATH_TOKEN)
 
 #get the appd oath bearer token from the vault
