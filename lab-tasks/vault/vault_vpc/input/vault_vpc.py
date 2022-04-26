@@ -13,9 +13,8 @@ token=str(VAULT_TOKEN)
 url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/us-east-2a/vpcid"
 
 headers = CaseInsensitiveDict()
-#headers["X-Vault-Token"] = ''
 headers = {"X-Vault-Token":VAULT_TOKEN}
-print(headers)
+
 
 resp = requests.get(url, headers=headers)
 print(resp.text)
