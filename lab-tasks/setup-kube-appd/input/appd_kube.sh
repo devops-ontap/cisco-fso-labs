@@ -16,8 +16,9 @@ helm repo add appdynamics-charts https://ciscodevnet.github.io/appdynamics-chart
 #The put to vault needs to be done once, do not include yaml in this dir!
 #vault kv put concourse/cisco-fso-labs/appd-helm-values data=$(base64 < values.yaml)
 vault kv get -field data concourse/cisco-fso-labs/appd-helm-values | base64 -d > values.yaml
+mkdir ~/.kube
+#get the lab cluster kube-config from the vault.
+vault kv get -field data concourse/cisco-fso-labs/lab-kube-config | base64 -d > ~/.kube/config
 
 
-
-#helm install -f ./values.yaml appd-cluster-agent appdynamics-charts/cluster-agent --namespace=appdynamics
 
