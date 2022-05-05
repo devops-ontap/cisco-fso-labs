@@ -1,5 +1,11 @@
-Create a separate kube cluster using kops that will be deleted when lab is over.
+AppD kubernetes cluster agent is only supported on specific versions of kubernetes:
+https://docs.appdynamics.com/4.5.x/en/infrastructure-visibility/monitoring-kubernetes-with-the-cluster-agent/cluster-agent-requirements-and-supported-environments
 
+https://docs.appdynamics.com/22.4/en/infrastructure-visibility/monitor-kubernetes-with-the-cluster-agent/cluster-agent-requirements-and-supported-environments
+
+https://docs.appdynamics.com/22.4/en/infrastructure-visibility/monitor-kubernetes-with-the-cluster-agent/install-the-cluster-agent
+
+https://docs.appdynamics.com/22.4/en/infrastructure-visibility/monitor-kubernetes-with-the-cluster-agent/install-the-cluster-agent/install-the-cluster-agent-with-helm-charts
 
 
 

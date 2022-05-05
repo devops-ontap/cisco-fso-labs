@@ -1,8 +1,7 @@
 To Do
 ======
-Since the AppD rpm download token is only good for one hour, need to spin up an S3 bucket just to hold this rpm and then edit pipeline to call it.
-Grrrrr!!!!!!!!!
 
+kops cluster for app D Automation
 
 
 
@@ -16,6 +15,24 @@ Or programatically update the controller-info.xml file using variables from vaul
 
 Add in more regions and update the lab_vars directory with the lab_vars for these regions.
 Check with AWS if we can get more AZs for us-east-2 and the Western Regions.
+
+
+VAULT TRANSITIONS:
+==========================
+INSTANCE_IDS - deletion needs polling for state to turn to terminated prior to being able to delete the subsequent objectsd...
+NIC_IDs
+Security Groups
+Keys
+
+
+SUBNET_01_ROUTER
+SUBNET_01_LAN
+ROUTER_RT
+LAN_RT
+IG
+VPCID
+
+
 
 
 

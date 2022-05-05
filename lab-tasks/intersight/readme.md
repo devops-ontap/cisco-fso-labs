@@ -1,3 +1,7 @@
+Intersight REST API GUI Interface:
+https://developer.cisco.com/learning/lab/cisco-intersight-rest-api-keys/step/2
+
+
 Downloadd a 45 day eval of Intersight workload optimizer:
 
 https://blogs.cisco.com/partner/cisco-intersight-workload-optimizer-available-on-aws-marketplace
