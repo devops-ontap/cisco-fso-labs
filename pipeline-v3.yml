@@ -220,7 +220,7 @@ jobs:
               aws sts get-caller-identity --query Account --output text
               export AWS_PAGER=""
               chmod a+x aws_centos_deploy.sh
-              ./aws_ubuntu_centos_deploy.sh
+              ./aws_centos_deploy.sh
               echo $REGION
       task: build-centos-router
       params:
