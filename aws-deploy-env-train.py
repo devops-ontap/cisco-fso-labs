@@ -238,13 +238,12 @@ print("Output: \n{}\n".format(output))
 
 #VAULT SECTION
 
-#1 - Write keypair_name var to the vault
 #Inject the vault var vals into the ephemeral oci build container
 
 VAULT_ADDR = os.getenv('VAULT_ADDRR')
 VAULT_TOKEN = os.getenv('VAULT_TOKEN') #This gets the vault token from the ephemeral build container
 
-url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + "key_name/"
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + "key_name"
 
 headers = CaseInsensitiveDict()
 headers["X-Vault-Token"] = VAULT_TOKEN
@@ -254,6 +253,7 @@ headers["Content-Type"] = "application/json"
 data_json = {"key_name": name }
 
 resp = requests.post(url, headers=headers, json=data_json)
+
 print(resp.status_code)
 
 '''
