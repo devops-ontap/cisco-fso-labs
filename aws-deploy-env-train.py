@@ -252,7 +252,7 @@ headers["X-Vault-Token"] = VAULT_TOKEN
 headers["Content-Type"] = "application/json"
 
 #data = f'{{"token": "{TOKEN}"}}'
-data_json = {"key_name": name }
+data_json = {"key_name": keypair_name }
 
 resp = requests.post(url, headers=headers, json=data_json)
 

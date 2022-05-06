@@ -3,7 +3,7 @@ import json, re, sys, os, json, subprocess, time, logging, requests, urllib3
 from subprocess import call, check_output
 from requests.structures import CaseInsensitiveDict
 urllib3.disable_warnings()
-import requests
+
 
 #Import Lab Vars
 lab_vars='lab_vars.py'
@@ -13,7 +13,7 @@ from lab_vars import *
 #Inject the vault var vals into the ephemeral oci build container
 
 VAULT_ADDR = os.getenv('VAULT_ADDRR')
-VAULT_TOKEN = os.getenv('VAULT_TOKEN') #This gets the vault token from the ephemeral build container
+VAULT_TOKEN = os.getenv('VAULT_TOKEN')
 
 url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + "key_name"
 
