@@ -5,6 +5,14 @@ from requests.structures import CaseInsensitiveDict
 urllib3.disable_warnings()
 import requests
 
+def get_token(room_name):
+    """
+    This function will find the Webex Teams space id based on the {space_name}
+    Call to Webex Teams - /rooms
+    :param room_name: The Webex Teams room name
+    :return: the Webex Teams room Id
+    """
+
 url = "https://cisco-apipartnertraininglab.saas.appdynamics.com/auth/v1/oauth/token"
 payload='grant_type=client_credentials&client_id=fsolab4%40cisco-apipartnertraininglab&client_secret=cdb74fe0-a19e-4432-9350-9bb6ebc1fa56'
 headers = {

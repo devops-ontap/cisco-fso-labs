@@ -5,6 +5,12 @@ from requests.structures import CaseInsensitiveDict
 urllib3.disable_warnings()
 import requests
 
+def get_appd_token():
+    """
+    This function will find get the appd ephemeral token by calling the secret from the vault,
+    requesting the token, and writing the token to the vault
+    """
+
 #The AppD secret is passed in via Env Var which is injected into the build container via the pipeline
 #import the env vars and logon to vault to get the secret and then use it to run this command and write the output to the vault
 secret = os.getenv('APPD_SECRET')
