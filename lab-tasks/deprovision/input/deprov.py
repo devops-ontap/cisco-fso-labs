@@ -16,6 +16,7 @@ VAULT_ADDR = os.getenv('VAULT_ADDRR')
 VAULT_TOKEN = os.getenv('VAULT_TOKEN')
 
 url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + "key_name"
+print(url)
 
 headers = CaseInsensitiveDict()
 headers["X-Vault-Token"] = VAULT_TOKEN
