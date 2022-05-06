@@ -239,7 +239,7 @@ print("Output: \n{}\n".format(output))
 #VAULT SECTION
 
 #1 - Write keypair_name var to the vault
-url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/$NAME/$keypair_name”
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + keypair_name
 
 headers = CaseInsensitiveDict()
 headers["X-Vault-Token"] = VAULT_TOKEN
