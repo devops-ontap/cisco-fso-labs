@@ -24,6 +24,10 @@ sg_name=name
 keypair_name=name
 outfile_key_pair = 'keypair_name' + '.json'
 
+
+#Create the keypair
+create_keypair='aws ec2 create-key-pair --key-name' + " " +  "{}".format(name) + " " + '--region' + " " + "{}".format(region) + " " + '--availability-zone' + " " + "{}".format(az)
+
 '''
 
 #2 - CREATE THE NEW VPC01 AND GET VPCID
@@ -45,10 +49,6 @@ with open(outfile) as access_json:
 
 with open(outfile_vars, 'a+') as my_file:
     my_file.write(vpcid_var + "\n")
-
-
-#Create the keypair
-create_keypair='aws ec2 create-key-pair --key-name' + " " +  "{}".format(name) + " " + '--region' + " " + "{}".format(region) + " " + '--availability-zone' + " " + "{}".format(az)
 
 
 #3- CREATE THE ROUTER SUBNET
