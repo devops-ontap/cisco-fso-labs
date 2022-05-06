@@ -245,7 +245,7 @@ print("Output: \n{}\n".format(output))
 VAULT_ADDR = os.getenv('VAULT_ADDRR')
 VAULT_TOKEN = os.getenv('VAULT_TOKEN') #This gets the vault token from the ephemeral build container
 
-url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + "key_name"
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/"
 
 headers = CaseInsensitiveDict()
 headers["X-Vault-Token"] = VAULT_TOKEN
