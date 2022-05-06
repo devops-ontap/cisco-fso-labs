@@ -24,6 +24,8 @@ sg_name=name
 keypair_name=name
 outfile_key_pair = 'keypair_name' + '.json'
 
+'''
+
 #2 - CREATE THE NEW VPC01 AND GET VPCID
 outfile = 'aws-vpc.json'
 #cmd_deploy='aws ec2 create-vpc --region' + " " + "{}".format(region) + " " + '--cidr-block 10.10.0.0/16 --tag-specifications' + " " + "'ResourceType=vpc,Tags=[{Key=Name,Value=trainee1}]'"
@@ -212,7 +214,7 @@ output = check_output("{}".format(ass_rt_sub), shell=True).decode().strip()
 print("Output: \n{}\n".format(output))
 with open(outfile_ass_rt_sub, 'w') as my_file:
     my_file.write(output)
-'''
+
 #13 - Create a Security Group
 out_file_sg_router='outfile-sg-router.json'
 cmd_security_group='aws ec2 create-security-group --group-name --region' + " " + "{}".format(region) + " " + " " + "{}".format(sg_name) + " " + '--description' + " " + "{}".format(sg_name) + " " + '--vpc-id' + " " + "{}".format(vpcid)
@@ -234,7 +236,7 @@ with open(outfile_vars, 'a+') as my_file:
 auth_inbound_ssh='aws ec2 authorize-security-group-ingress --region' + " " + "{}".format(region) + " " + '--group-id' + " " "{}".format(router_sg_id) + " " + '--protocol tcp --port 22 --cidr 0.0.0.0/0'
 output = check_output("{}".format(auth_inbound_ssh), shell=True).decode().strip()
 print("Output: \n{}\n".format(output))
-
+'''
 
 #VAULT SECTION
 
