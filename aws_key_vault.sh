@@ -12,7 +12,7 @@ echo $PRIVATE_KEY
 export VAULT_ADDR=$VAULT_ADDR
 export VAULT_TOKEN=$SSH_TOKEN
 vault login --no-print $SSH_TOKEN
-vault kv put concourse/cisco-fso-labs/$NAME ssh-key=@$PRIVATE_KEY
+vault kv put concourse/cisco-fso-labs/$NAME/ssh-key ssh-key=@$PRIVATE_KEY
 
 
 
