@@ -22,9 +22,18 @@ headers = CaseInsensitiveDict()
 headers["X-Vault-Token"] = VAULT_TOKEN
 headers["Content-Type"] = "application/json"
 #data = f'{{"token": "{TOKEN}"}}'
-data_json = {"key_name": name }
-resp = requests.get(url, headers=headers, json=data_json)
+data_json = {}
+#data_json = {"key_name": name }
+resp = requests.request("GET", url, headers=headers, json=data_json)
+print(resp.json)
 print(resp.status_code)
+key_name_json = resp.json()
+key_name_dict = key_name_json['data']
+key_name = key_name_dict['key_name']
+
+
+
+'''
 
 #Read vpcid  from vault
 url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + vpcid
@@ -122,3 +131,4 @@ data_json = {"router_sg_id": router_sg_id }
 
 resp = requests.get(url, headers=headers, json=data_json)
 print(resp.status_code)
+'''

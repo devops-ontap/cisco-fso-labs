@@ -25,7 +25,7 @@ run:
       aws sts get-caller-identity --query Account --output text
       export AWS_PAGER=""
       chmod a+x deprov.sh
-      ./write_vault.sh
+      ./deprov.sh
 
 params:
   SSH_TOKEN: ((ssh-token.token))
