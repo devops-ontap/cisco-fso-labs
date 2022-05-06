@@ -24,11 +24,28 @@ sg_name=name
 keypair_name=name
 outfile_key_pair = 'keypair_name' + '.json'
 
+#Write the var to the vault
 
+VAULT_ADDR = os.getenv('VAULT_ADDRR')
+VAULT_TOKEN = os.getenv('VAULT_TOKEN') #This gets the vault token from the ephemeral build container
+
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/"
+
+headers = CaseInsensitiveDict()
+headers["X-Vault-Token"] = VAULT_TOKEN
+headers["Content-Type"] = "application/json"
+
+#data = f'{{"token": "{TOKEN}"}}'
+data_json = {"key_name": name }
+resp = requests.post(url, headers=headers, json=data_json)
+print(resp.status_code)
+
+
+'''
 #Create the keypair
 create_keypair='aws ec2 create-key-pair --key-name' + " " +  "{}".format(name) + " " + '--region' + " " + "{}".format(region) + " " + '--availability-zone' + " " + "{}".format(az)
 
-'''
+
 
 #2 - CREATE THE NEW VPC01 AND GET VPCID
 outfile = 'aws-vpc.json'
@@ -240,23 +257,6 @@ print("Output: \n{}\n".format(output))
 '''
 #VAULT SECTION
 
-#Inject the vault var vals into the ephemeral oci build container
-
-VAULT_ADDR = os.getenv('VAULT_ADDRR')
-VAULT_TOKEN = os.getenv('VAULT_TOKEN') #This gets the vault token from the ephemeral build container
-
-url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/"
-
-headers = CaseInsensitiveDict()
-headers["X-Vault-Token"] = VAULT_TOKEN
-headers["Content-Type"] = "application/json"
-
-#data = f'{{"token": "{TOKEN}"}}'
-data_json = {"key_name": keypair_name }
-
-resp = requests.post(url, headers=headers, json=data_json)
-
-print(resp.status_code)
 
 '''
 #Write vpcid  to the vault
