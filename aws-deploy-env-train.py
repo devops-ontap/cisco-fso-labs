@@ -264,6 +264,9 @@ data_json = {"vpcid": vpcid }
 resp = requests.post(url, headers=headers, json=data_json)
 print(resp.status_code)
 
+'''
+
+
 #3 Write the subnetid_router to the vault
 
 url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/$name/$subnetid_router”
@@ -346,3 +349,5 @@ data_json = {"router_sg_id": router_sg_id }
 
 resp = requests.post(url, headers=headers, json=data_json)
 print(resp.status_code)
+
+'''
