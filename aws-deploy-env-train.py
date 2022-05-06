@@ -343,7 +343,7 @@ headers["X-Vault-Token"] = VAULT_TOKEN
 headers["Content-Type"] = "application/json"
 
 #data = f'{{"token": "{TOKEN}"}}'
-data_json = {"rt_rt_id": rrt_rt_id }
+data_json = {"rt_rt_id": rt_rt_id }
 
 resp = requests.post(url, headers=headers, json=data_json)
 print(resp.status_code)
