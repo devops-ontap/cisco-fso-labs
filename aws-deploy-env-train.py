@@ -205,7 +205,7 @@ print("Output: \n{}\n".format(output))
 with open(outfile_ass_lan_sub, 'w') as my_file:
     my_file.write(output)
 
-'''
+
 #ASSOCIATE THE ROUTE ROUTE TABLE WITH THE ROUTER LAN
 outfile_ass_rt_sub = 'ass_rt_router_sub.json'
 ass_rt_sub='aws ec2 associate-route-table' + " " + '--region' + " " + "{}".format(region) + " " + '--route-table-id' + " " + "{}".format(rt_rt_id) + " " +  '--subnet-id' + " " + "{}".format(subnetid_router)
@@ -236,8 +236,8 @@ with open(outfile_vars, 'a+') as my_file:
 auth_inbound_ssh='aws ec2 authorize-security-group-ingress --region' + " " + "{}".format(region) + " " + '--group-id' + " " "{}".format(router_sg_id) + " " + '--protocol tcp --port 22 --cidr 0.0.0.0/0'
 output = check_output("{}".format(auth_inbound_ssh), shell=True).decode().strip()
 print("Output: \n{}\n".format(output))
-'''
 
+'''
 #VAULT SECTION
 
 #Inject the vault var vals into the ephemeral oci build container
@@ -259,7 +259,6 @@ resp = requests.post(url, headers=headers, json=data_json)
 print(resp.status_code)
 
 '''
-
 #Write vpcid  to the vault
 url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + vpcid
 
