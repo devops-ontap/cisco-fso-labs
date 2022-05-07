@@ -21,9 +21,7 @@ url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name +
 headers = CaseInsensitiveDict()
 headers["X-Vault-Token"] = VAULT_TOKEN
 headers["Content-Type"] = "application/json"
-#data = f'{{"token": "{TOKEN}"}}'
 data_json = {}
-#data_json = {"key_name": name }
 resp = requests.request("GET", url, headers=headers, json=data_json)
 print(resp.json)
 print(resp.status_code)
@@ -33,25 +31,26 @@ key_name = key_name_dict['key_name']
 
 
 
-'''
+
 
 #Read vpcid  from vault
-url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + vpcid
-
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + "vpcid"
 headers = CaseInsensitiveDict()
 headers["X-Vault-Token"] = VAULT_TOKEN
 headers["Content-Type"] = "application/json"
-
-#data = f'{{"token": "{TOKEN}"}}'
-data_json = {"vpcid": vpcid }
-
-resp = requests.get(url, headers=headers, json=data_json)
+data_json = {}
+resp = requests.request("GET", url, headers=headers, json=data_json)
+print(resp.json)
 print(resp.status_code)
-
+vpcid_json = resp.json()
+vpcid_dict = vpcid_json['data']
+vpcid = vpcid_dict['vpcid']
+print(vpcid)
+'''
 
 #3 Read the subnetid_router from vault
 
-url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + subnetid_router
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + "subnetid_router"
 
 headers = CaseInsensitiveDict()
 headers["X-Vault-Token"] = VAULT_TOKEN
@@ -65,7 +64,7 @@ print(resp.status_code)
 
 #4 Read the subnetid_lan from vault
 
-url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + subnetid_lan
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + "subnetid_lan"
 
 headers = CaseInsensitiveDict()
 headers["X-Vault-Token"] = VAULT_TOKEN
@@ -79,7 +78,7 @@ print(resp.status_code)
 
 #5 Read the igid from vault
 
-url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + igid
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + "igid"
 
 headers = CaseInsensitiveDict()
 headers["X-Vault-Token"] = VAULT_TOKEN
@@ -93,7 +92,7 @@ print(resp.status_code)
 
 #10 - Read rt_lan_id from vault
 
-url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + rt_lan_id
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + "rt_lan_id"
 
 headers = CaseInsensitiveDict()
 headers["X-Vault-Token"] = VAULT_TOKEN
@@ -106,7 +105,7 @@ resp = requests.get(url, headers=headers, json=data_json)
 print(resp.status_code)
 
 #11 - Read rt_rt_id from vault
-url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + rt_rt_id
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + "rt_rt_id"
 
 headers = CaseInsensitiveDict()
 headers["X-Vault-Token"] = VAULT_TOKEN
@@ -120,7 +119,7 @@ print(resp.status_code)
 
 #13 - Read the router_sg_id from vault
 
-url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + router_sg_id
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + "router_sg_id"
 
 headers = CaseInsensitiveDict()
 headers["X-Vault-Token"] = VAULT_TOKEN
