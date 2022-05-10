@@ -9,6 +9,7 @@ import requests
 #import the env vars and logon to vault to get the secret and then use it to run this command and write the output to the vault
 secret = os.getenv('APPD_SECRET')
 
+
 url = "https://cisco-apipartnertraininglab.saas.appdynamics.com/auth/v1/oauth/token"
 payload='grant_type=client_credentials&client_id=fsolab4%40cisco-apipartnertraininglab&client_secret=' + secret
 print(payload)
@@ -57,6 +58,7 @@ headers = CaseInsensitiveDict()
 headers["X-Vault-Token"] = VAULT_TOKEN
 headers["Content-Type"] = "application/json"
 
+#data = f'{{"token": "{TOKEN}"}}'
 data_json = {"token": TOKEN}
 
 resp = requests.post(url, headers=headers, json=data_json)
