@@ -28,8 +28,13 @@ print("Output: \n{}\n".format(output))
 with open(outfile, 'w') as my_file:
     my_file.write(output)
 with open(outfile) as access_json:
-    read_content = json.load(access_json)
+    list_json = json.load(access_json)
+    list_of_lists=list_json
+    print(list_of_lists)
+    print(type(list_of_lists))
 
+flatList = [ item for elem in list_of_lists for item in elem]
+print(flatList)
 
-
-
+res = [ sub['Instance'] for sub in flatList ]
+print(str(res))
