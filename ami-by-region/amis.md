@@ -33,3 +33,14 @@ Ami Id: ami-05117a5348bb8a291
 
 CALIFORNIA - US-WEST-1
 ami-0c5db8b1650fb4b47
+
+MUMBAI-AP-SOUTHEAST-1
+
+centos:
+ami-0fef8c1409596e79f
+
+ubuntu focal 20
+ami-0aafc99433634f08e
+
+csr1000v:
+
