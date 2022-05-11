@@ -127,7 +127,16 @@ After completion of Activity #2 we will not use our Jupyter Notebook to analyze 
 pass specific values into subsequent automation tasks.
 
 Your Instructor will demonstrate.....
+* We have setup a kubernetes cluster with the AppD Cluster Agent installed
+* We have setup a JAVA App with the APM Agent installed on both an EC2 instance and a Kubernetes Deployment of the same app.
+* We will have you logon to the appD console and analyze these agents.
+* We will generate a load to the application, and have you observe the activity.
 
+* Now we as Devops Engineers, will use the API to automatically set up(provision) some alerts and configure them
+* We will ensure our code is re-useable and can work in any environment
+* Here the Instructor will demonstrate live how to perform this, then each student will spend some time to repeat the tasks themselves with variation
+* We will then use the API to cull telemetry data and write it to a Mongo Database, so that we can DataLake our telemetry and if we so desire, dedup it and 
+create so AI style actions that do work based on a set of criteria
 
 #Activity #3
 In this activity, we will analyze the json response, determin which key values we need to use as input in subsequent API calls and automate this via a task.
