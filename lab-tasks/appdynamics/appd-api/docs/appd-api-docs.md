@@ -126,6 +126,9 @@ shell script, python file. Update the URL in the python file to call the API you
 After completion of Activity #2 we will not use our Jupyter Notebook to analyze some more json output, modify it and then
 pass specific values into subsequent automation tasks.
 
+#Activity #3 
+============
+
 Your Instructor will demonstrate.....
 * We have setup a kubernetes cluster with the AppD Cluster Agent installed
 * We have setup a JAVA App with the APM Agent installed on both an EC2 instance and a Kubernetes Deployment of the same app.
@@ -135,14 +138,17 @@ Your Instructor will demonstrate.....
 * Now we as Devops Engineers, will use the API to automatically set up(provision) some alerts and configure them
 * We will ensure our code is re-useable and can work in any environment
 * Here the Instructor will demonstrate live how to perform this, then each student will spend some time to repeat the tasks themselves with variation
-* We will then use the API to cull telemetry data and write it to a Mongo Database, so that we can DataLake our telemetry and if we so desire, dedup it and 
-create so AI style actions that do work based on a set of criteria
 
-#Activity #3
+
 In this activity, we will analyze the json response, determin which key values we need to use as input in subsequent API calls and automate this via a task.
 Please wait until we have completed the advanced json primer before starting this section.
 In the Advanced json primer ~ we will go over the required skills you will need via python to extract specific output from API json and use it as input to perform bulk operations.
 
+Activity #4 - Artificial Intelligence
+=============
+
+* We will then use the API to cull telemetry data and write it to a Mongo Database, so that we can DataLake our telemetry and if we so desire, dedup it and
+  create so AI style actions that do work based on a set of criteria
 
 
 HANDY Links:
