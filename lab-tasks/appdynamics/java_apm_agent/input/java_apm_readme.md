@@ -10,7 +10,7 @@ The configured file resides in the vault
 If Manual Steps Preferred by Student...
 Downloading Agent....
 example...for sun rockit
-curl -L -O -H "Authorization: Bearer eyJraWQiOiJLRUpyaXk5V21PRVROVzlONF9mQnE2bE5WQ3A0UVBfNHdWS0V2RlR4dUJ3IiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULkVxWDdlZ3JEZFdoTmh3TWowOV9BaDRmcUw0Y0QyWFVmc3diemRyaGJzaGcub2FyMWR0ejcxbWRGdEFiVVgycDciLCJpc3MiOiJodHRwczovL2FwcGQtaWRlbnRpdHkub2t0YS5jb20vb2F1dGgyL2F1c3B2bnAzdmtrclNIMk9RMnA2IiwiYXVkIjoibWljb3JzZXJ2aWNlcyIsImlhdCI6MTY1MTI2MTQ4OSwiZXhwIjoxNjUxMzQ3ODg5LCJjaWQiOiIwb2ExanMxMHQ3ekJjTENnRzJwNyIsInVpZCI6IjAwdWVleDBpZ3VORkppcjYwMnA3Iiwic2NwIjpbIm9wZW5pZCIsIm9mZmxpbmVfYWNjZXNzIiwiZG93bmxvYWQiXSwiYXV0aF90aW1lIjoxNjUxMjYxNDM0LCJzdWIiOiJzY29ucm9kQGNpc2NvLmNvbSJ9.R4LW6XO_NdijEIXbdOmxjPpqTb6heG-Ir5VsVb-H7LehDKlhl_aK-lO3plaR1jSFVsZSWPvY_NV10s-VTAnZeKgOZ79_2dd5G1Op1V9dzeFuA0Dv7Vt59h_OCZpPYc1kRQtDkVZRLl63Gu8hfBbx8FZWT7TPPeQZpfFpdSSTKuB5PCYEwYMufs89PfjV5K1qArgqsTo8HXGcv60m-ONzo0Qn6kI_45pOi3VIh4CMAicSjqUAYnkDWmyGTBjgcrzAOMbSSmvJSVvReZSjD23wcsccM4DkTfdcURKOeXRaXJkij-_ELYnur9mwAWF-SIt2dJwtYsYr-OkMWAKHYZZ8Wg;" "https://download.appdynamics.com/download/prox/download-file/sun-jvm/22.4.0.33722/AppServerAgent-22.4.0.33722.zip"
+curl -L -O -H "Authorization: Bearer $TOKEN;" "https://download.appdynamics.com/download/prox/download-file/sun-jvm/22.4.0.33722/AppServerAgent-22.4.0.33722.zip"
 
 cd /opt
 sudo mkdir appdynamics
