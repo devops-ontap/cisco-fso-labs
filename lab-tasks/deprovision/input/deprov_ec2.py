@@ -21,20 +21,11 @@ VAULT_TOKEN = os.getenv('VAULT_TOKEN')
 #Get List of all EC2 instances in a AZ
 #aws ec2 describe-instances --query "Reservations[*].Instances[*].{Instance:InstanceId,AZ:Placement.AvailabilityZone,Name:Tags[?Key=='us-east-2c']|[0].Value}" --output json
 #aws ec2 describe-instances --query "Reservations[*].Instances[*].{Instance:InstanceId,AZ:Placement.AvailabilityZone,Name:Tags[?Key=='us-east-2a']|[0].Value}" --output json
-outfile='ec2_instances.json'
 cmd_describe_instances='aws ec2 describe-instances --query "Reservations[*].Instances[*].{Instance:InstanceId,AZ:Placement.AvailabilityZone,Name:Tags[?Key==' + "'" "{}".format(name) + "'" + ']|[0].Value}"' + " " + '--output json'
 output = check_output("{}".format(cmd_describe_instances), shell=True).decode().strip()
-print("Output: \n{}\n".format(output))
-with open(outfile, 'w') as my_file:
-    my_file.write(output)
-with open(outfile) as access_json:
-    list_json = json.load(access_json)
-    list_of_lists=list_json
-    print(list_of_lists)
-    print(type(list_of_lists))
-
+y=json.loads(output)
+list_json = y
+list_of_lists=list_json
 flatList = [ item for elem in list_of_lists for item in elem]
-print(flatList)
-
 res = [ sub['Instance'] for sub in flatList ]
 print(str(res))
