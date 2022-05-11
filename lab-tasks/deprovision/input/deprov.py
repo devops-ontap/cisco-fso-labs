@@ -192,13 +192,13 @@ output = check_output("{}".format(cmd_igid)
 
 #Delete the Keys
 #aws ec2 delete-key-pair --key-name
-cmd_del_vpcid='aws ec2 delete-key-pair --key-name + "{}".format(vpcid)
+cmd_del_vpcid='aws ec2 delete-key-pair --key-name + "{}".format(key_name)
 print(cmd_vpcid)
 output = check_output("{}".format(cmd_vpcid)
 
-#Delete the VPC
-#aws ec2 delete-vpc --vpc-id vpcid
-cmd_del_key_name='aws ec2 delete-internet-gateway --internet-gateway-id + "{}".format(key_name)
+Delete the VPC
+aws ec2 delete-vpc --vpc-id vpcid
+cmd_del_key_name='aws ec2 delete-vpc --vpcid-id + "{}".format(vpcid)
 print(cmd_key_name)
 output = check_output("{}".format(cmd_key_name)
 
