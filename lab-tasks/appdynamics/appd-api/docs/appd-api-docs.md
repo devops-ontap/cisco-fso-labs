@@ -89,10 +89,18 @@ Now that we can automate our authentication to the Thousand Eyes API, and we hav
 in json format, go ahead and select 3 API calls of your choice from the AppDynamics API online documentation and add in a new python script to perform 
 the desired work against the APIs of your choice!
 
-Don't be afraid to make mistakes - the worst that will happen is your code will fail and you will get an error. 
-Failure is good actually when writing code, so it is almost desireable to fail the first time to try. 
+Select any API from this link and use it in your code:
+https://docs.appdynamics.com/21.7/en/extend-appdynamics/appdynamics-apis
+
+
+
+Don't be afraid to make mistakes
+======================================
+The worst that will happen is your code will fail and you will get an error. 
+Failure is good actually when writing code, so it is actually desireable to fail the first time to try. 
 When you fail you learn.
-Even if you have to try random ad hoc things, just go for it! Your are building code in a safe learning environment. 
+
+Even if you have to try random ad hoc thing, just go for it! Your are building code in a safe learning environment. 
 
 You can perform this task in multiple ways so use your creativity and innovative ideas.
 
@@ -104,12 +112,19 @@ a third way, would be to rename your input directory to input.bak, then copy it 
 shell script, python file. Update the URL in the python file to call the API you have chosen
 
 
-*****Remember its Ok to build the code as many times as you like until it works**********
+*****Remember it's Ok to build the code as many times as you like until it works**********
+******Ephemeral build containers are garbage collected after use and cost almost nothing to operate so build as many as you like*******
 
 After completion of Activity #2 we will not use our Jupyter Notebook to analyze some more json output, modify it and then
 pass specific values into subsequent automation tasks.
 
 Your Instructor will demonstrate.....
+
+
+#Activity #3
+In this activity, we will analyze the json response, determin which key values we need to use as input in subsequent API calls and automate this via a task.
+Please wait until we have completed the advanced json primer before starting this section.
+In the Advanced json primer ~ we will go over the required skills you will need via python to extract specific output from API json and use it as input to perform bulk operations.
 
 
 
