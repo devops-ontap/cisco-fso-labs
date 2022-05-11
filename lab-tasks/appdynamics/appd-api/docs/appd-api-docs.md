@@ -6,16 +6,24 @@ To Prepare this lab for you we have done the following steps already, so you do 
 We are simply explaining so that when you return home to your own lab or environment you will know how to perform 
 these prep steps to your own vault or password safe.
 
+Self Paced:
+============
+*Watch the Video Here for a high level overview:
+*Webex meeting recording: AppD API Auth Kickstart - Vault Integration via OCI Build Container
+*Password: cRUZpCJ6
+*Recording link: https://cisco.webex.com/cisco/ldr.php?RCID=670a35e97ba392bb7567f0e5e37f11b1
+
+
 
 #DO NOT DO THESE STEPS, THEY HAVE BEEN DONE ALREADY FOR YOU, THEY ARE ONLY DOCUMENTED HERE FOR POSTERITY!
-Logon to the lab account as an Account Owner
-Select the Gear Icon in the top right corner
-Select Administration
-Select the API Client TAb
-selected our lab account, and granted it the "Account Owner" role
-select generate secret, copy the secret and enter it into the vault OR if you are just running an initial test paste the secret into your code.
-select the save button on the far right 
-saved this secret and value to our vault
+*Logon to the lab account as an Account Owner
+*Select the Gear Icon in the top right corner
+*Select Administration
+*Select the API Client TAb
+*selected our lab account, and granted it the "Account Owner" role
+*select generate secret, copy the secret and enter it into the vault OR if you are just running an initial test paste the secret into your code.
+*select the save button on the far right 
+*saved this secret and value to our vault
 
 DO THESE STEPS BELOW:
 =====================
