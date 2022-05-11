@@ -150,6 +150,10 @@ Activity #4 - Artificial Intelligence
 * We will then use the API to cull telemetry data and write it to a Mongo Database, so that we can DataLake our telemetry and if we so desire, dedup it and
   create so AI style actions that do work based on a set of criteria
 
+* Both the Thousand Eyes and App Dynamics use Mongo as a backend database.
+* We will be using API calls to send data from the FSO telemetry to Mongo so we can then query this data to apply 
+artificial intelligence actions based off a specific set up events
+
 
 HANDY Links:
 =========
