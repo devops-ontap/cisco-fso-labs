@@ -241,7 +241,7 @@ print("Output: \n{}\n".format(output))
 #VAULT SECTION
 
 #1 - Write keypair_name var to the vault
-url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + "ssh-key"
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name  + "ssh-key"
 print(url)
 headers = CaseInsensitiveDict()
 headers["X-Vault-Token"] = VAULT_TOKEN
@@ -251,7 +251,7 @@ resp = requests.post(url, headers=headers, json=data_json)
 print(resp.status_code)
 
 #Write vpcid  to the vault
-url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + "vpcid"
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "vpcid"
 print(url)
 headers = CaseInsensitiveDict()
 headers["X-Vault-Token"] = VAULT_TOKEN
