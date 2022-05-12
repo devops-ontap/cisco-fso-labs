@@ -205,7 +205,7 @@ print("Output: \n{}\n".format(output))
 with open(outfile_ass_lan_sub, 'w') as my_file:
     my_file.write(output)
 
-'''
+
 #ASSOCIATE THE ROUTE ROUTE TABLE WITH THE ROUTER LAN
 outfile_ass_rt_sub = 'ass_rt_router_sub.json'
 ass_rt_sub='aws ec2 associate-route-table' + " " + '--region' + " " + "{}".format(region) + " " + '--route-table-id' + " " + "{}".format(rt_rt_id) + " " +  '--subnet-id' + " " + "{}".format(subnetid_router)
@@ -214,7 +214,7 @@ output = check_output("{}".format(ass_rt_sub), shell=True).decode().strip()
 print("Output: \n{}\n".format(output))
 with open(outfile_ass_rt_sub, 'w') as my_file:
     my_file.write(output)
-'''
+
 #13 - Create a Security Group
 out_file_sg_router='outfile-sg-router.json'
 cmd_security_group='aws ec2 create-security-group --group-name --region' + " " + "{}".format(region) + " " + " " + "{}".format(sg_name) + " " + '--description' + " " + "{}".format(sg_name) + " " + '--vpc-id' + " " + "{}".format(vpcid)
