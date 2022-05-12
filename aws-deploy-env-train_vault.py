@@ -1,7 +1,13 @@
 #!/usr/bin/env python
-import json, re, sys, os, json
+import json, re, sys, os, json, time, logging, requests, urllib3
+from requests.structures import CaseInsensitiveDict
+urllib3.disable_warnings()
+from requests.structures import CaseInsensitiveDict
 import subprocess
 from subprocess import call, check_output
+
+VAULT_ADDR = os.getenv('VAULT_ADDRR')
+VAULT_TOKEN = os.getenv('VAULT_TOKEN') #This gets the vault token from the ephemeral build container
 
 #MAKE SURE THE AWS IS UP TO VERSION 2 ON THE BUILD CONTAINER
 #GET THE DEFAULT VPC ID
@@ -18,7 +24,10 @@ sg_name=name
 keypair_name=name
 outfile_key_pair = 'keypair_name' + '.json'
 
-#CREATE THE NEW VPC01 AND GET VPCID
+#Create the keypair
+create_keypair='aws ec2 create-key-pair --key-name' + " " +  "{}".format(name) + " " + '--region' + " " + "{}".format(region) + " " + '--availability-zone' + " " + "{}".format(az)
+
+#2 - CREATE THE NEW VPC01 AND GET VPCID
 outfile = 'aws-vpc.json'
 #cmd_deploy='aws ec2 create-vpc --region' + " " + "{}".format(region) + " " + '--cidr-block 10.10.0.0/16 --tag-specifications' + " " + "'ResourceType=vpc,Tags=[{Key=Name,Value=trainee1}]'"
 cmd_deploy='aws ec2 create-vpc --region' + " " + "{}".format(region) + " " + '--cidr-block 10.10.0.0/16 --tag-specifications' + " " + "'ResourceType=vpc,Tags=[{Key=Name,Value=" + "{}".format(name) + '}]'"" + "'"
@@ -39,11 +48,10 @@ with open(outfile_vars, 'a+') as my_file:
     my_file.write(vpcid_var + "\n")
 
 
-#Create the keypair
-create_keypair='aws ec2 create-key-pair --key-name' + " " +  "{}".format(name) + " " + '--region' + " " + "{}".format(region) + " " + '--availability-zone' + " " + "{}".format(az)
 
+'''
 
-#CREATE THE ROUTER SUBNET
+#3- CREATE THE ROUTER SUBNET
 outfile_subnet_router = 'aws-subnet-router.json'
 cmd_subnet_router='aws ec2 create-subnet --vpc-id' + " " + "{}".format(vpcid) + " " + '--region' + " " + "{}".format(region) + " " + '--availability-zone' + " " + "{}".format(az) + " " + '--cidr-block 10.10.10.0/24 --tag-specifications' + " " "'ResourceType=subnet,Tags=[{Key=Name,Value=SUBNET_01_ROUTER}]'"
 print(cmd_subnet_router)
@@ -62,7 +70,7 @@ with open (outfile_subnet_router) as access_json:
 with open(outfile_vars, 'a+') as my_file:
     my_file.write(subnetid_router_var + "\n")
 
-#CREATE THE LAN SUBNET
+#4- CREATE THE LAN SUBNET
 outfile_subnet_lan = 'aws-subnet-lan.json'
 cmd_subnet_lan='aws ec2 create-subnet --vpc-id' + " " + "{}".format(vpcid) + " " + '--region' + " " + "{}".format(region) + " " + '--availability-zone' + " " + "{}".format(az) + " " + '--cidr-block 10.10.20.0/24 --tag-specifications' + " " "'ResourceType=subnet,Tags=[{Key=Name,Value=SUBNET_01_LAN}]'"
 print(cmd_subnet_lan)
@@ -83,7 +91,7 @@ with open(outfile_vars, 'a+') as my_file:
     my_file.write(subnetid_lan_var + "\n")
 
 
-#CREATE INTERNET GATEWAY
+#5 - CREATE INTERNET GATEWAY
 outfile_ig = 'aws-ig.json'
 cmd_ig='aws ec2 create-internet-gateway --region' + " " + "{}".format(region) + " " + '--tag-specifications' + " " + "'ResourceType=internet-gateway,Tags=[{Key=Name,Value=IG}]'"
 print(cmd_ig)
@@ -106,7 +114,7 @@ igid_var=('igd=' + "'" + "{}".format(igid) + "'")
 with open(outfile_vars, 'a+') as my_file:
     my_file.write(igid_var + "\n")
 
-#Attach Internet Gateway to the VPC
+#6 - Attach Internet Gateway to the VPC
 outfile_ig_attach_log = 'ig_attach_log.json'
 cmd_ig_attach='aws ec2 attach-internet-gateway' + " " + '--region' + " " + "{}".format(region) + " " + '--internet-gateway-id' + " " + "{}".format(igid) + " " + '--vpc-id' + " " + "{}".format(vpcid)
 print(cmd_ig_attach)
@@ -115,7 +123,7 @@ print("Output: \n{}\n".format(output))
 #Do we need to add any var here to the vars.py??
 
 
-#Get the route table id for the default route table for the new vpc
+# 7 - Get the route table id for the default route table for the new vpc
 outfile_get_vpc_rt_id='get-vpc-rt-id.json'
 get_vpc_rt_id='aws ec2 describe-route-tables' + " " + '--region' + " " + "{}".format(region) + " " + '--filters \"Name=vpc' + '-' + 'id,Values=' + "{}".format(vpcid) + '"' + " " + '--query "RouteTables[]"'
 output = check_output("{}".format(get_vpc_rt_id), shell=True).decode().strip()
@@ -137,12 +145,12 @@ with open(outfile_vars, 'a+') as my_file:
 
 #Tag the default rout table --resources   --tags Key=Name,Value=DEFAULT_RT
 
-#aws ec2 create-tags
+#8 - aws ec2 create-tags
 tag_def_vpc_rt='aws ec2 create-tags --resources --region' + " " + "{}".format(region) + " " + " " + "{}".format(def_vpc_rt_id) + " " + '--tags Key=Name,Value=DEFAULT_RT_' + "{}".format(name)
 output = check_output("{}".format(tag_def_vpc_rt), shell=True).decode().strip()
 print("Output: \n{}\n".format(output))
 
-#Add a new route to the default vpc route table requires the default vpc route table id and assoicatiate and the default gatewayid
+#9 - Add a new route to the default vpc route table requires the default vpc route table id and assoicatiate and the default gatewayid
 outfile_ass_rt = 'ass_rt.json'
 ass_rt_default_rt='aws ec2 create-route' + " " + '--region' + " " + "{}".format(region) + " " + '--route-table-id' + " " + "{}".format(def_vpc_rt_id) + " " + '--destination-cidr-block 0.0.0.0/0 --gateway-id' + " " + igid
 output = check_output("{}".format(ass_rt_default_rt), shell=True).decode().strip()
@@ -150,7 +158,7 @@ print("Output: \n{}\n".format(output))
 with open(outfile_ass_rt, 'w') as my_file:
     my_file.write(output)
 
-#Create LAN Route Table
+#10 - Create LAN Route Table
 outfile_rt_lan = 'aws-rt-lan.json'
 cmd_rt_lan='aws ec2 create-route-table --vpc-id' + " " + "{}".format(vpcid) + " " + '--region' + " " + "{}".format(region) + " " + '--tag-specifications' + " " + "'ResourceType=route-table,Tags=[{Key=Name,Value=LAN_RT}]'"
 print(cmd_rt_lan)
@@ -169,7 +177,7 @@ rt_lan_id_var=('rt_lan_id=' + "'" + "{}".format(rt_lan_id) + "'")
 with open(outfile_vars, 'a+') as my_file:
     my_file.write(rt_lan_id_var + "\n")
 
-#Create ROUTER Route Table
+#11 - Create ROUTER Route Table
 outfile_rt_rt = 'aws-rt-router.json'
 cmd_rt_rt='aws ec2 create-route-table --vpc-id' + " " + "{}".format(vpcid) + " " + '--region' + " " + "{}".format(region) + " " + '--tag-specifications' + " " + "'ResourceType=route-table,Tags=[{Key=Name,Value=ROUTER_RT}]'"
 print(cmd_rt_rt)
@@ -188,7 +196,7 @@ rt_rt_id_var=('rt_rt_id=' + "'" + "{}".format(rt_rt_id) + "'")
 with open(outfile_vars, 'a+') as my_file:
     my_file.write(rt_rt_id_var + "\n")
 
-#ASSOCIATE THE LAN ROUTE TABLE WITH THE LAN SUBNET
+#12 - ASSOCIATE THE LAN ROUTE TABLE WITH THE LAN SUBNET
 outfile_ass_lan_sub = 'ass_rt_lan_sub.json'
 ass_rt_lan_sub='aws ec2 associate-route-table --region' + " " + "{}".format(region) + " " + '--route-table-id' + " " + "{}".format(rt_lan_id) + " " + '--subnet-id' + " " + "{}".format(subnetid_lan)
 print(ass_rt_lan_sub)
@@ -207,7 +215,7 @@ print("Output: \n{}\n".format(output))
 with open(outfile_ass_rt_sub, 'w') as my_file:
     my_file.write(output)
 '''
-#3 - Create a Security Group
+#13 - Create a Security Group
 out_file_sg_router='outfile-sg-router.json'
 cmd_security_group='aws ec2 create-security-group --group-name --region' + " " + "{}".format(region) + " " + " " + "{}".format(sg_name) + " " + '--description' + " " + "{}".format(sg_name) + " " + '--vpc-id' + " " + "{}".format(vpcid)
 output = check_output("{}".format(cmd_security_group), shell=True).decode().strip()
@@ -229,3 +237,109 @@ auth_inbound_ssh='aws ec2 authorize-security-group-ingress --region' + " " + "{}
 output = check_output("{}".format(auth_inbound_ssh), shell=True).decode().strip()
 print("Output: \n{}\n".format(output))
 
+'''
+#VAULT SECTION
+
+#1 - Write keypair_name var to the vault
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + keypair_name
+headers = CaseInsensitiveDict()
+headers["X-Vault-Token"] = VAULT_TOKEN
+headers["Content-Type"] = "application/json"
+data_json = {"keypair_name": keypair_name }
+resp = requests.post(url, headers=headers, json=data_json)
+print(resp.status_code)
+
+#Write vpcid  to the vault
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/" + vpcid
+headers = CaseInsensitiveDict()
+headers["X-Vault-Token"] = VAULT_TOKEN
+headers["Content-Type"] = "application/json"
+data_json = {"vpcid": vpcid }
+resp = requests.post(url, headers=headers, json=data_json)
+print(resp.status_code)
+
+'''
+
+#3 Write the subnetid_router to the vault
+
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/$name/$subnetid_router”
+
+headers = CaseInsensitiveDict()
+headers["X-Vault-Token"] = VAULT_TOKEN
+headers["Content-Type"] = "application/json"
+
+#data = f'{{"token": "{TOKEN}"}}'
+data_json = {"subnetid_router": subnetid_router }
+
+resp = requests.post(url, headers=headers, json=data_json)
+print(resp.status_code)
+
+#4 Write the subnetid_lan to the vault
+
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/$name/$subnetid_lan”
+
+headers = CaseInsensitiveDict()
+headers["X-Vault-Token"] = VAULT_TOKEN
+headers["Content-Type"] = "application/json"
+
+#data = f'{{"token": "{TOKEN}"}}'
+data_json = {"subnetid_lan": subnetid_lan }
+
+resp = requests.post(url, headers=headers, json=data_json)
+print(resp.status_code)
+
+#5 Write the igid to the vault
+
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/$name/$igid”
+
+headers = CaseInsensitiveDict()
+headers["X-Vault-Token"] = VAULT_TOKEN
+headers["Content-Type"] = "application/json"
+
+#data = f'{{"token": "{TOKEN}"}}'
+data_json = {"igid": igid }
+
+resp = requests.post(url, headers=headers, json=data_json)
+print(resp.status_code)
+
+#10 - Write rt_lan_id to the vault
+
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/$name/$rt_lan_id”
+
+headers = CaseInsensitiveDict()
+headers["X-Vault-Token"] = VAULT_TOKEN
+headers["Content-Type"] = "application/json"
+
+#data = f'{{"token": "{TOKEN}"}}'
+data_json = {"rt_lan_id": rt_lan_id }
+
+resp = requests.post(url, headers=headers, json=data_json)
+print(resp.status_code)
+
+#11 - Write rt_rt_id to the vault
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/$name/$rt_rt_id”
+
+headers = CaseInsensitiveDict()
+headers["X-Vault-Token"] = VAULT_TOKEN
+headers["Content-Type"] = "application/json"
+
+#data = f'{{"token": "{TOKEN}"}}'
+data_json = {"rt_rt_id": rrt_rt_id }
+
+resp = requests.post(url, headers=headers, json=data_json)
+print(resp.status_code)
+
+#13 - Write the router_sg_id to the vault
+
+url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/$name/$router_sg_id”
+
+headers = CaseInsensitiveDict()
+headers["X-Vault-Token"] = VAULT_TOKEN
+headers["Content-Type"] = "application/json"
+
+#data = f'{{"token": "{TOKEN}"}}'
+data_json = {"router_sg_id": router_sg_id }
+
+resp = requests.post(url, headers=headers, json=data_json)
+print(resp.status_code)
+'''
