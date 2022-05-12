@@ -24,6 +24,7 @@ sg_name=name
 keypair_name=name
 outfile_key_pair = 'keypair_name' + '.json'
 
+'''
 #Create the keypair
 create_keypair='aws ec2 create-key-pair --key-name' + " " +  "{}".format(name) + " " + '--region' + " " + "{}".format(region) + " " + '--availability-zone' + " " + "{}".format(az)
 
@@ -49,7 +50,6 @@ with open(outfile_vars, 'a+') as my_file:
 
 
 
-'''
 
 #3- CREATE THE ROUTER SUBNET
 outfile_subnet_router = 'aws-subnet-router.json'
@@ -237,7 +237,7 @@ auth_inbound_ssh='aws ec2 authorize-security-group-ingress --region' + " " + "{}
 output = check_output("{}".format(auth_inbound_ssh), shell=True).decode().strip()
 print("Output: \n{}\n".format(output))
 
-'''
+
 #VAULT SECTION
 
 #1 - Write keypair_name var to the vault
@@ -249,8 +249,9 @@ headers["Content-Type"] = "application/json"
 data_json = {"keypair_name": keypair_name }
 resp = requests.post(url, headers=headers, json=data_json)
 print(resp.status_code)
-
+'''
 #Write vpcid  to the vault
+vpcid='vpc-07df7e1090109d8ee'
 url = "http://vault.devops-ontap.com:8200/v1/concourse/cisco-fso-labs/" + name + "/vpcid"
 print(url)
 headers = CaseInsensitiveDict()
