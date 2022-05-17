@@ -18,8 +18,6 @@ from lab_vars import *
 VAULT_ADDR = os.getenv('VAULT_ADDRR')
 VAULT_TOKEN = os.getenv('VAULT_TOKEN')
 
-
-name='us-east-2b'
 #Get List of all EC2 instances in a AZ
 #aws ec2 describe-instances --query "Reservations[*].Instances[*].{Instance:InstanceId,AZ:Placement.AvailabilityZone,Name:Tags[?Key=='us-east-2c']|[0].Value}" --output json
 #cmd_describe_instances='aws ec2 describe-instances --query "Reservations[*].Instances[*].{Instance:InstanceId,AZ:Placement.AvailabilityZone,Name:Tags[?Key==' + "'" "{}".format(name) + "'" + ']|[0].Value}"' + " " + '--output json'
@@ -32,4 +30,27 @@ list_json = y
 list_of_lists=list_json
 flatList = [ item for elem in list_of_lists for item in elem]
 res = [ sub['Instance'] for sub in flatList ]
+print(type(res))
 print(str(res))
+string=str(res)
+
+#Convert a python string to json
+jsonString = json.dumps(str(res))
+print(jsonString)
+print(type(jsonString))
+
+p=print(" ".join(res))
+
+#Terminate the Instances returned in the list...
+#cmd_term_instances='aws ec2 terminate-instances --instance-ids + " " +
+#print(cmd_term_instances)
+#output = check_output("{}".format(cmd_term_instances), shell=True).decode().strip()
+#print("Output: \n{}\n".format(output))
+
+
+
+
+
+
+
+
