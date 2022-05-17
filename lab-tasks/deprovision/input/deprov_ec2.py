@@ -22,7 +22,10 @@ VAULT_TOKEN = os.getenv('VAULT_TOKEN')
 name='us-east-2b'
 #Get List of all EC2 instances in a AZ
 #aws ec2 describe-instances --query "Reservations[*].Instances[*].{Instance:InstanceId,AZ:Placement.AvailabilityZone,Name:Tags[?Key=='us-east-2c']|[0].Value}" --output json
-cmd_describe_instances='aws ec2 describe-instances --query "Reservations[*].Instances[*].{Instance:InstanceId,AZ:Placement.AvailabilityZone,Name:Tags[?Key==' + "'" "{}".format(name) + "'" + ']|[0].Value}"' + " " + '--output json'
+#cmd_describe_instances='aws ec2 describe-instances --query "Reservations[*].Instances[*].{Instance:InstanceId,AZ:Placement.AvailabilityZone,Name:Tags[?Key==' + "'" "{}".format(name) + "'" + ']|[0].Value}"' + " " + '--output json'
+cmd_describe_instances='aws ec2 describe-instances --query "Reservations[*].Instances[*].{Instance:InstanceId,AZ:Placement.AvailabilityZone,Name:Tags[?Key==' + "'" "{}".format(name) + "'" + ']|[0].Value}"' + " " + '--filters Name=instance-state-code,Values=16 ' + " " + 'Name=availability-zone,Values=' + name + " " + '--output json'
+#cmd_describe_instances='aws ec2 describe-instances --region' + " " + region + " " + '--filters Name=instance-state-code,Values=16 Name=availability-zone,Values=' + name
+print(cmd_describe_instances)
 output = check_output("{}".format(cmd_describe_instances), shell=True).decode().strip()
 y=json.loads(output)
 list_json = y
