@@ -7,9 +7,11 @@ secret = os.getenv('secret')
 print("printing the type")
 print(type(api_key_id))
 
+#dump the secret to a file here..
+
 #Configure Intersight API token and start finding all devices with a non-active or expiring soon contract status
 AUTH = IntersightAuth(
-    secret_key_filename='SecretKey.txt',
+    secret_key_filename=SecretKey.txt,
     api_key_id=api_key_id
 )
 print(api_key_id)
