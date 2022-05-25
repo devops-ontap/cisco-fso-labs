@@ -9,6 +9,6 @@ vault login --no-print $SSH_TOKEN
 vault kv get concourse/cisco-fso-labs/$NAME/ssh-key ssh-key=@$PRIVATE_KEY
 
 #Will need at least one python script to poll for instance state change to terminated state before proceeding...
-python3 deprov_instances.py
+python3 deprov.py
 
 #rest of shell commands make sure to update the aws region
