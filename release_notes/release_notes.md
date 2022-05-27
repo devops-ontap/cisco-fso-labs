@@ -12,6 +12,7 @@ kops cluster for app D Automation - done
 
 AppD on temporary Kube Cluster for lab - done
 
+
 App D
 Try to move the entire controller-info.xml file to the vault 
 Or programatically update the controller-info.xml file using variables from vault
