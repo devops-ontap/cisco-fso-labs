@@ -1,15 +1,17 @@
-import json
-import requests
+
+import json, requests, os
 from intersight_auth import IntersightAuth
+
+#import environment variables
+api_key_id = os.getenv('keyid')
+secret = os.getenv('secret')
+
 
 #Configure Intersight API token and start finding all devices with a non-active or expiring soon contract status
 AUTH = IntersightAuth(
     secret_key_filename='SecretKey.txt',
-    api_key_id='614a0b357564612d33f7f416/614a0b357564612d33f7f41a/628e66187564612d3335170d'
+    api_key_id=api_key_id
 )
-#print(AUTH)
-
-
 
 #Get Physical Summaries
 
