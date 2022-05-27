@@ -4,6 +4,9 @@ Preparation - This can be one the day in advance. Most Students will already hav
 Jupyter is only required if you do not already have an tool  installed that you enjoy working with for test writing python.
 ===================
 
+Recommended IDE - Intellij (you can download a 30 day eval)
+Not Recommended - Visual Studio (from time to time this IDE will insert white space or special characters into python code)
+
 Install Fly
 ================
 (See How_To_Install_Fly.md)
@@ -65,6 +68,64 @@ Logon to Concourse via the CLI:
 
 If you do not have a Browser, or your Browser is blocked from connecting to the URL you can logon like this......
 #fly --target=cisco-fso-labs login --concourse-url=http://ci.devops-ontap.com:8080 -n cisco-fso-labs --username=USERNAME --password=PASSWORD
+
+Verify you can successfully run the following 3 tasks:
+These tasks test that you are able to auto auth programatically to all three FSO APIs.
+Remember - in the instructional video, it states that the API keys for each have already  been entered
+into the vault. 
+
+The Pipeline is configured to logon to the vault - and then the vault commands in the shell script retrieve
+the respective tokens and pass them into the ephemeral build container as environmental vars to be consumed
+by the python code via variables.
+
+When you run each task, it will authenticate to the respective API and return back a json response. 
+The task will also show as "succeeded"
+
+In the next Module, we will running a variety of API Queries, then we will be analzying the json response format from each API and we will
+learn some useful Python techniques to pull out from the json responses the specific values we are interested in.
+
+Once we are comfortable with the json responses and how to analyze and get specific values, we will practice passing these values as 
+variables into POST actions for each API.
+
+We will also look at how import the data from an API into a database in later modules.
+
+
+1. Thousand Eyes
+Change into this directory:
+$cd cisco-fso-labs/lab-tasks/thousandeyes/te_api/input
+Run the task:
+$fly -t cisco-fso-labs e -c te_api_task_vault.yml
+
+2. AppDynamics
+Change into this directory:
+$cisco-fso-labs/lab-tasks/appdynamics/appd-api/auth/input
+Run these two Tasks:
+$fly -t cisco-fso-labs e -c appd_get_token_task.yml
+$fly -t cisco-fso-labs e -c appd_use_token_task.yml
+
+3. Intersight
+Change into this directory:
+$cd cisco-fso-labs/lab-tasks/intersight/intersight_api_auth/input
+Run the task:
+$fly -t cisco-fso-labs e -c Intersight-task.yml
+
+Review - 
+Using automation, you have ran a task that programatically authenticated to each API.
+
+How Did the Task Work?
+The task yam file specifies a docker image to pull from docker hub that already has all the libraries and python 
+modules installed to communciate with the API
+
+After the task pulls the docker image it builds an ephemeral build container from that image and copies 
+up the contents of the input directory from which you launched the task and its contents.
+
+The task then launches the shell script - in the shell script there are vault commands which 
+call the vault and pass in the values of the respective authentication token or api key or secret into
+the build container as an environmental variable so that the Python script can pull in the values 
+to the respective variables in the python script.
+
+Since the container is ephemeral, as soon as the code executes successfully, the container vanishes and is garbage collected.
+
 
 
 

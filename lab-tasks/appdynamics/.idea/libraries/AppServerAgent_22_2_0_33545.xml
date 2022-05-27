@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="AppServerAgent-22.2.0.33545">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/agent-installs/java-agent/AppServerAgent-22.2.0.33545.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
