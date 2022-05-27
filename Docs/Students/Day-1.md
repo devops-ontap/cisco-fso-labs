@@ -7,54 +7,56 @@ Jupyter is only required if you do not already have an tool  installed that you 
 Recommended IDE - Intellij (you can download a 30 day eval)
 Not Recommended - Visual Studio (from time to time this IDE will insert white space or special characters into python code)
 
-Install Fly
+- [ ] Install Fly
 ================
 (See How_To_Install_Fly.md)
 
-Install Git
+- [ ] Install Git
 =============
 (https://github.com/git-guides/install-git)
 
 
-Install Jupyter Notebook 
+- [ ] Install Jupyter Notebook 
 ========================
 https://jupyter.org/install
 
-Install Python 3.x if you do not already have it installed
+- [ ] Install Python 3.x if you do not already have it installed
 ==========================================================
 https://www.python.org/downloads/
 
 
-Create a Directory on your local machine in which you will maintain all your lab work
+- [ ] Create a Directory on your local machine in which you will maintain all your lab work
 =====================================================================================
 example:
 #sudo mkdir mylab
 #cd mylab
 
-Create another directory:
+- [ ] Create another directory:
 (this directory is for items we do NOT want to push to the git repo)
 #sudo mkdir params
 
-Checkout Lab Repo:
+- [ ] Checkout Lab Repo:
 ==================
+change into the mylab directory you created and then clone the repo:
 https://github.com/devops-ontap/cisco-fso-labs
 
-Checkout Your Assigned Branch and change into its directory
+- [ ] Checkout Your Assigned Branch and change into its directory
 (Instructor will assign each student a branch - checkout your branch)
 #git checkout yourbranch
 #cd cisco-fso-labs
 #git fetch --all
 
-Double-Check/Verify you are in the correct branch
+- [ ] Double-Check/Verify you are in the correct branch
 #git status
 
 
-Logon to Thousand Eyes
+- [ ] Logon to Thousand Eyes
 ========================
 https://app.thousandeyes.com
 (Invitation will have been received in email day before or morning of lab)
 
-Logon to Concourse via the CLI:
+- [ ] Logon to Concourse via the CLI:
+===============================
 (from within your mylab directory.... )
 #fly --target=cisco-fso-labs login --concourse-url=http://ci.devops-ontap.com:8080 -n cisco-fso-labs
 
@@ -70,13 +72,22 @@ If you do not have a Browser, or your Browser is blocked from connecting to the 
 #fly --target=cisco-fso-labs login --concourse-url=http://ci.devops-ontap.com:8080 -n cisco-fso-labs --username=USERNAME --password=PASSWORD
 
 Verify you can successfully run the following 3 tasks:
-These tasks test that you are able to auto auth programatically to all three FSO APIs.
+==================================================================
+These tasks test verify you can auto auth programatically to all three FSO APIs.
 Remember - in the instructional video, it states that the API keys for each have already  been entered
 into the vault. 
 
-The Pipeline is configured to logon to the vault - and then the vault commands in the shell script retrieve
-the respective tokens and pass them into the ephemeral build container as environmental vars to be consumed
-by the python code via variables.
+
+How the Underlying Infrastructure is set up between Concourse and Vault ~Third Party Integration for CICD: Vault and Concourse CI
+=========================================================================
+When you logged in using fly, based on your username - you are authenticated to a concourse team called cisco-fs-labs.
+Concourse has a mount point for cisco-fso-labs in the vault, and when Concourse authenticates to the vault - it can
+read/write to that mount point in the vault. 
+
+Each student is assigned a git branch, and the code populates a subdir in the vault for each branch.
+
+When you launch a fly task, it instructs concourse to build an ephemeral code build container from the dockerfile documented in the task, it is able to programatically pass in the required authentication
+values to the build container and or python code via an env var fron the vault.
 
 When you run each task, it will authenticate to the respective API and return back a json response. 
 The task will also show as "succeeded"
@@ -90,20 +101,20 @@ variables into POST actions for each API.
 We will also look at how import the data from an API into a database in later modules.
 
 
-1. Thousand Eyes
+- [ ] 1. Thousand Eyes
 Change into this directory:
 $cd cisco-fso-labs/lab-tasks/thousandeyes/te_api/input
 Run the task:
 $fly -t cisco-fso-labs e -c te_api_task_vault.yml
 
-2. AppDynamics
+- [ ] 2. AppDynamics
 Change into this directory:
 $cisco-fso-labs/lab-tasks/appdynamics/appd-api/auth/input
 Run these two Tasks:
 $fly -t cisco-fso-labs e -c appd_get_token_task.yml
 $fly -t cisco-fso-labs e -c appd_use_token_task.yml
 
-3. Intersight
+- [ ] 3. Intersight
 Change into this directory:
 $cd cisco-fso-labs/lab-tasks/intersight/intersight_api_auth/input
 Run the task:
@@ -125,6 +136,8 @@ the build container as an environmental variable so that the Python script can p
 to the respective variables in the python script.
 
 Since the container is ephemeral, as soon as the code executes successfully, the container vanishes and is garbage collected.
+
+If you have successfully completed this module please ensure you check all the boxes and git commit and push your branch
 
 
 
