@@ -7,9 +7,6 @@ Add in 8kV - SDWAN
 
 kops cluster for app D Automation
 
-
-
-
 AppD on temporary Kube Cluster for lab
 
 App D
