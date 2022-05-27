@@ -1,13 +1,17 @@
 To Do
 ======
 
-Add in 8kV - SDWAN
+Add in 8kV - SDWAN - and terraform automation
 9kv - Enterprise Switching - Building or Campus
 
 
-kops cluster for app D Automation
+kops cluster for app D Automation - done
 
-AppD on temporary Kube Cluster for lab
+
+
+
+AppD on temporary Kube Cluster for lab - done
+
 
 App D
 Try to move the entire controller-info.xml file to the vault 
