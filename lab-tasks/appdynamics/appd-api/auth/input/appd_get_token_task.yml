@@ -11,7 +11,12 @@ inputs:
   - name: input
 run:
   path: /bin/sh
-  args: ["./input/appd_get_token.sh"]
+  args:
+    - -cex
+    - |
+      cd input
+      chmod a+x appd_get_token.sh
+      ./appd_get_token.sh
 
 params:
   SSH_TOKEN: ((ssh-token.token))
