@@ -1,4 +1,4 @@
-Student Lab Day 1 
+Student Lab Day 1 Prep
 ===================
 Day 1 Overview - See Power Point Slide Day 1 Students
 Today you will ensure you have installed the pre-requs for this lab:
@@ -7,21 +7,6 @@ git
 fly
 jupyter notebook
 
-
-In the First 3 hours of the lab you will:
-==========================================
-- clone the git branch and checkout your branch (assigned by Instructor)
-- logon via fly (username and password provided by Instructor)
-- Receive a high level power point slide of the Day 1 objectives (1 slide with verbal instruction)
-- High Level Overview of: "What is Thousand Eyes" (provided by Instructor via Power Point - 3 slides with verbal instruction)
-- Explanation of Lab Workflow with demo by the Instructor and 1 slide of high level diagram for workflow and the concepts
-- Following Demo, Students will repeat steps in Demo to run the Thousand Eyes Task 1 which will auto-authenticate the student to the
- Thousand Eyes API
-- Run a series of API Queries - (provided by Instructor and will be taught using Jupyter Notebook)
-- Analyze the JSON returned by the API
-- Learn Python techniques to analyze and obtain desired values from API returned JSON output (Instructor provided)
-- Students will repeat JSON manipulation steps demo'd by Instructor using Jupyter Notebook
-- Using API, automate the creation of Thousand Eyes Tests and Automate addition of Instances/Devices to the tests via API
 
 Preparation - This can be one the day in advance. Most Students will already have these tools installed except for Jupyter.
 Jupyter is only required if you do not already have a tool  installed that you enjoy working with for test writing python.
@@ -67,7 +52,6 @@ Checkout Your Assigned Branch and change into its directory
 
 Double-Check/Verify you are in the correct branch
 #git status
-
 
 Logon to Thousand Eyes
 ========================
