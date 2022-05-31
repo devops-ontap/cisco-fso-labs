@@ -16,6 +16,8 @@ with the Java Load Balancer that is part of the speed car racer app deployment a
 GUIs in AppD and also TE to view the load.
 
 
+In progress:
+Verify the token is good for x hours in Intersight
 
 
 
