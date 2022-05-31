@@ -1,30 +1,9 @@
-When running a lab task outside of the pipeline, you will need to use your pem key.
-Do NOT COPY your pem key into the git repo!
-Instead in the PARAMS folder you created outside the repo..one directory up from repo, using pbcopy, paste your private key into the params file.
-
-when executing  your task,  you will call the parameter file using -l as follows...
-
-from this directory:
-/lab/cisco-fso-labs/thousandeyes/te_config/input/
-fly -t ci e -c configure_te_agents_task.yml -l /Users/sconrod/API-Trainings/dev/params/mybranchname.yml
-
-
-Install the Thousand Eyes Network Utilities
-https://success.thousandeyes.com/ViewArticle?articleIdParam=kA0E0000000CmoAKAS
-
-sudo apt-add-repository https://apt.thousandeyes.com
-sudo wget -q https://apt.thousandeyes.com/thousandeyes-apt-key.pub -O- | sudo apt-key add -
-sudo apt-get update
-sudo apt-key list
-sudo apt-get install te-agent-utils
-
-
 
 Manual Install the Thousand Eyes Enterprise Agent
 
 curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
 chmod +x install_thousandeyes.sh
-sudo ./install_thousandeyes.sh -f -b vojylvcce2gwg4u0e1mcg000gn96h0tj
+sudo ./install_thousandeyes.sh -f -b token
 
 Login to TE and check Agent shows up
 https://app.thousandeyes.com/login
