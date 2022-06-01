@@ -1,0 +1,19 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: sconrod/appdynamics
+    tag: '1.1'
+
+inputs:
+  - name: input
+run:
+  path: /bin/sh
+  args: ["./input/intersight-auth.sh"]
+
+params:
+  SSH_TOKEN: ((ssh-token.token))
+  VAULT_ADDR: ((vault.addr))
+
