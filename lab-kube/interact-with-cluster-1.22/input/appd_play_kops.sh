@@ -16,4 +16,5 @@ kops export kubecfg --admin
 vault login --no-print $SSH_TOKEN
 vault kv get concourse/cisco-fso-labs/lab-kube-config kubeconfig=@config
 cp config ~/.kube/config
+kubectl get ns
 

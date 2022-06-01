@@ -1,24 +1,15 @@
-#In the morning reconfigure this to write the kubeconfig file to vault in a base64 encoded yaml
+Instructors
+============
 
+If you or Students want to directly interact with the kube cluster using kubectl simply spin an ephemeral build container and then hijack the container
 
-This task creates a kops cluster that uses the compatible version of 
-kubectl and kops that will work with the AppD Cluster Agent
+Change to the directory:
+$cd cisco-fso-labs/lab-kube/interact-with-cluster-1.22/input
 
-Only specific versions of kubectl will work with the AppD Cluster Agent
-The tasks uses a curated OCI Build container with lastest compatible version of both kubectl and kops to deploy that cluster
+Run the task to spin the ephemeral build container.....
+$fly -t cisco-fso-labs e -c appd_play_kops_task.yml -v aws.region=us-east-2 -v az.name=us-east-2a
 
-Goal is to transition this to run on spot instance for cost savings using SpotInst Ocean
+Intercept the task Container ....
+$fly -t cisco-fso-labs intercept
 
-AppD kubernetes cluster agent:
-Currently deploying to the following version of AppD and kubectl: 1.22
-
-Branch is kops-kube-1.22(in progress)
-Current is 1.22
-The pipeline is named 1.21 but need to rename it not to have the version, just check the version in the tag
-
-https://github.com/sconrod-tester/docker-builds/blob/ubuntu-kops/kops-kube-1.22/Dockerfile
-
-
-
-
-
+Now you are on the container, select 3 for the task, and you can run kubectl commands, helm commands etc.

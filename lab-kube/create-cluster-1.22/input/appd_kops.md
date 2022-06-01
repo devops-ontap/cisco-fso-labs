@@ -2,7 +2,8 @@
 
 
 This task creates a kops cluster that uses the compatible version of 
-kubectl and kops that will work with the AppD Cluster Agent
+kubectl and kops that will work with the AppD Cluster Agent at the time it was created. 
+Check to see if the kubectl version needs a bump prior to deploying - check AppD Documentation.
 
 Only specific versions of kubectl will work with the AppD Cluster Agent
 The tasks uses a curated OCI Build container with lastest compatible version of both kubectl and kops to deploy that cluster
