@@ -1,0 +1,11 @@
+# AppDynamics controller info
+controllerInfo:
+  url: https://<controller-url>:443
+  account: <appdynamics-controller-account>
+  username: <appdynamics-controller-username>
+  password: <appdynamics-controller-password>
+  accessKey: <appdynamics-controller-access-key>
+
+# Cluster agent config
+clusterAgent:
+  nsToMonitorRegex: .*

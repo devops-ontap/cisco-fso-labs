@@ -1,0 +1,14 @@
+# AppDynamics controller info
+controllerInfo:
+  url: https://cisco-apipartnertraininglab.saas.appdynamics.com:443
+  account:
+  username:
+  password:
+  accessKey:
+
+# Cluster agent config
+clusterAgent:
+  nsToMonitorRegex: *
+
+install:
+  metrics-server: true

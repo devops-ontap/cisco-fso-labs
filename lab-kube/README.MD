@@ -1,7 +1,10 @@
 Instructors/Lab Admins Only:
 
+
 Immediately prior to starting the AppD Use Case Modules in the lab, spin up the lab kube cluster 
 We spin it up on demand when we use it and remove it when done so as not to be incurring extra cost when it is not in use.
+
+The following pipeline has already been executed to set up the IAM account and roles that are written to vault and used for the kube deployment using kops.
 
 deploy-kube-iam-pipeline.yml 
 

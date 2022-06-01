@@ -1,0 +1,27 @@
+kOps has set your kubectl context to lab-kube.k8s.local
+sconrod@SCONROD-M-5E7D lab-kube %
+sconrod@SCONROD-M-5E7D lab-kube % helm -n appdynamics install -f values.yaml appdynamics appdynamics-charts/cluster-agent
+NAME: appdynamics
+LAST DEPLOYED: Mon Apr 18 07:47:23 2022
+NAMESPACE: appdynamics
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+Check HELM release status:
+
+  $ helm status appdynamics -n appdynamics
+  $ helm get appdynamics -n appdynamics
+
+List operator, cluster agent and machine agent pods:
+
+  $ kubectl get pods -n appdynamics
+
+Release state:
+  Deployment mode: PRIMARY
+  Install ClusterAgent: true
+  Install InfraViz: true
+  Controller URL: https://mycontroller.saas.appdynamics.com:443
+  Auto-Instrumentation enabled: true
+  Installing metrics-server: false
+sconrod@SCONROD-M-5E7D lab-kube %

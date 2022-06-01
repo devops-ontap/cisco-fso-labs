@@ -13,13 +13,14 @@ It takes approximately 5 minutes to build and 5 minutes to destroy.
 
 Immediately prior to kicking off the lab modules for AppD that use a kube cluster, provision the kube cluster to AWS.
 
-Watch the 5 min video here showing how to run the task to deploy the kube cluster to aws:
+Watch the 5 min video here showing how to run the task to deploy the kube cluster to aws
+========================================================================================
 Webex meeting recording: Devops - Automate Kubernetes Cluster Deploys to AWS
 Password: MrmshGd7
 Recording link: https://cisco.webex.com/cisco/ldr.php?RCID=993c4247b9057d6babcec9249f07595f
 
 
-After provisioning the kube cluster, run the Speed Car Racer Deployment - this will deploy a JAVA App and Agent to the kube cluster.
+After provisioning the kube cluster, deploy the Speed Car Racer Deployment - this will deploy a JAVA App and Agent to the kube cluster.
 Once the kubernetes load balancer service is up and running, it is required to manually update the route-53 CNAME unless you just give the students the lb url which 
 is probably easiest.
 
@@ -34,6 +35,9 @@ $cd cisco-fso-labs/lab-kube/create-cluster-1.22/input
 
 Run the task:
 $cisco-fso-labs/lab-kube/create-cluster-1.22/input/appd_kops_task.yml
+
+You can now proceed to deploy the Helm App D Cluster Agent
+
 
 
 
