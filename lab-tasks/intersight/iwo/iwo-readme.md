@@ -1,3 +1,16 @@
+to Do:
+
+Fire up the EC2 instance.
+Verify connectivity to the Speed Car Racer App.
+Verify how it looks in the GUI
+Create an alert in the GUI (pre-cede)
+Create an alert via API
+Create filter in GUI (pre-cede)
+Create Filter in API
+
+Update the main Readme with the hyperlink to the Dockerfiles used to in the tasks to build the oci ephemeral build containers
+Create new pipeline and build the intersight oci image
+
 Steps to setup for IWO integration with AppD and TE
 
 Ref:
@@ -17,7 +30,25 @@ with the Java Load Balancer that is part of the speed car racer app deployment a
 GUIs in AppD and also TE to view the load.
 
 
-In progress:
+for this part of the lab, we have pre-deployed a two node kubernetes cluster to the lab environment that is a shared resource
+The cluster already has the App Dynamics Cluster Agent Deployed.
+The cluster has a kubernetes deployed of the Speed Car Racer App Deployed, with the Java Agent for AppD embedded.
+The cluster has a mysql kubernetes deployment also installed with the AppD Agent.
+
+The Instructor will logon to the AppD Web Console and show the students -
+The Students may also logon to the Console to view this.
+
+There is also an EC2 instance with the Spped Car Racer App installed.
+
+Because this lab has an API focus - we will briefly go over how the Agent is installed however, we will not be focusing on the install steps of the AppD Agents
+The students will not be performing this install unless they request. There are tasks setup for the install, if students wish to learn about this.
+
+We will be focusing on using the API to set up Alerts and filters for this app.
+Then we will use a load testing app to generate load and try to trigger some of the alerts.
+Once we have triggered the alerts we will use the API to handle the json responses.
+
+
+
 Go Over the steps that were done previously to 1. Install the kube cluster agent for AppD 2. Install the Kube Deploy of Race Car App and AppD Agent
 Verify the app is accessible via Internet - there is a svc with an external LB that has a corresponding Route 53 CNAME record - this is currently manual but can be automated
 in pipeline in later release.
