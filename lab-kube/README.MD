@@ -1,5 +1,9 @@
 Instructors/Lab Admins Only:
 
+To Do:
+=======
+Currently everything is in tasks however, this is being transitioned to one pipeline with multiple jobs for future ease for the Instructor
+
 
 Immediately prior to starting the AppD Use Case Modules in the lab, spin up the lab kube cluster 
 We spin it up on demand when we use it and remove it when done so as not to be incurring extra cost when it is not in use.

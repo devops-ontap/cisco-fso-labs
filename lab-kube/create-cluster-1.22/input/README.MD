@@ -1,5 +1,6 @@
 Instructor/Lab Admins Only
 ==========================
+
 To Do:
 =======
 This is a task but will be added into the infra pipeline for the convenience of the Instructor/Lab-Operator
@@ -34,7 +35,7 @@ Change into the directory:
 $cd cisco-fso-labs/lab-kube/create-cluster-1.22/input
 
 Run the task:
-$cisco-fso-labs/lab-kube/create-cluster-1.22/input/appd_kops_task.yml
+$fly -t cisco-fso-labs e -c appd_kops_task.yml -v aws.region=us-east-2 -v az.name=us-east-2a
 
 You can now proceed to deploy the Helm App D Cluster Agent
 

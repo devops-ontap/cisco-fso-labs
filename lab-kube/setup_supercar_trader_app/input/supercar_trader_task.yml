@@ -23,8 +23,8 @@ run:
       aws configure set default.region $REGION
       aws sts get-caller-identity --query Account --output text
       export AWS_PAGER=""
-      chmod a+x appd_kube.sh
-      ./appd_kube.sh
+      chmod a+x supercar_trader.sh
+      ./supercar_trader.sh
 
 params:
   AWS_KEY_ID: ((Access_key_ID.Access_key))

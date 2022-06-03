@@ -8,13 +8,9 @@ chmod +x ./kops
 mv ./kops /usr/local/bin/
 export NAME=lab-kube.k8s.local
 export KOPS_STATE_STORE=s3://lab-kube.k8s.local
-kops create cluster --zones=us-east-2a ${NAME}
-kops update cluster ${NAME} --yes
-export KOPS_STATE_STORE=s3://lab-kube.k8s.local
 kops export kubecfg --admin
-#Need to get the kubeconfig file to yaml and then write it to the vault so in the subsequent tasks it can be called from the vault.....
-vault login --no-print $SSH_TOKEN
-vault kv get concourse/cisco-fso-labs/lab-kube-config kubeconfig=@config
+vault kv get --field=kubeconfig concourse/cisco-fso-labs/lab-kube-config > config
+mkdir /root/.kube
 cp config ~/.kube/config
 kubectl get ns
 

@@ -1,5 +1,7 @@
 Instructors/Lab Admins Activity Only
 
+
+
 After completing the AppD module for the AppD kube cluster and Speed Car Racer Kube deployment - delete the entire cluster
 Kubernetes clusters are expensive and we do not need to run this cluster all the time, only when performing specific 
 work in the lab.
