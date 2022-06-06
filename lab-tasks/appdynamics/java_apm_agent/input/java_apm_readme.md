@@ -1,10 +1,33 @@
+
+
+
+EC2 Centos Instance is Deployed to OHIO
+To ssh use key in the vault.....
+
+us-east-2a
+
+after ssh to machine
+
+sudo su -
+
+
+
+Access Tomcat Apache Management Page
+
+
+http://18.117.119.32:8080/
+Select Manage App
+Logon with:
+Username: admin 
+Password: password
+
 Deploy Centos 7 to kubernetes....or on EC2
 Download the Java APM Agent - use API
 
 The controller-info.xml here is for reference and training purposes to show students what the unconfigured file
 looks like
 
-The configured file resides in the vault
+The controller-info.xml file is in the vault as it contains security info
 
 
 If Manual Steps Preferred by Student...
@@ -127,6 +150,9 @@ sconrod/tomcat:1.0
 If doing this for an EC2 image then you can create an custom IAM with it installed....
 
 Create a kubernetes deployment manifest...
+
+Do not need to update route-53 for the kube deployment
+
 
 
 
