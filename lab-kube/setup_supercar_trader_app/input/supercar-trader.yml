@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: tomcat
-          image: sconrod/centos7oci-supercar
+          image: sconrod/centos7:4.0
           ports:
             - containerPort: 8080

@@ -16,4 +16,3 @@ kubectl create ns supercar-trader
 kubectl -n supercar-trader delete deploy
 kubectl -n supercar-trader apply -f supercar-trader.yml
 kubectl -n supercar-trader apply -f tomcat_lb.yml
-kubectl -n supercar-trader get svc -w
