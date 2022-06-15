@@ -4,6 +4,11 @@ Password: gQSPhrT9
 Recording link: https://cisco.webex.com/cisco/ldr.php?RCID=6c4ca1edec6eafe4f3e88b9e57961a2f
 
 Understand that the Instructor has already generated an API key from the GUI and entered it into the vault.
+You must logon to the GUI with an account admin to add in other accouns and grant them the account owner rights which will
+permit them to authenticate via the API.
+
+
+After the Instructor Demonstrates and explains this task, please proceed to execute the task yourself.
 
 To run this task, make sure you are in the input directory:
 $cd cisco-fso-labs/lab-tasks/thousandeyes/te_api/input
@@ -12,8 +17,11 @@ Login via fly with the username and password assigned to you by your Lab Instruc
 $fly --target=cisco-fso-labs login --concourse-url=http://ci.devops-ontap.com:8080 -n cisco-fso-labs --username=username --password="password"
 
 Run the task and verify you can authenticate to and get a valid json response from the AppD API:
-$fly -t cisco-fso-labs e -c appd_get_token_task.yml
-This authenticates to the AppD Api and generates a temporary oath token and writes it to the vault
+$fly -t cisco-fso-labs e -c te_api_task_vault.yml
+
+This task is getting the TE_OATHTOKEN value from vault, using it to authenticate to the Thousand Eyes API, then it is 
+querying the API for a list of Enteprise Agent IDS. It returns this list to us as we require it to provision a new test and add
+our list of agents to the new test we create.
 
 $fly -t cisco-fso-labs e -c te_api_task_vault.yml
 This uses the temp oath token you generated that was written to the vault and uses it to perform an API call that returns json from the AppD API
@@ -57,8 +65,8 @@ curl https://api.thousandeyes.com/v6/agents.json \
 -u token
 
 
-
-GUI:
+Further Material on Thousand Eyes Tests
+=======================================
 ANOJ MODI Recording on how to create Network Tests and Details around how the tests work:
 https://salesconnect.cloudapps.cisco.com/vid/index.html?cid=95f4fd1d-b4eb-4208-ab00-c7a48ee22cd3
 
@@ -68,7 +76,8 @@ After installing the Agent, immediately after you will want to get the AgentIds
 And all other variables related to the Agents so that you can set up the tests
 
 
-
+How to install agents manually if automation is not of interest to you and how to troubleshoot Agents manually..
+==================================================================================================================
 curl -Os https://downloads.thousandeyes.com/agent/install_thousandeyes.sh
 chmod +x install_thousandeyes.sh
 sudo ./install_thousandeyes.sh -f -b token
