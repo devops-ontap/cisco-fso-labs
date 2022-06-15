@@ -1,14 +1,16 @@
 Day 1 
 =====
 
-Hour 1 - Introduction - Module 1 8am-9am GMT
+Hour 1 - Introduction - Module 1 8am-10am GMT
 =================================
 15 min Power Point Intro
 This time is used to outline the lab curriculum, a high level explanation of the lab environment architecture and objectives 
 
-15 min - Instructor will demonstrate how all lab participants logon to fly and paste and info into chat
+15 min - Instructor will demonstrate the lab workflow(DEVOPS RAPID SDLC with rapid iteration -how all lab participants logon to fly and paste and info into chat
 All students should not be authenticated to fly, have cloned git repo, checked out their branch and logged on to both the 
 Thousand Eyes, Intersight, and AppDyanmics GUI.
+
+15 min - Review of why building our code in OCI ephemeral build containers is critical to automation and pipelining success
 
 15 min - Instructor will spend 5 min explaining how programatic authentication is achieved to each of the apps.
 15 min - Students will repeat the steps the instructor performed 
@@ -19,7 +21,7 @@ three apps.
 10 min break
 
 
-Hour 2~3 - Advanced JSON Analysis - Module 2 9:15am-12pm GMT
+Hour 2~3 - Advanced JSON Analysis - Module 2 10:15am-12pm GMT
 ==========================================
 
 15 min - Instructor will run an api call to Thousand Eyes and retrieve the json response from the API and then demonstrate
@@ -42,8 +44,8 @@ At the end of this module, students will understand advanced tequniques for mani
 
 30 min lunch break.
 
-Hour 3 - AppD Use Cases -Module 3
-=================================
+Hour 3 - AppD Use Cases -Module 3 - 12:30 pm GMT-1 pm GMT
+==========================================================
 
 15 min Instructor will cover major use cases for App D via powerpoint and high level concepts
 15 min Instructor will demonstrate API calls that pertain to the main use cases
@@ -53,13 +55,13 @@ Winner of Challenge will be announced.
 
 At the end of this module, Students will understand the App D main uses cases and how to perform API calls accordingly.
 
-Hour 4 -  Module 4 - AppD and Thousand Eyes Integrations
-========================================================
+Hour 4 -  Module 4 - AppD and Thousand Eyes Integrations 1 pm~1:45 pm GMT followed by 15 min break
+===================================================================================================
 15 min Instructor will go over the integrations between Thousand Eyes and App D via Power Point (high level concepts)
 15 min Instructor will make API calls and show students how to perform the lab tasks for integration via API
 15 Students will engage in the lab task for the integration via API calls.
 
-Module 5 - Intersight 
+Module 5 - Intersight 2 pm ~ 3 pm GMT
 ======================
 15 min - Instructor will use Power Point to provide an high level overview of Intersight and the API
 15 min - Instructor will demonstrate API techniques for Intersight
