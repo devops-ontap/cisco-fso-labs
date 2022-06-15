@@ -36,6 +36,11 @@ Challenge 2 - Advanced
 See if you can write a test via API that will test the metrics of an agent or multiple agents
 
 hint:
+get a list of tests
+
+pick one or more tests and return the:
 end-to-end_metrics
+
+Please commit your work to your branch for review.
 
 
