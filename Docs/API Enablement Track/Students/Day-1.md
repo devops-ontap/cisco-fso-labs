@@ -20,7 +20,7 @@ Not Recommended - Visual Studio (from time to time this IDE will insert white sp
 ========================
 https://jupyter.org/install
 
-- [ ] Install Python 3.x if you do not already have it installed
+- [ ] Install Python 3.x if you do not already have it installed (latest or 3.8)
 ==========================================================
 https://www.python.org/downloads/
 
@@ -50,10 +50,16 @@ https://github.com/devops-ontap/cisco-fso-labs
 #git status
 
 
-- [ ] Logon to Thousand Eyes
+- [ ] Logon to Thousand Eyes - After Instructor Prompt
 ========================
 https://app.thousandeyes.com
 (Invitation will have been received in email day before or morning of lab)
+
+- [ ] Logon to App Dynamics Lab GUI - After Instructor Prompt
+  ========================
+  https://cisco-apipartnertraininglab.saas.appdynamics.com
+  (Invitation will have been received in email day before or morning of lab)
+
 
 - [ ] Logon to Concourse via the CLI:
 ===============================

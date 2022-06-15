@@ -54,3 +54,7 @@ The Intersight API Auth using Python Requests is borrowed from here:
 Requests Module Auth
 https://github.com/briamorr/IntersightDeviceContractStatus/blob/main/contractstatus.py
 
+Postman Collection for Intersight
+==================================
+https://github.com/CiscoDevNet/intersight-postman
+

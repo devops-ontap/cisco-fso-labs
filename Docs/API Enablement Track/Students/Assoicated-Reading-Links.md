@@ -1,3 +1,9 @@
+How to Build a Simple REST API using Swagger
+============================================
+https://www.youtube.com/watch?v=mViFmjcDOoA
+
+https://www.youtube.com/watch?v=kE6EEHr8B4U
+
 Intersight 
 ============
 https://intersight.com/apidocs/introduction/overview/
