@@ -1,1 +1,6 @@
-3.20.203.142
+- [] ENTER IN THE IP OF ALL THE HOST THAT YOU DEPLOYED VIA PIPELINE
+- [] GIT COMMIT TO YOUR BRANCH
+- [] RUN THE TASK
+- [] The task will automatically install the thousand eyes agent onto the list of hosts you committed into your branch
+
+
