@@ -6,14 +6,14 @@ Hour 1 - Introduction - Module 1 8am-10am GMT
 15 min Power Point Intro
 This time is used to outline the lab curriculum, a high level explanation of the lab environment architecture and objectives 
 
-15 min - Instructor will demonstrate the lab workflow(DEVOPS RAPID SDLC with rapid iteration -how all lab participants logon to fly and paste and info into chat
-All students should not be authenticated to fly, have cloned git repo, checked out their branch and logged on to both the 
-Thousand Eyes, Intersight, and AppDyanmics GUI.
+15 min - Instructor will demonstrate the lab workflow(DEVOPS RAPID SDLC with rapid iteration) -how all lab participants logon to fly and paste and info into chat
+All students should  be authenticated to fly, have cloned git repo, checked out their branch and logged on to both fly and git and have an IDE installed(only Intellij Jet Brains will be used on lab)
+Students will verify they are able to login to Thousand Eyes, Intersight, and AppDyanmics GUI.
+Login creds for GUIs will be provided in chat channel day of lab.
 
 15 min - Review of why building our code in OCI ephemeral build containers is critical to automation and pipelining success
-
 15 min - Instructor will spend 5 min explaining how programatic authentication is achieved to each of the apps.
-15 min - Students will repeat the steps the instructor performed 
+15 min - Students will repeat the steps the instructor performed by running the respective lab task provided by instructor
 
 At the end of this module, students will understand the mechanism by which they can programatically authenticate securely to all
 three apps.
