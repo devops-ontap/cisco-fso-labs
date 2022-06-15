@@ -1,3 +1,5 @@
+Challenge 1:
+
 This Challenge will test your comprehension of:
 
 Devops Workflow
@@ -28,4 +30,12 @@ Run the task to see the json returned by the API.
 Now add a comment to python to describe what key value pair you will get from this json
 
 Write the python to return only the desired value, values, or key value pair from the JSON
+
+Challenge 2 - Advanced
+
+See if you can write a test via API that will test the metrics of an agent or multiple agents
+
+hint:
+end-to-end_metrics
+
 
