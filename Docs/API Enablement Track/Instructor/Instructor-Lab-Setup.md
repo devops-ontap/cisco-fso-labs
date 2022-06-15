@@ -1,10 +1,20 @@
 Lab Setup by Instructor/Lab Admin
 =================================
 
-Day before
-===========
+Day before Lab
+===============
 
 To save time, the day before the lab, the Instructor after each lab will set up the student lab environments. Delete any old student branches from the last lab and create new branches.
+Setup is as follows:
+
+Delete any existing git branches
+Re-create all git branches from main
+Copy lab_vars.py for each branch/az into respective branch and git commit/push
+set pipelines for all branches
+Unpause pipelines and verify that lab_pre step is green/passes
+
+Stop Here and Proceed to Deploying Lab Overlay Environment
+AppD required kube cluster, java app via kube deploy, java app via ec2, load balancer tool deploy
 
 Create new branches with the AZ Name.
 =======================================
