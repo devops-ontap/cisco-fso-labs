@@ -1,5 +1,8 @@
 Instructors/Lab Admins Only:
 
+This section is for the Instructor to pre-deploy the App D use case environment for kubernetes
+
+
 To Do:
 =======
 Currently everything is in tasks however, this is being transitioned to one pipeline with multiple jobs for future ease for the Instructor

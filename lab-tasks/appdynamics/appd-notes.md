@@ -13,7 +13,7 @@ https://devnetsandbox.cisco.com
 
 
 
-**Note do not download hte Agent from the SAAS Controller under Servers, instead download it then
+**Note do not download the Agent from the SAAS Controller under Servers, instead download it then
 complete the conf xml file manually from the main console ***
 
 
