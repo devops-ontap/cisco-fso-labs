@@ -1,3 +1,16 @@
+Your Instructor has already set up the following standard use case scenerios to save time and allow you to 
+focus on APIs:
+
+AppD Server Agent on EC2 Instance
+AppD Java Agent for  Java App on EC2 Instance with 
+Kubernetes App D Cluster Agent
+Kubernetes App Agent on Java Deployment
+
+Integrations:
+AppD Server Agent on TE Agent
+
+
+
 Lab Prep - Watch this video (15 min)
 Webex meeting recording: Automation - Programmatically Auth to FSO APIs
 Password: gQSPhrT9
