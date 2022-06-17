@@ -1,5 +1,7 @@
 exec onto the pod for perftest
 
+https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/#stopping-perftest
+
 https://www.cloudamqp.com/blog/load-testing-and-performance-measurements-rabbitmq.html
 
 export uri=amqp://user:CHANGEME@aa14d42c45b2e42aa9249bd82a422a26-1471557648.us-east-2.elb.amazonaws.com:5672
