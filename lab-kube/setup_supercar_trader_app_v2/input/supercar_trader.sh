@@ -32,7 +32,9 @@ git clone https://github.com/sherifadel90/AppDynamics-SupercarsJavaApp.git
 cd AppDynamics-SupercarsJavaApp
 MYSQL_LB=$(kubectl get svc --namespace supercar-trader mysql -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
 echo $MYSQL_LB
-mysql -h $MYSQL_LB -uroot -p"$MYSQL_ROOT_PASSWORD"
+mysql -h $MYSQL_LB -uroot -p"$MYSQL_ROOT_PASSWORD" < mysql-01.sql --force
+mysql -h $MYSQL_LB -uroot -p"$MYSQL_ROOT_PASSWORD" < mysql-02.sql --force
+mysql -h $MYSQL_LB -uroot -p"$MYSQL_ROOT_PASSWORD" < mysql-03.sql --force
 
 
 
