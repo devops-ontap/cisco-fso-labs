@@ -30,6 +30,9 @@ apt -y update
 apt -y install mysql-client
 git clone https://github.com/sherifadel90/AppDynamics-SupercarsJavaApp.git
 cd AppDynamics-SupercarsJavaApp
+MYSQL_LB=$(kubectl get svc --namespace supercar-trader mysql -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+echo $MYSQL_LB
+mysql -h $MYSQL_LB -uroot -p"$MYSQL_ROOT_PASSWORD"
 
 
 
