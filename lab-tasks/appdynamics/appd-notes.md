@@ -1,10 +1,21 @@
 Additional Use Cases and Demos:
 
+https://docs.thousandeyes.com/product-documentation/alerts/integrations/appdynamics-integration
+
+https://developer.thousandeyes.com/v6/alerts/#/integrations
+
 Cool Sox
 https://wwwin-github.cisco.com/cx-community/FSO-with-CoolSox
 
 DevNet Sandox
 https://devnetsandbox.cisco.com
+
+Integration with AppD:
+for this you need to navigate to Alert--> Alert rules--> click/expand the BGP rules--> click on notifications tab-->integration
+https://docs.thousandeyes.com/product-documentation/alerts/integrations/appdynamics-integration
+
+
+
 
 
 
