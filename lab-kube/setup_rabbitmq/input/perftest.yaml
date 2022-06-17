@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: perf-test-deployment
+  labels:
+    app: perf-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: perf-test
+  template:
+    metadata:
+      labels:
+        app: perf-test
+    spec:
+      containers:
+        - name: perf-test
+          image: pivotalrabbitmq/perf-test:latest
+          command: ["sleep", "10000"]

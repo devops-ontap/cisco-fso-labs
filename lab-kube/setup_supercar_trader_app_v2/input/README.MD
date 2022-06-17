@@ -1,3 +1,8 @@
+The pipeline is set under main but can be run by cisco-fso-labs
+
+Make sure to authenticate to the team cisco-fso-labs to run task...due to vault..
+
+
 Custom Docker Image from Centos 7 and Tomcat 8 installed:
 
 When building the docker image - in order to systemctl you must launch container like this...
@@ -21,8 +26,6 @@ May in fact not need the lb for msql
 
 how to install tomcat
 https://www.digitalocean.com/community/tutorials/how-to-install-apache-tomcat-8-on-centos-7
-
-
 
 
 Sample Java App:
