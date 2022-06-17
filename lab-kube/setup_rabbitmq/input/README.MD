@@ -8,6 +8,9 @@ This should translate into some interesting data in AppD.
 
 exec onto the pod for perftest node
 
+Bench Marking RabbitMQ
+https://github.com/rabbitmq/rabbitmq-perf-test/blob/main/html/README.md
+
 The perftest kube deploy is from here:
 https://gist.github.com/Zerpet/1a106575fe63a4917f2706c592302b72
 
