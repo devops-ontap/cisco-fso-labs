@@ -8,6 +8,9 @@ This should translate into some interesting data in AppD.
 
 exec onto the pod for perftest node
 
+Scaling Payload
+https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/#random-json-payload
+
 Bench Marking RabbitMQ
 https://github.com/rabbitmq/rabbitmq-perf-test/blob/main/html/README.md
 
