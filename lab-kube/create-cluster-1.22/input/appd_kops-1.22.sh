@@ -1,9 +1,8 @@
 #!/bin/sh
 export AWS_PAGER=""
-cp config ~/.aws
 export VAULT_ADDR=$VAULT_ADDR
 export VAULT_TOKEN=$SSH_TOKEN
-curl -LO https://github.com/kubernetes/kops/releases/download/v1.22.0/kops-linux-amd64
+curl -Lo kops https://github.com/kubernetes/kops/releases/download/$(curl -LO https://github.com/kubernetes/kops/releases/download/v1.22.0/kops-linux-amd64)/kops-linux-amd64
 chmod +x ./kops
 mv ./kops /usr/local/bin/
 export NAME=lab-kube.k8s.local
@@ -16,6 +15,6 @@ kops export kubecfg --admin
 vault login --no-print $SSH_TOKEN
 cp ~/.kube/config .
 vault kv put concourse/cisco-fso-labs/lab-kube-config kubeconfig=@config
-sleep 5m
+
 
 
