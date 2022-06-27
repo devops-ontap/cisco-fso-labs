@@ -10,7 +10,18 @@ vault login --no-print $SSH_TOKEN
 mkdir ~/.kube
 vault kv get -field kubeconfig concourse/cisco-fso-labs/lab-kube-config > ~/.kube/config
 chmod 400 /root/.kube/config
-export NAME=lab-kube.k8s.local
 export KOPS_STATE_STORE=s3://lab-kube.k8s.local
 kops export kubecfg --admin
-kubectl get ns
+
+
+
+
+
+
+
+
+
+
+
+
+

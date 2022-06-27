@@ -9,7 +9,7 @@ payload={}
 headers = {'Authorization': 'Bearer ' + token}
 agent_response = requests.request("GET", url, headers=headers, data=payload)
 
-test_name = 'test-200'
+test_name = 'test-202'
 
 agent_list_json = agent_response.json()
 agent_list = agent_list_json['agents']

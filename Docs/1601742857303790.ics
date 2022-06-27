@@ -1,0 +1,43 @@
+BEGIN:VCALENDAR
+PRODID:-//Microsoft Corporation//Outlook 10.0 MIMEDIR//EN
+VERSION:2.0
+METHOD:REQUEST
+BEGIN:VTIMEZONE
+TZID:Mountain Time
+BEGIN:STANDARD
+DTSTART:20201101T020000
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=1SU;BYMONTH=11
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0700
+TZNAME:Standard Time
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:20200301T020000
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=2SU;BYMONTH=3
+TZOFFSETFROM:-0700
+TZOFFSETTO:-0600
+TZNAME:Daylight Savings Time
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+ATTENDEE;CN="SHERRI CONROD";ROLE=REQ-PARTICIPANT;RSVP=TRUE:MAILTO:sconrod@cisco.com
+ORGANIZER;CN="webex":MAILTO:messenger@webex.com
+DTSTART;TZID="Mountain Time":20220718T090000
+DTEND;TZID="Mountain Time":20220718T170000
+RRULE:FREQ=DAILY;INTERVAL=1;UNTIL=20220720T170010Z
+LOCATION:https://cisco.webex.com/cisco/k2/j.php?MTID=t48e6402308ae80bb76e83cae970bd8d1
+TRANSP:OPAQUE
+SEQUENCE:1
+UID:WEBEX-TRAINING CENTER-7.0303790-1601742857
+DTSTAMP:20220718T150000Z
+DESCRIPTION:Hello SHERRI CONROD,\n\nYou scheduled the following training session:\n\nTopic: CISCO FSO API BLITZ 1 Day\nHost: SHERRI CONROD\nDate: Every 1 day, from Monday, July 18, 2022 to Wednesday, July 20, 2022\nTime: 9:00 am, Mountain Daylight Time (Denver, GMT-06:00)\nSession number: 2571 901 5325\nSession password: AKmSMbRw553 (25676279 from phones)\n\n\n\n\n\n-------------------------------------------------------\nTo start the session\n-------------------------------------------------------\n1. Go to https://cisco.webex.com/cisco/k2/j.php?MTID=t48e6402308ae80bb76e83cae970bd8d1\n2. Log in to your account.\n3. Click "Start Now".\n4. Follow the instructions that appear on your screen.\n\n-------------------------------------------------------\nAudio conference information\n-------------------------------------------------------\nTo receive a call back, provide your phone number when you join the training session, or call the number below and enter the access code.\nCall-in toll number (US/Canada):+1-408-525-6800\nGlobal call-in numbers: https://cisco.webex.com/cisco/globalcallin.php?MTID=t64fd7ec3010f1eb4813e9a1dd671674e\nAccess code: 2571 901 5325\n\n-------------------------------------------------------\nFor assistance\n-------------------------------------------------------\n1. Go to https://cisco.webex.com/cisco/tc\n2. On the left navigation bar, click "Support".\n\nTo add this session to your calendar program (for example Microsoft Outlook), click this link:\nhttps://cisco.webex.com/cisco/k2/j.php?MTID=tc096ea2cfb5885cd7ab11d3d3b438c84\n\nIf you are a host, click here to view host information:\nhttps://cisco.webex.com/cisco/k2/j.php?MTID=t48e6402308ae80bb76e83cae970bd8d1\n\n\n\nhttps://www.webex.com\n\nIMPORTANT NOTICE: This Webex service includes a feature that allows audio and any documents and other materials exchanged or viewed during the session to be recorded. You should inform all meeting attendees prior to recording if you intend to record the meeting. Please note that any such recordings may be subject to discovery in the event of litigation.\n\n
+SUMMARY:Training session scheduled: CISCO FSO API BLITZ 1 Day
+PRIORITY:5
+CLASS:PUBLIC
+BEGIN:VALARM
+TRIGGER:-PT5M
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR

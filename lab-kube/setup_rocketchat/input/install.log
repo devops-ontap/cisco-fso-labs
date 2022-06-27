@@ -1,0 +1,27 @@
+root@b26c945c-f262-4c77-4d9a-7115b652a379:/tmp/build/e55deab7/input# helm -n rocketchat install rocketchat ./helm-charts/rocketchat -f values.yaml --set mongodb.auth.password=$(echo -n $(openssl rand -base64 32)),mongodb.auth.rootPassword=$(echo -n $(openssl rand -base64 32))
+NAME: rocketchat
+LAST DEPLOYED: Tue Jun 21 01:45:43 2022
+NAMESPACE: rocketchat
+STATUS: deployed
+REVISION: 1
+NOTES:
+Rocket.Chat can be accessed via port 80 on the following DNS name from within your cluster:
+
+- http://rocketchat-rocketchat.rocketchat
+
+You can easily connect to the remote instance from your browser. Forward the webserver port to localhost:8888
+
+- kubectl port-forward --namespace rocketchat $(kubectl get pods --namespace rocketchat -l "app.kubernetes.io/name=rocketchat,app.kubernetes.io/instance=rocketchat" -o jsonpath='{ .items[0].metadata.name }') 8888:3000
+
+You can also connect to the container running Rocket.Chat. To open a shell session in the pod run the following:
+
+- kubectl exec -i -t --namespace rocketchat $(kubectl get pods --namespace rocketchat -l "app.kubernetes.io/name=rocketchat,app.kubernetes.io/instance=rocketchat" -o jsonpath='{.items[0].metadata.name}') /bin/sh
+
+To trail the logs for the Rocket.Chat pod run the following:
+
+- kubectl logs -f --namespace rocketchat $(kubectl get pods --namespace rocketchat -l "app.kubernetes.io/name=rocketchat,app.kubernetes.io/instance=rocketchat" -o jsonpath='{ .items[0].metadata.name }')
+
+Rocket.Chat will be available at the URL:
+
+- http://chat.devops-ontap.com
+root@b26c945c-f262-4c77-4d9a-7115b652a379:/tmp/build/e55deab7/input#

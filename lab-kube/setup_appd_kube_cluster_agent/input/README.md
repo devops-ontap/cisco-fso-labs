@@ -44,7 +44,15 @@ Move onto the task:
 
 JAVA_APP
 
+MANUAL STEPS FOR INSTALLING CLUSTER AGENT:
+===========================================
+1. Install Metrics Server 
+2. Install Cluster Agent with CLI:
+3. Verify install of Cluster Agent: kubectl -n appdynamics get pods
 
+https://docs.appdynamics.com/21.4/en/infrastructure-visibility/monitor-kubernetes-with-the-cluster-agent/install-the-cluster-agent#InstalltheClusterAgent-InstallationOverview
+
+Question - does it need to be done once in each namespace to be monitored or can it be installed once and monitor all namespaces?
 
 
 
