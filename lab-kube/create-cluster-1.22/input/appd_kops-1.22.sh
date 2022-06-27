@@ -2,7 +2,8 @@
 export AWS_PAGER=""
 export VAULT_ADDR=$VAULT_ADDR
 export VAULT_TOKEN=$SSH_TOKEN
-curl -Lo kops https://github.com/kubernetes/kops/releases/download/$(curl -LO https://github.com/kubernetes/kops/releases/download/v1.22.0/kops-linux-amd64)/kops-linux-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/v1.22.0/kops-linux-amd64
+cp kops-linux-amd64 kops
 chmod +x ./kops
 mv ./kops /usr/local/bin/
 export NAME=lab-kube.k8s.local
