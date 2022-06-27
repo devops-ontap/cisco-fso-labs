@@ -23,8 +23,8 @@ run:
       aws configure set default.region $REGION
       aws sts get-caller-identity --query Account --output text
       export AWS_PAGER=""
-      chmod a+x appd_kops.sh
-      ./appd_kops.sh
+      chmod a+x appd_kops-1.22.sh
+      ./appd_kops-1.22.sh
 
 params:
   AWS_KEY_ID: ((Access_key_ID.Access_key))

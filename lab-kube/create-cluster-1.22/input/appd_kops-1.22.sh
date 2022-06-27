@@ -17,6 +17,5 @@ vault login --no-print $SSH_TOKEN
 cp ~/.kube/config .
 vault kv put concourse/cisco-fso-labs/lab-kube-config kubeconfig=@config
 sleep 5m
-kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
 
