@@ -6,7 +6,7 @@ curl -LO https://github.com/kubernetes/kops/releases/download/v1.22.0/kops-linux
 cp kops-linux-amd64 kops
 chmod +x ./kops
 mv ./kops /usr/local/bin/
-export NAME=lab-2-kube.k8s.local
+export NAME=lab-kube.k8s.local
 export KOPS_STATE_STORE=s3://lab-kube.k8s.local
 #The s3 bucket needs to be created - this was done manually - require to automate into pipeline
 kops create cluster --zones=us-east-2a ${NAME}

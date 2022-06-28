@@ -12,7 +12,7 @@ inputs:
 run:
   path: /bin/sh
   args:
-    - -cex
+    - -ce
     - |
       cd input
       export AWS_PAGER=""

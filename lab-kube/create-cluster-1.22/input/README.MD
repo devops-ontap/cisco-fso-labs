@@ -5,11 +5,14 @@ It will take about 10 min for the Cluster to be fully deployed into AWS
 This is a constraint on how fast AWS can provision
 
 So this message is normal until the cluster is ready...
-
 Validating cluster
 W0628 15:52:09.685833      80 validate_cluster.go:184] (will retry): unexpected error during validation: error listing nodes: Get
 
 Cluster must be validated prior to installing Metrics Server Helm Chart & AppD Helm Chart 
+
+To Do: Add into the Test Parallel pipeline the test for the cluster readiness 
+
+example: if cluster validation healthy - do next step in pipeline
 
 
 Known Issues AppD:
@@ -24,11 +27,12 @@ Does not detect the cluster is gone and still reports the PODs as healthy foreve
 There is no way to delete the cluster from the Console
 It is being investigated if it can be forcibly removed via API
 
-If this happens in lab and causes issue, as a lab workaround only, not a product workaround, I am having to 
-change line 8 of the appd_kops-1.22.sh to have a different cluster name
+Workaround
+===========
 
-And then modify the namespace on line 17 to match in the:
-cisco-fso-labs/lab-kube/setup_appd_kube_cluster_agent/input/appd_helm.sh
+Make sure each kubernetes cluster deployment of the AppD Cluster will have a unique release name so it will register in the console.
+
+
 
 
 

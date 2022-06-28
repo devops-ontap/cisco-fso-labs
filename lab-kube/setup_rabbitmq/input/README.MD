@@ -1,3 +1,7 @@
+RabbitLogin:
+user
+CHANGEME
+
 Rabbitmq is a deployment that exists most environments handled by Devops.
 We are using Rabbitmq in this lab as it has an easy to use load testing tool - perftest
 We can generate load and send to rabbitmq and see the results in AppD to some degree.
