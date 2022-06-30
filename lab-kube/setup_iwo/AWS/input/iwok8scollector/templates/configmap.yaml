@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: iwo-config-{{ .Release.Name }}
+data:
+  iwo.config: |-
+    {
+      "communicationConfig": {
+        "serverMeta": {
+          "proxy": "http://localhost:9004",
+          "version": "{{ .Values.iwoServerVersion }}",
+          "turboServer": "http://topology-processor:8080"
+        }
+      },
+      "HANodeConfig": {
+        "nodeRoles": [{{ .Values.HANodeConfig.nodeRoles }}]
+      {{- if .Values.targetName }}
+      },
+      "targetConfig": {
+        "targetName": "{{ .Values.targetName }}"
+      {{- end }}
+      {{- if .Values.daemonPodDetectors }}
+      },
+      "daemonPodDetectors": {
+        "namespaces": ["{{ .Values.daemonPodDetectors.daemonPodNamespaces1 }}", "{{ .Values.daemonPodDetectors.daemonPodNamespaces2 }}"],
+        "podNamePatterns": ["{{ .Values.daemonPodDetectors.daemonPodNamePatterns }}"]
+      {{- end }}
+      }
+    }

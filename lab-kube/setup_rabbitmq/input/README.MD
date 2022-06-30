@@ -25,9 +25,9 @@ https://rabbitmq.github.io/rabbitmq-perf-test/stable/htmlsingle/#stopping-perfte
 
 https://www.cloudamqp.com/blog/load-testing-and-performance-measurements-rabbitmq.html
 
-#note - probably want to put this in vault...
+#note - update the lb with the current lb 
 ==============================================
-export uri=amqp://user:CHANGEME@aa14d42c45b2e42aa9249bd82a422a26-1471557648.us-east-2.elb.amazonaws.com:5672
+export uri=amqp://user:CHANGEME@abe8458dc64564321a93aab24523cf54-1702271935.us-east-2.elb.amazonaws.com:5672
 [Remember, if you want to change rabbitmq password you need to delete the PVC]
 
 Run any perfest...example:

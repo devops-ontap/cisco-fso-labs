@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: iwosvc
+spec:
+  selector:
+    app: iwok8scollector-iwo-k8s-collector
+  ports:
+    - port: 9110
+      targetPort: 9110
+  type: LoadBalancer

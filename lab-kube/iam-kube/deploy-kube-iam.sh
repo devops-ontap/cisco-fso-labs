@@ -18,5 +18,5 @@ export VAULT_TOKEN=$SSH_TOKEN
 vault login --no-print $SSH_TOKEN
 vault kv put concourse/main/lab-kops/AccessKeyId
 vault kv put concourse/main/lab-kops/SecretAccessKey
-Add the code here which will write the key and secret to the vault
+#Add the code here which will write the key and secret to the vault
 

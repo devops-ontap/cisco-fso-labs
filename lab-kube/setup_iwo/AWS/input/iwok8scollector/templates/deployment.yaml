@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "iwok8scollector.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "iwok8scollector.name" . }}
+    helm.sh/chart: {{ include "iwok8scollector.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "iwok8scollector.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+      {{- with .Values.annotations }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        app.kubernetes.io/name: {{ include "iwok8scollector.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      serviceAccountName: iwo-user
+      containers:
+      - name: iwo-k8s-collector
+        image: {{ .Values.collectorImage.repository }}:{{ .Values.collectorImage.tag }}
+        imagePullPolicy: {{ .Values.collectorImage.pullPolicy }}
+        args:
+          - --turboconfig=/etc/iwo/iwo.config
+          - --v={{ .Values.args.logginglevel }}
+          {{- if .Values.args.kubelethttps }}
+          - --kubelet-https={{ .Values.args.kubelethttps }}
+          - --kubelet-port={{ .Values.args.kubeletport }}
+          {{- end }}
+          {{- if not .Values.args.stitchuuid }}
+          - --stitch-uuid={{ .Values.args.stitchuuid }}
+          {{- end }}
+          {{- if .Values.args.sccsupport }}
+          - --scc-support={{ .Values.args.sccsupport }}
+          {{- end }}
+          {{- if .Values.args.pre16k8sVersion }}
+          - --k8sVersion=1.5
+          {{- end }}
+          {{- if not .Values.args.failVolumePodMoves }}
+          - --fail-volume-pod-moves={{ .Values.args.failVolumePodMoves }}
+          {{- end }}
+        resources:
+{{ toYaml .Values.resources | indent 12 }}
+        volumeMounts:
+          - name: iwo-volume
+            mountPath: /etc/iwo
+            readOnly: true
+          - name: varlog
+            mountPath: /var/log
+      - name: iwo-k8s-dc
+        image: {{ .Values.connectorImage.repository }}:{{ .Values.connectorImage.tag }}
+        imagePullPolicy: {{ .Values.connectorImage.pullPolicy }}
+        volumeMounts:
+          - name: varlog
+            mountPath: /cisco/pasadena/logs
+        env:
+          - name: PROXY_PORT
+            value: "9004"
+      volumes:
+      - name: iwo-volume
+        configMap:
+          name: iwo-config-{{ .Release.Name }}
+      - name: varlog
+        emptyDir: {}
+      restartPolicy: Always
