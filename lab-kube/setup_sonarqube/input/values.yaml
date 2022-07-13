@@ -82,7 +82,7 @@ ingress:
   hosts:
     - name: sonarqube.devops-ontap.com
       # Different clouds or configurations might need /* as the default path
-      path: /
+      path: /*
       # For additional control over serviceName and servicePort
       serviceName: sonarqube
       # servicePort: somePort
