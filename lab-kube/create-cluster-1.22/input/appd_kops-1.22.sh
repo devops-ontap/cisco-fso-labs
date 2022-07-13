@@ -16,7 +16,7 @@ kops export kubecfg --admin
 #Need to get the kubeconfig file to yaml and then write it to the vault so in the subsequent tasks it can be called from the vault.....
 vault login --no-print $SSH_TOKEN
 cp ~/.kube/config .
-vault kv put concourse/cisco-fso-labs/lab-2-kube-config kubeconfig=@config
+vault kv put concourse/cisco-fso-labs/lab-kube-config kubeconfig=@config
 kops validate cluster --wait 10m
 
 

@@ -1,0 +1,30 @@
+NAME: sonarqube
+LAST DEPLOYED: Tue Jul 12 22:10:56 2022
+NAMESPACE: sonarqube
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+  ** Please be patient while the chart is being deployed **
+
+Your SonarQube site can be accessed through the following DNS name from within your cluster:
+
+    sonarqube.sonarqube.svc.cluster.local (port 80)
+
+To access your SonarQube site from outside the cluster follow the steps below:
+
+1. Get the SonarQube URL and associate SonarQube hostname to your cluster external IP:
+
+    export CLUSTER_IP=$(minikube ip) # On Minikube. Use: `kubectl cluster-info` on others K8s clusters
+    echo "SonarQube URL: http://sonarqube.local/"
+    echo "$CLUSTER_IP  sonarqube.local" | sudo tee -a /etc/hosts
+
+    2. Open a browser and access SonarQube using the obtained URL.
+
+3. Login with the following credentials below:
+
+    echo Username: user
+    echo Password: $(kubectl get secret --namespace sonarqube sonarqube -o jsonpath="{.data.sonarqube-password}" | base64 -d)
+root@49777ef4-4f40-48b5-7a56-05a2725169c4:/tmp/build/e55deab7/input# echo Password: $(kubectl get secret --namespace sonarqube sonarqube -o jsonpath="{.data.sonarqube-password}" | base64 -d)
+Password: 1GppUtdpSQ
+

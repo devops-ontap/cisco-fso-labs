@@ -1,5 +1,10 @@
 This is a list of 'Gotchas'
 
+Google Chrome with Intersight May throw errors for strict MIME checking..
+
+From MAC OS run:
+open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir="/tmp/chrome_dev_test" --disable-web-security
+
 
 App D Machine Agent Installer:
 =================================

@@ -1,0 +1,27 @@
+  Update Complete. ⎈Happy Helming!⎈
+  NAME: wildfly
+  LAST DEPLOYED: Tue Jul 12 21:27:08 2022
+  NAMESPACE: wildfly
+  STATUS: deployed
+  REVISION: 1
+  TEST SUITE: None
+  NOTES:
+  CHART NAME: wildfly
+  CHART VERSION: 13.3.11
+  APP VERSION: 26.1.1
+
+    ** Please be patient while the chart is being deployed **
+
+  1. Get the WildFly URL by running:
+
+    NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+      Watch the status with: 'kubectl get svc --namespace wildfly -w wildfly'
+
+    export SERVICE_IP=$(kubectl get svc --namespace wildfly wildfly --template "{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}")
+    echo "WildFly URL: http://$SERVICE_IP/"
+
+    2. Login with the following credentials
+
+  echo Username: user
+  echo Password: $(kubectl get secret --namespace wildfly wildfly -o jsonpath="{.data.wildfly-password}" | base64 -d)
+    succeeded

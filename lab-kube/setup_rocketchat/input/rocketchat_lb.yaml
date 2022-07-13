@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: rocketchat-ingress
+spec:
+  tls:
+    - hosts:
+        - chat.devops-ontap.com
+      secretName: rocketchat-ssl
+  rules:
+    - host: chat.devops-ontap.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: rocketchat
+              servicePort: 3000

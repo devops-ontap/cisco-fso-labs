@@ -1,3 +1,12 @@
+Important Note:
+
+In the helm values file in vault for AppD cluster agent, we had to specify which namespaces to auto-instrument so therefore, created rabbitmq namespace
+at that stage so we would not need to go back and do a helm upgrade.
+
+however, it is worth noting, for any new apps and namespaces you would need to update that values file and do a helm upgrade of the AppD Cluster Agent.
+May need to do a helm upgrade anyways after not sure..need to test.
+
+
 RabbitLogin:
 user
 CHANGEME
@@ -27,10 +36,12 @@ https://www.cloudamqp.com/blog/load-testing-and-performance-measurements-rabbitm
 
 #note - update the lb with the current lb 
 ==============================================
-export uri=amqp://user:CHANGEME@abe8458dc64564321a93aab24523cf54-1702271935.us-east-2.elb.amazonaws.com:5672
+export uri=amqp://user:CHANGEME@a43cab3150dc7468b8489792dc5581b5-80876597.us-east-2.elb.amazonaws.com
 [Remember, if you want to change rabbitmq password you need to delete the PVC]
 
 Run any perfest...example:
+
+bin/runjava com.rabbitmq.perf.PerfTest --help
 
 bin/runjava com.rabbitmq.perf.PerfTest --uri $uri --consumers 10 --producers 5 --autoack
 [Running this for about 15 minutes will kill pods]

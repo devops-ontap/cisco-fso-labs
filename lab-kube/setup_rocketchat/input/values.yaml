@@ -2,14 +2,13 @@
 ## ref: https://hub.docker.com/r/rocketchat/rocket.chat/tags
 ##
 image:
-  repository: registry.rocket.chat/rocketchat/rocket.chat
+  repository: docker.io/rocketchat/rocket.chat
+  tag: 3.6.0
   pullPolicy: IfNotPresent
 
-imagePullSecrets: []
-
 ## Host for the application
-## set it to a domain pointing to your loadbalancer
-host: chat.devops-ontap.com
+##
+# host:
 
 replicaCount: 1
 minAvailable: 1
@@ -22,37 +21,11 @@ smtp:
   port: 587
 
 # Extra env vars for Rocket.Chat:
-extraEnv:
-  # - name: MONGO_OPTIONS
-  #   value: '{"ssl": "true"}'
-  # - name: MONGO_OPLOG_URL
-  #   value: mongodb://oploguser:password@rocket-1:27017/local&replicaSet=rs0
-
-# Extra volumes for Rocket.Chat...
-extraVolumes:
-  # - name: etc-certs
-  #   hostPath:
-  #     path: /etc/ssl/certs
-  #     type: Directory
-  # - name: usr-certs
-  #   hostPath:
-  #     path: /usr/share/ca-certificates
-  #     type: Directory
-
-# ... and where they should be mounted inside the container
-extraVolumeMounts:
-  # - mountPath: /etc/ssl/certs
-  #   name: etc-certs
-  #   readOnly: true
-  # - mountPath: /usr/share/ca-certificates
-  #   name: usr-certs
-  #   readOnly: true
-
-## Specifies a Registration Token (obtainable at https://cloud.rocket.chat)
-#registrationToken: ""
-
-## Specifies an Enterprise License
-# license: ""
+extraEnv:  # |
+# - name: MONGO_OPTIONS
+#   value: '{"ssl": "true"}'
+# - name: MONGO_OPLOG_URL
+#   value: mongodb://oploguser:password@rocket-1:27017/local&replicaSet=rs0
 
 ## Pod anti-affinity can prevent the scheduler from placing RocketChat replicas on the same node.
 ## The default value "soft" means that the scheduler should *prefer* to not schedule two replica pods onto the same node but no guarantee is provided.
@@ -80,12 +53,9 @@ affinity: {}
 #         - e2e-az1
 #         - e2e-az2
 
-## Use an existing secret file with the MongoDB Url and OplogUrl
-existingMongodbSecret: ""
-
 ## MongoDB URL if using an externally provisioned MongoDB
-externalMongodbUrl: # mongodb://user:password@localhost:27017/rocketchat
-externalMongodbOplogUrl: # mongodb://user:password@localhost:27017/local?replicaSet=rs0&authSource=admin
+externalMongodbUrl:  # mongodb://user:password@localhost:27017/rocketchat
+externalMongodbOplogUrl:  # mongodb://user:password@localhost:27017/local?replicaSet=rs0&authSource=admin
 
 ##
 ## MongoDB chart configuration
@@ -95,22 +65,21 @@ mongodb:
   ## Enable or disable MongoDB dependency completely.
   enabled: true
 
-  initdbScriptsConfigMap: rocketchat-mongodb-fix-clustermonitor-role-configmap
+  # mongodbRootPassword:
 
-  auth:
-    # rootPassword:
-    username: rocketchat
-    # password:
-    database: rocketchat
+  mongodbUsername: rocketchat
+  # mongodbPassword:
+  mongodbDatabase: rocketchat
 
-  architecture: replicaset
-  replicaCount: 1
-  arbiter:
-    enabled: false
+  replicaSet:
+    enabled: true
+    replicas:
+      secondary: 0
+      arbiter: 0
     pdb:
-      minAvailable: 0
-  pdb:
-    minAvailable: 0
+      minAvailable:
+        secondary: 0
+        arbiter: 0
 
     # key:
 
@@ -126,8 +95,6 @@ mongodb:
     # storageClass: "-"
     accessMode: ReadWriteOnce
     size: 8Gi
-
-  volumePermissions: { enabled: true }
 
 ## Enable persistence using Persistent Volume Claims
 ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
@@ -163,10 +130,6 @@ serviceAccount:
   # Specifies whether a ServiceAccount should be created
   create: true
 
-  # Annotations to add to the ServiceAccount
-  annotations: {}
-  # eks.amazonaws.com/role-arn: arn:aws:iam::123456789012:role/dummyRole
-
   # The name of the ServiceAccount to use.
   # If not set and create is true, a name is generated using the fullname template
   name:
@@ -175,63 +138,39 @@ serviceAccount:
 ### ref : http://kubernetes.io/docs/user-guide/ingress/
 ###
 ingress:
-  enabled: true
-  pathType: Prefix
-  # ingressClassName: "nxinx"
-  annotations:
-    {}
-    # kubernetes.io/ingress.class: "nginx"
+  enabled: false
+  annotations: {}
+  # kubernetes.io/ingress.class: "nginx"
   path: /
-  tls: {}
+  tls:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
 
 service:
   annotations: {}
-  # service.beta.kubernetes.io/aws-load-balancer-internal: "0.0.0.0/0"
+  service.beta.kubernetes.io/aws-load-balancer-internal: "0.0.0.0/0"
 
   labels: {}
   # key: value
 
   ## ServiceType
   ## ref: https://kubernetes.io/docs/user-guide/services/#publishing-services---service-types
-  type: ClusterIP
+  type: LoadBalancer
 
   ## Optional static port assignment for service type NodePort.
   # nodePort: 30000
 
   port: 80
 
-## Optional custom labels for the deployment resource.
-deploymentLabels: {}
-
 ## Optional Pod Labels.
 podLabels: {}
 
 ## Optional Pod Annotations.
-podAnnotations:
-  {}
+podAnnotations: {}
   # prometheus.io/port: "9458"
   # prometheus.io/path: "/metrics"
-  # prometheus.io/scrape: "true"
-
-## Optional Prometheus scraping Settings
-prometheusScraping:
-  enabled: false
-  port: 9100 # Avoid using 9458: conflicts with Moleculer Exporter
-
-serviceMonitor:
-  ## serviceMonitor.enabled Create ServiceMonitor resource(s) for scraping metrics using PrometheusOperator
-  ## prometheusScraping.enabled should be also enabled
-  ##
-  enabled: false
-  ## metrics.serviceMonitor.interval The interval at which metrics should be scraped
-  ##
-  interval: 30s
-  ## metrics.serviceMonitor.port The port name at which container exposes Prometheus metrics
-  ##
-  port: metrics
+# prometheus.io/scrape: "true"
 
 ## Liveness and readiness probe values
 ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
@@ -251,63 +190,3 @@ readinessProbe:
   timeoutSeconds: 5
   failureThreshold: 3
   successThreshold: 1
-
-podDisruptionBudget:
-  enabled: true
-
-# # # # # # # # # # # # # # # # #
-#   M I C R O S E R V I C E S   #
-#  Only available to E.E users  #
-# # # # # # # # # # # # # # # # #
-
-## Deploy as microservices?
-# Monolithic architecture, by default
-microservices:
-  enabled: false
-
-  logLevel: warn
-
-  heartbeatInterval: 10
-  heartbeatTimeout: 30
-
-  ## Parameters for each deployment:
-  presence:
-    replicas: 1
-    image:
-      repository: rocketchat/presence-service
-      pullPolicy: IfNotPresent
-  ddpStreamer:
-    replicas: 1
-    image:
-      repository: rocketchat/ddp-streamer-service
-      pullPolicy: IfNotPresent
-  account:
-    replicas: 1
-    image:
-      repository: rocketchat/account-service
-      pullPolicy: IfNotPresent
-  authorization:
-    replicas: 1
-    image:
-      repository: rocketchat/authorization-service
-      pullPolicy: IfNotPresent
-  streamHub:
-    replicas: 1
-    image:
-      repository: rocketchat/stream-hub-service
-      pullPolicy: IfNotPresent
-  nats:
-    replicas: 1
-
-  ## Parameters for each Kubernetes service
-  # NOTE: reserved for future usage still
-  presenceService:
-  ddpStreamerService:
-  natsService:
-  streamHubService:
-  accountService:
-  authorizationService:
-
-nats:
-  nats:
-    image: nats:2.4-alpine

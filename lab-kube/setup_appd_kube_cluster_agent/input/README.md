@@ -9,6 +9,8 @@ This task installs the AppDynamics Cluster Agent via a helm chart to the lab kub
 https://docs.appdynamics.com/22.3/en/infrastructure-visibility/monitor-kubernetes-with-the-cluster-agent/install-the-cluster-agent/install-the-cluster-agent-with-helm-charts
 
 
+We are creating the rabbitmq ns here so that we do not have to do a helm upgrade later
+
 Watch the 5 min Recording Here:
 ================================
 Webex meeting recording: AppD Cluster Agent Helm Install
@@ -27,6 +29,9 @@ $fly -t cisco-fso-labs e -c appd_helm_task.yml -v aws.region=us-west-2 -v az.nam
 Notes:
 =======
 The helm values.yml file contains our SAS controller account ID and secret so it has been added to the vault with base 64 encoding.
+Current rev sets up the AppD auto-instrumentation on the rabbitmq namespace only.
+
+
 $vault kv put concourse/cisco-fso-labs/appd-helm-values data=$(base64 < values.yaml)
 
 A sample template of what a Partner/Customer would need to fill out in this file is included in this repo for reference.
