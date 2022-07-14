@@ -176,6 +176,7 @@ output = check_output("{}".format(tag_def_vpc_rt), shell=True).decode().strip()
 print("Output: \n{}\n".format(output))
 
 #9 - Add a new route to the default vpc route table requires the default vpc route table id and assoicatiate and the default gatewayid
+
 outfile_ass_rt = 'ass_rt.json'
 ass_rt_default_rt='aws ec2 create-route' + " " + '--region' + " " + "{}".format(region) + " " + '--route-table-id' + " " + "{}".format(def_vpc_rt_id) + " " + '--destination-cidr-block 0.0.0.0/0 --gateway-id' + " " + igid
 output = check_output("{}".format(ass_rt_default_rt), shell=True).decode().strip()
@@ -239,6 +240,18 @@ output = check_output("{}".format(ass_rt_sub), shell=True).decode().strip()
 print("Output: \n{}\n".format(output))
 with open(outfile_ass_rt_sub, 'w') as my_file:
     my_file.write(output)
+
+#Add a route to this router route table that is to the internet gateway
+#Destination 0.0.0.0/0 Target: The igw for the VPC
+#aws ec2 create-route --route-table-id rtb-22574640 --destination-cidr-block 0.0.0.0/0 --gateway-id igw-c0a643a9
+#Need the RT ID and the GatewayID
+#aws ec2 create-route --route-table-id rt_rt_id --destination-cidr-block 0.0.0.0/0 --gateway-id igid
+#aws ec2 create-route --route-table-id rtb-037f6e0a9f82e1d9e --destination-cidr-block 0.0.0.0/0 --gateway-id igw-0cd42c1b9fdd2bc6d
+print("Creating Router Route Table Route and Associating with Gateway")
+cmd_create_router_rt_route='aws ec2 create-route --route-table-id' + " " + "{}".format(rt_rt_id) + "" + '--destination-cidr-block 0.0.0.0/0' + " " + '--gateway-id' + " " + igid
+print(cmd_create_router_rt_route)
+output = check_output("{}".format(cmd_create_router_rt_route), shell=True).decode().strip()
+print("Output: \n{}\n".format(output))
 
 #13 - Create a Security Group
 out_file_sg_router='outfile-sg-router.json'
