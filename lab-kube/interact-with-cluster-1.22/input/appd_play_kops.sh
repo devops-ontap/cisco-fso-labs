@@ -14,3 +14,8 @@ export NAME=lab-kube.k8s.local
 export KOPS_STATE_STORE=s3://lab-kube.k8s.local
 kops export kubecfg --admin
 kubectl get ns
+export VAULT_ADDR=$VAULT_ADDR
+export SSH_TOKEN=$SSH_TOKEN
+vault login --no-print $SSH_TOKEN
+vault kv get --field=ssh-key concourse/cisco-fso-labs/$NAME >> sshkey.pem
+APPD_OATH_TOKEN=$(vault kv get --field=token concourse/cisco-fso-labs/appd-oath)

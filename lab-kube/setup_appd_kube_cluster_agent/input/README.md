@@ -1,6 +1,9 @@
 Instructors
 ============
 
+The Helm Values File for AppD contains the Controller logon info so it is kept in the vault in base64
+Ideally, this should also be encrypted within the container. On the To Do List.
+
 Note: You cannot add two different kube clusters to AppD if they have the same release and namespace names.
 This seems to be a bug. Make sure that when you install the kubernetes cluster agent, that you ensure it is installed to
 a unique namespace name

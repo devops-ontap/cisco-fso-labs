@@ -2,6 +2,10 @@ The pipeline is set under main but can be run by cisco-fso-labs
 
 Make sure to authenticate to the team cisco-fso-labs to run task...due to vault..
 
+After deployment - the app will show up at the load balancer URL with:
+
+/.do
+
 
 Custom Docker Image from Centos 7 and Tomcat 8 installed:
 

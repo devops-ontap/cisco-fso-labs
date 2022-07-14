@@ -16,10 +16,10 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 kubectl create namespace sonarqube
 echo "Working Directory......"
-helm -n sonarqube delete sonarqube
-helm repo add sonarqube https://SonarSource.github.io/helm-chart-sonarqube
-helm upgrade --install -n sonarqube sonarqube sonarqube/sonarqube -f values.yaml
-helm upgrade -n sonarqube sonarqube sonarqube/sonarqube -f values.yaml
+#helm -n sonarqube delete sonarqube
+#helm repo add sonarqube https://SonarSource.github.io/helm-chart-sonarqube
+#helm upgrade --install -n sonarqube sonarqube sonarqube/sonarqube -f values.yaml
+#helm upgrade -n sonarqube sonarqube sonarqube/sonarqube -f values.yaml
 kubectl -n sonarqube get svc
 
 
