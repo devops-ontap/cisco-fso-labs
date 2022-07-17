@@ -47,3 +47,15 @@ ubuntu pro 20 LTS
 =================
 ami-03a2d5f82710c680a
 
+IRELAND
+==========
+EU-WEST-1a
+
+ubuntu prod 20 LTS
+==================
+ami-0d4e52df695792d43
+
+
+centos 7
+========
+ami-0babc7cb0024fd1f7
