@@ -33,3 +33,17 @@ Ami Id: ami-05117a5348bb8a291
 
 CALIFORNIA - US-WEST-1
 ami-0c5db8b1650fb4b47
+
+
+MUMBAI
+======
+ap-south-1
+
+centos 7
+========
+ami-0667149a69bc2c367
+
+ubuntu pro 20 LTS
+=================
+ami-03a2d5f82710c680a
+
