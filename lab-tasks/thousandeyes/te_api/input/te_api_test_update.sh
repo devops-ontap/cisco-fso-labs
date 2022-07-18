@@ -6,6 +6,6 @@
 #pip3 install pandas
 python3 -m pip install requests
 pwd
-python3 te_api_agent_server_tests.py
+python3 te_api_test_update.py
 
 

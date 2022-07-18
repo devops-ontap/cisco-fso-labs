@@ -17,7 +17,7 @@ params:
 run:
   path: /bin/sh
   args:
-    - -ce
+    - -cex
     - |
       pwd
       ls -la

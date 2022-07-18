@@ -4,12 +4,14 @@ from subprocess import call, check_output
 from requests.structures import CaseInsensitiveDict
 urllib3.disable_warnings()
 token = os.getenv('TE_OATHTOKEN')
+print("printing token")
+print(token)
 url = "https://api.thousandeyes.com/v6/agents.json"
 payload={}
 headers = {'Authorization': 'Bearer ' + token}
 agent_response = requests.request("GET", url, headers=headers, data=payload)
 
-test_name = 'test-202'
+test_name = 'yourname-test'
 
 agent_list_json = agent_response.json()
 agent_list = agent_list_json['agents']

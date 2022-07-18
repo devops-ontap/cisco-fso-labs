@@ -23,7 +23,7 @@ run:
       ls -la
       cd input
       chmod a+x te_api.sh
-      ./te_api.sh
+      ./te_api_test_update.sh
 
 
 
