@@ -9,8 +9,8 @@ APPD_OATH_TOKEN = os.getenv('APPD_OATH_TOKEN')
 STR_APPD_OATH_TOKEN=str(APPD_OATH_TOKEN)
 
 #url="https://cisco-apipartnertraininglab.saas.appdynamics.com/zero/v1beta/install/agentVersions?latest=true"
-#url="https://cisco-apipartnertraininglab.saas.appdynamics.com/controller/rest/applications?output=JSON"
 url="https://cisco-apipartnertraininglab.saas.appdynamics.com/controller/rest/applications?output=JSON"
+
 
 payload={}
 headers = {
