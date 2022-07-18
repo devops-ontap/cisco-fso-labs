@@ -8,9 +8,11 @@ import requests
 #The AppD secret is passed in via Env Var which is injected into the build container via the pipeline
 #import the env vars and logon to vault to get the secret and then use it to run this command and write the output to the vault
 secret = os.getenv('APPD_SECRET')
+print("Printing Secret")
+print(secret)
 
 url = "https://cisco-apipartnertraininglab.saas.appdynamics.com/auth/v1/oauth/token"
-payload='grant_type=client_credentials&client_id=fsolab4%40cisco-apipartnertraininglab&client_secret=' + secret
+payload = 'grant_type=client_credentials&client_id=fsolab4%40cisco-apipartnertraininglab&client_secret=' + secret
 print(payload)
 headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -22,6 +24,7 @@ response = requests.request("POST", url, headers=headers, data=payload)
 token_json = response.json()
 print(token_json)
 TOKEN = token_json['access_token']
+print("This it the temp oath token generated for appd")
 
 #write the token to a json file called data.json
 outfile = 'token.json'
