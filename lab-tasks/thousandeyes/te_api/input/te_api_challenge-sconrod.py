@@ -37,7 +37,7 @@ for item in found_values:
 
 #tests/agent-to-server/2994789/update.json
 url='https://api.thousandeyes.com/v6/tests/agent-to-server/2994789/update.json'
-payload = {'bandwidthMeasurements': '0'}
+payload = {'bandwidthMeasurements': '1'}
 header = {'content-type': 'application/json', 'authorization': 'Bearer ' + token}
 r = requests.post(url, data=json.dumps(payload), headers=header, verify=False)
 print(r)

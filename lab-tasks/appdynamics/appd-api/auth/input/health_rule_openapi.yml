@@ -1,0 +1,1555 @@
+openapi: 3.0.0
+servers:
+    - description: Controller URL
+      url: https://localhost:8080/controller/alerting/rest/v1/applications/{application-id}/
+info:
+    description: |
+        Health rule APIs.
+        [Details at Appdynamics documentation](https://docs.appdynamics.com/display/PRO45/AppDynamics+APIs)
+    version: "1.0.0"
+    title: Appdynamics Health Rules Operations
+    termsOfService: 'https://www.appdynamics.com/terms/'
+    license:
+        name: Apache 2.0
+        url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+    - name: health-rules
+      description: Set up health rules to monitor and manage the application.
+      externalDocs:
+          description: Find out more
+          url: 'https://docs.appdynamics.com/display/PRO45/Alert+and+Respond+API'
+paths:
+    '/health-rules':
+        parameters:
+            - name: application-id
+              in: path
+              required: true
+              schema:
+                  type: integer
+                  format: int64
+                  example: 10
+        post:
+            description: |
+                Create a new health rule from the provided JSON payload. <br>
+                Minimal syntax validation is done during creation of health rule. However, metric path validation is not supported during health rule creation.
+                Ensure that you provide valid metrics for the affected entities you select, which can be resolved at evaluation. <br>
+                In case of unresolved metrics, health rule attains an unknown (?) state during evaluation.
+            tags:
+                - health-rules
+            summary: "Create a new health rule from the provided JSON payload."
+            operationId: createHealthRule
+            responses:
+                '201':
+                    description: Created successfully
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/HealthRule'
+                    links:
+                        CreatedUserid:
+                            operationId: getHealthRule
+                            parameters:
+                                health-rule-id: '$response.body#/id'
+                            description:
+                                Use the `id` value returned in the response as `health-rule-id` parameter in `GET /health-rules/{health-rule-id}`.
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '403':
+                    $ref: '#/components/responses/Forbidden'
+                '409':
+                    $ref: '#/components/responses/Conflict'
+            requestBody:
+                $ref: '#/components/requestBodies/HealthRule'
+        get:
+            tags:
+                - health-rules
+            summary: Returns list of all the health rule IDs and names for the given application ID.
+            description: |
+                Returns a list of all the health rules that are configured for a given application. Only health rule IDs and names are returned. To obtain complete details of the health rule, see `GET / /health-rule/{health-rule-id}`.
+            operationId: getHealthRuleSummaryList
+            responses:
+                '200':
+                    description: Fetched successfully
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/HealthRuleSummaryArray'
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '403':
+                    $ref: '#/components/responses/Forbidden'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+    '/health-rules/{health-rule-id}':
+        parameters:
+            - name: application-id
+              in: path
+              required: true
+              schema:
+                  type: integer
+                  format: int64
+                  example: 10
+            - name: health-rule-id
+              in: path
+              description: The ID of health rule to be retrieved.
+              required: true
+              schema:
+                  type: integer
+                  format: int64
+        get:
+            tags:
+                - health-rules
+            summary: "Returns JSON representation of health rule for the given health rule ID."
+            description: |
+                Returns JSON representation of health rule for the given health rule ID. Enter a valid existing health rule ID.
+            operationId: getHealthRule
+            responses:
+                '200':
+                    description: Fetched successfully
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/HealthRule'
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '403':
+                    $ref: '#/components/responses/Forbidden'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+        put:
+            tags:
+                - health-rules
+            summary: "Update an existing health rule with the given health rule ID."
+            description: |
+                Enter the complete JSON payload for the health rule as input. Retrieve the JSON payload using `GET /health-rules/{health-rule-id}`. Update the required fields and send modified payload as part of `PUT` request.
+            operationId: updateHealthRule
+            responses:
+                '200':
+                    description: Updated successfully
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/HealthRule'
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '403':
+                    $ref: '#/components/responses/Forbidden'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+            requestBody:
+                $ref: '#/components/requestBodies/HealthRule'
+        delete:
+            tags:
+                - health-rules
+            summary: "Delete an existing health rule with the given health rule ID."
+            description: Enter a valid existing health rule ID.
+            operationId: deleteHealthRule
+            responses:
+                '204':
+                    description: Deleted successfully
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '403':
+                    $ref: '#/components/responses/Forbidden'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+    '/health-rules/{health-rule-id}/configuration':
+        parameters:
+            - name: application-id
+              in: path
+              required: true
+              schema:
+                  type: integer
+                  format: int64
+                  example: 10
+            - name: health-rule-id
+              in: path
+              description: Enter the ID of health rule to be updated.
+              required: true
+              schema:
+                  type: integer
+                  format: int64
+        put:
+            tags:
+                - health-rules
+            summary: "Update one or more configuration setting(s) of a health rule."
+            description: |
+                Enter one or both of the following field(s) in the request:<br>
+                  <pre>1. Enable / Disable the health rule.</pre>
+                  <pre>2. Update the schedule of the health rule.</pre>
+                You can enter one or both the fields in a single request. <br>
+                Ensure that you provide a valid existing health rule ID.
+            operationId: updateHealthRuleConfiguration
+            responses:
+                '200':
+                    description: Updated successfully
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/HealthRule'
+                '400':
+                    $ref: '#/components/responses/BadRequest'
+                '401':
+                    $ref: '#/components/responses/Unauthorized'
+                '403':
+                    $ref: '#/components/responses/Forbidden'
+                '404':
+                    $ref: '#/components/responses/NotFound'
+            requestBody:
+                $ref: '#/components/requestBodies/HealthRuleConfiguration'
+externalDocs:
+    description: Find out more about Swagger
+    url: 'http://swagger.io'
+components:
+    schemas:
+        HealthRule:
+            description: "Health rule definition"
+            type: object
+            properties:
+                id:
+                    description: This is auto-generated by the system and returned in the response.
+                    type: integer
+                    format: int64
+                    readOnly: true
+                name:
+                    description: Name of the health rule.
+                    type: string
+                    minLength: 1
+                    example: "My new health rule"
+                enabled:
+                    type: boolean
+                    default: true
+                    example: true
+                useDataFromLastNMinutes:
+                    description: The time interval (in minutes) during which the data collected is considered for health rule evaluation. Enter a value between 1 to 9 or a multiple of 10 that is less than 360.
+                    type: integer
+                    minimum: 1
+                    maximum: 360
+                    example: 30
+                waitTimeAfterViolation:
+                    description: The wait time after violation in minutes.
+                    type: integer
+                    minimum: 1
+                    example: 5
+                scheduleName:
+                    type: string
+                    description: Name of schedule to be associated with the health rule.
+                    default: "Always"
+                    example: "upgrade schedule"
+                affects:
+                    $ref: '#/components/schemas/Affects'
+                evalCriterias:
+                    $ref: '#/components/schemas/EvalCriterias'
+            required:
+                - name
+                - useDataFromLastNMinutes
+                - waitTimeAfterViolation
+                - affects
+                - evalCriterias
+            example:
+                name: "My new health rule"
+                enabled: true
+                useDataFromLastNMinutes:  30
+                waitTimeAfterViolation: 5
+                affects:
+                    affectedEntityType: "BUSINESS_TRANSACTION_PERFORMANCE"
+                    affectedBusinessTransactions:
+                        businessTransactionScope: "ALL_BUSINESS_TRANSACTIONS"
+                evalCriterias:
+                    criticalCriteria:
+                        conditionAggregationType: "ALL"
+                        conditions:
+                            - name: "Condition 1"
+                              shortName: "A"
+                              evaluateToTrueOnNoData: false
+                              evalDetail:
+                                  evalDetailType: "SINGLE_METRIC"
+                                  metricAggregateFunction: "VALUE"
+                                  metricPath: "Average CPU Used (ms)"
+                                  metricEvalDetail:
+                                      metricEvalDetailType: "BASELINE_TYPE"
+                                      baselineCondition: "WITHIN_BASELINE"
+                                      baselineName: "All Data - Last 15 Days"
+                                      baselineUnit: "PERCENTAGE"
+                                      compareValue: 30.5
+                    warningCriteria:
+                        conditionAggregationType: "ALL"
+                        conditions:
+                            - name: "Condition 1"
+                              shortName: "A"
+                              evalDetail:
+                                  evalDetailType: "METRIC_EXPRESSION"
+                                  metricExpression: "({metric1} + ({metric2} * 3))"
+                                  metricExpressionVariables:
+                                      - variableName: "metric1"
+                                        metricAggregateFunction: "VALUE"
+                                        metricPath: "95th Percentile Response Time (ms)"
+                                      - variableName: "metric2"
+                                        metricAggregateFunction: "MAXIMUM"
+                                        metricPath: "Average CPU Used (ms)"
+                                  metricEvalDetail:
+                                      metricEvalDetailType: "SPECIFIC_TYPE"
+                                      compareCondition: "GREATER_THAN_SPECIFIC_VALUE"
+                                      compareValue: 10.0
+        HealthRuleSummaryArray:
+            type: array
+            items:
+                $ref: '#/components/schemas/HealthRuleSummary'
+        HealthRuleConfiguration:
+            description: Contains the configuration details of a health rule that you can update individually without the need to send the complete health rule JSON payload. You can mention one or more properties and all those properties are be set to new specified values.
+            type: object
+            properties:
+                enabled:
+                    type: boolean
+                    example: "true"
+                scheduleName:
+                    type: string
+                    example: "Test schedule"
+
+        MetricEvalDetail:
+            type: object
+            properties:
+                metricEvalDetailType:
+                    type: string
+                    enum:
+                        - BASELINE_TYPE
+                        - SPECIFIC_TYPE
+                    example: BASELINE_TYPE
+            required:
+                - metricEvalDetailType
+            discriminator:
+                propertyName: metricEvalDetailType
+                mapping:
+                    BASELINE_TYPE : '#/components/schemas/BaselineMetricEvalDetail'
+                    SPECIFIC_TYPE : '#/components/schemas/SpecificValueMetricEvalDetail'
+
+        BaselineMetricEvalDetail:
+            description: "metricEvalDetailType: BASELINE_TYPE"
+            allOf:
+                - $ref: '#/components/schemas/MetricEvalDetail'
+                - type: object
+                  properties:
+                      baselineCondition:
+                          type: string
+                          enum:
+                              - "WITHIN_BASELINE"
+                              - "NOT_WITHIN_BASELINE"
+                              - "GREATER_THAN_BASELINE"
+                              - "LESS_THAN_BASELINE"
+                          example: "GREATER_THAN_BASELINE"
+                      baselineName:
+                          type: string
+                          minLength: 1
+                          example: "All Data - Last 15 Days"
+                      compareValue:
+                          type: number
+                          example: 10.5
+                          minimum: 0
+                      baselineUnit:
+                          type: string
+                          enum:
+                              - "STANDARD_DEVIATIONS"
+                              - "PERCENTAGE"
+                          example: "STANDARD_DEVIATIONS"
+                  required:
+                      - baselineCondition
+                      - baselineName
+                      - compareValue
+                      - baselineUnit
+        SpecificValueMetricEvalDetail:
+            description: "metricEvalDetailType:  SPECIFIC_TYPE"
+            allOf:
+                - $ref: '#/components/schemas/MetricEvalDetail'
+                - type: object
+                  properties:
+                      compareCondition:
+                          type: string
+                          enum:
+                              - "GREATER_THAN_SPECIFIC_VALUE"
+                              - "LESS_THAN_SPECIFIC_VALUE"
+                          example: "GREATER_THAN_SPECIFIC_VALUE"
+                      compareValue:
+                          type: number
+                          example: 10.5
+                          minimum: 0
+                  required:
+                      - compareCondition
+                      - compareValue
+        MetricAggregateFunction:
+            type: string
+            enum:
+                - "MINIMUM"
+                - "MAXIMUM"
+                - "VALUE"
+                - "SUM"
+                - "COUNT"
+                - "CURRENT"
+                - "GROUP_COUNT"
+            example: "VALUE"
+
+        SingleMetricEvalDetail:
+            description: "evalDetailType: SINGLE_METRIC"
+            allOf:
+                - $ref: '#/components/schemas/ConditionEvalDetail'
+                - type: object
+                  properties:
+                      metricAggregateFunction:
+                          $ref: '#/components/schemas/MetricAggregateFunction'
+                      metricPath:
+                          type: string
+                          minLength: 1
+                          example: "Hardware Resources|Memory|Used %"
+                      metricEvalDetail:
+                          $ref: '#/components/schemas/MetricEvalDetail'
+                  required:
+                      - metricAggregateFunction
+                      - metricPath
+                      - metricEvalDetail
+
+        MetricExpressionEvalDetail:
+            description: "evalDetailType: METRIC_EXPRESSION"
+            allOf:
+                - $ref: '#/components/schemas/ConditionEvalDetail'
+                - type: object
+                  properties:
+                      metricExpression:
+                          type: string
+                          minLength: 1
+                          example: "{var1} + {var2}"
+                      metricExpressionVariables:
+                          type: array
+                          items:
+                              $ref: '#/components/schemas/MetricDetailWithVariableName'
+                          minItems: 2
+                      metricEvalDetail:
+                          $ref: '#/components/schemas/SpecificValueMetricEvalDetail'
+                  required:
+                      - metricExpression
+                      - metricExpressionVariables
+                      - metricEvalDetail
+        MetricDetailWithVariableName:
+            type: object
+            properties:
+                variableName:
+                    type: string
+                    minLength: 1
+                    example: var1
+                metricAggregateFunction:
+                    $ref: '#/components/schemas/MetricAggregateFunction'
+                metricPath:
+                    type: string
+                    minLength: 1
+                    example: "Hardware Resources|Memory|Used %"
+            required:
+                - variableName
+                - metricAggregateFunction
+                - metricPath
+        NodeEvalMatchingCriteria:
+            type: object
+            properties:
+                matchType:
+                    type: string
+                    enum:
+                        - AVERAGE
+                        - ANY_NODE
+                        - PERCENTAGE_NODES
+                        - NUMBER_OF_NODES
+                    example: PERCENTAGE_NODES
+                value:
+                    description: Enter the matching criteria only when you select PERCENTAGE_NODES or NUMBER_OF_NODES as matchType. If you select NUMBER_OF_NODES, enter an integer; else if you select PERCENTAGE_NODES, enter a number.
+                    type: number
+                    example: 20.0
+                    minimum: 0
+            required:
+                - matchType
+        Condition:
+            description: A single condition that can be independently evaluated to true or false. List of conditions (maximum 8) along with other properties form a criteria.
+            type: object
+            properties:
+                name:
+                    description: Name of the condition.
+                    type: string
+                    example: "Condition 1"
+                shortName:
+                    description: A short name that is used while providing 'conditionExpression' for CUSTOM conditionType. You must follow the alphabetical order without any gaps between conditions.
+                    type: string
+                    pattern: '^[A-Z]{1,3}$'
+                    example: A
+                evaluateToTrueOnNoData:
+                    description: Controls the evaluation of the condition when any configured metric returns no data. The condition evaluates to 'unknown' by default. If the health rule is evaluated based on all the conditions evaluating to true, having a metric return no data may affect whether the health rule triggers an action.
+                    type: boolean
+                    default: false
+                    example: false
+                evalDetail:
+                    $ref: '#/components/schemas/ConditionEvalDetail'
+                triggerEnabled:
+                    description: If this field is set to true, the value in the field 'minimumTriggers' is honoured. The default value is false.
+                    type: boolean
+                    default: false
+                minimumTriggers:
+                    description: If you define a non-zero value for this field, the condition is evaluated based on the persistent threshold violations during the evaluation time frame. Ensure that you define a value less than the useDataFromLastNMinutes.
+                    type: integer
+                    default: 0
+                    minimum: 0
+                    maximum: 360
+                    example: 5
+            required:
+                - name
+                - shortName
+                - evalDetail
+        ConditionEvalDetail:
+            description: The performance metric(s) considered for the evaluation of the condition. <br> To evaluate the condition based on the performance of a single metric, use JSON as per 'SingleMetricEvalDetail'. <br> To evaluate the condition based on the performance of multiple metrics, create a metric expression using 'MetricExpressionEvalDetail'.
+            type: object
+            required:
+                - evalDetailType
+            properties:
+                evalDetailType:
+                    type: string
+                    enum:
+                        - SINGLE_METRIC
+                        - METRIC_EXPRESSION
+                    example: SINGLE_METRIC
+            discriminator:
+                propertyName: evalDetailType
+                mapping:
+                    SINGLE_METRIC : '#/components/schemas/SingleMetricEvalDetail'
+                    METRIC_EXPRESSION : '#/components/schemas/MetricExpressionEvalDetail'
+        Criteria:
+            description: Consists a list of conditions (maximum 8) along with a boolean logic to evaluate the conditions. Depending on the 'affectedEntityType' defined, it may or may not contain 'evalMatchingCriteria'.
+            type: object
+            properties:
+                conditionAggregationType:
+                    type: string
+                    enum:
+                        - ALL
+                        - ANY
+                        - CUSTOM
+                    default: ALL
+                    example: ALL
+                conditionExpression:
+                    description: Used only when you set the conditionType variable to CUSTOM. Use the ShortName of the condition when defining the expression.
+                    type: string
+                    minLength: 1
+                    example: "A and B"
+                conditions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Condition'
+                    minItems: 1
+                evalMatchingCriteria:
+                    $ref: '#/components/schemas/NodeEvalMatchingCriteria'
+            required:
+                - conditions
+        EntityMatchingPattern:
+            type: object
+            properties:
+                matchTo:
+                    type: string
+                    enum:
+                        - "STARTS_WITH"
+                        - "ENDS_WITH"
+                        - "CONTAINS"
+                        - "EQUALS"
+                        - "MATCH_REG_EX"
+                    example: "STARTS_WITH"
+                matchValue:
+                    type: string
+                    minLength: 1
+                    example: "production"
+                shouldNot:
+                    type: boolean
+                    default: false
+                    example: false
+            required:
+                - matchTo
+                - matchValue
+
+        AffectedTiers:
+            type: object
+            properties:
+                affectedTierScope:
+                    type: string
+                    enum:
+                        - ALL_TIERS
+                        - SPECIFIC_TIERS
+                    example: ALL_TIERS
+            required:
+                - affectedTierScope
+            discriminator:
+                propertyName: affectedTierScope
+                mapping:
+                    ALL_TIERS: '#/components/schemas/AllTiers'
+                    SPECIFIC_TIERS: '#/components/schemas/SpecificTiers'
+        AllTiers:
+            description: "affectedTierScope: ALL_TIERS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedTiers'
+                - type: object
+        SpecificTiers:
+            description: "affectedTierScope: SPECIFIC_TIERS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedTiers'
+                - type: object
+                  properties:
+                      tiers:
+                          type: array
+                          items:
+                              type: string
+                              example: "AuthTier"
+                          minItems: 1
+                          example: ["AuthTier", "AggregatorTier"]
+                  required:
+                      - tiers
+
+        AffectedNodes:
+            type: object
+            properties:
+                affectedNodeScope:
+                    type: string
+                    enum:
+                        - ALL_NODES
+                        - SPECIFIC_NODES
+                        - NODES_OF_SPECIFIC_TIERS
+                        - NODES_MATCHING_PATTERN
+                        - NODE_PROPERTY_VARIABLE_MATCHER
+            required:
+                - affectedNodeScope
+            discriminator:
+                propertyName: affectedNodeScope
+                mapping:
+                    ALL_NODES: '#/components/schemas/AllNodes'
+                    SPECIFIC_NODES: '#/components/schemas/SpecificNodes'
+                    NODES_OF_SPECIFIC_TIERS: '#/components/schemas/NodesOfSpecificTiers'
+                    NODES_MATCHING_PATTERN: '#/components/schemas/NodesMatchingPattern'
+                    NODE_PROPERTY_VARIABLE_MATCHER: '#/components/schemas/NodePropertyVariableMatcher'
+        AllNodes:
+            description: "affectedNodeScope: ALL_NODES"
+            allOf:
+                - $ref: '#/components/schemas/AffectedNodes'
+                - type: object
+        SpecificNodes:
+            description: "affectedNodeScope: SPECIFIC_NODES"
+            allOf:
+                - $ref: '#/components/schemas/AffectedNodes'
+                - type: object
+                  properties:
+                      nodes:
+                          type: array
+                          items:
+                              type: string
+                              example: "node1"
+                          minItems: 1
+                          example: ["node1", "node2"]
+                  required:
+                      - nodes
+        NodesOfSpecificTiers:
+            description: "affectedNodeScope: NODES_OF_SPECIFIC_TIERS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedNodes'
+                - type: object
+                  properties:
+                      specificTiers:
+                          type: array
+                          items:
+                              type: string
+                          minItems: 1
+                  required:
+                      - specificTiers
+        NodesMatchingPattern:
+            description: "affectedNodeScope: NODES_MATCHING_PATTERN"
+            allOf:
+                - $ref: '#/components/schemas/AffectedNodes'
+                - type: object
+                  properties:
+                      patternMatcher:
+                          $ref: '#/components/schemas/EntityMatchingPattern'
+                  required:
+                      - patternMatcher
+        NodePropertyVariableMatcher:
+            description: "affectedNodeScope: NODE_PROPERTY_VARIABLE_MATCHER"
+            allOf:
+                - $ref: '#/components/schemas/AffectedNodes'
+                - type: object
+                  properties:
+                      propVarPairs:
+                          type: array
+                          items:
+                              type: object
+                              properties:
+                                  propertyType:
+                                      type: string
+                                      enum:
+                                          - "META"
+                                          - "ENV"
+                                          - "JVM"
+                                      example: "JVM"
+                                  name:
+                                      type: string
+                                      minLength: 1
+                                      example: "XmX"
+                                  value:
+                                      type: string
+                                      minLength: 1
+                                      example: "5g"
+                              required:
+                                  - propertyType
+                                  - name
+                                  - value
+                          minItems: 1
+                  required:
+                      - propVarPairs
+        OverallApplicationPerformance:
+            description: "affectedEntityType: OVERALL_APPLICATION_PERFORMANCE"
+            allOf:
+                - $ref: '#/components/schemas/Affects'
+        BusinessTransactionPerformance:
+            description: "affectedEntityType: BUSINESS_TRANSACTION_PERFORMANCE"
+            allOf:
+                - $ref: '#/components/schemas/Affects'
+                - type: object
+                  properties:
+                      affectedBusinessTransactions:
+                          $ref: '#/components/schemas/AffectedBusinessTransactions'
+                  required:
+                      - affectedBusinessTransactions
+        AffectedBusinessTransactions:
+            type: object
+            properties:
+                businessTransactionScope:
+                    type: string
+                    enum:
+                        - ALL_BUSINESS_TRANSACTIONS
+                        - SPECIFIC_BUSINESS_TRANSACTIONS
+                        - BUSINESS_TRANSACTIONS_IN_SPECIFIC_TIERS
+                        - BUSINESS_TRANSACTIONS_MATCHING_PATTERN
+            required:
+                - businessTransactionScope
+            discriminator:
+                propertyName: businessTransactionScope
+                mapping:
+                    ALL_BUSINESS_TRANSACTIONS: '#/components/schemas/AllBusinessTransactions'
+                    SPECIFIC_BUSINESS_TRANSACTIONS: '#/components/schemas/SpecificBusinessTransactions'
+                    BUSINESS_TRANSACTIONS_IN_SPECIFIC_TIERS: '#/components/schemas/BusinessTransactionsInSpecificTiers'
+                    BUSINESS_TRANSACTIONS_MATCHING_PATTERN: '#/components/schemas/BusinessTransactionsMatchingPattern'
+
+        AllBusinessTransactions:
+            description: "businessTransactionScope: ALL_BUSINESS_TRANSACTIONS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedBusinessTransactions'
+                - type: object
+        SpecificBusinessTransactions:
+            description: "businessTransactionScope: SPECIFIC_BUSINESS_TRANSACTIONS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedBusinessTransactions'
+                - type: object
+                  properties:
+                      businessTransactions:
+                          type: array
+                          items:
+                              type: string
+                              example: "CheckOutBT"
+                          minItems: 1
+                          example: ["LoginBT", "reportsBT"]
+                  required:
+                      - businessTransactions
+        BusinessTransactionsInSpecificTiers:
+            description: "businessTransactionScope: BUSINESS_TRANSACTIONS_IN_SPECIFIC_TIERS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedBusinessTransactions'
+                - type: object
+                  properties:
+                      specificTiers:
+                          type: array
+                          items:
+                              type: string
+                          minItems: 1
+                  required:
+                      - specificTiers
+        BusinessTransactionsMatchingPattern:
+            description: "businessTransactionScope: BUSINESS_TRANSACTIONS_MATCHING_PATTERN"
+            allOf:
+                - $ref: '#/components/schemas/AffectedBusinessTransactions'
+                - type: object
+                  properties:
+                      patternMatcher:
+                          $ref: '#/components/schemas/EntityMatchingPattern'
+                  required:
+                      - patternMatcher
+        TierNodeTransactionPerformance:
+            description: "affectedEntityType: TIER_NODE_TRANSACTION_PERFORMANCE"
+            allOf:
+                - $ref: '#/components/schemas/Affects'
+                - type: object
+                  properties:
+                      affectedEntities:
+                          $ref: '#/components/schemas/AffectedTierOrNodeEntities'
+                  required:
+                      - affectedEntities
+
+        AffectedTierOrNodeEntities:
+            type: object
+            properties:
+                tierOrNode:
+                    type: string
+                    enum:
+                        - TIER_AFFECTED_ENTITIES
+                        - NODE_AFFECTED_ENTITIES
+            required:
+                - tierOrNode
+            discriminator:
+                propertyName: tierOrNode
+                mapping:
+                    TIER_AFFECTED_ENTITIES: '#/components/schemas/TierAffectedEntities'
+                    NODE_AFFECTED_ENTITIES: '#/components/schemas/NodeAffectedEntities'
+
+        TierAffectedEntities:
+            description: "tierOrNode: TIER_AFFECTED_ENTITIES"
+            allOf:
+                - $ref: '#/components/schemas/AffectedTierOrNodeEntities'
+                - type: object
+                  properties:
+                      affectedTiers:
+                          $ref: '#/components/schemas/AffectedTiers'
+                  required:
+                      - affectedTiers
+
+        NodeAffectedEntities:
+            description: "tierOrNode: NODE_AFFECTED_ENTITIES"
+            allOf:
+                - $ref: '#/components/schemas/AffectedTierOrNodeEntities'
+                - type: object
+                  properties:
+                      typeofNode:
+                          type: string
+                          enum:
+                              - "ALL_NODES"
+                              - "JAVA_NODES"
+                              - "DOT_NET_NODES"
+                              - "PHP_NODES"
+                          example: ["JAVA_NODES"]
+                      affectedNodes:
+                          $ref: '#/components/schemas/AffectedNodes'
+                  required:
+                      - typeofNode
+                      - affectedNodes
+        TierNodeHardware:
+            description: "affectedEntityType: TIER_NODE_HARDWARE"
+            allOf:
+                - $ref: '#/components/schemas/Affects'
+                - type: object
+                  properties:
+                      affectedEntities:
+                          $ref: '#/components/schemas/AffectedTierOrNodeEntities'
+                  required:
+                      - affectedEntities
+        ServersInApplication:
+            description: "affectedEntityType: SERVERS_IN_APPLICATION"
+            allOf:
+                - $ref: '#/components/schemas/Affects'
+                - type: object
+                  properties:
+                      affectedServers:
+                          $ref: '#/components/schemas/ApplicationAffectedServers'
+                  required:
+                      - affectedServers
+        ApplicationAffectedServers:
+            type: object
+            properties:
+                serversScope:
+                    type: string
+                    enum:
+                        - ALL_SERVERS_IN_APPLICATION
+                        - SPECIFIC_SERVERS_IN_APPLICATION
+                        - ALL_SERVERS_IN_SPECIFIC_TIERS
+            required:
+                - serversScope
+            discriminator:
+                propertyName: serversScope
+                mapping:
+                    ALL_SERVERS_IN_APPLICATION: '#/components/schemas/AllServersInApplication'
+                    SPECIFIC_SERVERS_IN_APPLICATION: '#/components/schemas/SpecificServersInApplication'
+                    ALL_SERVERS_IN_SPECIFIC_TIERS: '#/components/schemas/AllServersInSpecificTiers'
+        AllServersInApplication:
+            description: "serversScope: ALL_SERVERS_IN_APPLICATION"
+            allOf:
+                - $ref: '#/components/schemas/ApplicationAffectedServers'
+                - type: object
+        SpecificServersInApplication:
+            description: "serversScope: SPECIFIC_SERVERS_IN_APPLICATION"
+            allOf:
+                - $ref: '#/components/schemas/ApplicationAffectedServers'
+                - type: object
+                  properties:
+                      specificServers:
+                          type: array
+                          items:
+                              type: string
+                              minLength: 1
+                          minItems: 1
+                  required:
+                      - specificServers
+        AllServersInSpecificTiers:
+            description: "serversScope: ALL_SERVERS_IN_SPECIFIC_TIERS"
+            allOf:
+                - $ref: '#/components/schemas/ApplicationAffectedServers'
+                - type: object
+                  properties:
+                      specificTiers:
+                          type: array
+                          items:
+                              type: string
+                          minItems: 1
+                  required:
+                      - specificTiers
+
+        Backends:
+            description: "affectedEntityType: BACKENDS"
+            allOf:
+                - $ref: '#/components/schemas/Affects'
+                - type: object
+                  properties:
+                      affectedBackends:
+                          $ref: '#/components/schemas/AffectedBackends'
+                  required:
+                      - affectedBackends
+
+        AffectedBackends:
+            type: object
+            properties:
+                backendScope:
+                    type: string
+                    enum:
+                        - ALL_BACKENDS
+                        - SPECIFIC_BACKENDS
+                        - BACKENDS_MATCHING_PATTERN
+            required:
+                - backendScope
+            discriminator:
+                propertyName: backendScope
+                mapping:
+                    ALL_BACKENDS: '#/components/schemas/AllBackends'
+                    SPECIFIC_BACKENDS: '#/components/schemas/SpecificBackends'
+                    BACKENDS_MATCHING_PATTERN: '#/components/schemas/BackendsMatchingPattern'
+        AllBackends:
+            description: "backendScope: ALL_BACKENDS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedBackends'
+                - type: object
+        SpecificBackends:
+            description: "backendScope: SPECIFIC_BACKENDS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedBackends'
+                - type: object
+                  properties:
+                      backends:
+                          type: array
+                          items:
+                              type: string
+                              example: "remoteAuthService"
+                          minItems: 1
+                          example: ["remoteAuthService", "remoteDatabase"]
+                  required:
+                      - backends
+        BackendsMatchingPattern:
+            description: "backendScope: BACKENDS_MATCHING_PATTERN"
+            allOf:
+                - $ref: '#/components/schemas/AffectedBackends'
+                - type: object
+                  properties:
+                      patternMatcher:
+                          $ref: '#/components/schemas/EntityMatchingPattern'
+                  required:
+                      - patternMatcher
+        Errors:
+            description: "affectedEntityType: ERRORS"
+            allOf:
+                - $ref: '#/components/schemas/Affects'
+                - type: object
+                  properties:
+                      affectedErrors:
+                          $ref: '#/components/schemas/AffectedErrors'
+                  required:
+                      - affectedErrors
+        AffectedErrors:
+            type: object
+            properties:
+                errorScope:
+                    type: string
+                    enum:
+                        - ALL_ERRORS
+                        - SPECIFIC_ERRORS
+                        - ERRORS_OF_SPECIFIC_TIERS
+                        - ERRORS_MATCHING_PATTERN
+            required:
+                - errorScope
+            discriminator:
+                propertyName: errorScope
+                mapping:
+                    ALL_ERRORS: '#/components/schemas/AllErrors'
+                    SPECIFIC_ERRORS: '#/components/schemas/SpecificErrors'
+                    ERRORS_OF_SPECIFIC_TIERS: '#/components/schemas/ErrorsOfSpecificTiers'
+                    ERRORS_MATCHING_PATTERN: '#/components/schemas/ErrorsMatchingPattern'
+        AllErrors:
+            description: "errorScope: ALL_ERRORS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedErrors'
+                - type: object
+        SpecificErrors:
+            description: "errorScope: SPECIFIC_ERRORS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedErrors'
+                - type: object
+                  properties:
+                      errors:
+                          type: array
+                          items:
+                              type: string
+                              example: "NullPointerException"
+                          minItems: 1
+                          example: ["NullPointerException", "NumberFormatException"]
+                  required:
+                      - errors
+        ErrorsOfSpecificTiers:
+            description: "errorScope: ERRORS_OF_SPECIFIC_TIERS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedErrors'
+                - type: object
+                  properties:
+                      specificTiers:
+                          type: array
+                          items:
+                              type: string
+                          minItems: 1
+                  required:
+                      - specificTiers
+        ErrorsMatchingPattern:
+            description: "errorScope: ERRORS_MATCHING_PATTERN"
+            allOf:
+                - $ref: '#/components/schemas/AffectedErrors'
+                - type: object
+                  properties:
+                      patternMatcher:
+                          $ref: '#/components/schemas/EntityMatchingPattern'
+                  required:
+                      - patternMatcher
+        ServiceEndpoints:
+            description: "affectedEntityType: SERVICE_ENDPOINTS"
+            allOf:
+                - $ref: '#/components/schemas/Affects'
+                - type: object
+                  properties:
+                      affectedServiceEndpoints:
+                          $ref: '#/components/schemas/AffectedServiceEndpoints'
+                  required:
+                      - affectedServiceEndpoints
+        AffectedServiceEndpoints:
+            type: object
+            properties:
+                serviceEndpointScope:
+                    type: string
+                    enum:
+                        - ALL_SERVICE_ENDPOINTS
+                        - SPECIFIC_SERVICE_ENDPOINTS
+                        - SERVICE_ENDPOINTS_IN_SPECIFIC_TIERS
+                        - SERVICE_ENDPOINTS_MATCHING_PATTERN
+            required:
+                - serviceEndpointScope
+            discriminator:
+                propertyName: serviceEndpointScope
+                mapping:
+                    ALL_SERVICE_ENDPOINTS: '#/components/schemas/AllServiceEndpoints'
+                    SPECIFIC_SERVICE_ENDPOINTS: '#/components/schemas/SpecificServiceEndpoints'
+                    SERVICE_ENDPOINTS_IN_SPECIFIC_TIERS: '#/components/schemas/ServiceEndpointsInSpecificTiers'
+                    SERVICE_ENDPOINTS_MATCHING_PATTERN: '#/components/schemas/ServiceEndpointsMatchingPattern'
+
+        AllServiceEndpoints:
+            description: "serviceEndpointScope: ALL_SERVICE_ENDPOINTS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedServiceEndpoints'
+                - type: object
+        SpecificServiceEndpoints:
+            description: "serviceEndpointScope: SPECIFIC_SERVICE_ENDPOINTS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedServiceEndpoints'
+                - type: object
+                  properties:
+                      serviceEndpoints:
+                          type: array
+                          items:
+                              type: string
+                              example: "SE1"
+                          minItems: 1
+                          example: ["SE1", "SE2"]
+                  required:
+                      - serviceEndpoints
+        ServiceEndpointsInSpecificTiers:
+            description: "serviceEndpointScope: SERVICE_ENDPOINTS_IN_SPECIFIC_TIERS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedServiceEndpoints'
+                - type: object
+                  properties:
+                      specificTiers:
+                          type: array
+                          items:
+                              type: string
+                          minItems: 1
+                  required:
+                      - specificTiers
+        ServiceEndpointsMatchingPattern:
+            description: "serviceEndpointScope: SERVICE_ENDPOINTS_MATCHING_PATTERN"
+            allOf:
+                - $ref: '#/components/schemas/AffectedServiceEndpoints'
+                - type: object
+                  properties:
+                      patternMatcher:
+                          $ref: '#/components/schemas/EntityMatchingPattern'
+                  required:
+                      - patternMatcher
+        InformationPoints:
+            description: "affectedEntityType: INFORMATION_POINTS"
+            allOf:
+                - $ref: '#/components/schemas/Affects'
+                - type: object
+                  properties:
+                      affectedInformationPoints:
+                          $ref: '#/components/schemas/AffectedInformationPoints'
+                  required:
+                      - affectedInformationPoints
+        AffectedInformationPoints:
+            type: object
+            properties:
+                informationPointScope:
+                    type: string
+                    enum:
+                        - ALL_INFORMATION_POINTS
+                        - SPECIFIC_INFORMATION_POINTS
+                        - INFORMATION_POINTS_MATCHING_PATTERN
+            required:
+                - informationPointScope
+            discriminator:
+                propertyName: informationPointScope
+                mapping:
+                    ALL_INFORMATION_POINTS: '#/components/schemas/AllInformationPoints'
+                    SPECIFIC_INFORMATION_POINTS: '#/components/schemas/SpecificInformationPoints'
+                    INFORMATION_POINTS_MATCHING_PATTERN: '#/components/schemas/InformationPointsMatchingPattern'
+        AllInformationPoints:
+            description: "informationPointScope: ALL_INFORMATION_POINTS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedInformationPoints'
+                - type: object
+        SpecificInformationPoints:
+            description: "informationPointScope: SPECIFIC_INFORMATION_POINTS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedInformationPoints'
+                - type: object
+                  properties:
+                      informationPoints:
+                          type: array
+                          items:
+                              type: string
+                              example: "infoPoint1"
+                          minItems: 1
+                          example: ["infoPoint1", "infoPoint2"]
+                  required:
+                      - informationPoints
+        InformationPointsMatchingPattern:
+            description: "informationPointScope: INFORMATION_POINTS_MATCHING_PATTERN"
+            allOf:
+                - $ref: '#/components/schemas/AffectedInformationPoints'
+                - type: object
+                  properties:
+                      patternMatcher:
+                          $ref: '#/components/schemas/EntityMatchingPattern'
+                  required:
+                      - patternMatcher
+        Custom:
+            description: "affectedEntityType: CUSTOM"
+            allOf:
+                - $ref: '#/components/schemas/Affects'
+                - type: object
+                  properties:
+                      affectedEntityScope:
+                          $ref: '#/components/schemas/AffectedEntityScope'
+                  required:
+                      - affectedEntityScope
+        AffectedEntityScope:
+            type: object
+            properties:
+                entityScope:
+                    type: string
+                    enum:
+                        - APPLICATION_PERFORMANCE
+                        - SPECIFIC_ENTITY_PERFORMANCE
+            required:
+                - entityScope
+            discriminator:
+                propertyName: entityScope
+                mapping:
+                    APPLICATION_PERFORMANCE: '#/components/schemas/ApplicationPerformance'
+                    SPECIFIC_ENTITY_PERFORMANCE: '#/components/schemas/SpecificEntityPerformance'
+        ApplicationPerformance:
+            description: "entityScope: APPLICATION_PERFORMANCE"
+            allOf:
+                - $ref: '#/components/schemas/AffectedEntityScope'
+                - type: object
+        SpecificEntityPerformance:
+            description: "entityScope: SPECIFIC_ENTITY_PERFORMANCE"
+            allOf:
+                - $ref: '#/components/schemas/AffectedEntityScope'
+                - type: object
+                  properties:
+                      entityType:
+                          type: string
+                          enum:
+                              - "BUSINESS_TRANSACTION"
+                              - "NODE"
+                              - "SERVER"
+                          example: "BUSINESS_TRANSACTION"
+                      affectedEntityName:
+                          type: string
+                          minLength: 1
+                          example: "login BT"
+                  required:
+                      - entityType
+                      - affectedEntityName
+        Databases:
+            description: "affectedEntityType: DATABASES"
+            allOf:
+                - $ref: '#/components/schemas/Affects'
+                - type: object
+                  properties:
+                      databaseType:
+                          type: string
+                          enum:
+                              - "ALL_DATABASE_TYPES"
+                              - "COUCHBASE"
+                              - "DB2"
+                              - "MONGO_DB"
+                              - "MICROSOFT_SQL_SERVER"
+                              - "MYSQL"
+                              - "ORACLE"
+                              - "POSTGRE_SQL"
+                              - "AZURE_SQL"
+                              - "SYBASE"
+                          example: "MYSQL"
+                      affectedDatabases:
+                          $ref: '#/components/schemas/AffectedDatabases'
+                  required:
+                      - databaseType
+                      - affectedDatabases
+        AffectedDatabases:
+            type: object
+            properties:
+                databaseScope:
+                    type: string
+                    enum:
+                        - ALL_DATABASES
+                        - SPECIFIC_DATABASES
+            required:
+                - databaseScope
+            discriminator:
+                propertyName: databaseScope
+                mapping:
+                    ALL_DATABASES: '#/components/schemas/AllDatabases'
+                    SPECIFIC_DATABASES: '#/components/schemas/SpecificDatabases'
+        AllDatabases:
+            description: "databaseScope: ALL_DATABASES"
+            allOf:
+                - $ref: '#/components/schemas/AffectedDatabases'
+                - type: object
+        SpecificDatabases:
+            description: "databaseScope: SPECIFIC_DATABASES"
+            allOf:
+                - $ref: '#/components/schemas/AffectedDatabases'
+                - type: object
+                  properties:
+                      databases:
+                          type: array
+                          items:
+                              $ref: '#/components/schemas/DbServer'
+                              type: string
+                              example: "accountsDB"
+                          minItems: 1
+                          example: ["accountsDB", "MetaDB"]
+                  required:
+                      - databases
+        DbServer:
+            type: object
+            properties:
+                serverName:
+                    type: string
+                    minLength: 1
+                    example: MetaDB
+                collectorConfigName:
+                    type: string
+                    minLength: 1
+                    example: ec2
+            required:
+                - serverName
+                - collectorConfigName
+        Servers:
+            description: "affectedEntityType: SERVERS"
+            allOf:
+                - $ref: '#/components/schemas/Affects'
+                - type: object
+                  properties:
+                      serverSelectionCriteria:
+                          $ref: '#/components/schemas/AffectedServersCriteria'
+                  required:
+                      - serverSelectionCriteria
+        AffectedServersCriteria:
+            type: object
+            properties:
+                selectServersBy:
+                    type: string
+                    enum:
+                        - AFFECTED_SERVER_SUBGROUPS
+                        - AFFECTED_SERVERS
+            required:
+                - selectServersBy
+            discriminator:
+                propertyName: selectServersBy
+                mapping:
+                    AFFECTED_SERVER_SUBGROUPS: '#/components/schemas/AffectedServerSubGroups'
+                    AFFECTED_SERVERS: '#/components/schemas/AffectedServers'
+        AffectedServers:
+            description: "selectServersBy: AFFECTED_SERVERS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedServersCriteria'
+                - type: object
+                  properties:
+                      affectedServers:
+                          $ref: '#/components/schemas/ServerSelectionCriteria'
+                  required:
+                      - affectedServers
+        ServerSelectionCriteria:
+            type: object
+            properties:
+                severSelectionScope:
+                    type: string
+                    enum:
+                        - ALL_SERVERS_IN_ACCOUNT
+                        - SERVERS_WITHIN_SUBGROUP
+                        - SPECIFIC_SERVERS
+                        - SERVERS_MATCHING_PATTERN
+            required:
+                - severSelectionScope
+            discriminator:
+                propertyName: severSelectionScope
+                mapping:
+                    ALL_SERVERS_IN_ACCOUNT: '#/components/schemas/AllServersInAccount'
+                    SERVERS_WITHIN_SUBGROUP: '#/components/schemas/ServersWithinSubGroup'
+                    SPECIFIC_SERVERS: '#/components/schemas/SpecificServers'
+                    SERVERS_MATCHING_PATTERN: '#/components/schemas/ServersMatchingPattern'
+        AllServersInAccount:
+            description: "severSelectionScope: ALL_SERVERS_IN_ACCOUNT"
+            allOf:
+                - $ref: '#/components/schemas/ServerSelectionCriteria'
+                - type: object
+        ServersWithinSubGroup:
+            description: "severSelectionScope: SERVERS_WITHIN_SUBGROUP"
+            allOf:
+                - $ref: '#/components/schemas/ServerSelectionCriteria'
+                - type: object
+                  properties:
+                      subGroups:
+                          type: array
+                          items:
+                              type: string
+                          minItems: 1
+                  required:
+                      - subGroups
+        SpecificServers:
+            description: "severSelectionScope: SPECIFIC_SERVERS"
+            allOf:
+                - $ref: '#/components/schemas/ServerSelectionCriteria'
+                - type: object
+                  properties:
+                      servers:
+                          type: array
+                          items:
+                              type: string
+                              example: "machine1"
+                          minItems: 1
+                          example: ["qaHost", "prodBox2"]
+                  required:
+                      - servers
+        ServersMatchingPattern:
+            description: "severSelectionScope: SERVERS_MATCHING_PATTERN"
+            allOf:
+                - $ref: '#/components/schemas/ServerSelectionCriteria'
+                - type: object
+                  properties:
+                      patternMatcher:
+                          $ref: '#/components/schemas/EntityMatchingPattern'
+                  required:
+                      - patternMatcher
+
+        AffectedServerSubGroups:
+            description: "selectServersBy: AFFECTED_SERVER_SUBGROUPS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedServersCriteria'
+                - type: object
+                  properties:
+                      subGroups:
+                          $ref: '#/components/schemas/AffectedSubGroups'
+                  required:
+                      - subGroups
+        AffectedSubGroups:
+            type: object
+            properties:
+                subGroupScope:
+                    type: string
+                    enum:
+                        - ALL_SUBGROUPS
+                        - SPECIFIC_SERVER_SUB_GROUPS
+            required:
+                - subGroupScope
+            discriminator:
+                propertyName: subGroupScope
+                mapping:
+                    ALL_SUBGROUPS: '#/components/schemas/AllSubGroups'
+                    SPECIFIC_SERVER_SUB_GROUPS: '#/components/schemas/SpecificServerSubGroups'
+        AllSubGroups:
+            description: "subGroupScope: ALL_SUBGROUPS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedSubGroups'
+                - type: object
+        SpecificServerSubGroups:
+            description: "subGroupScope: SPECIFIC_SERVER_SUB_GROUPS"
+            allOf:
+                - $ref: '#/components/schemas/AffectedSubGroups'
+                - type: object
+                  properties:
+                      subGroupNames:
+                          type: array
+                          items:
+                              type: string
+                              example: "group1"
+                          minItems: 1
+                          example: ["group1", "group2"]
+                  required:
+                      - subGroups
+        Affects:
+            description: "Describes what this health rule affects. For example, business transactions, servers or databases."
+            type: object
+            required:
+                - affectedEntityType
+            properties:
+                affectedEntityType:
+                    type: string
+                    enum:
+                        - OVERALL_APPLICATION_PERFORMANCE
+                        - BUSINESS_TRANSACTION_PERFORMANCE
+                        - TIER_NODE_TRANSACTION_PERFORMANCE
+                        - TIER_NODE_HARDWARE
+                        - SERVERS_IN_APPLICATION
+                        - BACKENDS
+                        - ERRORS
+                        - SERVICE_ENDPOINTS
+                        - INFORMATION_POINTS
+                        - CUSTOM
+                        - DATABASES
+                        - SERVERS
+            discriminator:
+                propertyName: affectedEntityType
+                mapping:
+                    OVERALL_APPLICATION_PERFORMANCE: '#/components/schemas/OverallApplicationPerformance'
+                    BUSINESS_TRANSACTION_PERFORMANCE: '#/components/schemas/BusinessTransactionPerformance'
+                    TIER_NODE_TRANSACTION_PERFORMANCE: '#/components/schemas/TierNodeTransactionPerformance'
+                    TIER_NODE_HARDWARE: '#/components/schemas/TierNodeHardware'
+                    SERVERS_IN_APPLICATION: '#/components/schemas/ServersInApplication'
+                    BACKENDS: '#/components/schemas/Backends'
+                    ERRORS: '#/components/schemas/Errors'
+                    SERVICE_ENDPOINTS: '#/components/schemas/ServiceEndpoints'
+                    INFORMATION_POINTS: '#/components/schemas/InformationPoints'
+                    CUSTOM: '#/components/schemas/Custom'
+                    DATABASES: '#/components/schemas/Databases'
+                    SERVERS: '#/components/schemas/Servers'
+        EvalCriterias :
+            type: object
+            properties:
+                criticalCriteria:
+                    $ref: '#/components/schemas/Criteria'
+                warningCriteria:
+                    $ref: '#/components/schemas/Criteria'
+        HealthRuleSummary:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                    example: 123
+                name:
+                    type: string
+                    minLength: 1
+                    example: "some string value"
+                enabled:
+                    type: boolean
+                    example: true
+            required:
+                - id
+                - value
+                - enabled
+        ErrorResponse:
+            type: object
+            properties:
+                statusCode:
+                    type: integer
+                    example: 404
+                message:
+                    type: string
+                    example: "Health rule with given Id not found."
+
+    requestBodies:
+        HealthRuleConfiguration:
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/HealthRuleConfiguration'
+        HealthRule:
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/HealthRule'
+    responses:
+        NotFound:
+            description: The specified resource was not found
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/ErrorResponse'
+        Unauthorized:
+            description: Unauthorized
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/ErrorResponse'
+        BadRequest:
+            description: Bad Request
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/ErrorResponse'
+        Forbidden:
+            description: Forbidden
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/ErrorResponse'
+        Conflict:
+            description: Already exists
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/ErrorResponse'
